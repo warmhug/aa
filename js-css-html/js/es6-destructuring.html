@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+</head>
+<body>
+  <script>
+
+    // extra 变量问题复现
+    const { result, extra } = { result: 'pass', extra: 'b' };
+    switch (result) {
+      case 'fail':
+        console.log('fails', extra);
+        break;
+      case 'pass':
+        console.log('pass', { result, extra });
+        break;
+      default:
+        const { extra = {} } = { extra: null }; // 注释掉此处，不会报错！
+        break;
+    }
+
+
+    const arr = [];
+    // const arr = null;
+    console.log([1, 2, ...arr]);
+
+    function todos(state, action) {
+      switch (action.type) {
+      case 'ADD_TODO':
+        return [...state, {
+          text: action.text,
+          completed: false
+        }];
+      case 'COMPLETE_TODO':
+        return [
+          ...state.slice(0, action.index),
+          Object.assign({}, state[action.index], {
+            completed: true
+          }),
+          ...state.slice(action.index + 1)
+        ]
+      default:
+        return state;
+      }
+    }
+    var newSt = todos([{completed: false}, {completed: false}], {type: 'COMPLETE_TODO', index: 0})
+    console.log(newSt);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .icon { margin: 40px; }
+    .icon-use {
+      /* fill: red; */
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+    单独的 `xx.svg` 文件，必须要写 `<?xml version="1.0" encoding="UTF-8"?>` XML declaration，以及应该写 
+    `<!DOCTYPE svg PUBLIC ...>` DOCTYPE 声明。
+    包括通过 `img` or CSS `background-images` 外链引用的 svg 文件。
+
+    注意：直接写在 html 里的 svg 代码，不能写 `<?xml version="1.0" ...>` XML declaration 和 DOCTYPE 声明。
+  -->
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="display:none">
+    <!--made width and height zero and display none so that it won't interfere with the layout-->
+    <defs>
+      <!--put this in defs-->
+      <symbol id="icon-hamburger1" viewBox="0 0 24 14">
+        <!-- change the fill here to currentColor-->
+        <g fill="currentColor" fill-rule="evenodd">
+          <path d="M0 0h24v2H0zM0 6h24v2H0zM6 12h18v2H6z"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <svg class="icon" width="24" height="14" alt="Menu">
+    <use class="icon-use" xlink:href="./sprites.svg#icon-hamburger"></use>
+  </svg>
+  <svg class="icon" width="24" height="14" alt="Menu">
+    <use class="icon-use" xlink:href="#icon-hamburger1"></use>
+  </svg>
+
+  <script type="react">
+    function pieChart(percentage, size) {
+      // primary wedge
+      var unit = (Math.PI * 2) / 100;
+      var startangle = 0;
+      var ra = 4;
+      var endangle = percentage * unit - 0.001;
+      var x1 = (size / ra) + (size / ra) * Math.sin(startangle);
+      var y1 = (size / ra) - (size / ra) * Math.cos(startangle);
+      var x2 = (size / ra) + (size / ra) * Math.sin(endangle);
+      var y2 = (size / ra) - (size / ra) * Math.cos(endangle);
+      var big = 0;
+      if (endangle - startangle > Math.PI) {
+          big = 1;
+      }
+      var d = "M " + (size / ra) + "," + (size / ra) +  // Start at circle center
+          " L " + x1 + "," + y1 +     // Draw line to (x1,y1)
+          " A " + (size / ra) + "," + (size / ra) +       // Draw an arc of radius r
+          " 0 " + big + " 1 " +       // Arc details...
+          x2 + "," + y2 +             // Arc goes to to (x2,y2)
+          " Z";                       // Close path back to (cx,cy)
+    
+      return (
+        <svg width={size} height={size} viewBox={`0 0 ${size / 2} ${size / 2}`}>
+          <circle cx={size / ra} cy={size / ra} r={size / ra} fill="#ebebeb"></circle>
+          <path d={d} fill="red"></path>
+          <circle cx={size / ra} cy={size / ra} r={size * 0.17} fill="#fff"></circle>
+        </svg>
+      );
+    }
+    pieChart(50, 72);
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>demo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .log {
+      height: 1000px;
+      -ms-touch-action: manipulation;
+      /* touch-action: manipulation; */
+      touch-action: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+  </style>
+</head>
+<body>
+  <div class="log">
+    can not drag, because `touch-action: none;`
+
+    指针事件 (Pointer Events)：是一个新的 web 事件系列，相应的规范旨在使用一个单独的事件模型，
+    对所有输入类型，包括鼠标 (mouse)、触摸 (touch)、触控 (stylus) 等，进行统一的处理。
+    例如，你可以只去监听一个元素的 pointerdown 事件，无需分别监听其 touchstart 和 mousedown 事件。
+    有一个和点击延迟直接相关的实现 —— 一个名为 touch-action 的新 CSS 属性。
+    根据规范，touch-action 属性决定 “是否触摸操作会触发用户代理的默认行为。这包括但不限于双指缩放等行为”。
+    touch-action 的默认值为 auto，将其置为 none 即可移除目标元素的 300 毫秒点击延迟。
+
+    IE 11+ 可以用 touch-action: manipulation; 属性来阻止元素的双击缩放。
+  </div>
+</body>
+</html>

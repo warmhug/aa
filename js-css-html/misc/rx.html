@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <a href="https://github.com/Reactive-Extensions/RxJS">Reactive-Extensions/RxJS , reactivex/rxjs</a>
+  RxJS Observables represent a collection of values over time,
+  and can be accessed in familiar ways similar to arrays. <br>
+  RxJS can be thought of as underscore or lodash for asynchronous operations!
+
+  <div>
+    <input type="text" id="textInput" placeholder="输入yifu">
+    <ul id="results"></ul>
+  </div>
+
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.11.1/jquery.min.js"></script> -->
+  <script src="https://a.alipayobjects.com/jquery/jquery/1.11.1/jquery-debug.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.js"></script>
+  <script>
+   (function (global, $, Rx) {
+      function searchTB (term) {
+        return $.ajax({
+          url: 'http://suggest.taobao.com/sug',
+          dataType: 'jsonp',
+          data: {
+            // format: 'json',
+            code: 'utf-8',
+            q: term
+          }
+        }).promise();
+      }
+
+      function main() {
+        var $input = $('#textInput'),
+            $results = $('#results');
+
+        // Get all distinct key up events from the input and only fire if long enough and distinct
+        var keyup = Rx.Observable.fromEvent($input, 'keyup')
+          .map(function (e) {
+            return e.target.value; // Project the text from the input
+          })
+          .filter(function (text) {
+            return text.length > 2; // Only if the text is longer than 2 characters
+          })
+          .debounce(250 /* Pause for ms */ )
+          .distinctUntilChanged(); // Only if the value has changed
+
+        var searcher = keyup.flatMapLatest(searchTB);
+
+        searcher.subscribe(
+          function (data) {
+            $results
+              .empty()
+              .append ($.map(data.result, function (v) { return $('<li>').text(v); }));
+          },
+          function (error) {
+            $results
+              .empty()
+              .append($('<li>'))
+              .text('Error:' + error);
+          });
+      }
+      $(main);
+    }(window, jQuery, Rx));
+  </script>
+</body>
+</html>

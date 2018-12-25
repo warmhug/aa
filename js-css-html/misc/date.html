@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Date</title>
+</head>
+<body>
+<pre>
+- [各地时间](https://time.is/)
+- [日期和时间字符串](https://docs.microsoft.com/en-us/scripting/javascript/date-and-time-strings-javascript)
+- [计算日期和时间](https://docs.microsoft.com/en-us/scripting/javascript/calculating-dates-and-times-javascript)
+- [safari 对时间格式支持的差异](http://stackoverflow.com/questions/4310953/invalid-date-in-safari)
+</pre>
+
+<script>
+  // JS 先按 ISO Date Format 标准格式解析时间字符串，再按其他支持的格式解析 (Chrome / IE9+)
+  // ISO 格式: YYYY-MM-DDTHH:mm:ss.sssZ
+
+  console.log(new Date(2010, 11, 29, 10, 59, 59, 300)); // 参数: 年 月 日 时 分 秒 毫秒, 本地时间
+  console.log(new Date(Date.UTC(2010, 11, 29, 10, 59, 59, 300))); // UTC 时间
+  console.log(new Date('2010-01')); // 标准 ISO 格式
+  console.log(new Date('2010-01-29')); // 标准 ISO 格式
+  console.log(isNaN(Date.parse('2010-1-29')), isNaN(Date.parse('2010-11-29'))); // test in Sarari
+  console.log(new Date().toISOString().slice(0, 10));
+  console.log(new Date('2016-06-08T12:18:00+08:00')); // 标准 ISO 格式
+  console.log(new Date('2016-06-08T12:18:00+0800')); // 标准 ISO 格式，Safari: Invalid Date
+  console.log(new Date('11-29-2010')); // 非 ISO 格式，Safari: Invalid Date
+  console.log(new Date('2010/11/29')); // 非 ISO 格式，所有浏览器都支持
+  console.log(new Date('11/29/2010')); // 非 ISO 格式，所有浏览器都支持
+  console.log(new Date("2010-10-20 4:30 +0000")); // 非 ISO 格式，不同浏览器解析结果可能不同
+  
+  console.log('===========  =============');
+
+  console.log(new Date('6 Mar 2017 21:22:23 GMT')); // RFC 2822 格式
+  console.log(new Date('Mon 06 Mar 2017 21:22:23 z')); // RFC 2822 格式
+  console.log(new Date('Mon, 06 Mar 2017 21:22:23 +0000')); // RFC 2822 格式
+  console.log(new Date().toUTCString()); // 标准 ISO 格式
+  console.log(new Date().toISOString()); // 标准 ISO 格式
+
+  // getTimezoneOffset() 获得的“时区值”：
+  // 一般用于自己换算时间，不对 new Date() 构造时间产生任何影响，
+  // 但 toISOString() / toUTCString() 结果计算方式是 “localTime + 时区值”
+
+  console.log('===========  =============');
+
+  var now = new Date();
+  var now_utc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+  var utc_now = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+
+  var utc_timestamp = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(),
+    now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+  console.log("Local & UTC now \n", now, '\n', now_utc, '\n', utc_now)
+  console.log("Local timestamp " + now.getTime())
+  console.log("UTC timestamp  " + utc_timestamp)
+
+
+  console.log('===========  =============');
+
+  console.log(Date.now ? Date.now() : +new Date());
+  var now = new Date();
+  console.log(now.getFullYear(), now.getMonth(), now.getDate());
+  // 今天凌晨零点：
+  console.log(new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+  // 一年后：
+  console.log(new Date(now.setYear(now.getFullYear() + 1)));
+
+  // 是否为闰年
+  // 遇到整百年时（如2000，1900，300）要被400整除才是闰年，否则为平年（2000闰年，1900平年，300平年）；遇到非整百年时（如2004，2005），只要被4整除就是闰年，不能被4整除为平年。
+  // 闰年的2月有29天，平年的2月有28天。
+  function isLeapYear(year) {
+    return (new Date(year, 1, 29).getDate() === 29);
+  }
+  // function isLeapYear(year) {
+  //   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+  // }
+  console.log('isLeapYear', isLeapYear(1900));
+
+  // format date object  e.g. 2017-01-01
+  function genDateStr(date) {
+    let mday = date.getDate();
+    let month = date.getMonth() + 1;
+    month = month < 10 ? `0${month}` : month;
+    mday = mday < 10 ? `0${mday}` : mday;
+    return `${date.getFullYear()}-${month}-${mday} ${date.getHours()}:${date.getMinutes()}`;
+  }
+  console.log(genDateStr(new Date()));
+
+  // 秒数转换为时间形式
+  function toHHMMSS(sec_num) {
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes+':'+seconds;
+  }
+  console.log(toHHMMSS(100));
+
+  function firstDayOfMonth(date) {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDate();
+  }
+  function lastDayOfMonth(date) {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  }
+  console.log(lastDayOfMonth(new Date(2016, 1)), firstDayOfMonth(new Date()));
+
+  function cloneDate(date) {
+    return new Date(+date);
+  }
+  var cd = cloneDate(new Date());
+  cd.setFullYear(2016);
+  cd.setMonth(1);
+  cd.setDate(10);
+  cd.setHours(8);
+  cd.setMinutes(40);
+  console.log(cd);
+
+  console.log('=========== raw Date end =============');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/zh-cn.js"></script>
+<script>
+  /** https://momentjs.com/
+   * moment 对象里的 `_d` 不管是否为 UTC 时间、始终表示“本地时间”，参考构造函数：https://github.com/moment/moment/blob/b8a7fc310eb3625e83fc0c8f1ea2840fa83c7378/src/lib/moment/constructor.js#L62
+   *
+    Modularize moment.js https://github.com/moment/moment/issues/2373
+    https://github.com/JerrySievert/date-utils
+    https://github.com/date-fns/date-fns
+    https://www.npmjs.com/package/dateformat
+    */
+  console.log(moment([2010, 11, 29, 10, 59, 59, 300])); // 参数: 年 月 日 时 分 秒 毫秒
+  console.log(moment.utc([2010, 11, 29, 10, 59, 59, 300])); // 参数: 年 月 日 时 分 秒 毫秒。utc 时间
+
+  console.log(moment().format(), moment.locale(), moment().isLeapYear());
+  console.log(moment().utcOffset(0), moment().utcOffset(), new Date().getTimezoneOffset());
+  console.log(moment().utcOffset(0).format(), moment().utcOffset(8).format());
+  console.log(moment().utcOffset(8), moment().locale('zh-cn').utcOffset(8));
+  console.log(moment().utcOffset(8).hours(), moment().locale('zh-cn').utcOffset(8).hours());
+  console.log(moment.utc(), moment.utc().format());
+
+  console.log('===========  =============');
+
+  console.log(moment("2010-10-20T04:30+0000")); // 标准 ISO 格式
+  // console.log(moment("2010-10-20 4:30 +0000")); // 非 ISO 格式，moment 提醒错误
+  console.log(moment("2010-10-20 4:30 +0000", "YYYY-MM-DD").format()); // 格式化非 ISO 格式
+
+  // 非 ISO 格式，未指定时区，默认使用本地时区
+  console.log(moment("2010-10-20 4:30",       "YYYY-MM-DD HH:mm"));
+  // 非 ISO 格式，指定时区，用 moment 指定格式化为 UTC 时间 (Z: Offset from UTC)
+  console.log(moment("2010-10-20 4:30 +0000", "YYYY-MM-DD HH:mm Z"));
+
+  console.log('===========  =============');
+
+  var time1 = moment().utcOffset(12);
+  var time2 = moment();
+  console.log(time1.isSame(time2, 'day')); // TRUE
+  console.log(time1.utc().format('MM-DD-YYYY')); //
+  console.log(time2.utc().format('MM-DD-YYYY')); //
+
+  var now = moment();
+  console.log(now.year(), now.month(), now.date(), now.hour(), now.minute())
+  console.log(now.clone().endOf('month').date())
+  console.log(now.year(2016), now.month(1), now.date(5))
+  console.log(moment([2000, 1, 1, 0, 0, 0]).toString())
+  console.log(new Date(2000, 1, 1, 0, 0, 0).toString())
+  console.log(moment([2017, 6, 13, 0, 10, 10]).isBefore(moment(), 'day'))
+</script>
+
+<script>
+  // Note: 边界时间、越界时间、非法时间. 主要是在 setMonth 时出现：
+  // Note: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setMonth
+  // e.g. from 2017-03-31 to 2017-02-28
+  var d1 = new Date(2017, 2, 31, 15, 1, 1);
+  var dm = moment([2017, 2, 31, 15, 1, 1]);
+  d1.setMonth(13);
+  dm.month(13);  // moment 对越界时间的处理、与原生不同！
+  console.log(d1, dm);
+
+  function setMonth(date, month) {
+    date.setDate(Math.min(date.getDate(), lastDayOfMonth(new Date(date.getFullYear(), month))));
+    date.setMonth(month);
+  }
+  var bd = new Date(2017, 2, 31);
+  setMonth(bd, 1);
+  console.log(bd);
+</script>
+
+</body>
+</html>

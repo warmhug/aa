@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style>
+    *:focus{
+      outline: 1px solid red;
+    }
+  </style>
+  <script>
+    function showKeyCode(e) {
+      var keyCode = e.keyCode || e.which
+      if(keyCode == 27)
+        alert('按下了esc键');
+    }
+  </script>
+</head>
+<body onkeydown="showKeyCode(event);">
+<h2>press enter key</h2>
+
+<a href="#">用 tab 键 focus 后，按 enter 键会触发 click 事件吗？</a>
+<a tabindex="0">a 不带 href</a>
+<a tabindex="0" type="button">a 不带 href，带 type button</a>
+<br/>
+<button>no type, fire click?</button>
+<button type="button">have type, fire click?</button>
+
+<script>
+  document.addEventListener('click', function (e) {
+    console.log(e.target);
+  }, false)
+</script>
+
+</body>
+</html>

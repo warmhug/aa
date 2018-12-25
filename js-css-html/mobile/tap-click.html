@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Touch事件穿透 - fastclick 实现</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    #p {
+      width: 300px;
+      height: 300px;
+      padding: 10px;
+      border: 1px solid black;
+    }
+    #c {
+      width: 100px;
+      height: 100px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <input id="tap1" type="button" value="我是tap" /><br />
+  <input id="click1" type="button" value="我是click" />
+
+  click事件被执行了两次：一次是touchend我们手动执行，一次是系统自建的click，这就是传说中的鬼点击。
+
+  <script type="text/javascript">
+    var tap1 = document.getElementById('tap1');
+    var click1 = document.getElementById('click1');
+    var t = 0, el;
+
+    document.addEventListener('touchstart', function (e) {
+      t = e.timeStamp;
+      el = e.target;
+    });
+
+    //注意，此处鼠标信息我没有管他
+    function createEvent(type) {
+      var bubbles = true; //事件是否可以冒泡
+      var cancelable = true; //事件是否可以阻止浏览器默认事件
+      var view = document.defaultView; //与事件关联的视图，该属性默认即可，不管
+      var detail = 0;
+      var screenX = 0;
+      var screenY = 0;
+      var clientX = 0;
+      var clientY = 0;
+      var ctrlKey = false; //是否按下ctrl
+      var altKey = false; //是否按下alt
+      var shiftKey = false;
+      var metaKey = false;
+      var button = 0; //表示按下哪一个鼠标键
+      var relatedTarget = 0; //模拟mousemove或者out时候用到，与事件相关的对象
+      var event = document.createEvent('MouseEvents');
+      event.initMouseEvent(type, bubbles, cancelable, view, detail, screenX, screenY, clientX, clientY, ctrlKey, altKey,
+        shiftKey, metaKey, button, relatedTarget);
+      return event;
+    }
+    document.addEventListener('touchend', function (e) {
+      t = e.timeStamp;
+
+      var event = createEvent('tap')
+      //触发tap事件
+      el.dispatchEvent(event);
+
+      //触发click
+      var cEvent = createEvent('click');
+      el.dispatchEvent(cEvent);
+
+      // 在 touchend 处阻止浏览器默认事件，避免 鬼点击，iOS 有效，android 无效
+      // e.preventDefault();
+    });
+
+    function fnDom(el, msg, e) {
+      el.value = msg + '(' + (e.timeStamp - t) + ')';
+    }
+    tap1.addEventListener('tap', function (e) {
+      fnDom(this, '我是tap，我响应时间：', e);
+    });
+    click1.addEventListener('click', function (e) {
+      fnDom(this, '我是click，我响应时间：', e);
+    });
+  </script>
+</body>
+</html>

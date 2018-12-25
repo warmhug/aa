@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Touch事件穿透 - fastclick 实现</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .bt { position: absolute; top: 50px; display: block; height: 50px; }
+  </style>
+</head>
+<body>
+  <input type="button" class="bt" value="我是快速点击事件" id="fastclick" />
+  <input type="text" style="width: 150px; height: 200px;" />
+  <div id="div" style="width: 200px; height: 200px; border: 1px solid black"></div>
+
+  <script type="text/javascript">
+    var fastclick = document.getElementById('fastclick');
+    var div = document.getElementById('div');
+    var touch = {};
+    var t = new Date().getTime();
+
+    window.log = function (msg) {
+      var d = document.createElement('div');
+      d.innerHTML = msg;
+      div.appendChild(d);
+      console.log(msg);
+    };
+
+    function onMouse(event) {
+      log(event.type + ': ' + event.myclick)
+      if (event.myclick == true) {
+          return true;
+      }
+      if (event.stopImmediatePropagation) {
+          event.stopImmediatePropagation();
+      } else {
+          event.propagationStopped = true;
+      }
+      event.stopPropagation();
+      event.preventDefault();
+      return true;
+    }
+    document.addEventListener('mouseover', onMouse, true);
+    document.addEventListener('mousedown', onMouse, true);
+    document.addEventListener('click', onMouse, true);
+    document.addEventListener('touchstart', function (e) {
+        log(event.type + ': ' + event.myclick)
+        touch.startTime = e.timeStamp;
+        touch.el = e.target;
+        t = e.timeStamp;
+    });
+    document.addEventListener('touchend', function (e) {
+      touch.last = e.timeStamp;
+      var event = document.createEvent('Events');
+      event.initEvent('click', true, true, window, 1, e.changedTouches[0].screenX, e.changedTouches[0].screenY, e.changedTouches[0].clientX, e.changedTouches[0].clientY, false, false, false, false, 0, null);
+      event.myclick = true;
+      touch.el && touch.el.dispatchEvent(event);
+
+      e.preventDefault();
+      return true;
+    });
+
+    function fnDom(el, msg, e) {
+      el.value = msg + '(' + (e.timeStamp - t) + ')';
+      el.style.display = 'none';
+      setTimeout(function () {
+          el.style.display = '';
+      }, 1000)
+    }
+
+    fastclick.addEventListener('click', function (e) {
+      fnDom(this, '我是快速点击事件', e);
+      log('快速点击');
+    });
+
+    div.addEventListener('click', function (e) {
+      this.innerHTML += 'div<br/>'
+    });
+  </script>
+</body>
+</html>

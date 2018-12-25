@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>笔试题目</title>
+</head>
+<body>
+不声明中间变量的值交换: var a=1,b=2;a=[b,b=a][0];
+
+1. CSS: 利用伪类清除浮动 的写法
+
+2. 如何判断一个变量是对象还是数组？给出判断 数组 类型的两种以上方法。
+
+3. 实现一个方法，用于验证给定字符串是否为数字，注意充分考虑各种符合数字定义的字符串。
+示例：
+  isNumber('0') => true
+  isNumber(' 0.1 ') => true
+  isNumber('abc') => false
+  isNumber('1 a') => false
+  isNumber('2e10') => true
+  isNumber('Infinity') => true
+
+4. 检验对象是否有 循环引用。
+
+5. 考察 this 指向 
+   var user = {
+    count: 1,
+    getCount: function() {
+      return this.count;
+    }
+  };
+  console.log(user.getCount()); // what?
+  var func = user.getCount;
+  console.log(func()); // what? 
+  // 怎么能访问到 user 的 count ？
+
+6. 树数据的生成 以及 遍历算法
+   /**
+     * 怎么生成 类似以下结构的 tree 数据？(注意 id 的值需要反馈节点所在树的位置)
+     [{
+       id: '0',
+       children: [{
+         id: '0-0',
+         children: [{
+           id: '0-0-0',
+         }, {
+           id: '0-0-1'
+         }]
+       }, {
+         id: '0-1'
+       }]
+     }]
+     * 再写出 用 广度优先(BFS) 和 深度优先(DFS) 遍历以上树的方法？
+     */
+     // 生成 treeData 方法
+     function generateTree(
+       x = 3, // x: 每一级下的节点数
+       y = 2, // y: 每级节点数里有 y 个节点、存在子节点 (y < x)
+       z = 1 // z: 树的 level 层级数（0表示只有一级）
+      ) {
+         const treeData = [];
+
+         // 补充完整
+
+         return treeData;
+      }
+    const tree = generateTree(3, 2, 2);
+    console.log(tree);
+    // BFS
+    写出 BFS 遍历树数据的方法
+    // DFS
+    写出 DFS 遍历树数据的方法
+</body>
+</html>

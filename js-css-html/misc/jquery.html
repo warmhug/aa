@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--<script src="http://code.jquery.com/jquery.js"></script>-->
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+  <script src="https://a.alipayobjects.com/jquery/jquery/1.11.1/jquery-debug.js"></script>
+</head>
+<body>
+  <pre>
+    // 初始化
+    $(document).ready(function(
+        // 执行语句
+    });
+    相当于
+    $(function(){
+        // 执行语句
+    });
+
+    $('xx').data()使用地方 - [jQuery.data](http://www.cnblogs.com/silin6/p/jQuery_data.html)
+
+    在实际应用中我们要给我们的DOM添加数据，如果我们给一个DOM添加的数据太多的话，会存在循环引用的风险，
+    例如我们添加的数据恰好引用了这个DOM元素，就会存在内存的泄露。所以jquery使用了数据缓存的机制就解决或者说避免这一问题。
+
+    我们想在DOM上添加数据，但是不想引起内存的泄露，也就是我们不想引起循环引用，要尽量减少在DOM上挂数据。
+    jquery的思路是这样：使用一个数据缓存对象$.cache,在需要绑定数据的DOM上扩展一个expando属性，这个属性存的是一个id，这里不会存在循环引用的情况了，
+    之后将数据存在$.cache[id]上，当我们取DOM上的数据的时候，我们可以根据DOM上的expando找到id，进而找到存在$.cache[id]上的数据。
+    可以看出jquery只是在DOM上扩展了一个属性expando，数据都存在了$.cache中，利用expando这个属性建立DOM和缓存对象之间的联系。
+    无论我们添加多少的数据都会存储在缓存对象中，而不是直接挂在DOM上。
+    这个唯一id是一个整型值，初始为0，调用data接口时自动加一，唯一id附加在以$.expando命名的属性上，
+    $.expando是动态生成的，类似于一个时间戳，以尽可能的避免与用户变量冲突。从匹配的DOM元素上取到唯一id，
+    在$.cache中找到唯一id对应的对象，再从对应的对象中找到key对应的值
+
+
+    // 在jQuery下实现锚点的平滑跳转：
+    $("html,body").animate({scrollTop: $("#comment").offset().top}, 1000);
+
+    ### 插件开发
+    - [jQuery插件开发入门](http://www.css88.com/archives/4821)
+    - [插件开发-Metadata](http://www.cnblogs.com/easirm/p/4176427.html)
+
+    jQuery.fn.xx = function(opts){
+      var defaults  = {
+        x: xx
+      };
+      var opts = $.extend(op, opts);
+      return $(this).each(function() {
+        //...
+      });
+    }
+
+  </pre>
+  <script>
+    // prototype.js创建对象
+    var Class = {
+        create: function () {
+            return function () {
+                this.initialize.apply(this, arguments);
+            }
+        }
+    };
+    var Ctor = Class.create();
+    Ctor.prototype={
+        initialize:function(v){
+            this.value=v;
+        },
+        showValue:function(){
+            alert(this.value);
+        }
+    }
+  </script>
+</body>
+</html>

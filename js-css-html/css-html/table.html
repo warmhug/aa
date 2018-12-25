@@ -1,0 +1,65 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style type="text/css">
+    table.fixed { table-layout:fixed; }
+    table.fixed td { overflow: hidden; }
+
+    .table{
+      display: table;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .row {
+      display: table-row;
+    }
+    .cell {
+      display: table-cell;
+      vertical-align: top;
+      height: 50px;
+      /* cell高度会被内容高度撑开，设置内容的最大高度可解决 */
+      /*.div{
+        max-height: 100px;
+        overflow: hidden;
+      }*/
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <table class="fixed">
+    <col width="20px" />
+    <col width="30px" />
+    <col width="40px" />
+    <tr>
+      <td>text</td>
+      <td>text</td>
+      <td>text</td>
+    </tr>
+  </table>
+
+  <hr />
+
+  <table>
+    <tr>
+      <td>text</td>
+      <td>text</td>
+      <td>text</td>
+    </tr>
+  </table>
+
+  <hr />
+
+  <div class="table">
+    <div class="row">
+      <div class="cell">1</div>
+      <div class="cell">2</div>
+      <div class="cell">3</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

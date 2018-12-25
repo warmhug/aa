@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style>
+    input::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+    }
+  </style>
+</head>
+<body>
+  <span style="display: block">
+    标签嵌套 演示：
+    <!-- <p><div>p 里 不可以 放 div，会导致下边元素解析都有出错！</div></p> -->
+    <p> span 里可以放 p / div </p>
+    <ul><li>span 里可以放 ul/li </li></ul>
+    <a href="#">span 里可以放 a 标签</a>
+    <div> <a href="#">span 里的 div 里可以放 a 标签</a> </div>
+    <span> <a href="#">span 里的 span 里可以放a标签</a> </span>
+  </span>
+
+  <br /><br />
+
+  hidden属性，用于隐藏和显示HTML元素。这与 CSS 中 display:none 属性的效果相同。虽然用CSS来隐藏元素是通常的做法，
+  但实际上HTML5标准鼓励使用 hidden 属性。 hidden 为对应的元素增加了额外的语义。设置这个属性表示元素目前不相关。
+  例如，这可以被屏幕阅读器利用，否则它需要通过CSS的display属性来遍历整个页面。
+  <div hidden id="test" style="width:100px; height:100px; border:1px solid #ccc"></div>
+
+  <br /><br />
+
+  <form>
+    <fieldset>
+      <legend>健康信息</legend>
+      身高：<input type="text" />
+      体重：<input type="text" />
+    </fieldset>
+  </form>
+
+  <br /><br />
+
+  你最喜欢的浏览器是 (datalist-autocomplete)：
+  <input list="browsers">
+  <datalist id="browsers">
+    <option value="你好 Internet Explorer">
+    <option value="好好 Firefox">
+    <option value="你好 Chrome">
+    <option value="你好 Opera">
+    <option value="你好 Safari">
+  </datalist>
+
+  <br /><br />
+
+</body>
+</html>

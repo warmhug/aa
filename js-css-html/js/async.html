@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>async await</title>
+</head>
+<body>
+  <script>
+    // await 后必须是 Promise
+
+    // async without await
+    const getPromise = async (s) => {  
+      return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(s), 500);
+      });
+    }
+
+    // async without await
+    // The async function automatically wraps the return value inside a promise. Whether you return a plain JS object or a Promise, it will be wrapped with a promise.
+    async function a() {
+      console.log('in a (no await)');
+      return { a: 1 };
+    }
+    // a().then((res) => console.log(res));
+    console.log(typeof a().then);
+    console.log(a());
+
+    function timeout(ms) {
+      // return new Promise(resolve => setTimeout(resolve, ms));
+      return new Promise(resolve => setTimeout(() => {
+        console.log('setTimeout:', ms);
+        resolve();
+      }, ms));
+    }
+
+    /*
+      async await 与 forEach 一起使用达不到预期。因为 forEach 每次循环 都忽略返回值
+      https://objcer.com/2017/10/12/async-await-with-forEach/
+      使用 map 或 for..of 代替 https://stackoverflow.com/a/37576787/2190503
+    */
+    // [2000, 4500].forEach(async (item) => {
+    //   await timeout(item);
+    // });
+    console.log('forEach not work..');
+
+    async function print () {
+      var res = [];
+      var arr = [2000, 4500];
+      var t1 = +new Date();
+      
+      // 普通 for 语句 串行执行，时间累加
+      // for (var index = 0; index < arr.length; index++) {
+      //   await timeout(arr[index]);
+      // }
+
+      // for of 串行执行，时间累加
+      // for (let item of arr) {
+      //   await timeout(item);
+      //   console.log('for...of time passed!', +new Date() - t1);
+      // }
+
+
+      // 普通 for 语句 并行执行，最慢的一个时间决定总时间
+      // for (var index = 0; index < arr.length; index++) {
+      //   res.push(timeout(arr[index]));
+      // }
+      // for (var r = 0; r < res.length; r++) {
+      //   await res[r];
+      // }
+
+      // array.map 工作不正确
+      // await arr.map((item) => {
+      //   console.log('map time passed!', +new Date() - t1);
+      //   return timeout(item);
+      // });
+
+      // Promise.all + array.map 并行执行，最慢的一个时间决定总时间
+      await Promise.all(arr.map(async (item) => {
+        console.log('map time passed!', +new Date() - t1);
+        return await timeout(item);
+      }));
+
+      console.log('time passed!', +new Date() - t1, res);
+    }
+    print();
+
+    async function pb() {
+      await Promise.race([
+      // await Promise.all([
+        timeout(2000),
+        timeout(4500),
+      ]);
+    }
+
+    var t1 = +new Date();
+    // pb().then(() => {
+    //   console.log('pb then time passed!', +new Date() - t1);
+    // });
+    
+    console.log('time passed?');
+
+  </script>
+</body>
+</html>

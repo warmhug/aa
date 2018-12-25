@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Sorting algorithm</title>
+</head>
+<body>
+  <script>
+  var strs = [
+    'Slider', 'Action-sheet', 'Badge', 'Button', 'Carousel', 'Process', 'Progress',
+    'Search-bar', 'Select-list', 'Slider', 'Stepper', 'Steps', 'Table', 'Tabs', 'Tag',
+  ];
+  // sort 是不稳定排序，结果却一样？
+  var sorted1 = strs.sort((a, b) => {
+    return a.charCodeAt(0) - b.charCodeAt(0);
+  });
+  console.log(sorted1);
+
+
+  var list = [93, 1, 7, 9, 8, 3, 10, 33, 79, 45, 32, 11, 0, 88, 99, 12, 4, 66, 64, 31, 100, 78];
+  // 快排
+  function quickSort(arr, l, r) {
+    if (l < r) {
+      var mid = arr[parseInt((l + r) / 2)],
+        i = l - 1,
+        j = r + 1;
+      while (true) {
+        while (arr[++i] < mid);
+        while (arr[--j] > mid);
+        if (i >= j) break;
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      quickSort(arr, l, i - 1);
+      quickSort(arr, j + 1, r);
+    }
+    return arr;
+  }
+  console.log(quickSort(list, 0, list.length - 1));
+
+  </script>
+</body>
+</html>

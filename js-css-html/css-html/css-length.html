@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <a href="https://css-tricks.com/the-lengths-of-css/">css 长度单位 介绍</a>
+  <pre>
+    绝对长度: px  inch  cm  mm  （ 1in == 96px  1mm == 0.1cm == 3.78px ）
+
+    Font-Relative Lengths (相对字体的大小)：
+      em: 基于大写字母 M 的尺寸， font-size 改变时变化， font-family 改变时不变
+      rem: 相对 root 的 font-size 大小
+      ex: based on the x-height of the current font. font-size 或 font-family 改变时都会变化
+
+    Viewport Percentage Lengths:
+      vw: viewport width, 1vw is equal to 1% of the width of the viewport.
+      vh: it is based on the viewport height. 1vh 等于 1/100 的视口高度
+      vmin / vmax: 关于视口高度和宽度两者的最小或者最大值
+  </pre>
+  <hr />
+
+  <div></div>
+  <div></div>
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    div {
+      font-size: 12px;
+      width: 50ex;
+      height: 50ex;
+      background: orange;
+      margin: 20px;
+    }
+
+    div:nth-child(1) {
+      font-family: Serif;
+    }
+
+    div:nth-child(2) {
+      font-family: Sans-Serif;
+    }
+  </style>
+</body>
+</html>

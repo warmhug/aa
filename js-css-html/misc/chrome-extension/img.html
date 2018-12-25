@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base target="_blank">
+  <title>图片工具</title>
+</head>
+<body>
+  <h3>
+    图片生成、<a href="https://rmsportal.alipay.com/">蜻蜓</a> 上传
+    <span style="font-size: 12px; margin-right: 20px;">蜻蜓 <b>@100h.src</b> 缩放
+      <a href="https://gw.alipayobjects.com/zos/rmsportal/PnjNniBkexOKzoehotzl.jpg@100h.src">示例</a></span>
+    <a href="https://dummyimage.com/">dummyimage.com</a>
+  </h3>
+  <form>
+    size: <input id="size" value="375x200" />
+    text: <input id="text" value="text" />
+    bgcolor: <input id="bgcolor" value="#ccc" />
+    (#0D8FDB #39DBAC #F8591A <a href="http://c0ffee.surge.sh/">更多颜色选择</a>)
+    <a href="https://github.com/hustcc/placeholder.js" style="font-size: 12px">源码</a>
+    <br /><img id="img" src="" />
+  </form>
+  
+  <script src="http://cdn.bootcss.com/placeholder.js/3.1.0/placeholder.js"></script>
+  <script>
+  var opts = {
+    size: '375x200',
+    bgcolor: '#ccc',
+    color: 'white',
+    text: 'text',
+    fstyle:'oblique',
+    fweight: 'normal',
+    fsize:'30',
+    ffamily: 'consolas'
+  };
+  function create() {
+    document.getElementById('img').setAttribute('src', placeholder.getData(opts));
+  }
+  create();
+  ['size', 'text', 'bgcolor'].forEach(function(i) {
+    document.getElementById(i).addEventListener('input', function() {
+    opts[i] = this.value;
+    create();
+    });
+  });
+  </script>
+
+
+  <h3>输入图片地址 显示图片</h3><hr />
+  <textarea id="imgUri" style="width:500px;height:80px;overflow:auto;border:1px solid #ccc;word-wrap:break-word;" placeholder="输入图片地址 (可以是 data-uri)"></textarea>
+  <img id="resImg" src="https://gw.alipayobjects.com/zos/rmsportal/gIYqpRZVWejUBzkRRZMl.png" alt="img">
+  <script>
+    var imgUri = document.getElementById('imgUri');
+    var resImg = document.getElementById('resImg');
+    imgUri.addEventListener('change', function() {
+      resImg.src = this.value;
+    });
+  </script>
+
+  <h3>图片转 data-uri</h3><hr />
+  选择一个图片：<input type="file" id="file" name="file" /> <br>
+  <textarea id="result" style="padding:10px;width:50%;height:80px;overflow:auto;border:1px solid #ccc;word-wrap:break-word;"></textarea>
+  <button class="copybtn">copy</button>
+  <script>
+    function ProcessFile(e) {
+      var file = document.getElementById('file').files[0];
+      if (file) {
+      var reader = new FileReader();
+        reader.onload = function (event) {
+          var txt = event.target.result;
+          document.getElementById("result").innerHTML = txt;
+        };
+      }
+      reader.readAsDataURL(file);
+    }
+    window.addEventListener("DOMContentLoaded", function () {
+      document.getElementById('file').addEventListener('change', ProcessFile, false);
+    }, false);
+
+    var copybtn = document.querySelector('.copybtn');
+    copybtn.addEventListener('click', function(event) {
+      var copyTextarea = document.querySelector('#result');
+      copyTextarea.select();
+      try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+      } catch (err) {
+        console.log('Oops, unable to copy');
+      }
+    });
+  </script>
+
+
+  <h3>图片处理：canvas 缩放</h3><hr />
+  <canvas id="canvas" width=300></canvas><br>
+  canvas width：<input type="text" id="cwidth" /><br>
+  图片地址：<input type="text" id="imgurl" style="width:500px;" /><br>
+  Original image size: <span id="imgsize"></span> <br>
+  <img id="image" style="width:500px;">
+  <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext('2d');
+    var cwidth = document.getElementById('cwidth');
+    var imgurl = document.getElementById('imgurl');
+    var url;
+    var img = new Image;
+    img.onload = function () {
+      var nw = img.naturalWidth, nh = img.naturalHeight;
+      document.getElementById('imgsize').innerHTML = nw + 'x' + nh;
+      var r = nw / canvas.width;
+      canvas.height = nh / r;
+      // https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage
+      ctx.drawImage(img, 0, 0, nw / r, nh / r);
+    };
+    cwidth.value = canvas.width;
+    cwidth.addEventListener('change', function() {
+      canvas.width = this.value;
+      setImage(imgurl.value);
+    });
+    imgurl.addEventListener('change', function() {
+      url = this.value;
+      setImage(url);
+    });
+    setImage();
+    function setImage(_url = 'https://gw.alipayobjects.com/zos/rmsportal/PnjNniBkexOKzoehotzl.jpg') {
+      document.getElementById('image').src = _url;
+      imgurl.value = _url;
+      img.src = _url;
+    }
+  </script>
+
+</body>
+</html>

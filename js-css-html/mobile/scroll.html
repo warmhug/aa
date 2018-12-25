@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>scroll 事件</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .parentDiv {
+      margin-top: 70px;
+      padding: 20px 10px;
+      background-color: pink;
+      height: 200px;
+      overflow-y: scroll;
+    }
+    .innerDiv {
+      background-color: yellow;
+      height: 400px;
+      width: 50%;
+    }
+  </style>
+</head>
+<body style="height: 5000px; -webkit-overflow-scrolling: touch;">
+  <div id="_log" style="position: fixed; top:30px; left: 0"></div>
+  <div id="log" style="position: fixed; top: 0; left: 0"></div>
+  <div id="log1" style="position: fixed; top: 0; right: 0"></div>
+
+  <div class="parentDiv" id="pd">
+    内滚动
+    <div class="innerDiv"></div>
+  </div>
+  <script>
+    var _log = c => document.getElementById('_log').innerHTML = c;
+    var pd = document.getElementById('pd');
+    // 检测 滚动到最底部
+    pd.addEventListener("scroll", function(event) {
+      _log("");
+      var o = pd;
+      if(o.offsetHeight + o.scrollTop == o.scrollHeight) {
+        _log("Reach End");
+      }
+    });
+    // 检测 滚动停止
+    var delayedExec = function(after, fn) {
+      var timer;
+      return function() {
+        timer && clearTimeout(timer);
+        timer = setTimeout(fn, after);
+      };
+    };
+    var scrollStopper = delayedExec(500, function() {
+      _log('stopped it');
+    });
+    pd.addEventListener('scroll', scrollStopper);
+  </script>
+
+  <script>
+    var log = document.getElementById('log');
+    var count = 0;
+    window.addEventListener("scroll", function(event) {
+      count++;
+      log.innerHTML = 'onscroll events: ' + count;
+    });
+
+    var log1 = document.getElementById('log1');
+    var count1 = 0;
+    window.addEventListener("touchmove", function( event ) {
+      count1++;
+      log1.innerHTML = 'touchmove events: ' + count1;
+    });
+  </script>
+</body>
+</html>

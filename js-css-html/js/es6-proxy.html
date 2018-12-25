@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+</head>
+<body>
+  work in Firefox and in Edge.
+  <div class="example">
+    <button>Set the property</button>
+    <p>Output:</p>
+    <p id="stdout" class="outputBox">&#160;</p>
+  </div>
+  <script>
+  var stdoutEl = document.querySelector("#stdout");
+
+  // Create the proxy and a data object:
+  var proxy = new Proxy({}, {
+    // Observe:
+    set: function(target, prop, val) {
+      // Set the property:
+      target[prop] = val;
+      // Any function could be called here, as reaction.
+      stdoutEl.textContent =
+        `this has been called: ${prop} = ${val}\n`;
+    }
+  });
+
+  document.querySelector("button")
+  .addEventListener("click", function() {
+    // Set foo to some value:
+    proxy.foo = (Math.random() * 100).toFixed(0);
+    // Report the current value:
+    stdoutEl.textContent +=
+      `  (proxy.foo now is ${proxy.foo})\n`;
+  });
+
+  </script>
+</body>
+</html>

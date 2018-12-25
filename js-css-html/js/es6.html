@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+</head>
+<body>
+  <script>
+    /**
+     * Computed property keys
+     * Method definition shorthand
+     */
+    var pre = 'p_';
+    var obj = {
+      foo0: function() { return 0; },
+      foo1() { return 1; },
+      ['foo' + 2]() { return 2; },
+      [pre + 'a']: true,
+    };
+    console.log(obj);
+
+    /**
+     *  Destructured assignment
+     */
+    var options = {
+     repeat: true,
+     save: false,
+     rules: {
+       custom: 10,
+     }
+    };
+    var { repeat, rules: { custom }} = options;
+    console.log('Destructured assignment:', custom);
+
+    /**
+     *  Block–scoped variables
+     *  let 使用
+     */
+    var es = [];
+    for (var i = 0; i < 10; i++) {
+      let c = i;
+      es[i] = function () {
+        console.log("ES" + c);
+      };
+    }
+    es[6]();
+
+
+    /**
+     *  set map
+     */
+    var s = new Set();
+    s.add("a").add("b").add("a");
+    s.size === 2;
+    s.has("a") === true;
+
+    var m = new Map();
+    m.set("hello", 42);
+    m.set(s, 34);
+    m.get(s) == 34;
+
+
+    /**
+     *  Iterables & for … of loops
+     */
+    let values = [1, 2, 3];
+    for (let i of values) {
+      console.log(i);
+    }
+  </script>
+
+  <script>
+    for (var i = 0; i < 10; i++) {
+      setTimeout(function() {console.log(i); }, 100 * i);
+    }
+
+    for (var i = 0; i < 10; i++) {
+      // capture the current state of 'i'
+      // by invoking a function with its current value
+      (function(i) {
+          setTimeout(function() { console.log(i); }, 100 * i);
+      })(i);
+    }
+
+    for (let i = 0; i < 10 ; i++) {
+      setTimeout(function() {console.log(i); }, 100 * i);
+    }
+  </script>
+
+  <script>
+    // 对象里不能使用 arrow function
+    function Person(name) {
+      this.name = name;
+      this.say();
+    }
+    Person.prototype = {
+      work() {
+        console.log('I can work!');
+        console.log(this);
+      },
+      walk: () => {
+        console.log(this); // 箭头函数，注意此处 this
+      },
+      say() {
+        console.log('I can say!');
+        setTimeout(() => {
+          console.log('say again');
+        }, 10);
+      }
+    };
+    var p = new Person('me');
+    p.work();
+    p.walk();
+    p.say();
+  </script>
+</body>
+</html>

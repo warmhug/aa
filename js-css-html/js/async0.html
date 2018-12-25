@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+<body>
+  <script>
+    var t1 = +new Date();
+
+    var promiseOp = (arg) => new Promise((resolve, reject) => setTimeout(() => resolve(arg), 1500));
+    var fn1 = async (arg) => {
+      var a = promiseOp(2);
+      var b = promiseOp(2);
+      return arg + await a + await b;
+    }
+    fn1(1).then(res => {
+      console.log('await value', +new Date() - t1, res)
+    });
+
+    var fn2 = async (arg) => {
+      var a = await promiseOp(20);
+      var b = await promiseOp(30);
+      return arg + a + b;
+    }
+    fn2(1).then(res => {
+      console.log('await promise', +new Date() - t1, res)
+    });
+  </script>
+</body>
+</html>

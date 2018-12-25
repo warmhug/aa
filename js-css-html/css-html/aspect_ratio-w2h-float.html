@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <style>
+    .grid {
+      box-sizing: border-box;
+      float: left;
+      position: relative;
+      padding-right: 5px;
+      padding-bottom: 5px;
+      width: 25%;
+    }
+    .grid-inner {
+      padding-bottom: 100%;
+      border: 1px solid red;
+    }
+    .grid-content {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+    .grid-content img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="grid">
+    <div class="grid-content">1</div>
+    <div class="grid-inner"></div>
+  </div>
+  <div class="grid">
+    <div class="grid-content"><img src="http://dummyimage.com/600x600/000/fff" /></div>
+    <div class="grid-inner"></div>
+  </div>
+  <div class="grid">
+    <div class="grid-content">3</div>
+    <div class="grid-inner"></div>
+  </div>
+  <div class="grid">
+    <div class="grid-content">4</div>
+    <div class="grid-inner"></div>
+  </div>
+  <div class="grid">
+    <div class="grid-content">5</div>
+    <div class="grid-inner"></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tree 选中</title>
+  <script src="https://a.alipayobjects.com/jquery/jquery/1.11.1/jquery-debug.js"></script>
+</head>
+<body>
+  <pre>
+    找出选中节点的父节点路径
+  </pre>
+
+  <script src="./tree-data-generator.js"></script>
+  <script>
+    const gData = generateData(3, 2, 1);
+    console.log('总节点数（单个tree）：', calcTotal(3, 2, 1), gData);
+
+    const checked = ['0-0-0', '0-0-1', '0-0-1-0'];
+    const checkedKeys = [...checked];
+
+    let sel = [];
+    function findPath(selected, children, parent = { root: true }) {
+      for (var i = 0; i < children.length; i++) {
+        const item = children[i];
+        if (selected === item.key) {
+          sel.push(item);
+          return;
+        }
+        if (item.children) {
+          findPath(selected, item.children, item);
+          if (sel.length) {
+            sel.push(item);
+            return;
+          }
+        }
+      }
+    }
+    findPath(checked[2], gData);
+    console.log(sel);
+
+
+  </script>
+  <script src="./tree-display.js"></script>
+</body>
+</html>

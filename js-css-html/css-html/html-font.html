@@ -1,0 +1,53 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+  <!--<script src="http://zeptojs.com/zepto.js"></script>-->
+  <script src="http://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+  html 特殊字符：Webdings、Wingdings. 如 &rarr; &#8594; &amp; &lt; &gt; &quot; &nbsp;
+  <br>
+  <input id="inp" value=" &quot; &amp;quot; /\n ' " style="border:1px solid #aaa" /><br>
+
+  <textarea id="area" cols="30" rows="11" style="border:1px solid #aaa">
+"" 在textarea，双引号直接能显示，
+    \n表示换行
+  </textarea><br>
+  <div id="out"></div>
+
+  <script>
+    console.log($('#inp').val());
+
+    // escape方法一
+    function escapeHtml(html) {
+      var div = document.createElement('div'),
+        txtnode = document.createTextNode(html);
+      div.appendChild(txtnode);
+      return div.innerHTML;
+    }
+    // escape方法二，正则表达式
+    function escapeReg(html) {
+      return String(html).
+        replace(/&/g, "&amp;").
+        replace(/>/g, "&gt;").
+        replace(/</g, "&lt;").
+        replace(/"/g, "&quot;");
+    }
+
+    var area = $('#area');
+    var val = area.val() || area[0].value;
+    //val = area[0].textContent;
+    var escape = escapeHtml(val);
+
+    console.log(val);
+    console.log(escape);
+    $('#out').html(escape);
+    console.log($('#out').html());
+    console.log($('#out').text());
+
+  </script>
+</body>
+</html>

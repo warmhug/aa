@@ -1,0 +1,29 @@
+
+<select class="websites" id="select"><option value="">-- 选择网址 --</option></select>
+<!--
+  use sanbox can disable iframe doc do this:
+  ```
+  if (top.location.href != self.location.href)
+    top.location.href = self.location.href;
+  ```
+-->
+<iframe class="ifr" id="i" sandbox="allow-forms allow-scripts allow-same-origin"></iframe>
+<script>
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  var myObj = chrome.extension.getBackgroundPage().myObj;
+  var i = document.getElementById('i');
+  i.src = myObj.need_remove_ad_urls[getRandomInt(0, myObj.need_remove_ad_urls.length - 1)];
+  myObj.need_remove_ad_ifr = i;
+
+  var sites = [
+    'http://m.toutiao.com/?channel=news_hot#channel=news_hot',
+    'http://mobile.ant.design/kitchen-sink/',
+    'http://warmhug.github.io/'
+  ];
+  $('#select').append(sites.map(i => `<option value="${i}">${i}</option>`).join(''))
+  .on('change', function () {
+    i.src = $(this).val()
+  })
+</script>
