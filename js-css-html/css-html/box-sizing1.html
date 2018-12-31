@@ -5,25 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>box-sizing 对 steps 组件影响</title>
   <style>
-    .step1, .step2, .step1 *, .step2 * {
+    .steps-item, .steps-item * {
       box-sizing: border-box;
     }
-    .step1, .step2 {
+    .steps-item {
       position: relative;
       padding-left: 40px;
       min-height: 50px;
     }
-    .step1:before, .step2:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      z-index: 1;
-      width: 24px;
-      height: 24px;
-      background-color: white;
-      background-size: contain;
-    }
-    .step1 .line {
+    .steps-item-line {
       position: absolute;
       left: 12px;
       top: 0;
@@ -31,7 +21,18 @@
       height: 100%;
       padding: 27px 0 4px;
     }
-    .step1 .line:after {
+    .steps-item-icon {
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      overflow: hidden;
+      background-color: white;
+    }
+    .steps-item-icon, .steps-item-icon img {
+      width: 24px;
+      height: 24px;
+    }
+    .steps-item-line:after {
       display: block;
       content: '';
       z-index: 0;
@@ -39,29 +40,30 @@
       height: 100%;
       background-color: #108ee9;
     }
-    .step1:before {
-      background-image: url("https://zos.alipayobjects.com/rmsportal/dWPGltvdjaanrRd.png");
-    }
-    .step2:before {
-      background-image: url("https://zos.alipayobjects.com/rmsportal/KkwxfwZGLDeWrWN.png");
-    }
-    .step1 .content, .step2 .content{
+    .steps-item-content {
       margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="step1">
-    <div class="line"></div>
-    <div class="content">
-      我是标题 <br>
-      <small>如果去掉 border-box 设置，我左边的 竖线 上下留的缝隙、将实现不了！</small>
+  <div class="vertical">
+    <div class="steps-item step1">
+      <div class="steps-item-line"></div>
+      <div class="steps-item-icon">
+        <img src="https://zos.alipayobjects.com/rmsportal/dWPGltvdjaanrRd.png" alt="">
+      </div>
+      <div class="steps-item-content">
+        我是标题 <br>
+        <small>如果去掉 border-box 设置，我左边的 竖线 上下留的缝隙、将实现不了！</small>
+      </div>
     </div>
-  </div>
-  <div class="step2">
-    <div class="content">
-      步骤 <br>
-      <small>this is summary text</small>
+    <div class="steps-item step2">
+      <div class="steps-item-icon">
+        <img src="https://zos.alipayobjects.com/rmsportal/KkwxfwZGLDeWrWN.png" alt="">
+      </div>
+      <div class="steps-item-content">
+        步骤 <br> <small>this is summary text</small>
+      </div>
     </div>
   </div>
 </body>

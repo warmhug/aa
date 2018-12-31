@@ -9,7 +9,6 @@
 - [Most Starred](https://github.com/search?q=stars:%3E1&s=stars&type=Repositories)
 - [Most Forks](https://github.com/search?o=desc&q=stars:%3E1&s=forks&type=Repositories)
 
-
 # git
 
 > git-tips: https://github.com/git-tips/tips
@@ -152,30 +151,7 @@ git tag -d 0.0.1   # 删除本地标签
 git push origin :refs/tags/0.0.1   # 删除远程标签
 git checkout tag_name  # 检出标签
 
-# 配置
-git config                # 配置个人信息  
-git config --global alias.st status
-git config --global color.ui true
-git config --global core.ignorecase false  # Make git case sensitive
-
-ssh-keygen -t rsa -C "your_email@youremail.com"  # 生成 ssh key
-
-#### .gitconfig 文件内容示例
-
-[user]
-    name = hualei.hl
-    email = hualei.hl@xxx.com
-[alias]
-    st = status
-    ci = commit
-    br = branch
-    co = checkout
-    df = diff
-[push]
-    default = simple
-
 ```
-
 
 ## git 实践
 
@@ -512,7 +488,7 @@ echo "进行 xx 操作 \n\r" \
 
 echo "登陆服务器，进行 ccupdate 操作" \
 # 对引号进行转义
-expect -c "spawn ssh admin@partnerprod.d4366aqcn.xx.net
+expect -c "spawn ssh admin@xx.net
 expect \"password:\"
 send \"password22\r\"
 send \"cd ccbin && ./ccupdate.sh \n\"

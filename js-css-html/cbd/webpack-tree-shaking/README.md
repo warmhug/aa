@@ -9,6 +9,5 @@ npm i
 npm run build
 npm run build:production
 
-# 对比两个 build 结果，搜索 Bye 
+# 对比两个 build 结果，搜索 Bye
 ```
-

@@ -28,7 +28,7 @@
 - [高性能无尽列表（元素可回收）](https://github.com/bvaughn/react-virtualized)
 - [元素定位库](http://github.hubspot.com/tether/)
 
-https://github.com/STRML/react-grid-layout / [amcharts](http://www.amcharts.com/demos/)
+<https://github.com/STRML/react-grid-layout> / [amcharts](http://www.amcharts.com/demos/)
 
 - [front-end-application-frameworks-component-architectures](http://developer.telerik.com/featured/front-end-application-frameworks-component-architectures/)
 - [一个对前端模板技术的全面总结](http://www.html-js.com/article/2313)
@@ -121,14 +121,14 @@ UI 库 & design
 Garbage collection is a form of memory management.
 It’s not possible to force garbage collection in JavaScript.You wouldn’t want to do this, because the garbage collection process is controlled by the runtime, and it generally knows best when things should be cleaned up.
 
-本来Javascrip引擎能检测正在执行中的“热”对象并优化它、让它执行更快速；
-但delete操作会「严重改变」对象结构，导致引擎不能优化该对象。
-将不需要的对象属性设置为null也比delete操作好，但这也是不必要的。
+本来 Javascrip 引擎能检测正在执行中的 “热” 对象并优化它、让它执行更快速；
+但 delete 操作会「严重改变」对象结构，导致引擎不能优化该对象。
+将不需要的对象属性设置为 null 也比 delete 操作好，但这也是不必要的。
 
 如果某个变量引用是对对象的最后一个引用，那么垃圾回收会自动执行。
 全局变量不会被垃圾回收，除非页面刷新、跳转或关闭。
 函数作用域里的变量，在函数执行完毕、函数退出、没有引用时会被清理掉。
-删除dom对象时，及时解除事件监听。
+删除 dom 对象时，及时解除事件监听。
 Don’t write enormous functions, as they are more difficult to optimize 
 Don’t load from uninitialized or deleted elements.
 
@@ -157,7 +157,7 @@ be aware that although JavaScript engines continue to get faster, the next real 
 [在做 iOS 和 Android 的 HTML5 开发时，你都掉到过哪些坑里？](https://www.zhihu.com/question/34556725)
 
 开启 Charles 代理，需要把其他代理软件关掉、像 ShadowSocks 要关掉、浏览器也不能有代理插件如 switchyomega 开着.
-https://github.com/ant-design/ant-design-mobile/issues/614
+<https://github.com/ant-design/ant-design-mobile/issues/614>
 
 ```html
 <!-- label 兼容性问题 -->
@@ -183,7 +183,7 @@ touch 事件在手机浏览器中的穿透问题，并不是由冒泡引起的�
 
 ### Touch 事件兼容问题
 
-- 在 Android 上 Touchmove 只触发一次，解决：阻止默认事件，在start或move时，执行一次 e.preventDefault() 
+- 在 Android 上 Touchmove 只触发一次，解决：阻止默认事件，在start或move时，执行一次 e.preventDefault()
 - 在 Android 上 页面滚动时，PageX/Y 并不包含滚动，需附加 scrollLeft/Top 修正
 - 在 Android 上 在 a 标签上，move后不触发 touchend 事件，a 标签的 href 属性从`javascript:void(0)`改为`javascript:;`
 
@@ -225,7 +225,7 @@ console.log(Math.sqrt(Math.pow(640, 2) + Math.pow(960, 2)) / 3.5) // iphone 4 pp
 
 高清方案 / 边线:
 
-> [antd-mobile](https://github.com/ant-design/ant-design-mobile/issues/683#issuecomment-270117203) 
+> [antd-mobile](https://github.com/ant-design/ant-design-mobile/issues/683#issuecomment-270117203)
 > [anima-hd](http://gitlab.alibaba-inc.com/animajs/anima-hd)
 
 - 为了便于计算, 通常让`1px == 0.01rem`即按 100 倍换算, 设计师按宽度 750px (iPhone 6 物理宽度, 2 * 理想宽度, [why?](https://www.zhihu.com/question/25308946/answer/32240185)) 做设计（适配到其他设备比例偏差不会太大），前端也按这个写 css 尺寸。那么：
@@ -245,16 +245,16 @@ console.log(Math.sqrt(Math.pow(640, 2) + Math.pow(960, 2)) / 3.5) // iphone 4 pp
   - [rem 产生的小数像素问题](http://taobaofed.org/blog/2015/11/04/mobile-rem-problem/)
 - [Retina屏的移动设备如何实现真正1px的线？](http://jinlong.github.io/2015/05/24/css-retina-hairlines/)
 - [1px 边线方案总结](https://www.w3cplus.com/css/fix-1px-for-retina.html)
-  - ref: https://ariya.io/2011/08/mobile-web-logical-pixel-vs-physical-pixel
+  - ref: <https://ariya.io/2011/08/mobile-web-logical-pixel-vs-physical-pixel>
 
 ### 其他
 
 页面横向能拖动问题：注意哪里设置了 width 之和为 100% ，但没设置`box-sizing: border-box;`
 
-使用 https://github.com/kisenka/svg-sprite-loader 做 svg icon 图片部分 svg 渲染不出来：
+使用 <https://github.com/kisenka/svg-sprite-loader> 做 svg icon 图片部分 svg 渲染不出来：
 
-- https://github.com/kisenka/svg-sprite-loader/issues/53 去掉 svg file 里的 mask
-- 或者 改变默认样式设置 https://github.com/kisenka/svg-sprite-loader/issues/59 `visibility:hidden`改为`display:none`
+- <https://github.com/kisenka/svg-sprite-loader/issues/53> 去掉 svg file 里的 mask
+- 或者 改变默认样式设置 <https://github.com/kisenka/svg-sprite-loader/issues/59> `visibility:hidden`改为`display:none`
 
 ```css
 /* transform 闪动问题：*/
@@ -267,13 +267,15 @@ console.log(Math.sqrt(Math.pow(640, 2) + Math.pow(960, 2)) / 3.5) // iphone 4 pp
 
 ## node
 
-node module version example: 
+[egg 早期架构图](https://gw.alipayobjects.com/mdn/security_content/afts/img/A*M3XeTKo_eAUAAAAAAAAAAABjATonAQ/original)
+
+node module version example:
 `1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0`
 
 ```sh
 npm help install  # 地址：https://docs.npmjs.com/cli/install
 
-npm install tnpm -g --registry="http://registry.npm.alibaba-inc.com" # 使用 tnpm 加速
+npm install tnpm -g --registry="http://registry.npm.xx.com" # 使用 cnpm 加速
 
 npm uninstall / rm <pkg> [-g | -S|--save| -D|--save-dev ]
 
@@ -444,16 +446,16 @@ if (window.location != window.parent.location) {
 
 ## 质量
 
-- https://codecov.io/ 覆盖率分析对比工具
+- <https://codecov.io/> 覆盖率分析对比工具
   - 支持所有语言，对 GitHub commit 的覆盖率做记录、前后对比。
   - antd 等开源项目的选择。
-- 覆盖率类别：https://blog.rsuitejs.com/2017/08/20/test-coverage/ 
+- 覆盖率类别：<https://blog.rsuitejs.com/2017/08/20/test-coverage/>
   - Statements 与 Lines 的区别：一行可能有多个语句
-- 百分百测试覆盖率真的有意义吗？ https://www.zhihu.com/question/29528349
+- 百分百测试覆盖率真的有意义吗？ <https://www.zhihu.com/question/29528349>
   - 各种 corner cases(比如除0、 IO error handling) 很难做到 100% 覆盖。
   - 覆盖率数据只能代表你测试过哪些代码，不能代表你是否测试好这些代码。
   - 不能盲目追求代码覆盖率，而应该想办法设计更多更好的案例，哪怕多设计出来的案例对覆盖率一点影响也没有。
-- JS 覆盖率工具 https://istanbul.js.org/
+- JS 覆盖率工具 <https://istanbul.js.org/>
 
 ## Web Components
 
@@ -575,7 +577,7 @@ The former is Passive programming, while the latter is Reactive programming
   - React.js 本质：`(state, props) => state`
 - 响应：reactive :: Action -> Model -> Model（Model, Side Effects(异步消息)）
   - reactive 是一个接受一个动作（事件）参数和一个模型，并返回一个新的模型的函数。
-  - 有「Side Effects(异步消息)」时，reactive :: Action -> Model -> (Model, Effects Action)。参考 https://github.com/evancz/elm-architecture-tutorial/
+  - 有「Side Effects(异步消息)」时，reactive :: Action -> Model -> (Model, Effects Action)。参考 <https://github.com/evancz/elm-architecture-tutorial/>
   - flux 本质：`(state, action) => state` redux 的 reducer 也是这样。
 - render 和 reactive 反复迭代即得到一个用户应该看到并可以操作的用户界面。
 
@@ -646,7 +648,7 @@ The former is Passive programming, while the latter is Reactive programming
 
 - API：selected | on-select | on-deselect
 - tab 切换后，前一个页面的 Ajax 请求还没完成，要不要 abort 掉？
-- https://github.com/ant-design/ant-design-mobile/issues/1287
+- <https://github.com/ant-design/ant-design-mobile/issues/1287>
 
 ### Modal
 
@@ -750,7 +752,7 @@ The server-side code mainly does model manipulation and notifications, and so ha
   - 点击一个链接，通过 Ajax 获取页面部分区域数据（向服务器发送一个有PJAX标志(设置在header里)的请求，服务器返回一段相应的html片段）
   - 通过 pushState 修改 URL 和 document.title，并把服务器返回的htm片段插入页面。
   - Github上的文件/目录跳转加载，就是采用 pjax 的方式实现的。
-- 如果浏览器不支持 history API，使用 hash 如 http://example.com#word
+- 如果浏览器不支持 history API，使用 hash 如 <http://example.com#word>
   - 浏览器会把不同的 hash 记录到历史记录中，但需要监听 hash 值的变化。
   - 对于支持 onhashchange 的浏览器，监听此事件；不支持的则要定时去判断hash的变化。
 
@@ -802,7 +804,7 @@ The server-side code mainly does model manipulation and notifications, and so ha
 
 1. form 同步上传 (使浏览器不刷新的做法: form target 指向隐藏的 iframe, 服务端 action 返回`window.top.window['callback'](data)`)
 2. XMLHttpRequest 2 支持真正异步上传, form enctype 属性为 multipart/form-data , 构造 FormData 对象.
-3. 使用 fetch + FormData 上传文件时、不能设置 headers 的 Content-Type (或设置为 undefined)，浏览器会自动设置为合适值 (比如 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM)，参考 https://stackoverflow.com/a/39281156/2190503 和 https://stanko.github.io/uploading-files-using-fetch-multipart-form-data/
+3. 使用 fetch + FormData 上传文件时、不能设置 headers 的 Content-Type (或设置为 undefined)，浏览器会自动设置为合适值 (比如 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM)，参考<https://stackoverflow.com/a/39281156/2190503> 和<https://stanko.github.io/uploading-files-using-fetch-multipart-form-data/>
 
 - [jquery file upload 后台收到 filename 中文乱码](http://blog.csdn.net/zhouyingge1104/article/details/38322403)
 - [在文件对象上如何附加其他 input 的字段？](https://github.com/blueimp/jQuery-File-Upload/wiki/How-to-submit-additional-Form-Data#adding-additional-form-data-programmatically)
@@ -888,7 +890,7 @@ $.ajaxSetup({
 
 > ie8及以上浏览器都支持
 
-#### otherWindow.postMessage(message, targetOrigin);
+#### otherWindow.postMessage(message, targetOrigin)
 
 otherWindow: 对接收信息页面的window的引用。可以是页面中iframe的contentWindow属性；window.open的返回值；通过name或下标从window.frames取到的值。
 message: 所要发送的数据，string类型。
