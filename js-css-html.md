@@ -226,7 +226,7 @@ console.log(Math.sqrt(Math.pow(640, 2) + Math.pow(960, 2)) / 3.5) // iphone 4 pp
 高清方案 / 边线:
 
 > [antd-mobile](https://github.com/ant-design/ant-design-mobile/issues/683#issuecomment-270117203)
-> [anima-hd](http://gitlab.alibaba-inc.com/animajs/anima-hd)
+> [anima-hd](http://gitlab.xx-inc.com/animajs/anima-hd)
 
 - 为了便于计算, 通常让`1px == 0.01rem`即按 100 倍换算, 设计师按宽度 750px (iPhone 6 物理宽度, 2 * 理想宽度, [why?](https://www.zhihu.com/question/25308946/answer/32240185)) 做设计（适配到其他设备比例偏差不会太大），前端也按这个写 css 尺寸。那么：
   - dpr=1 `<html style="font-size: 50px">`, 设备: windows 电脑, mac (mar pro dpr为2).
@@ -344,8 +344,6 @@ When you shebang (#!) /usr/bin/env node, you are saying "look for a program call
 ------
 
 ## css & html
-
-`white-space: nowrap;` 英文连续字符不会被自动截断、不会换行、需要加`word-break: break-all;`，注意：下划线`_`和字母一起会被认为是连续的，但中划线`-`和字母一起不是连续的。
 
 - querySelector api 不能传入「纯数字」的 id/class 选择器？
 - [不能根据子元素 class 改变父元素 class](http://stackoverflow.com/questions/1014861/is-there-a-css-parent-selector)
@@ -824,6 +822,8 @@ The server-side code mainly does model manipulation and notifications, and so ha
 - [纯前端-生成文件并下载](http://www.alloyteam.com/2014/01/use-js-file-download/)
 
 ## 安全
+
+[a 标签中 target="_blank" 的安全漏洞](https://www.tutorialdocs.com/article/html-opener-blank.html) 详细地解释了该漏洞的攻击方法和原理。并在文末给出了防范该漏洞的解决办法：给 a 标签增加 rel="noopener noreferrer nofollow"。
 
 - jsonp请求也需要「防止csrf漏洞」，例如可以用jsonp获取通讯录列表
 - cors跨域：http头可以伪造，所以跨域的时候记得带上sessionId做身份验证；防止允许跨域的站点被入侵，从而导致源站信息泄露；不要对Access–Control-Allow-Origin使用`*`

@@ -13,7 +13,8 @@ I：接口隔离原则
 D：依赖倒置原则
 ```
 
-<https://github.com/donnemartin/system-design-primer>
+<https://github.com/donnemartin/system-design-primer> /
+<https://github.com/MaximAbramchuck/awesome-interview-questions>
 
 you can't bind to ports <1024 if you are not root.
 

@@ -178,7 +178,7 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
 
 Terminal / Live Server / markdownlint / filesize / EditorConfig /
 Indent 4-to-2  / beautify react-beautify Auto Close(Rename) Tag / SVG Viewer /
-pangu / Hungry Delete /
+pangu / Hungry Delete / javascript console utils
 [https://github.com/viatsko/awesome-vscode](https://github.com/viatsko/awesome-vscode) /
 sftp
 
