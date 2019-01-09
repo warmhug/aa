@@ -345,9 +345,9 @@ rm -rf symbolic_name    # 注意不是rm -rf symbolic_name/
 与服务器交互数据的工具，支持 http,https,ftp,ftps,telnet 等多种协议，常被用来抓取网页和监控Web服务器状态。
 [命令详解](http://aiezu.com/article/linux_curl_command.html)
 
-```sh
-格式：curl [-i带header | -I只输出header ] [URL...] 
+格式：`curl [-i带header | -I只输出header ] [URL...]`
 
+```sh
 curl https://twitter.com/  # 直接打印内容
 curl 'https://api.github.com/user/repos?page=2&per_page=100'  # 有特殊字符需要用引号包裹
 
@@ -370,21 +370,20 @@ curl -i https://api.github.com -H "Origin: http://example.com"  # 设置 CORS
 
 ```sh
 grep -rn 'grep' *  # 以 字符串 grep 来搜索 当前目录及子目录 的所有文件内容
-grep grep$ she*.md  # 以 正则表达式 grep$ 来搜索 当前目录下 文件名匹配 she*.md 的文件内容
+grep grep$ she*.md  # 以 正则表达式 grep$ 来搜索 当前目录下 文件名匹配 she*.md 的内容
 
-grep -r --include=\*.{cpp,h} pattern rootdir
-grep -ir --include="*.js" pattern *
+# 注意，-r 递归搜索时，使用 *.md 的 filename 无效。
+grep -r --include=\*.{cpp,h} pattern ./
+grep -rn --include="*.js" pattern *
 
-grep -r --exclude-dir=node_modules pattern /path/to/search
-grep -r --exclude-dir=node_modules --exclude-dir=dev pattern /path/to/search
+grep -r --exclude-dir=node_modules pattern /path
+grep -r --exclude-dir=node_modules --exclude-dir=dev pattern /path
 grep -rI --exclude-dir="\.svn" "pattern" *   # 忽略二进制文件和svn隐藏目录
-
 grep -r --color --exclude-dir={custom,lib,scripts} --exclude={*.xml,error_log} "beta" *
 
 cat test.txt | grep ^u   # 找出以 u开头 的行内容
 cat test.txt | grep hat$  # 输出以 hat结尾 的行内容
 cat test.txt | grep -E "ed|at"  # 显示包含 ed或者at 字符的内容行
-cat test.txt | grep -f test2.txt  # 从文件中（test2.txt）读取关键词进行搜索
 ```
 
 ### find
