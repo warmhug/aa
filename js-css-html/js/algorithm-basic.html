@@ -5,7 +5,7 @@
   <title></title>
 </head>
 <body>
-  <script>
+<script>
   "use strict";
 
   // 完全二叉树(Complete Binary Tree)
@@ -42,8 +42,39 @@
   for (let node of inorder(tree)) {
     result.push(node);
   }
+</script>
 
+<script>
+  // 斐波那契数列：前面相邻两项之和，构成了后一项。
+  "use strict";
 
-  </script>
+  function fibonacci(n) {
+    if (n <= 2) {
+      return 1;
+    } else {
+      return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+  }
+    console.log(fibonacci(10));
+
+  // es6
+  function fib(n, prev = 0, current = 1) {
+    return !n ? prev + current : fib(--n, current, prev+current)
+  }
+  console.log(fib(10));
+
+  // generators 斐波那契
+  function* fibonacci() {
+    let [prev, curr] = [0, 1];
+    for (;;) {
+    [prev, curr] = [curr, prev + curr];
+    yield curr;
+    }
+  }
+  for (let n of fibonacci()) {
+    if (n > 1000) break;
+    console.log(n);
+  }
+</script>
 </body>
 </html>
