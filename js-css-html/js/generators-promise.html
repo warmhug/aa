@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>generators promises</title>
+</head>
+<body>
+  <script>
+    const fetchSomething = () => new Promise(function(resolve, reject) {
+      setTimeout(() => resolve('foo'), 3000);
+    });
+
+    // fetchSomething().then(function(value) {
+    //   console.log(value);
+    // });
+
+    function *generator() {
+      const res = yield fetchSomething();
+      console.log('res', res);
+    }
+    var ge = generator();
+    console.log('ge: ', ge);
+    console.log('ge next: ', ge.next());
+    console.log('ge next: ', ge.next());
+
+    // todos: return promise value
+
+  </script>  
+</body>
+</html>

@@ -294,10 +294,12 @@ Listen 9999
 
 访问：<http://localhost> / <http://localhost:9999/>
 
-有些 API 比如 html5 getUserMedia，必须要在 https 环境下生效，参考配置如下(ssl 证书另外自行生成)：
+有些 API 比如 html5 getUserMedia / geolocation 必须要在 https 环境下生效，参考配置如下(ssl 证书另外自行生成)：
 
 - <http://www.jianshu.com/p/bd016015efe7>
 - <http://www.cnblogs.com/y500/p/3596473.html>
+
+结合以下 nginx https 设置、来全面支持。
 
 ---------
 
@@ -309,18 +311,21 @@ sudo nginx  # 启动
 sudo nginx -s stop  # 关闭
 sudo nginx -s stop && sudo nginx  # 重启
 
-cd /usr/local/etc/nginx/nginx.conf  # 打开配置文件
+code /usr/local/etc/nginx/nginx.conf  # 打开配置文件
 
-# 更改 http → server 区块里的配置如下：
-
+# 更改 http / HTTPS → server 区块里的配置为：
 location / {
     #root   html;
-    root    /Users/hua/my;
-    index  index.html index.htm;
+    root    /Users/hua/inner;
     autoindex on;
+    index  index.html index.htm;
 }
 
-http://localhost:8080  # 测试
+https 设置: https://www.jianshu.com/p/fe0fadb38600
+https 设置: https://www.jianshu.com/p/fc1e81efc867
+
+http://localhost:8080  # 重启并测试
+https://localhost  # 测试 https
 ```
 
 ---------

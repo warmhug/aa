@@ -29,6 +29,7 @@
 - [元素定位库](http://github.hubspot.com/tether/)
 
 <https://github.com/STRML/react-grid-layout> / [amcharts](http://www.amcharts.com/demos/)
+<https://github.com/nfl/react-helmet>
 
 - [front-end-application-frameworks-component-architectures](http://developer.telerik.com/featured/front-end-application-frameworks-component-architectures/)
 - [一个对前端模板技术的全面总结](http://www.html-js.com/article/2313)

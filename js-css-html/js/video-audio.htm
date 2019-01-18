@@ -179,15 +179,14 @@
 
     Chrome 是基于开源的 Chromium 的，其音视频解码是由 FFmpeg 提供的，可以给修改增加支持更多种类的音视频格式，
     需要找到 Chromium 的源码 third_party\ffmpeg 模块，重新配置和编译 FFmpeg
-
     */
   </script>
   https://www.zhihu.com/question/27472010
   安卓 rom 的浏览器会劫持 video 标签，替换成同样大小的 native video ，怎么防止？只有 Chrome 浏览器不会
   <div id="log"></div>
-  <script src="http://zeptojs.com/zepto.js"></script>
   <script>
-    $('#log').html('<video src="./movie.mp4" controls></video>')
+    // https://gw.alipayobjects.com/os/basement_prod/44117b1f-aaa1-42ed-9cff-606978946cad.ogg
+    document.querySelector('#log').innerHTML = '<video src="https://gw.alipayobjects.com/mdn/securityprod/afts/file/A*Sy4kQa3udAAAAAAAAAAAAABjAQAAAQ" controls></video>';
   </script>
 </body>
 </html>

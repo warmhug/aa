@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HTML 5 API</title>
+</head>
+<body>
+  <h2>navigator.geolocation</h2>
+  <script>
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        alert('Success: \n' + JSON.stringify(position));
+        alert('latitude: \n' + position.coords.latitude);
+        alert('country: \n' + position.coords.country);
+      }, function (error) {
+        alert('Err: \n' + JSON.stringify(error));
+        alert('Err code: \n' + JSON.stringify(error.code));
+      });
+    } else {
+      /* geolocation IS NOT available */
+    }
+  </script>
+
+  <h2>localStorage / sessionStorage</h2>
+  <pre>
+    本地存储问题：
+    1、浏览器“清空缓存或数据”仍不能清除本地存储的内容，尤其移动平台。
+    2、用removeItem()或clear()方法清除数据，但受到“同源策略”限制。
+  </pre>
+  <script>
+    if ('localStorage' in window && window['localStorage'] !== null) {
+      window.addEventListener("storage", (e) => {
+        var storage = window.localStorage;
+        for (var i = 0; i < storage.length; i++) {
+          // key(i)获得相应的键，再用 getItem() 方法获得对应的值
+          alert(storage.key(i) + " : " + storage.getItem(storage.key(i)));
+        }
+      }, false);
+
+      // 数据操作方法  推荐使用 getItem() 和 setItem()
+      localStorage.a = 3;
+      localStorage.setItem("b", "isaac");
+      var a2 = localStorage.a;
+      var b = localStorage.getItem("b");
+      localStorage.removeItem("b");
+      localStorage.clear(); // 清除所有
+    }
+  </script>
+</body>
+</html>
