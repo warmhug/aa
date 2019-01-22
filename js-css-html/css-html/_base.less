@@ -1,7 +1,5 @@
 .wrapper {
-  padding: 20px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #ccc;
 }
 
 .longchar {
@@ -10,22 +8,69 @@
   word-break: break-all;
 }
 
-.ib {
-  ul.space {
-    /* 设置字号 0 去掉 inline-block 末尾插入的空格  */
-    font-size: 0;
-    li {
-      font-size: 16px;
+.space {
+  /* 设置字号 0 去掉 inline-block 末尾插入的空格  */
+  font-size: 0;
+  li {
+    font-size: 16px;
 
-      display: inline-block;
-      background-color: #007bc7;
-      color: #fff;
-      border-radius: 100px;
-      padding: 4px 16px;
-      
-      &:not(:last-child) {
-        margin-right: 8px;
-      }
+    display: inline-block;
+    background-color: #007bc7;
+    color: #fff;
+    border-radius: 100px;
+    padding: 4px 16px;
+    
+    &:not(:last-child) {
+      margin-right: 8px;
     }
+  }
+}
+
+.aspect-ratio(@width; @height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ((@height / @width) * 100%);
+  }
+  > *:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+.aspect {
+  width: 100%;
+  border: 1px solid gray;
+  .aspect-ratio(750, 210);  // 设计稿为750，稿中元素高度为210
+}
+.aspect1 {
+  position: relative;
+  width: 100vw; /* 100% < 100vw (if have body's default margin) */
+  height: calc(100vw * 0.5625); /*16:9 aspect ratio*/
+  box-sizing: border-box;
+  border: 1px solid blue;
+  .text {
+    height: 1vh;
+  }
+}
+.aspect2 {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  padding-top: 75%; /* 4:3 Aspect Ratio */
+  padding-top: 66.66%; /* 3:2 Aspect Ratio */
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  box-sizing: border-box;
+  border: 1px solid blue;
+  .text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>history 与 location</title>
+</head>
+<body>
+  改变 url 而不刷新页面的方法：
+  1. location.hash  (hashchange 事件)
+  2. HTML5 的 history: `history.pushState()` / `history.replaceState()` / 
+    `history.go()` / `history.go(-1) === history.back()` / `history.go(1) === history.forward()`
+    （history 模式需要后端的配合，不然刷新页面会 404）
+
+  浏览器在被点击“后退”或者“前进"按钮时，会触发 popstate 事件，代码调用 history.pushState/replaceState 不会触发。
+  <script>
+    console.log('document.referrer: ', document.referrer || null);
+    // 如果有 hash 时、触发
+    window.addEventListener('hashchange', function(e) {
+      console.log(e)
+    })
+
+    window.addEventListener('popstate', function (e) {
+      console.log('popstate event: ', JSON.stringify(e.state), e);
+      if (e.state !== null) {
+        //load content with ajax
+      }
+    });
+
+    // https://developer.mozilla.org/en-US/docs/Web/API/History_API
+    history.pushState({page: 1}, "title 1", "?page=1");
+
+    // 浏览器不会下载或检查 bar.html 是否存在，刷新页面 404
+    history.pushState({page: 2}, "title 2", "bar.html");
+    
+    // 不能跨域，baidu 跟本页面是不同域
+    // history.pushState({page: 2}, "baidu", "https://www.baidu.com/");
+    
+    // history.replaceState({page: 3}, "title 3", "?page=3");
+    
+    // 跟 浏览器回退 按钮功能一样，触发 popstate 事件
+    // history.back(); 
+    // history.go(2);
+  </script>
+</body>
+</html>

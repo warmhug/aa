@@ -739,7 +739,7 @@ The server-side code mainly does model manipulation and notifications, and so ha
 - 单独一个模块显示喜欢此文章的全部用户，带有分页。（对应另一个 API）
 - 点击 “like” 按钮，以上两个区域的数据改变。
 
-这里对于点击了喜欢的用户，需要有个「 model collection」，但是需要一个 model 或者是 两个 ？
+这里对于点击了喜欢的用户，需要有个「model collection」，但是需要一个 model 或者是 两个 ？
 
 > It would be nice if those two lists corresponded to the same model collection, but this means the same model collection needs to be fed from two different API responses. Turns out, 1:1 correspondence between API responses and model objects doesn’t scale!
 
@@ -757,15 +757,9 @@ The server-side code mainly does model manipulation and notifications, and so ha
 
 ### spa 基础问题
 
-- 页面上发出了 Ajax 请求，要等比较久时间才返回，返回成败都有弹框，但在返回结果之前「跳走」，页面跳转后弹窗是否还会有？
-- 页面的边界测试：如数据量特别大时
-- 切换路由后会把上个路由状态生成的html全部销毁掉，再切回来恢复不到原来的样子。问题场景如：列表页由许多查询条件组合查询出来，点击列表里某个条目进入详情，再返回到列表页，就需要手动再查询出列表。更好的是恢复上次查询生成的列表html，再更好要保持原来的滚动条位置，完全恢复现场，不会打断用户继续浏览列表。（切走之前保存查询条件、切回来再重新查询，不是个好办法，不能完全恢复之前状态）
-
-- [客户端渲染和服务端渲染，哪个快？](http://www.onebigfluke.com/2015/01/experimentally-verified-why-client-side.html)
-  - It depends on what you're doing. If you care about first paint time, server-side rendering wins. If your app needs all of the data on the page before it can do anything, client-side rendering wins.
-  - Below 1,000 cats worth of complexity, the client- and server-side rendering approaches have essentially the same time to first paint on both desktop and mobile. Above 1,000 cats worth of complexity, server-side rendering will do first paint faster than client-side rendering. But the client-side rendering approach will always win for last paint time above 1,000 cats.
-- [Batching HTTP Requests in Angular to Improve Performance](https://github.com/jonsamwell/angular-http-batcher)
-  - HTTP Batching is actual fairly simple as a concept. The idea is to group multiple HTTP requests into a single HTTP call. It basically defines a way to represent a complete HTTP request (headers and all) as a section in a single HTTP POST body.
+- 切换路由后会把上个路由状态生成的html全部销毁掉，再切回来恢复不到原来的样子。
+- 客户端渲染和服务端渲染，哪个快？
+- Batching HTTP Requests to Improve Performance
 
 ## form相关：
 
@@ -804,6 +798,8 @@ The server-side code mainly does model manipulation and notifications, and so ha
 1. form 同步上传 (使浏览器不刷新的做法: form target 指向隐藏的 iframe, 服务端 action 返回`window.top.window['callback'](data)`)
 2. XMLHttpRequest 2 支持真正异步上传, form enctype 属性为 multipart/form-data , 构造 FormData 对象.
 3. 使用 fetch + FormData 上传文件时、不能设置 headers 的 Content-Type (或设置为 undefined)，浏览器会自动设置为合适值 (比如 Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryIn312MOjBWdkffIM)，参考<https://stackoverflow.com/a/39281156/2190503> 和<https://stanko.github.io/uploading-files-using-fetch-multipart-form-data/>
+4. 用通常的 http://localhost:8000/ 访问服务端上传文件的接口时，会报出 跨域 错误，而用 127.0.0.1 或其他绑定的 host 都没问题，为什么？
+5. 服务端需要设置“松散的 ctoken 检测”?
 
 - [jquery file upload 后台收到 filename 中文乱码](http://blog.csdn.net/zhouyingge1104/article/details/38322403)
 - [在文件对象上如何附加其他 input 的字段？](https://github.com/blueimp/jQuery-File-Upload/wiki/How-to-submit-additional-Form-Data#adding-additional-form-data-programmatically)
