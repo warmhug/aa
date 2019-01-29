@@ -56,30 +56,14 @@ git merge upstream/master  # 合并进来
 git pull --rebase origin master  # 在开发分支上 rebase 主分支.
 git rebase --continue
 git rebase --abort
-git rebase -i  # 重写历史，可以再用 git reflog 撤销到指定 commit
-
-git rebase -i [commit_id 16f8929]  # 修改 16f8929 之后的提交历史
 
 # merge 和 rebase 的问题：
 #- 如果用 rebase ，需要经常 reapply 其他提交的改动， commit 的时间顺序也会乱掉。
 #- 如果用最直接的 merge ，会产生重复无用的比如 Merge pull request pull_id from xx_branch 或者 Merge branch “branch_name” 信息，不利于 review 提交记录。
 
-# 修改提交信息  https://help.github.com/articles/changing-a-commit-message/
-git commit --amend  # 修改 most recently commit
-git push --force  # 强制提交 most recently pushed commit
-
-# cherry-pick
-git checkout develop   # 切换到 dev 分支，也可以新建个 feature 分支
-git cherry-pick 62ecb3 # pick 到 develop 上，一般用于将 bugfix commit pick 到不同版本上
-
-# remote
-git remote add origin git@xxx.git    # 加入服务器
-git remote -v  # 列出现有的远程地址
-git remote set-url origin xxx  # 改变远程地址为xxx
-
 # 回退恢复：
 
-#### working tree (add之前，原始状态)
+## working tree (add之前，原始状态)
 use "git checkout -- <file>..." to discard changes in working directory
 git checkout .
 
@@ -88,19 +72,32 @@ git clean -xdf # 删除所有 .gitignore 里指定的文件或目录，包括新
 git clean -f  # 删除 untracked files（即远程仓库没有这个文件，新加的文件）
 git clean -f -n
 
-#### index 内的回滚 (add后 commit之前，暂存区)
+## index 内的回滚 (add后 commit之前，暂存区)
 git reset file
 git reset HEAD^    # 回退所有内容到上一个版本
 git reset HEAD^ a.py    # 回退 a.py 这个文件的版本到上一个版本  
 git reset 057d    # 回退到某个版本  
 
-#### commit 之后的回滚
+## commit 之后的回滚
 git reset --soft HEAD^   # 撤销 commit # --soft 不修改本地文件
 git reset --hard 057d    # 回退到某个版本 # --hard 本地的文件修改都被丢弃
 git reset --hard origin/master   # 将本地的状态回退到和远程的一样
 
 git checkout HEAD~1 -- file   # 运行 git merge xx 后，想撤销其中某个文件的 merge
 git reflog   # 生成某个串，例如 98abc5a 再 git reset --hard 98abc5a
+
+## 删除具体某个 commit
+git log   # 找到要删除的 commit 之前一个 commit_id
+git rebase -i [commit_id]  # 将列出的需要删除的 commit_id 前的 pick 改为 drop (vi操作：方向键 + i + drop + :wq)
+git push -f  # 强制提交
+
+## 增加某个 commit 方法 cherry-pick
+git checkout develop   # 切换到 dev 分支，也可以新建个 feature 分支
+git cherry-pick 62ecb3 # pick 到 develop 上，一般用于将 bugfix commit pick 到不同版本上
+
+# 修改提交信息  https://help.github.com/articles/changing-a-commit-message/
+git commit --amend  # 修改 most recently commit
+git push --force  # 强制提交 most recently pushed commit
 
 ## git head caret tilde 区别 https://scarletsky.github.io/2016/12/29/tilde-and-caret-in-git/
 
@@ -110,6 +107,11 @@ git stash pop               # 恢复上次未提交的修改
 git stash list              # 列出各个 stash 版本  
 git stash apply stash@{1}   # 恢复到某个stash版本
 git stash clear / drop <stash@{n}>     # 清除所有或某个stash版本
+
+# remote
+git remote add origin git@xxx.git    # 加入服务器
+git remote -v  # 列出现有的远程地址
+git remote set-url origin xxx  # 改变远程地址为 xxx
 
 # submodule
 > [submodules 基础操作](http://linlexus.com/git-submodule-usage/)
