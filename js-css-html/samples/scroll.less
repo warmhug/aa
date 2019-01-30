@@ -26,6 +26,19 @@ body {
       padding: 7px 0;
       line-height: 1.5;
       border-bottom: 1px solid #ddd;
+      &.active {
+        padding-right: 40px;
+        position: relative;
+        &:after {
+          content: '✅';
+          display: block;
+          height: 24px;
+          width: 24px;
+          position: absolute;
+          top: 24%;
+          right: 5px;
+        }
+      }
     }
   }
   .footer {

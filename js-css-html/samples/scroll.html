@@ -12,38 +12,59 @@
     <div class="header">
       <img src="https://dummyimage.com/750x300/eee/f0f" alt="" />
     </div>
-    <ul class="list">
-      <li>
+    <ul id="J_list" class="list">
+      <li class="J_listitem active">
         使用 <a href="https://github.com/less/less-plugin-autoprefix">https://github.com/less/less-plugin-autoprefix</a> 工具来给 less 文件自动添加 prefix 来兼容浏览器！
         命令是 <code>lessc scroll1.less --autoprefix="iOS > 7, android > 4"</code>
       </li>
-      <li>你好哒哒哒哒哒哒多多多多多多多多多多多多多多多多多哒哒哒哒哒哒多多</li>
-      <li>测试</li>
-      <li>测试</li>
-      <li>擦擦擦</li>
-      <li>实施上</li>
-      <li>ddd</li>
-      <li>代理</li>
-      <li>水电费大幅度</li>
-      <li>测试</li>
-      <li>测试</li>
-      <li>擦擦擦</li>
-      <li>实施上</li>
-      <li>ddd</li>
-      <li>代理</li>
-      <li>水电费大幅度</li>
-      <li>测试</li>
-      <li>测试</li>
-      <li>擦擦擦</li>
-      <li>实施上</li>
-      <li>ddd</li>
-      <li>代理</li>
-      <li>水电费大幅度</li>
+      <li class="J_listitem active active active aaa">
+        <span><div><b>测试 parentNode</b></div></span>
+        你好哒哒哒哒哒哒多多多多多多多多多多多多多多多多多哒哒哒哒哒哒多多
+      </li>
+      <li class="J_listitem">测试<br>测试<br>测试<br>测试<br>测试<br>测试<br>测试<br>测试<br>测试<br></li>
+      <li class="J_listitem">测试<br>测试<br>测试<br>测试<br>测试<br>测试<br>测试<br></li>
     </ul>
     <div class="footer">
       <button class="button button-primary" type="submit">确认</button>
       <button class="button">取消</button>
     </div>
   </div>
+  <script>
+    var listContainer = document.getElementById('J_list');
+    function getTarget(node) {
+      var isTarget = function(ele) {
+        return ele.tagName.toLocaleLowerCase() === 'li' && ele.className.indexOf('J_listitem') > -1;
+      }
+      if (isTarget(node)) {
+        return node;
+      }
+      do {
+        node = node.parentNode;
+      } while(!isTarget(node));
+      return node;
+    }
+    function removeClass(ele, cls) {
+      var clsArr = ele.className.split(' ');
+      for (var index = 0; index < clsArr.length; index++) {
+        var cl = clsArr[index];
+        if (cl === cls) {
+          clsArr.splice(index--, 1);
+        }
+      }
+      ele.className = clsArr.join(' ');
+      return ele;
+    }
+    listContainer.addEventListener('click', function(ev) {
+      var ele = ev.target || ev.srcElement;
+      ele = ele !== this && getTarget(ele);
+      var items = Array.prototype.slice.call(this.getElementsByClassName('J_listitem'))
+      for (var index = 0; index < items.length; index++) {
+        removeClass(items[index], 'active');
+      }
+      if (ele) {
+        ele.className = ele.className + ' active';
+      }
+    });
+  </script>
 </body>
 </html>

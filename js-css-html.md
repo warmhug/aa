@@ -16,6 +16,7 @@
 - [富文本编辑器 braft-editor](https://github.com/margox/braft-editor)
 - [Javascript-WYSIWYG-editors](https://github.com/cheeaun/mooeditable/wiki/Javascript-WYSIWYG-editors)
 
+[WebAssembly](https://web.autocad.com/)
 [Web 前端中的增强现实（AR）开发技术](https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html)、
 [Chrome Experiments](https://experiments.withgoogle.com/collection/chrome)、
 [Chrome Platform Status](https://www.chromestatus.com/features)、
