@@ -9,9 +9,25 @@ body {
   height: 100%;
   display: flex;
   flex-flow: column;
-  .header img {
-    min-height: 50px;
-    width: 100%;
+  .header {
+    position: relative;
+    .bg {
+      height: 286px;
+      background: url(https://os.alipayobjects.com/rmsportal/gFZgnqBVsKOSeBc.png) no-repeat center 30%;
+      background-size: 50%;
+    }
+    .des {
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      padding: 0 10px 10px;
+      .title {
+        font-size: 20px;
+      }
+      .brief {
+        color: gray;
+      }
+    }
   }
   .list {
     flex: 1 1 auto;
