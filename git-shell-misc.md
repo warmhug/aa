@@ -96,7 +96,7 @@ git checkout develop   # 切换到 dev 分支，也可以新建个 feature 分�
 git cherry-pick 62ecb3 # pick 到 develop 上，一般用于将 bugfix commit pick 到不同版本上
 
 # 修改提交信息  https://help.github.com/articles/changing-a-commit-message/
-git commit --amend  # 修改 most recently commit
+git commit --amend  # 修改 most recently commit 比如加 --reset-author
 git push --force  # 强制提交 most recently pushed commit
 
 ## git head caret tilde 区别 https://scarletsky.github.io/2016/12/29/tilde-and-caret-in-git/
