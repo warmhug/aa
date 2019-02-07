@@ -26,7 +26,7 @@
 - 截图、gif录屏: lightshot (snip jietu(qq) Skitch) / kap (licecap gifify)
 - 影音: Movist / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / Media-Info / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / XnConvert(免费任务式图像处理软件) / [Enounce MySpeed](http://www.enounce.com/myspeed-mac-download-trial) 加减速网页 flash 播放速度，注意 [需要专门的 卸载工具](http://www.enounce.com/faqs-myspeed#uninstall)。
 
-> [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [查看某个 app 的更新频率](https://www.applyzer.com/)  
+> [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)  
 > 查看 iOS app URL scheme: 用 PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。
 > Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
 
