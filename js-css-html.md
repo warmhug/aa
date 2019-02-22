@@ -32,6 +32,7 @@
 <https://tushuo.baidu.com/> /
 <https://github.com/STRML/react-grid-layout> / [amcharts](http://www.amcharts.com/demos/)
 <https://github.com/nfl/react-helmet>
+<https://www.processon.com/>
 
 - [front-end-application-frameworks-component-architectures](http://developer.telerik.com/featured/front-end-application-frameworks-component-architectures/)
 - [一个对前端模板技术的全面总结](http://www.html-js.com/article/2313)
@@ -40,6 +41,7 @@
 
 UI 库 & design
 
+[primereact](https://www.primefaces.org/primereact/#/)、
 [material-design](https://material.io/design/introduction/)、
 [material-design-lite](https://github.com/google/material-design-lite)、
 [fineui](http://fineui.com/)、[amazeui](http://amazeui.org/)、[miniui](http://www.miniui.com/)
@@ -270,6 +272,8 @@ console.log(Math.sqrt(Math.pow(640, 2) + Math.pow(960, 2)) / 3.5) // iphone 4 pp
 
 ## node
 
+[Node.js multithreading](https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10)
+
 [egg 早期架构图](https://gw.alipayobjects.com/mdn/security_content/afts/img/A*M3XeTKo_eAUAAAAAAAAAAABjATonAQ/original)
 
 node module version example:
@@ -477,6 +481,8 @@ if (window.location != window.parent.location) {
 ## react
 
 [React Fiber 是什么](https://zhuanlan.zhihu.com/p/26027085)、
+[The how and why on React’s usage of linked list in Fiber to walk the component’s tree](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7)、
+[Inside Fiber: in-depth overview of the new reconciliation algorithm in React](https://medium.com/react-in-depth/inside-fiber-in-depth-overview-of-the-new-reconciliation-algorithm-in-react-e1c04700ef6e)、
 [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
 生命周期 图示 dia­gram :

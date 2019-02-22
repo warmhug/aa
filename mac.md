@@ -21,7 +21,7 @@
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置
 
-- AppCleaner / MacDown / Marp / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / Unarchiver / Gas Mask / Acrobat (编辑 pdf 文件) / charles / iStat-Menus / PlantUML / Spectacle / Smoothscroll / FileZilla / androidfiletransfer / meld / mindnode lite / Visual_Paradigm / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Sequel-pro / ngrok / axure RP(公司) / Dash / PP助手 / [OmniDiskSweeper](http://newping.cn/322)
+- AppCleaner / MacDown / Marp / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / Unarchiver / Gas Mask / Acrobat (编辑 pdf 文件) / charles / iStat-Menus / PlantUML / Spectacle / Smoothscroll / FileZilla / androidfiletransfer / meld / mindnode lite / Visual_Paradigm / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Sequel-pro / ngrok / axure RP(公司) / Dash / PP助手 / [OmniDiskSweeper](http://newping.cn/322) / Sloth
 
 - 截图、gif录屏: lightshot (snip jietu(qq) Skitch) / kap (licecap gifify)
 - 影音: Movist / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / Media-Info / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / XnConvert(免费任务式图像处理软件) / [Enounce MySpeed](http://www.enounce.com/myspeed-mac-download-trial) 加减速网页 flash 播放速度，注意 [需要专门的 卸载工具](http://www.enounce.com/faqs-myspeed#uninstall)。

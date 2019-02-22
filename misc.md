@@ -1,6 +1,7 @@
 
 # misc
 
+[SaaS（科技）行业导航](http://www.allsaas.cn/)
 SaaS 平台：[氚云](https://h3yun.com/index.php?g=Chuanyun&m=Scene&a=index)、[搭搭云](https://www.dadayun.cn/)
 
 S.O.L.I.D 原则：
@@ -301,6 +302,8 @@ g++ file.cc file1.cc
 # 架构
 
 ## 云计算
+
+[Serverless：云时代的软件架构核心思想](https://www.atatech.org/articles/131723)
 
 BaaS、FaaS、Serverless:
 BaaS后端即服务 - 概念篇 <https://yq.aliyun.com/articles/8521>

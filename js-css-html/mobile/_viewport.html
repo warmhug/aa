@@ -35,15 +35,18 @@
   <!-- <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"></script> -->
 
   <!-- Alipay 高清脚本 -->
-  <!--
+  <!-- 
+    vl模式; 不带viewport缩放, 用rem兼容了vw的单位, 用px做flex适配, 0.5px的单位做高清!
+    vl是iOS上最完美的适配, 既能flex, 又能vw, 又能高清. 缺点是安卓完全不支持高清!
   <script src="https://as.alipayobjects.com/g/animajs/anima-hd/4.1.1/vl.js"></script>
   <script>vl(100, 750);</script> 
   -->
-  <!--
+  <!-- vw 模式 是最简单的, 全部自动拉伸, 做页面无视屏幕适配，适合活动页开发。
   <script src="https://as.alipayobjects.com/g/animajs/anima-hd/4.1.1/vw.js"></script>
   <script>vw(100, 750);</script> 
   -->
-  <!--
+  <!-- flex 模式，高清兼容好. 安卓UC内核也兼容，当下项目开发最佳的选择。
+    antd-mobile@1 采用此方案。https://1x.mobile.ant.design/kitchen-sink/?lang=en-US
   <script src="https://gw.alipayobjects.com/os/rmsportal/wvyABECOyfFcFuGWjLLA.js"></script>
   -->
   <!--
