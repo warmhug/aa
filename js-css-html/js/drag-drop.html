@@ -55,22 +55,13 @@
     <a href="http://html5demos.com/drag">demo（支持ie8）</a> 、
     <a href="https://msdn.microsoft.com/library/hh673539(v=vs.85).aspx">ie兼容性</a>
   </li>
-  <li>
-    <pre>
-      使用 drag-drop API的优势（相对于用mousedown/mousemove模拟）：
-      - 如果拖动元素所在的容器尺寸小，拖动过程产生滚动条、会自动触发滚动条移动。
-      - 不用再clone出一个要拖动的元素；不用计算涉及到的元素的位置和尺寸。
-    </pre>
-  </li>
 </ul>
-
-<p>
-  <strong>Note:</strong>
-  drag events are not supported in Internet Explorer 8 and earlier versions or
-  Safari 5.1 and earlier versions.
-</p>
-<p>Drag the p element back and forth between the two rectangles:</p>
-
+<pre>
+  drag 事件 不支持 ie8、Safari 5.1
+  使用 drag-drop API的优势（相对于用mousedown/mousemove模拟）：
+  - 如果拖动元素所在的容器尺寸小，拖动过程产生滚动条、会自动触发滚动条移动。
+  - 不用再clone出一个要拖动的元素；不用计算涉及到的元素的位置和尺寸。
+</pre>
 <div class="droptarget">
   <a href="#" draggable="true" id="dragtarget">
     Drag me!

@@ -39,6 +39,8 @@
 - [Web Components - building blocks of the future web](https://www.infinum.co/the-capsized-eight/articles/web-components-building-blocks-of-the-future-web)
 - [开源前端框架纵横谈](http://www.csdn.net/article/2013-04-15/2814893)
 
+浏览器检测：[ua检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)
+
 UI 库 & design
 
 [primereact](https://www.primefaces.org/primereact/#/)、
@@ -145,7 +147,29 @@ be aware that although JavaScript engines continue to get faster, the next real 
 
 ## H5
 
-[intersectionobserver](https://developers.google.com/web/updates/2016/04/intersectionobserver)
+- [在做 iOS 和 Android 的 HTML5 开发时，你都掉到过哪些坑里？](https://www.zhihu.com/question/34556725)
+- [intersectionobserver](https://developers.google.com/web/updates/2016/04/intersectionobserver)
+- [`passive: false`](https://github.com/react-component/m-pull-to-refresh/commit/96474e3a6f9af544b9ad87fe4b7211b274ad1027)
+
+### PWA / amp / Service Worker
+
+移动 web 体验不太好，开发速度快、一般用来给 app 引流拉新用户，而 native app 体验好、开发速度慢，用来保活。
+希望用 pwa + amp 来提升 webapp 体验。[渐进增强的 Web 体验（Progressive Web AMP）](https://zhuanlan.zhihu.com/p/24749809)，[ppt1](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*ggnRRYNZjacAAAAAAAAAAABjARQnAQ)、[ppt2](https://gw.alipayobjects.com/mdn/security_content/afts/img/A*OIPXTaVg9kkAAAAAAAAAAABjARQnAQ)、[ppt3](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*lghFTIKjO-sAAAAAAAAAAABjARQnAQ)、[ppt4](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*bCcKSpjP6WAAAAAAAAAAAABjARQnAQ)。
+
+- [amp](https://www.ampproject.org/)
+- [How AMP achieves its speed - Google I/O 2016](https://www.youtube.com/watch?v=cfekj564rs0)
+- [pwa](https://developers.google.com/web/progressive-web-apps/)
+- [pwabuilder](http://www.pwabuilder.com/)
+
+- [ServiceWorker](https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorker)、
+[Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache)
+- [chrome://serviceworker-internals/](chrome://serviceworker-internals/) / [chrome://inspect/#service-workers](chrome://inspect/#service-workers)
+
+- Service Worker 需要运行于 HTTPS 或本地 localhost 环境，是继 Web Worker 后又一个新的线程。来实现离线页面功能。
+- Service Worker 是独立于页面的一个运行环境，它在页面关闭后仍可以运行。Web Worker 在页面关闭后不再运行。
+- Service Worder 在安装（install）和激活(activate)后，关闭网络再次打开页面，资源的获取途径是“from ServiceWorker”
+
+### Touch 应用
 
 - 手势 & 模拟 scroll & list & pullToRefresh & pullToLoadMore
   - https://github.com/Lucifier129/pull-element
@@ -159,17 +183,11 @@ be aware that although JavaScript engines continue to get faster, the next real 
 - 基于 vue 的 饿了么 picker https://github.com/ElemeFE/mint-ui/blob/28abcb96cd6f85fae0863b36ef8a24cacf7f721e/packages/picker/src/picker.vue 
 后三个压缩后体积都在 10k 左右，并且源码比较清晰无复杂依赖，没有多余代码。
 
-[在做 iOS 和 Android 的 HTML5 开发时，你都掉到过哪些坑里？](https://www.zhihu.com/question/34556725)
+### Touch 事件兼容问题
 
-开启 Charles 代理，需要把其他代理软件关掉、像 ShadowSocks 要关掉、浏览器也不能有代理插件如 switchyomega 开着.
-<https://github.com/ant-design/ant-design-mobile/issues/614>
-
-```html
-<!-- label 兼容性问题 -->
-<label><input type="checkbox" />点击我 input 能被选中</label>
-<label><input type="checkbox" /><span>点击我 input 不能被选中，因为有 span 包括</span></label>
-此问题出现在包括 iOS 10 在内的大多数手机系统里；另外部分手机会出现点击选中延迟感严重的问题
-```
+- 在 Android 上 Touchmove 只触发一次，解决：阻止默认事件，在start或move时，执行一次 e.preventDefault()
+- 在 Android 上 页面滚动时，PageX/Y 并不包含滚动，需附加 scrollLeft/Top 修正
+- 在 Android 上 在 a 标签上，move后不触发 touchend 事件，a 标签的 href 属性从`javascript:void(0)`改为`javascript:;`
 
 ### Touch事件穿透问题 (Ghost Clicks)
 
@@ -185,14 +203,6 @@ touch 事件在手机浏览器中的穿透问题，并不是由冒泡引起的�
 最好使用 Fastclick 处理 click 事件，能同时解决 300ms 延迟和点击穿透问题（[Fastclick如何解决穿透事件](http://www.cnblogs.com/yexiaochai/p/3442220.html)）。
 
 > Fastclick 通过在 touchend 触发时，自己创建一个 click 事件并手动触发，替代了用户的 click 事件。
-
-### Touch 事件兼容问题
-
-- 在 Android 上 Touchmove 只触发一次，解决：阻止默认事件，在start或move时，执行一次 e.preventDefault()
-- 在 Android 上 页面滚动时，PageX/Y 并不包含滚动，需附加 scrollLeft/Top 修正
-- 在 Android 上 在 a 标签上，move后不触发 touchend 事件，a 标签的 href 属性从`javascript:void(0)`改为`javascript:;`
-
-[`passive: false`](https://github.com/react-component/m-pull-to-refresh/commit/96474e3a6f9af544b9ad87fe4b7211b274ad1027)
 
 ### 屏幕尺寸
 
@@ -260,6 +270,16 @@ console.log(Math.sqrt(Math.pow(640, 2) + Math.pow(960, 2)) / 3.5) // iphone 4 pp
 
 - <https://github.com/kisenka/svg-sprite-loader/issues/53> 去掉 svg file 里的 mask
 - 或者 改变默认样式设置 <https://github.com/kisenka/svg-sprite-loader/issues/59> `visibility:hidden`改为`display:none`
+
+开启 Charles 代理，需要把其他代理软件关掉、像 ShadowSocks 要关掉、浏览器也不能有代理插件如 switchyomega 开着.
+<https://github.com/ant-design/ant-design-mobile/issues/614>
+
+```html
+<!-- label 兼容性问题 -->
+<label><input type="checkbox" />点击我 input 能被选中</label>
+<label><input type="checkbox" /><span>点击我 input 不能被选中，因为有 span 包括</span></label>
+此问题出现在包括 iOS 10 在内的大多数手机系统里；另外部分手机会出现点击选中延迟感严重的问题
+```
 
 ```css
 /* transform 闪动问题：*/
@@ -409,6 +429,8 @@ All elements that are `position: absolute;` are automatically treated as `displa
 但当引用了 JS 的时候，浏览器发送 1 个 js request 就会一直等待该 request 的返回。因为浏览器需要 1 个稳定的 DOM 树结构，而 JS 中很有可能有代码直接改变了 DOM 树结构，浏览器为了防止出现 JS 修改 DOM 树，需要重新构建 DOM 树的情况，所以就会阻塞其他的下载和呈现。
 
 结论：在 head 里面尽量不要引入 javascript，如果要引入 js 尽量将 js 内嵌，把内嵌 js 放在所有 css 的前面 (否则会打断 css 或图片的并行下载)。
+
+- [JavaScript Loading Priorities in Chrome](https://addyosmani.com/blog/script-priorities/)
 
 - [浏览器如何渲染文本](http://blog.jjgod.org/2011/04/09/how-do-browsers-render-text/)
 - [等宽字体（Monospaced Font）](http://zh.wikipedia.org/wiki/%E7%AD%89%E5%AE%BD%E5%AD%97%E4%BD%93)
