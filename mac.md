@@ -21,14 +21,13 @@
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置
 
-- AppCleaner / MacDown / Marp / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / Unarchiver / Gas Mask / Acrobat (编辑 pdf 文件) / charles / iStat-Menus / PlantUML / Spectacle / Smoothscroll / FileZilla / androidfiletransfer / meld / mindnode lite / Visual_Paradigm / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Sequel-pro / ngrok / axure RP(公司) / Dash / PP助手 / [OmniDiskSweeper](http://newping.cn/322) / Sloth
+- lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / AppCleaner / MacDown / Marp / Unarchiver / Gas Mask / charles / iStat-Menus / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / Acrobat (编辑 pdf 文件) / PlantUML / Movist / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / XnConvert(免费任务式图像处理软件) / Spectacle / Smoothscroll / FileZilla / androidfiletransfer / meld / mindnode lite / Visual_Paradigm / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Sequel-pro / ngrok / axure RP(公司) / Dash / PP助手 / [OmniDiskSweeper](http://newping.cn/322) / Sloth
 
-- 截图、gif录屏: lightshot (snip jietu(qq) Skitch) / kap (licecap gifify)
-- 影音: Movist / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / Media-Info / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / XnConvert(免费任务式图像处理软件) / [Enounce MySpeed](http://www.enounce.com/myspeed-mac-download-trial) 加减速网页 flash 播放速度，注意 [需要专门的 卸载工具](http://www.enounce.com/faqs-myspeed#uninstall)。
-
+> [生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 > [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)  
 > 查看 iOS app URL scheme: 用 PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。
 > Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
+> [Enounce MySpeed](http://www.enounce.com/myspeed-mac-download-trial) 加减速网页 flash 播放速度，注意 [需要专门的 卸载工具](http://www.enounce.com/faqs-myspeed#uninstall)。
 
 ---------
 
