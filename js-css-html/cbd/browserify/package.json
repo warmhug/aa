@@ -1,0 +1,12 @@
+{
+  "name": "simple",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify main.js -o ./dist/bundle.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "reqwest": "^2.0.5"
+  }
+}
