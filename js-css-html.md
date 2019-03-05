@@ -507,6 +507,8 @@ if (window.location != window.parent.location) {
 [Inside Fiber: in-depth overview of the new reconciliation algorithm in React](https://medium.com/react-in-depth/inside-fiber-in-depth-overview-of-the-new-reconciliation-algorithm-in-react-e1c04700ef6e)、
 [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
+[react isMounted 内存泄漏](https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html)：Flux Redux 将整个 app 的状态储存在所有组件最外层，避免了组件的销毁影响整个 app 的 state。
+
 生命周期 图示 dia­gram :
 ![https://tylermcginnis.com/an-introduction-to-life-cycle-events-in-react-js/](https://gw.alipayobjects.com/zos/rmsportal/KMqUOATjGIAemLuRLNWF.png)  
 ![http://www.cnblogs.com/twobin/p/4949888.html](https://gw.alipayobjects.com/zos/rmsportal/JRAlcAXhcdkagRIirtUP.jpg)
@@ -517,6 +519,28 @@ if (window.location != window.parent.location) {
   - [state-updates-may-be-asynchronous](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous) / [示例](https://stackoverflow.com/a/45249445/2190503)
 - setState 引起不必要的 render
 - setState 不能覆盖所有的组件状态（像生命周期的钩子、timers、events）
+
+### [PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
+
+相比使用 Component 多了以下代码，避免了 props 和 state 不变时组件的重新渲染（即 render 函数不会执行、也就不会触发 react 内部的 virtual DOM diff、节约了计算）。
+
+```js
+shouldComponentUpdate(nextProps, nextState) {
+  return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
+}
+```
+
+- 父组件是 pure component，子组件也需要是 pure component。因为父组件的 state 和 props 保持不变时是不会重新渲染的，子组件也就不会重新渲染了。
+- 除非碰到了性能问题，不然不要用 PureComponent。遇到性能问题，也可以通过自己定制 shouldComponentUpdate 来控制。
+- 如果预期到某个组件的 props 或是 state 会「频繁变动」，那就不用使用 PureComponent，因为这样反而会变慢。示例：
+
+  ```js
+  render() {
+    // 每次传入的 style 都是一个新对象，Post 组件每次都需要 rerender，
+    // 不需要使用 PureComponent 会再多一次 props 和 state 的对比。
+    return <Post item={item} style={{ 'width': 120 }} />;
+  }
+  ```
 
 ### diff & key
 
@@ -548,7 +572,7 @@ HOC 的缺点：
 - Like any solution, higher-order components have their own pitfalls. For example, if you heavily use refs, you might notice that wrapping something into a higher-order component changes the ref to point to the wrapping component. In practice we discourage using refs for component communication so we don’t think it’s a big issue. In the future, we might consider adding ref forwarding to React to solve this annoyance.
 - [HOC 里的实际的 Component 名字被覆盖掉，导致多层组件嵌套难以识别](https://github.com/ant-design/ant-design-mobile/blob/0.9.12/components/_util/touchableFeedback.tsx#L10)
 
-### 处理children
+### 处理 children
 
 需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，
 而不要用`Array.isArray(children) / children.forEach`等方法。
@@ -563,6 +587,50 @@ HOC 的缺点：
 ```
 
 而自己写的`Array.isArray`等如果不递归解析、就会把上段代码解析错误。
+
+## 函数式编程
+
+- [函数式编程](http://coolshell.cn/articles/10822.html)
+- [函数式编程有哪些优点？](http://www.nowamagic.net/academy/detail/1220540)
+- [函数式编程扫盲篇](http://www.cnblogs.com/kym/archive/2011/03/07/1976519.html)
+- [函数式编程初探](http://www.ruanyifeng.com/blog/2012/04/functional_programming.html)
+- [introduction-functional-javascript](http://www.sitepoint.com/introduction-functional-javascript/)
+- [Functional Programming in Javascript === Garbage](http://awardwinningfjords.com/2014/04/21/functional-programming-in-javascript-equals-garbage.html)
+- [使用JavaScript实现“真·函数式编程”](http://jimliu.net/2015/10/21/real-functional-programming-in-javascript-1/)
+
+对象是面向对象的第一型，那么函数式编程也是一样，函数是函数式编程的第一型。
+
+在纯粹函数式程式语言中，你不是像命令式语言那样命令电脑「要做什么」，而是通过用函数来描述出问题「是什么」。
+递回在 Haskell 中非常重要。命令式语言要求你提供求解的步骤，Haskell 则倾向于让你提供问题的描述。
+这便是 Haskell 没有 while 或 for 循环的原因，递回是我们的替代方案。
+
+在面向对象编程中，我们把对象传来传去，那在函数式编程中，我们要做的是把函数传来传去，我们把他叫做 **高阶函数**
+在函数式编程中，函数是基本单位，是第一型，他几乎被用作一切，包括最简单的计算，甚至连变量都被计算所取代。
+在函数式编程中，变量只是一个名称，而不是一个存储单元，这是函数式编程与传统的命令式编程最典型的不同之处。
+
+### Persistent data structure
+
+Immutable data structures：当一个对象被创建之后、就永远不会变了，如果需要改变、就只能创一个新的。
+
+```js
+const obj = { text: 'hello' };
+obj.text = 'world' // 这样不行，因为改变了 obj 这个对象
+const newObj = { ...obj, text: 'world' }; // 必须要创建一个新对象
+```
+
+- [Immutability in JavaScript](http://www.sitepoint.com/immutability-javascript/)
+- [Persistent_data_structure](https://en.wikipedia.org/wiki/Persistent_data_structure)
+
+> fb出品的 [immutable-js](http://facebook.github.io/immutable-js/) 提供了 Immutable 的 List, Stack, Map 等数据结构，为了实现不可变性，最直接的做法可能是直接拷贝对象，但因为效率太低不可行，而是利用了 structural sharing，
+这样就可以最小化的拷贝对象的一部分。拷贝的是哪一部分呢？如图：
+
+[wiki 图示](https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Purely_functional_tree_after.svg/876px-Purely_functional_tree_after.svg.png)
+
+这样嵌套的深层对象，只需拷贝f、g、d这一个链，其他的结构共享，这样创建了一个新对象，
+就达到了 immutable 的目的，而且效率和内存占用都比较合理。但注意一个问题[Circular references](https://github.com/facebook/immutable-js/issues/259)，这个问题在 Haskell 等语言中在语言层面被解决了，
+但在js中似乎难以解决。[详解视频](https://www.youtube.com/watch?v=I7IdS-PbEgI)
+
+> Structural sharing is a powerful concept, and is what enables Clojure persistent data structures to achieve O(log n) performance on operations that would otherwise require full O(n) copies of a data structure.
 
 ## redux
 
@@ -948,52 +1016,3 @@ window.addEventListener('message', function(event){
   }
 }, false);
 ```
-
-## 函数式编程
-
-- [函数式编程](http://coolshell.cn/articles/10822.html)
-- [函数式编程有哪些优点？](http://www.nowamagic.net/academy/detail/1220540)
-- [函数式编程扫盲篇](http://www.cnblogs.com/kym/archive/2011/03/07/1976519.html)
-- [函数式编程初探](http://www.ruanyifeng.com/blog/2012/04/functional_programming.html)
-- [introduction-functional-javascript](http://www.sitepoint.com/introduction-functional-javascript/)
-- [Functional Programming in Javascript === Garbage](http://awardwinningfjords.com/2014/04/21/functional-programming-in-javascript-equals-garbage.html)
-- [使用JavaScript实现“真·函数式编程”](http://jimliu.net/2015/10/21/real-functional-programming-in-javascript-1/)
-
-对象是面向对象的第一型，那么函数式编程也是一样，函数是函数式编程的第一型。
-
-在纯粹函数式程式语言中，你不是像命令式语言那样命令电脑「要做什么」，而是通过用函数来描述出问题「是什么」。
-递回在 Haskell 中非常重要。命令式语言要求你提供求解的步骤，Haskell 则倾向于让你提供问题的描述。
-这便是 Haskell 没有 while 或 for 循环的原因，递回是我们的替代方案。
-
-在面向对象编程中，我们把对象传来传去，那在函数式编程中，我们要做的是把函数传来传去，我们把他叫做 **高阶函数**
-
-在函数式编程中，函数是基本单位，是第一型，他几乎被用作一切，包括最简单的计算，甚至连变量都被计算所取代。
-在函数式编程中，变量只是一个名称，而不是一个存储单元，这是函数式编程与传统的命令式编程最典型的不同之处。
-
-### Persistent data structure
-
-- [Immutability in JavaScript](http://www.sitepoint.com/immutability-javascript/)
-- [Persistent_data_structure](https://en.wikipedia.org/wiki/Persistent_data_structure)
-
-> fb出品的 [immutable-js](http://facebook.github.io/immutable-js/) 提供了 Immutable 的 List, Stack, Map 等数据结构，
-为了实现不可变性，最直接的做法可能是直接拷贝对象，但因为效率太低不可行，而是利用了 structural sharing，
-这样就可以最小化的拷贝对象的一部分。拷贝的是哪一部分呢？如图：
-
-![wiki](https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Purely_functional_tree_after.svg/876px-Purely_functional_tree_after.svg.png)
-
-这样嵌套的深层对象，只需拷贝f、g、d这一个链，其他的结构共享，这样创建了一个新对象，
-就达到了 immutable 的目的，而且效率和内存占用都比较合理。但注意一个问题[Circular references](https://github.com/facebook/immutable-js/issues/259)，这个问题在 Haskell 等语言中在语言层面被解决了，
-但在js中似乎难以解决。[详解视频](https://www.youtube.com/watch?v=I7IdS-PbEgI)
-
-> Structural sharing is a powerful concept, and is what enables Clojure persistent data structures to achieve O(log n) performance on operations that would otherwise require full O(n) copies of a data structure.  It turns out that you can also achieve effective structural sharing of mutable data structures if they are structurally immutable. Effectively you get opportunity to realise the same O(log n) performance for operations that produce mutable views.
-
-应用实例：
-
-```html
-<list>
-  <item></item>
-  <item></item>
-</list>
-```
-
-item 由 list 的数据生成，由于 immutable 两者之后的 state 变化互不影响，但变化后两者数据状态需要同步。同步操作也是产生新的数据，似乎比较乱？

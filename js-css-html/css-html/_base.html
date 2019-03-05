@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet/less" type="text/css" href="./_base.less" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
   <title>css html 基础</title>
@@ -30,6 +29,15 @@
   </div>
   <div class="wrapper aspect2">
     <div class="text">Aspect ratio 计算结果不太精确</div>
+  </div>
+
+  <div class="wrapper">
+    <h2>document.scrollingElement 在桌面和移动浏览器的不同</h2>
+    <a href="https://www.zhangxinxu.com/wordpress/2019/02/document-scrollingelement/">ref</a>
+    <script>
+      alert(document.scrollingElement.tagName);
+      console.log(document.scrollingElement.tagName);
+    </script>
   </div>
 </body>
 </html>
