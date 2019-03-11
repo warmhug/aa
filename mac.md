@@ -12,6 +12,7 @@
 - finder 工具栏: 按下 `cmd + alt`，拖动 app 到工具栏。
 - 系统顶部菜单栏: 按住 `Command` 再拖动图标，改变右边图标顺序。
 - 文本替换: 系统偏好设置 -> 键盘 -> 文本，「command + A」全选、拖拽到 finder 会生成“用户词典.plist”的文件。
+- 外接显示器旋转：系统偏好设置 -> 显示器 -> 外接窗口 -> 旋转
 
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
 - iCloud 目录多出了“Keynote / Pages ...“等空目录，是为了引导你安装相应软件，安装完之后、可以在 ”系统偏好设置 -> iCloud -> iCloud Drive -> 选项“里去掉勾选相应项目，文件夹里的空目录自动会消失。
@@ -19,15 +20,25 @@
 ## 软件
 
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
-> 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置
+> 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置  
+> [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-- lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / AppCleaner / MacDown / Marp / Unarchiver / Gas Mask / charles / iStat-Menus / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / Acrobat (编辑 pdf 文件) / PlantUML / Movist / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / XnConvert(免费任务式图像处理软件) / Spectacle / Smoothscroll / FileZilla / androidfiletransfer / meld / mindnode lite / Visual_Paradigm / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Sequel-pro / ngrok / axure RP(公司) / Dash / PP助手 / [OmniDiskSweeper](http://newping.cn/322) / Sloth
+- lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / AppCleaner / MacDown / Marp / Unarchiver / Gas Mask / charles / iStat-Menus / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / Acrobat (编辑 pdf 文件) / PlantUML / Movist / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / XnConvert(免费任务式图像处理软件) / Spectacle / Smoothscroll / FileZilla / androidfiletransfer / meld / mindnode lite / Visual_Paradigm / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Sequel-pro / ngrok / axure RP(公司) / Dash / PP助手 / [OmniDiskSweeper](http://newping.cn/322) / Sloth / [Enounce MySpeed](http://www.enounce.com/myspeed-mac-download-trial) 加减速网页 flash 播放速度，注意需要专门的[卸载工具](http://www.enounce.com/faqs-myspeed#uninstall)
 
-> [生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
-> [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)  
-> 查看 iOS app URL scheme: 用 PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。
-> Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
-> [Enounce MySpeed](http://www.enounce.com/myspeed-mac-download-trial) 加减速网页 flash 播放速度，注意 [需要专门的 卸载工具](http://www.enounce.com/faqs-myspeed#uninstall)。
+### 手机软件
+
+> 查看 app URL scheme: 用 mac PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
+>
+> potatsoLite://  抖音 snssdk1128  小米 miwifi  智慧星 ihc  星巴克 sbuxcn
+拼多多 pinduoduo  每日英语听力 eudic-ting  美居 iOSWidgetApp  网易云音乐 orpheuswidget://song/id
+QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:%221460986%22%7D%5D%7D
+
+捷径 / api
+
+- [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
+- [中国天气网（网页插件型）](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=8&icon=5)
+  - [官方文档](http://www.tianqi.com/plugin/) c 获取方式，设置为"code"，表示获取代码。id 模板样式，建议设置为19。icon 图标样式，范围1-5。py 地方名全拼，默认为客户地方。num 预报天数。[示例](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=18)
+- 其他：[pm2.5](http://pm25.in/hangzhou)、[农历](https://www.sojson.com/open/api/lunar/json.shtml?date=2019-02-09)
 
 ---------
 

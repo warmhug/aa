@@ -71,7 +71,9 @@ UI 库 & design
 
 ## 调试
 
-[Chrome DevTools’ Workspaces、Redirect 和 Fiddler / Charles 的使用](https://aarontgrogg.com/blog/2015/03/24/how-to-replace-remote-files-with-local-files-when-debugging/)
+- [Chrome DevTools’ Workspaces、Redirect 和 Fiddler / Charles 的使用](https://aarontgrogg.com/blog/2015/03/24/how-to-replace-remote-files-with-local-files-when-debugging/)
+- [XSwitch](https://github.com/yize/xswitch) 原理是通过 chrome.webRequest API 来对请求进行劫持。
+  - 代理到本地的，推荐写 `127.0.0.1` 而不是 `localhost`。HTTPS 下的页面访问了 http://127.0.0.1 的资源，不会被安全策略拦截。
 
 ## es6
 
@@ -501,6 +503,8 @@ if (window.location != window.parent.location) {
 - [handlebars-vs-polymer-mdv](http://jsperf.com/handlebars-vs-polymer-mdv/14)
 
 ## react
+
+[react-typescript-cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet)
 
 [React Fiber 是什么](https://zhuanlan.zhihu.com/p/26027085)、
 [The how and why on React’s usage of linked list in Fiber to walk the component’s tree](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7)、
