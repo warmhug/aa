@@ -29,6 +29,8 @@
 - [高性能无尽列表（元素可回收）](https://github.com/bvaughn/react-virtualized)
 - [元素定位库](http://github.hubspot.com/tether/)
 
+[现在的前端框架全是通过API获得数据，如何记录用户登录状态？](https://www.zhihu.com/question/301253397/answer/547887208) ([user-authentication-with-jwt](http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/))
+
 <https://tushuo.baidu.com/> /
 <https://github.com/STRML/react-grid-layout> / [amcharts](http://www.amcharts.com/demos/)
 <https://github.com/nfl/react-helmet>
@@ -793,6 +795,8 @@ The former is Passive programming, while the latter is Reactive programming
 -- 总结，对于这种命令式 API , 最好是只传入简单字符串，如果传入复杂组件，组件自己维护状态、跟调用者的状态关系尽量少。
 
 ## 前端 MVC
+
+MVC 是一个流行的软件架构。可以从 Ruby on Rails 获得许多有关 MVC 的基本设计原则，将其引入并支持 node 的 MVC 设计。Express 已经采用了路由的概念（Rails 的基本原则），还需要分离的模型：视图和控制器。接下来，创建 controllers、model、views 目录等，将现有的每个路由的方法调用转换为单独的函数然后导出，等操作。MVC 架构使得代码看起来干净又简单，并且扩展性更好。
 
 - Model
   - model 里存放的是「需要持久化的数据」(DO, domain object)，而不是页面显示用的临时数据（VO, view object / ui state）。

@@ -301,6 +301,11 @@ g++ file.cc file1.cc
 
 # 架构
 
+uuid 全宇宙单独id。guid 一定范围内单独id，比 uuid 范围小。
+
+[正向代理与反向代理有什么区别](http://mp.weixin.qq.com/s/ikrI3rmSYs83wdSWqq2QIg)
+代理（proxy）是一种路由请求方式，将不同源的请求通过同一个服务器处理，原因可能有很多：缓存、安全，甚至是故意模糊请求的来源。有转发代理、反向代理等。反向代理用于控制请求如何被发送到服务器，例如现在有五个服务器，但有四个不希望有用户直接访问。因而将所有的请求转发到第五个服务器，然后再代理给其他服务器。反向代理也被用于平衡负载和通过缓存请求改进系统的整体表现。
+
 ## 云计算
 
 [Serverless：云时代的软件架构核心思想](https://www.atatech.org/articles/131723)
@@ -312,80 +317,35 @@ BaaS、FaaS、Serverless都是什么馅儿？ <https://yq.aliyun.com/articles/22
 LeanCloud 与阿里云到底有什么区别？ <https://blog.leancloud.cn/4645/>
 AWS Lambda: <https://aws.amazon.com/cn/lambda/>
 
-- 对业务开发团队来说，他们的开发能力更专注前端，交互，需要掌握的技术栈里就只需要javascript和Restful API就够了，他们可以更专注去理解业务模型和逻辑，快速构建业务系统，进行业务创新。
-- 而对于后端团队，将跟专注做平台和服务，后者需要他们将J2EE时代的开发架构，比如MVC， RPC等架构向微服务，EDA，CQRS等云时代的架构升级，更好的将系统复杂性解构，利用服务化来构建满足业务团队的需要。
+- 对业务开发团队来说，他们的开发能力更专注前端，交互，需要掌握的技术栈里就只需要javascript 和 Restful API 就够了，他们可以更专注去理解业务模型和逻辑，快速构建业务系统，进行业务创新。
+- 而对于后端团队，将跟专注做平台和服务，后者需要他们将 J2EE 时代的开发架构，比如 MVC， RPC等架构向微服务，EDA，CQRS等云时代的架构升级，更好的将系统复杂性解构，利用服务化来构建满足业务团队的需要。
 
-传统系统中，工程师最基本的能力也要让系统能做到“水平扩展”，即通过加机器能应对流量暴涨，但也要尽量节约机器成本。
-
-性能和扩展性
+传统系统中，工程师最基本的能力也要让系统能做到“水平扩展”，即通过加机器能应对流量暴涨，但也要尽量节约机器成本。性能和扩展性
 
 - 什么是性能问题？ 如果你的系统对于一个用户访问还很慢，那就是性能问题；
 - 什么是扩展性问题？ 如果你的系统对一个用户来说是快的，但是在用户不断增长的高访问量下就慢了。
 
-MapReduce 是一种分布式的程序设计模型，专门用来在集群里处理大量的数据。
-主要由两部分组成：mapper和reducer。mapper读取一部分数据，运算后输出成一系列的中间（intermediate）数据；
-而reducer将mapper的输出数据查核、合并，产生最后输出。
-
-许多语言都可以实现MapReduce，所以有很多不同的实现版本，除了Google自己的版本，还有许多开源的版本，
-例如Hadoop、GridGain等，最常被使用的就是Hadoop。Hadoop是以Java实现的，但是可以支持许多其他语言写成的mapper和reducer。
-
+MapReduce 是一种分布式的程序设计模型，专门用来在集群里处理大量的数据。主要由两部分组成：mapper 和 reducer。mapper 读取一部分数据，运算后输出成一系列的中间（intermediate）数据；而 reducer 将 mapper 的输出数据查核、合并，产生最后输出。最常被使用的就是Hadoop。Hadoop 是以 Java 实现的，但是可以支持许多其他语言写成的 mapper 和 reducer。
 Hadoop 是设计用来处理大量数据和运算的，所以如果只有少量数据时，就会比关系型数据库还要慢了。
 
-采用虚拟化技术可降低Linux使用硬件的成本，虚拟化技术有：VMWare / KVM / XEN / Microsoft Hyper-V 。
-如 CPU16核/内存24G/硬盘300G 的Linux服务器，可以“一虚三”、即虚拟出三个虚拟机来。
+采用虚拟化技术可降低 Linux 使用硬件的成本，虚拟化技术有：VMWare / KVM / XEN / Microsoft Hyper-V 。如 CPU16 核 / 内存 24G / 硬盘 300G 的 Linux 服务器，可以 “一虚三”、即虚拟出三个虚拟机来。
 
-## 各种
+### 微服务
 
-[现在的前端框架全是通过API获得数据，如何记录用户登录状态？](https://www.zhihu.com/question/301253397/answer/547887208)
-
-[正向代理与反向代理有什么区别](http://mp.weixin.qq.com/s/ikrI3rmSYs83wdSWqq2QIg)
-
-[微服务架构的几种模式](http://microservices.io/patterns/index.html)
-
+[微服务架构的几种模式](http://microservices.io/patterns/index.html)、
 [浅谈命令查询职责分离(CQRS)模式](http://www.cnblogs.com/yangecnu/p/Introduction-CQRS.html)、
-[DDD CQRS架构和传统架构的优缺点比较](http://www.cnblogs.com/netfocus/archive/2016/02/06/5184182.html)
+[DDD CQRS架构和传统架构的优缺点比较](http://www.cnblogs.com/netfocus/archive/2016/02/06/5184182.html)、
+什么是微服务架构：<https://os.alipayobjects.com/rmsportal/OzCkwPWAvRGwqXv.png>、
+[stateless-authentication-for-microservices](http://www.slideshare.net/alvarosanchezmariscal/stateless-authentication-for-microservices)
 
-什么是微服务架构：<https://os.alipayobjects.com/rmsportal/OzCkwPWAvRGwqXv.png>
+Matt 在对微服务的总体介绍中是这样说的：经过分离的组件可以各自拥有独立的生命周期，并且按需进行扩展。不仅如此，这种方式也打破了组件之间的技术依赖，这就允许每个服务各自选择最适合的技术进行实现。通过将较大的问题分解为几个较小的问题，让每个问题更易于进行分析，也更利于开发者选择最适合的解决方案。
 
-Matt在对微服务的总体介绍中是这样说的：经过分离的组件可以各自拥有独立的生命周期，并且按需进行扩展。
-不仅如此，这种方式也打破了组件之间的技术依赖，这就允许每个服务各自选择最适合的技术进行实现。
-通过将较大的问题分解为几个较小的问题，让每个问题更易于进行分析，也更利于开发者选择最适合的解决方案。
+soa 是 Service-Oriented Architecture 的首字母简称，面向服务架构。开发人员很容易理解为是一个 Web Service，但是这绝对不是 SOA，那顶多只能算是 SOA 的一种实现方法。
+微服务只是一种为经过良好架构设计的 SOA 解决方案、实现面向服务的交付方案。SOA 提供了上下文的框架，同时也提供了微服务所坚持的大部分规则。不仅如此，SOA 还提供了一种更宽泛的上下文，使微服务能够在复杂的企业中符合这些上下文。许多人在不断地抱怨 SOA 中的各种 WS-* 协议、ESB 的庞大以及各种极端复杂的项目，其实这只是面临的挑战不同而已。
 
-微服务与SOA之间是否存在关联？
+当前业界比较成熟的微服务框架有 Netflix 的 Karyon/Ribbon，Spring 的 Spring Boot/Cloud，阿里的 Dubbo 等。配置中心比较成熟的开源方案有百度的 Disconf，360 的 QConf，Spring 的 Cloud Config 和阿里的 Diamond 等。
 
-- 现如今，谈论SOA的各种不足似乎已经成为了一件很普遍的事。但如果你认真地观察，就会发现SOA的缺陷中的绝大部分与微服务是相同的，只是有关他们的案例更为具体一些。而两者的优势其实也大体相同，因为从本质上看，这两种技术所做的都是同一件事：将一个较大的问题分解为多个较小的问题。
-- 在我看来，微服务只是一种为经过良好架构设计的SOA解决方案实现的面向服务的交付方案。SOA提供了上下文的框架，同时也提供了微服务所坚持的大部分规则。不仅如此，SOA还提供了一种更宽泛的上下文，使微服务能够在复杂的企业中符合这些上下文。许多人在不断地抱怨SOA中的各种WS-*协议、ESB的庞大以及各种极端复杂的项目，其实这只是面临的挑战不同而已。
-
-当前业界比较成熟的微服务框架有Netflix的Karyon/Ribbon，Spring的Spring Boot/Cloud，阿里的Dubbo等。
-配置中心比较成熟的开源方案有百度的Disconf，360的QConf，Spring的Cloud Config和阿里的Diamond等。
-
-REST/RPC和序列化，框架层要支持将业务逻辑以HTTP/REST或者RPC方式暴露出来，HTTP/REST是当前主流API暴露方式，
-在性能要求高的场合则可采用Binary/RPC方式。针对当前多样化的设备类型(浏览器、普通PC、无线设备等)，
-框架层要支持可定制的序列化机制，例如，对浏览器，框架支持输出Ajax友好的JSON消息格式，
-而对无线设备上的Native App，框架支持输出性能高的Binary消息格式。
-
-通常来说，RESTful服务最适合于为某个数据模型提供CRUD操作，而微服务架构中的服务往往能够被轻易地分解为这些CRUD类型的服务，
-因此它与RESTful就能够很好地结合在一起。而对于其他类型的服务来说，类RESTful风格的服务通常也是一种良好的选择，
-这种类RESTful的风格也会使用HTTP作为传输协议，但服务本身并不一定要100%地符合RESTful的原则。
-
-soa是Service-Oriented Architecture的首字母简称，面向服务架构。开发人员很容易理解为是一个Web Service，但是这绝对不是SOA，那顶多只能算是SOA的一种实现方法。
-
-[stateless-authentication-for-microservices](http://www.slideshare.net/alvarosanchezmariscal/stateless-authentication-for-microservices)、
-[user-authentication-with-jwt](http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/)
-
-uuid 全宇宙单独id。guid 一定范围内单独id，比 uuid 范围小。
-
-B/S架构：无需安装、跨平台，像web项目。基于统一的应用层协议HTTP来交互数据，HTTP是无状态的短连接通信方式。
-C/S架构：本地安装、不跨平台，像QQ等客户端程序。采用长连接的交互模式。
-
-再说说WebService和soap，WebService也是微软重头宣传的技术之一，但是微软喜欢封装，所以采用了SOAP方式实现WebService，
-这又是一个过重的协议，又证明了微软没有高并发高性能程序设计经验。独霸Web的LAMP平台，也使用了WebService，
-但是人家没有采用soap，而是采用xml-rpc, json-rpc，还有Restful webserivice，这些都比微软的soap webservice轻量级，
-而且更简单。至于后来的wcf, wpf, wf，那更是直接把微软送入了地狱。
-
-MVC是一个流行的软件架构。可以从Ruby on Rails获得许多有关MVC的基本设计原则，将其引入并支持node的MVC设计。Express已经采用了路由的概念（Rails的基本原则），还需要分离的模型：视图和控制器。接下来，创建controllers、model、views目录等，将现有的每个路由的方法调用转换为单独的函数然后导出，等操作。MVC架构使得代码看起来干净又简单，并且扩展性更好。
-
-代理（proxy）是一种路由请求方式，将不同源的请求通过同一个服务器处理，原因可能有很多：缓存、安全，甚至是故意模糊请求的来源。有转发代理、反向代理等。反向代理用于控制请求如何被发送到服务器，例如现在有五个服务器，但有四个不希望有用户直接访问。因而将所有的请求转发到第五个服务器，然后再代理给其他服务器。反向代理也被用于平衡负载和通过缓存请求改进系统的整体表现。
+通常来说，RESTful 服务最适合于为某个数据模型提供 CRUD 操作，而微服务架构中的服务往往能够被轻易地分解为这些 CRUD 类型的服务，因此它与 RESTful 就能够很好地结合在一起。而对于其他类型的服务来说，类 RESTful 风格的服务通常也是一种良好的选择，这种类 RESTful 的风格也会使用 HTTP 作为传输协议，但服务本身并不一定要 100% 地符合 RESTful 的原则。
 
 ## API 设计
 
@@ -453,9 +413,7 @@ GraphQL is essentially the one [API Gateway](http://microservices.io/patterns/ap
 
 [What does “state transfer” in Representational State Transfer (REST) refer to?](https://stackoverflow.com/questions/4603653/what-does-state-transfer-in-representational-state-transfer-rest-refer-to)
 
-总结：
-
-通过url来设计系统的结构。根据REST，每个url都代表一个resource，而整个系统就是由这些resource组成的。因此，如果url是设计良好的，那么系统的结构就也应该是设计良好的。REST允许我们通过url设计系统，就像Test Driven Development允许我们使用testcase设计class接口一样。使用REST的关键是如何抽象资源，抽象得越精确，对REST的应用就越好。
+通过 url 来设计系统的结构。根据 REST，每个 url 都代表一个 resource，而整个系统就是由这些 resource 组成的。因此，如果 url 是设计良好的，那么系统的结构就也应该是设计良好的。REST 允许我们通过 url 设计系统，就像 Test Driven Development 允许我们使用 testcase 设计 class 接口一样。使用 REST 的关键是如何抽象资源，抽象得越精确，对 REST 的应用就越好。
 
 - 使用名词而不是动词，使用名词的复数形式。（一些非CRUD操作如login/logout，可以用动词，方便理解）
 - Get方法和查询参数不应该改变资源状态。GET PUT和DELETE方法是幂等方法。
@@ -508,112 +466,109 @@ GraphQL is essentially the one [API Gateway](http://microservices.io/patterns/ap
 
 # http
 
-在网络体系结构中，TCP 是运输层而 HTTP 是应用层。HTTP增加了技术复杂性，是因为它需要支持「分块传输编码」。分块传输编码可以在响应数据未完全生成时进行数据传输，此时还无法确定响应信息的具体大小。如果分块中所包含信息的长度为0，则表示响应信息的结束。
+在网络体系结构中，TCP 是运输层而 HTTP 是应用层。HTTP 增加了技术复杂性，是因为它需要支持「分块传输编码」。分块传输编码可以在响应数据未完全生成时进行数据传输，此时还无法确定响应信息的具体大小。如果分块中所包含信息的长度为 0，则表示响应信息的结束。
 
-HTTP协议根本没有长短连接这一说，HTTP协议是基于请求/响应模式的，因此只要服务端给了响应，本次HTTP连接就结束了。
+HTTP 协议根本没有长短连接这一说，HTTP 协议是基于请求 / 响应模式的，因此只要服务端给了响应，本次 HTTP 连接就结束了。
 
-HTTP分为长连接和短连接，其实本质上是说的TCP连接。TCP连接是一个双向的通道，它是可以保持一段时间不关闭的，因此TCP连接才有真正的长连接和短连接这一说。HTTP协议说到底是应用层的协议，而TCP才是真正的传输层协议，只有负责传输的这一层才需要建立连接。
+HTTP 分为长连接和短连接，其实本质上是说的 TCP 连接。TCP 连接是一个双向的通道，它是可以保持一段时间不关闭的，因此 TCP 连接才有真正的长连接和短连接这一说。HTTP 协议说到底是应用层的协议，而 TCP 才是真正的传输层协议，只有负责传输的这一层才需要建立连接。
 
-HTTP1.1默认是长连接，也就是默认Connection的值就是keep-alive。好处是：长连接情况下，多个HTTP请求可以复用同一个TCP连接，这就节省了很多TCP连接建立和断开的消耗。
+HTTP1.1 默认是长连接，也就是默认 Connection 的值就是 keep-alive。好处是：长连接情况下，多个 HTTP 请求可以复用同一个 TCP 连接，这就节省了很多 TCP 连接建立和断开的消耗。
 
-对于客户端来说，不管是长轮询还是短轮询，客户端的动作都是一样的，就是不停的去请求，不同的是服务端，短轮询情况下服务端每次请求不管有没有变化都会立即返回结果，而长轮询情况下，如果有变化才会立即返回结果，而没有变化的话，则不会再立即给客户端返回结果，直到超时为止。但是长轮询也是有坏处的，因为把请求挂起同样会导致资源的浪费，假设还是1000个人停留在某个商品详情页面，那就很有可能服务器这边挂着1000个线程，在不停检测库存量，这依然是有问题的。　因此，从这里可以看出，不管是长轮询还是短轮询，都不太适用于客户端数量太多的情况，因为每个服务器所能承载的TCP连接数是有上限的，这种轮询很容易把连接数顶满。
+对于客户端来说，不管是长轮询还是短轮询，客户端的动作都是一样的，就是不停的去请求，不同的是服务端，短轮询情况下服务端每次请求不管有没有变化都会立即返回结果，而长轮询情况下，如果有变化才会立即返回结果，而没有变化的话，则不会再立即给客户端返回结果，直到超时为止。但是长轮询也是有坏处的，因为把请求挂起同样会导致资源的浪费，假设还是 1000 个人停留在某个商品详情页面，那就很有可能服务器这边挂着 1000 个线程，在不停检测库存量，这依然是有问题的。　因此，从这里可以看出，不管是长轮询还是短轮询，都不太适用于客户端数量太多的情况，因为每个服务器所能承载的 TCP 连接数是有上限的，这种轮询很容易把连接数顶满。
 
 一种轮询方式是否为长轮询，是根据服务端的处理方式来决定的，与客户端没有关系。轮询的长短，是服务器通过编程的方式手动挂起请求来实现的。
 
-- 发起一个HTTP请求的过程就是建立一个socket通信的过程。可以模拟浏览器发起HTTP请求：
-  - 如用HttpClient发起；
-  - Linux中的`curl`命令，通过`curl+url`就可以发起HTTP请求
-- 搞清楚`Expires`、`Last-Modified`、`Etag`、
+发起一个 HTTP 请求的过程就是建立一个 socket 通信的过程。可以模拟浏览器发起 HTTP 请求，如用 HttpClient 发起；Linux 中的 `curl` 命令，通过 `curl+url` 就可以发起 HTTP 请求。
 
-HTTP协议本身是一种面向资源的应用层协议，但对HTTP协议的使用实际上存在着两种不同的方式：一种是RESTful的，它把HTTP当成应用层协议，比较忠实地遵守了HTTP协议的各种规定；另一种是SOA的，它并没有完全把HTTP当成应用层协议，而是把HTTP协议作为了传输层协议，然后在HTTP之上建立了自己的应用层协议。
-
-幂等性并不属于特定的协议，它是分布式系统的一种特性；所以，不论是SOA还是RESTful的Web API设计都应该考虑幂等性。（幂等性是数学中的一个概念，表达的是N次变换与1次变换的结果相同）
-
-- HTTP GET方法用于获取资源，不应有副作用，所以是幂等的。（不会改变资源的状态，但不是每次GET的结果相同）
-- HTTP DELETE方法用于删除资源，有副作用，但它应该满足幂等性。
-- HTTP POST和PUT的区别容易被简单地误认为“POST表示创建资源，PUT表示更新资源”；而实际上，二者均可用于创建资源，更为本质的差别是在幂等性方面。
-- POST所对应的URI并非创建的资源本身，而是资源的接收者。比如：POST <http://www.forum.com/articles> 的语义是在 http://www.forum.com/articles 下创建一篇帖子，HTTP响应中应包含帖子的创建状态以及帖子的URI。两次相同的POST请求会在服务器端创建两份资源，它们具有不同的URI；所以，POST方法不具备幂等性。
-- 而PUT所对应的URI是要创建或更新的资源本身。比如：PUT <http://www.forum/articles/4231> 的语义是创建或更新ID为4231的帖子。对同一URI进行多次PUT的副作用和一次PUT是相同的；因此，PUT方法具有幂等性。
-
-#### Content-type & Accept
-
+- 搞清楚 `Expires`、`Last-Modified`、`Etag` 等
 - Content-type in a request refers to the type of the data you are sending!
-  - [Do I need a content type for http get requests](http://stackoverflow.com/questions/5661596/do-i-need-a-content-type-for-http-get-requests)：Get requests should not have content-type because they do not have request entity (that is, a body)
+  - [Do I need a content type for http get requests](http://stackoverflow.com/questions/5661596/do-i-need-a-content-type-for-http-get-requests)：Get requests should not have content-type
 - Accept：Content-Types that are acceptable for the response.
 
-### [合并 HTTP 请求是否真的有意义？](http://www.zhihu.com/question/34401250)
+HTTP 协议本身是一种面向资源的应用层协议，但对 HTTP 协议的使用实际上存在着两种不同的方式：一种是 RESTful 的，它把 HTTP 当成应用层协议，比较忠实地遵守了 HTTP 协议的各种规定；另一种是 SOA 的，它并没有完全把 HTTP 当成应用层协议，而是把 HTTP 协议作为了传输层协议，然后在 HTTP 之上建立了自己的应用层协议。
 
-- 浏览器针对每个域名并发建立的最大TCP连接数基本都是6个，然后每个连接上串行发送若干个请求。HTTP1.1协议规定请求只能串行发送。
-- 100个请求下：在http1.1，keep-alive是默认的，现代浏览器都有DNS缓存，DNS寻址时间可忽略。
-  - 寻址还是会花很少量时间，考虑个别情况下 DNS 缓存失效时需要更多点时间（10ms 左右）。另外url检查时间，一般可忽略。
-- 3次握手由于有 keep-alive，一条和一百条都只需一次TCP握手--无差别。
-- 发送报文--增多了99次的http请求头，请求之间有停顿（网络延迟 RTT），如果合并后节省延迟时间 RTT*(n-1)。网络延迟低或请求数n比较小时，可忽略不计。（4G以上网络延迟很低）。
-  - PC上的RTT大概是50ms, wifi 为100ms， 3G为200ms，2G为400ms。例如：一个200M带宽、2000ms延迟的网络，和一个2M带宽，20ms延迟的网络。
-  - 无线环境下头部大小每减少100个字节，速度能够提升20~30ms。因为：上下行带宽严重不对称，上行带宽太小。
-    - 假设一个请求头部是800个字节，如果上行带宽是100个字节，那至少得传8次才能将一个请求传完。补充一下，上下行带宽不对称主要是技术和市场原因决定的，倒不是运营商太奸诈。
+幂等性并不属于特定的协议，它是分布式系统的一种特性；所以，不论是 SOA 还是 RESTful 的 Web API 设计都应该考虑幂等性。（幂等性是数学中的一个概念，表达的是 N 次变换与 1 次变换的结果相同）
+
+- HTTP GET 方法用于获取资源，不应有副作用，所以是幂等的。（不会改变资源的状态，但不是每次 GET 的结果相同）
+- HTTP DELETE 方法用于删除资源，有副作用，但它应该满足幂等性。
+- HTTP POST 和 PUT 的区别容易被简单地误认为 “POST 表示创建资源，PUT 表示更新资源”；而实际上，二者均可用于创建资源，更为本质的差别是在幂等性方面。
+- POST 所对应的 URI 并非创建的资源本身，而是资源的接收者。比如：POST `http://www.forum.com/articles` 的语义是在这里创建一篇帖子，HTTP 响应中应包含帖子的创建状态以及帖子的 URI。两次相同的 POST 请求会在服务器端创建两份资源，它们具有不同的 URI；所以，POST 方法不具备幂等性。
+- 而 PUT 所对应的 URI 是要创建或更新的资源本身。比如：PUT `http://www.forum/articles/4231` 的语义是创建或更新 ID 为 4231 的帖子。对同一 URI 进行多次 PUT 的副作用和一次 PUT 是相同的；因此，PUT 方法具有幂等性。
+
+[合并 HTTP 请求是否真的有意义？](http://www.zhihu.com/question/34401250)
+
+浏览器针对每个域名并发建立的最大 TCP 连接数基本都是 6 个，然后每个连接上串行发送若干个请求。HTTP1.1 协议规定请求只能串行发送。
+
+- 100 个请求下：在 http1.1，keep-alive 是默认的，现代浏览器都有 DNS 缓存，DNS 寻址时间可忽略。
+  - 寻址还是会花很少量时间，考虑个别情况下 DNS 缓存失效时需要更多点时间（10ms 左右）。另外 url 检查时间，一般可忽略。
+- 3 次握手由于有 keep-alive，一条和一百条都只需一次 TCP 握手 -- 无差别。
+- 发送报文 -- 增多了 99 次的 http 请求头，请求之间有停顿（网络延迟 RTT），如果合并后节省延迟时间 RTT*(n-1)。网络延迟低或请求数 n 比较小时，可忽略不计。（4G 以上网络延迟很低）。
+  - PC 上的 RTT 大概是 50ms, wifi 为 100ms， 3G 为 200ms，2G 为 400ms。例如：一个 200M 带宽、2000ms 延迟的网络，和一个 2M 带宽，20ms 延迟的网络。
+  - 无线环境下头部大小每减少 100 个字节，速度能够提升 20~30ms。因为：上下行带宽严重不对称，上行带宽太小。假设一个请求头部是 800 个字节，如果上行带宽是 100 个字节，那至少得传 8 次才能将一个请求传完。
 - 考虑丢包（比如移动网络），合并请求会更有优势。
-  - 丢的是tcp包？服务器怎么知道丢了，丢了哪些内容(如get请求内容一部分丢了)？浏览器会重新发送，还是自动重发？
-- 据说keep-alive在经过代理或者防火墙的时候可能会被断开。
+  - 丢的是 tcp 包？服务器怎么知道丢了，丢了哪些内容 (如 get 请求内容一部分丢了)？浏览器会重新发送，还是自动重发？
+- 据说 keep-alive 在经过代理或者防火墙的时候可能会被断开。
 
-#### [http pipelining](https://en.wikipedia.org/wiki/HTTP_pipelining)
+[http pipelining](https://en.wikipedia.org/wiki/HTTP_pipelining) pipeline 原理是 客户端可以并行发送多个请求，但是服务器的响应必须按次序返回。一些服务器和代理不支持 pipeline；在 pipeline 中的前一个链接可能会阻塞后边的链接；减缓页面加载速度。Chrome 默认禁止了 pipelining。[原因](https://www.chromium.org/developers/design-documents/network-stack/http-pipelining)
 
-- pipeline 原理是 客户端可以并行发送多个请求，但是服务器的响应必须按次序返回。一些服务器和代理不支持pipeline；在 pipeline 中的前一个链接可能会阻塞后边的链接；减缓页面加载速度。
-- 检测浏览器是否开启：Firefox 地址栏中输入 about:config 搜索 pipe 找到 network.http.pipelining 。Chrome 地址栏中输入 chrome://flags 找不到开启地方，Chrome 默认禁止了 pipelining。[原因](https://www.chromium.org/developers/design-documents/network-stack/http-pipelining)
+## 实时通信
 
-#### SPDY 和 HTTP2
+- 轮询（定时发消息、每次都新建链接）、
+- 长轮询（发消息后 等服务端返回、再发消息）、
+- 基于流 http streaming（客户端与服务器端只保持一个持久的连接，低版本 IE 定时去监听 iframe 的 readystate 的变化、为 3 时向页面输出内容、为 4 时重新建立链接，达到不断轮询的目的）。
 
-核心优势就是多路复用，简单说来就是将多个请求通过一个TCP连接发送。
+以上都需要“服务器端维持大量连接，开销很大”。相对来说 WebSocket 有以下优势：
 
-浏览器能不能将100个请求通过一个TCP连接发送？会出现什么问题？那就是TCP协议的head of line blocking,队头阻塞。
-设想这样一个场景，一个页面有100个请求，第99个请求时，TCP丢了一个包，TCP自然会重传，重传时间是T1，重传成功后，浏览器才能获取到完整页面的响应内容，然后渲染和展示整个页面。也就是说整个页面的加载时间延迟了T1时间。在此之前，用户没有得到任何内容。
+- 服务器和客户端之间，可以双向的发送数据到对方，允许跨域。
+- 你需要一台可以做Event Loop的服务器、支持第三方的websocket主机服务器，例如Pusher或者其它，浏览器和服务器只需要做一个握手的动作就形成了一条快速通道。
 
-[http2讲解](http://http2-explained.haxx.se/content/zh/index.html)
+与 http 的区别？http 的通信只能由客户端发起，是半双工协议，在同一时刻数据只能单向流动，客户端向服务器发送请求(单向的)，然后服务器响应请求(单向的)。
 
+[websockets 的问题](https://samsaffron.com/archive/2015/12/29/websockets-caution-required)、[JavaScript之web通信](https://segmentfault.com/a/1190000000423616)
+
+## SPDY / HTTP2
+
+核心优势就是多路复用，简单说来就是将多个请求通过一个 TCP 连接发送。浏览器能不能将 100 个请求通过一个 TCP 连接发送？会出现什么问题？那就是 TCP 协议的 head of line blocking,队头阻塞。
+设想这样一个场景，一个页面有 100 个请求，第 99 个请求时，TCP 丢了一个包，TCP 自然会重传，重传时间是 T1，重传成功后，浏览器才能获取到完整页面的响应内容，然后渲染和展示整个页面。也就是说整个页面的加载时间延迟了 T1 时间。在此之前，用户没有得到任何内容。
+
+[http2讲解](http://http2-explained.haxx.se/content/zh/index.html)、
 [htt2 and UDP](http://2014.jsconf.eu/speakers/iliyan-peychev-http-20-and-quic-protocols-of-the-near-future.html)
 
-[websockets 的问题](https://samsaffron.com/archive/2015/12/29/websockets-caution-required)
-
 -----
-
-# 字符编码
-
-计算机中存储信息的最小单元是一个字节，即8个bit，所以能表示的字符范围是0~255个。
-
-- ASCII码：单字节编码，一共128个字符，用一个字节的低7位表示。
-- ISO-8859-1：单字节编码，扩展了ASCII，总共能表示256个字符，涵盖了大多数西欧语言字符。
-- GB2312：双字节编码，编码范围A1~F7，包含6763个汉字。
-- GBK：兼容并扩展了gb2312，编码范围是8140~FEFE(去掉XX7F)，总共有23940个码位，能表示21003个汉字。
-
-utf-16
-
-用两个字节（16个bit）表示Unicode转化格式。每两个字节表示一个字符，这就大大简化了字符串操作。utf-16编码不论什么字符都用两个字节表示，规则很简单，编码效率非常高，适合在本地磁盘和内存之间使用、可以进行字符和字节之间的快速切换、如Java的内存编码就采用utf-16编码。  
-但有很大一部分字符用一个字节就可以表示了，因此存储空间浪费了一倍，不适合用在网络之间传输，因为会没必要的增大了网络传输流量，而且网络传输容易损坏字节流，一旦字节流损坏将很难恢复。另外它采用顺序编码，不能对单个字符的编码值进行校验，如果中间的一个字符码值损坏，后面的所有码值都将受影响。
-
-utf-8
-
-采用一种变长技术，每个编码区域有不同的字码长度。如果一个字节最高位（第8位）为0，表示是一个ASCII字符。对单字节范围内的字符仍然用一个字节表示，对汉字采用三个字节表示。更适合网络传输，单个字符损坏也不会影响后面的其他字符，在编码效率上介于GBK和utf-16之间，在编码效率和编码安全上做了平衡，是理想的中文编码方式。
-
-web上的编码
-
-URL中包含中文时需要进行编码，但URL中`?`前后部分（分别是uri和QueryString查询字符串）编码方式不同，后端相应的解码方式也不同。
-
-- 对uri部分进行解码的字符集是在connector的`<Connector URIEncoding="UTF-8" />`中定义的，如果没有定义，将以默认编码ISO-8859-1解析，所以最好设置为utf-8编码。
-- 而HTTP的get方式请求的QueryString与post方式请求的表单参数都是作为`Parameters`保存的，都通过`request.getParameter`获取参数值，对它们的解码也是在该方法第一次被调用时进行的（注意：要在第一次调用request.getParameter方法之前就设置request.setCharacterEncoding(charset)，否则post表单提交上来的数据可能出现乱码）。浏览器根据ContentType的charset编码格式对之进行编码，然后提交到服务器，服务端同样也是用ContentType中的字符集进行解码的。
 
 # DNS域名解析
 
 - 输入域名并按下回车后
-- 第一步，浏览器会检查缓存中有没有这个域名对应的解析过的IP地址，有就结束，没有进入下一步
-- 第二步，浏览器查找操作系统缓存中是否有。操作系统也有一个域名解析过程，在hosts文件里设置可以将任何域名解析到任何能够访问的IP地址。如果指定了，浏览器会使用这个IP地址。（早期Windows中的域名被入侵黑客劫持问题）
-- 前两步都是在本机完成的，如果无法完成解析，就会请求域名服务器了。我们的网络配置中都会有「DNS服务器地址」，操作系统会把域名发送给LDNS，也就是本地区的域名服务器。大约80%的域名解析到这里完成。
-- 第四步，如果LDNS没命中，就到Root Server域名服务器请求解析。然后`gTLD Server`，`Name Server域名服务器`，返回该域名对应的`IP和TTL值`被Local DNS Server缓存，解析结果返回给用户、缓存到本地系统缓存中、域名解析过程结束。（这中间还有GTM负载均衡控制等）
-- 可以用`nslookup`、`dig www.taobao.com`等命令，跟踪解析过程
+- 第一步，浏览器会检查缓存中有没有这个域名对应的解析过的 IP 地址，有就结束，没有进入下一步
+- 第二步，浏览器查找操作系统缓存中是否有。操作系统也有一个域名解析过程，在 hosts 文件里设置可以将任何域名解析到任何能够访问的 IP 地址。如果指定了，浏览器会使用这个 IP 地址。（早期 Windows 中的域名被入侵黑客劫持问题）
+- 前两步都是在本机完成的，如果无法完成解析，就会请求域名服务器了。我们的网络配置中都会有「DNS 服务器地址」，操作系统会把域名发送给 LDNS，也就是本地区的域名服务器。大约 80% 的域名解析到这里完成。
+- 第四步，如果 LDNS 没命中，就到 Root Server 域名服务器请求解析。然后 `gTLD Server`，`Name Server 域名服务器`，返回该域名对应的 `IP 和 TTL 值` 被 Local DNS Server 缓存，解析结果返回给用户、缓存到本地系统缓存中、域名解析过程结束。（这中间还有 GTM 负载均衡控制等）
+- 可以用 `nslookup`、`dig www.taobao.com` 等命令，跟踪解析过程
 
-CDN工作机制：
-
-CDN = 镜像（Mirror）+ 缓存（Cache）+ 整体负载均衡（GSLB），主要缓存网站中的静态数据。
+CDN 工作机制：CDN = 镜像（Mirror）+ 缓存（Cache）+ 整体负载均衡（GSLB），主要缓存网站中的静态数据。
 
 三种负载均衡架构：链路负载均衡、集群负载均衡、操作系统负载均衡。  
-链路负载均衡就是通过DNS解析成不同的IP，用户根据这个IP来访问不同的目标服务器。  
-集群负载均衡分为硬件和软件负载均衡。硬件负载均衡设备昂贵、如F5，性能非常好，但访问量超出极限时不能进行动态扩容。软件负载均衡成本低，缺点是一般一次访问请求要经过多次代理服务器，会增加网络延时，如LVS、HAProxy。  
+链路负载均衡就是通过 DNS 解析成不同的 IP，用户根据这个 IP 来访问不同的目标服务器。  
+集群负载均衡分为硬件和软件负载均衡。硬件负载均衡设备昂贵、如 F5，性能非常好，但访问量超出极限时不能进行动态扩容。软件负载均衡成本低，缺点是一般一次访问请求要经过多次代理服务器，会增加网络延时，如 LVS、HAProxy。  
 操作系统负载均衡，是利用操作系统级别的软中断或硬中断，设置多队列网卡等来实现。
+
+# 字符编码
+
+计算机中存储信息的最小单元是一个字节，即 8 个 bit，所以能表示的字符范围是 0~255 个。
+
+- ASCII 码：单字节编码，一共 128 个字符，用一个字节的低 7 位表示。
+- ISO-8859-1：单字节编码，扩展了 ASCII，总共能表示 256 个字符，涵盖了大多数西欧语言字符。
+- GB2312：双字节编码，编码范围 A1~F7，包含 6763 个汉字。
+- GBK：兼容并扩展了 gb2312，编码范围是 8140~FEFE(去掉 XX7F)，总共有 23940 个码位，能表示 21003 个汉字。
+
+utf-16：
+用两个字节（16 个 bit）表示 Unicode 转化格式。每两个字节表示一个字符，这就大大简化了字符串操作。utf-16 编码不论什么字符都用两个字节表示，规则很简单，编码效率非常高，适合在本地磁盘和内存之间使用、可以进行字符和字节之间的快速切换、如 Java 的内存编码就采用 utf-16 编码。  
+但有很大一部分字符用一个字节就可以表示了，因此存储空间浪费了一倍，不适合用在网络之间传输，因为会没必要的增大了网络传输流量，而且网络传输容易损坏字节流，一旦字节流损坏将很难恢复。另外它采用顺序编码，不能对单个字符的编码值进行校验，如果中间的一个字符码值损坏，后面的所有码值都将受影响。
+
+utf-8：
+采用一种变长技术，每个编码区域有不同的字码长度。如果一个字节最高位（第 8 位）为 0，表示是一个 ASCII 字符。对单字节范围内的字符仍然用一个字节表示，对汉字采用三个字节表示。更适合网络传输，单个字符损坏也不会影响后面的其他字符，在编码效率上介于 GBK 和 utf-16 之间，在编码效率和编码安全上做了平衡，是理想的中文编码方式。
+
+URL 中包含中文时需要进行编码，但 URL 中 `?` 前后部分（分别是 uri 和 QueryString 查询字符串）编码方式不同，后端相应的解码方式也不同。
+
+- 对 uri 部分进行解码的字符集是在 connector 的 `<Connector URIEncoding="UTF-8" />` 中定义的，如果没有定义，将以默认编码 ISO-8859-1 解析，所以最好设置为 utf-8 编码。
+- 而 HTTP 的 get 方式请求的 QueryString 与 post 方式请求的表单参数都是作为 `Parameters` 保存的，都通过 `request.getParameter` 获取参数值，对它们的解码也是在该方法第一次被调用时进行的（注意：要在第一次调用 request.getParameter 方法之前就设置 request.setCharacterEncoding(charset)，否则 post 表单提交上来的数据可能出现乱码）。浏览器根据 ContentType 的 charset 编码格式对之进行编码，然后提交到服务器，服务端同样也是用 ContentType 中的字符集进行解码的。
