@@ -151,6 +151,7 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
   "editor.formatOnType": true,
   "editor.renderIndentGuides": true,
   "editor.renderWhitespace": "boundary",
+  "editor.showFoldingControls": "always",
   "editor.tabCompletion": "on",
   "editor.wordWrap": "on",
   "window.title": "${activeEditorLong}",
