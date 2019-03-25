@@ -1,12 +1,9 @@
-
-# top
+# js / css / html
 
 代码片段：
 [codepen.io](https://codepen.io/dashboard/) / 
 [codesandbox.io](https://codesandbox.io/u/warmhug) / 
 [jsfiddle.net](https://jsfiddle.net/user/dashboard/fiddles/)
-
-# misc
 
 - [前端技术清单](https://juejin.im/post/5bdfb387e51d452c8e0aa902)
 - [33-js-concepts](https://github.com/leonardomso/33-js-concepts)
@@ -24,8 +21,9 @@
 [airbnb/javascript](https://github.com/airbnb/javascript)、
 [html5test](http://html5test.com/)、
 
-- [代码演示文档生成器](https://www.docz.site/)
+[录制并回放 web 界面中的用户操作](https://github.com/rrweb-io/rrweb)(内网 xreplay)
 
+- [代码演示文档生成器](https://www.docz.site/)
 - [高性能无尽列表（元素可回收）](https://github.com/bvaughn/react-virtualized)
 - [元素定位库](http://github.hubspot.com/tether/)
 
@@ -71,6 +69,194 @@ UI 库 & design
 - [json-server](https://github.com/typicode/json-server)
 - [一切皆为 JavaScript](https://www.csdn.net/article/2013-11-04/2817389-JavaScript-World)
 
+## react
+
+[编写有弹性的组件](https://overreacted.io/zh-hans/writing-resilient-components/)、
+[useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
+
+[react-typescript-cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet)
+
+[React Fiber 是什么](https://zhuanlan.zhihu.com/p/26027085)、
+[The how and why on React’s usage of linked list in Fiber to walk the component’s tree](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7)、
+[Inside Fiber: in-depth overview of the new reconciliation algorithm in React](https://medium.com/react-in-depth/inside-fiber-in-depth-overview-of-the-new-reconciliation-algorithm-in-react-e1c04700ef6e)、
+[The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+
+[react isMounted 内存泄漏](https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html)：Flux Redux 将整个 app 的状态储存在所有组件最外层，避免了组件的销毁影响整个 app 的 state。
+
+生命周期 图示 dia­gram :
+![https://tylermcginnis.com/an-introduction-to-life-cycle-events-in-react-js/](https://gw.alipayobjects.com/zos/rmsportal/KMqUOATjGIAemLuRLNWF.png)  
+![http://www.cnblogs.com/twobin/p/4949888.html](https://gw.alipayobjects.com/zos/rmsportal/JRAlcAXhcdkagRIirtUP.jpg)
+
+[3 Reasons why I stopped using React.setState](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#.o2lwoysxh) /
+
+- setState 是异步的
+  - [state-updates-may-be-asynchronous](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous) / [示例](https://stackoverflow.com/a/45249445/2190503)
+- setState 引起不必要的 render
+- setState 不能覆盖所有的组件状态（像生命周期的钩子、timers、events）
+
+### [PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
+
+相比使用 Component 多了以下代码，避免了 props 和 state 不变时组件的重新渲染（即 render 函数不会执行、也就不会触发 react 内部的 virtual DOM diff、节约了计算）。
+
+```js
+shouldComponentUpdate(nextProps, nextState) {
+  return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
+}
+```
+
+- 父组件是 pure component，子组件也需要是 pure component。因为父组件的 state 和 props 保持不变时是不会重新渲染的，子组件也就不会重新渲染了。
+- 除非碰到了性能问题，不然不要用 PureComponent。遇到性能问题，也可以通过自己定制 shouldComponentUpdate 来控制。
+- 如果预期到某个组件的 props 或是 state 会「频繁变动」，那就不用使用 PureComponent，因为这样反而会变慢。示例：
+
+  ```js
+  render() {
+    // 每次传入的 style 都是一个新对象，Post 组件每次都需要 rerender，
+    // 不需要使用 PureComponent 会再多一次 props 和 state 的对比。
+    return <Post item={item} style={{ 'width': 120 }} />;
+  }
+  ```
+
+### diff & key
+
+- React.js does not need to have knowledge about what exactly changed. All it needs to know is whether the state changed at all or not.
+- While immutability does not provide easier answers to a what exactly changed problem, it provides a great answer to the is it changed at all or not question.
+- [虚拟DOM Diff算法解析](http://www.infoq.com/cn/articles/react-dom-diff)
+
+- [Dynamic Children - Why the Keys are Important](http://blog.arkency.com/2014/10/react-dot-js-and-dynamic-children-why-the-keys-are-important/)
+- 不能在组件内通过 props 获取 key 或 ref。
+- React.Children.map 会修改 key, 而 this.props.children.map 不会，参考 demo 示例
+
+dom 对象是很庞大的（上边有很多属性），其创建的开销比较大，已有的 dom 对象上做更新开销并不大，众多框架都在围绕此做优化，比如用`key`是否变化来判断对 dom 的操作是 “更新” 还是 “销毁重建”。
+
+dom批量更新：dom操作如，1.删除一个元素，2.增加一个元素，3.在增加的元素上改变一个属性。
+如果用 dom-api 一步步操作，会导致中间多次的 repaints 和 reflows，这是比较低效耗性能的。
+如果放到「虚拟 dom」上操作，会把这三个过程最终的结果，一次更新到实际 dom 树上，只用操作一次实际 dom。
+
+react virtual-dom 里一次 digest 中的 diff 只需一次，但是会随着 ui 的复杂度，性能损耗严重，virtual-dom 与原 dom 的对应也更难 (如果 angular 的脏检查的性能取决与 watcher 的数量，那 react 则是取决与 ui 规模)。 virtual-dom 的内部结构变化是不可预知的
+
+- [真实 DOM 和 react 虚 dom 讨论](http://www.zhihu.com/question/31809713)
+- [React Virtual DOM vs Incremental DOM vs Ember’s Glimmer: Fight](https://auth0.com/blog/2015/11/20/face-off-virtual-dom-vs-incremental-dom-vs-glimmer/)
+
+### HOC
+
+使用 HOC ([Higher-Order Components](https://facebook.github.io/react/docs/higher-order-components.html)) 代替 Mixins，[Mixins Considered Harmful](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html)
+
+HOC 的缺点：
+
+- Like any solution, higher-order components have their own pitfalls. For example, if you heavily use refs, you might notice that wrapping something into a higher-order component changes the ref to point to the wrapping component. In practice we discourage using refs for component communication so we don’t think it’s a big issue. In the future, we might consider adding ref forwarding to React to solve this annoyance.
+- [HOC 里的实际的 Component 名字被覆盖掉，导致多层组件嵌套难以识别](https://github.com/ant-design/ant-design-mobile/blob/0.9.12/components/_util/touchableFeedback.tsx#L10)
+
+### 处理 children
+
+需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，
+而不要用`Array.isArray(children) / children.forEach`等方法。
+`React.Children.xx`方法里有类似递归调用（详细跟踪React源码里的`traverseAllChildrenImpl`方法）、
+能自动解析类似这样的 children：
+
+```html
+<List.Body>
+  <List.Item>收银员</List.Item>
+  {[1, 2, 3].map((i, index) => (<List.Item key={index}>运营</List.Item>))}
+</List.Body>
+```
+
+而自己写的`Array.isArray`等如果不递归解析、就会把上段代码解析错误。
+
+## 函数式编程
+
+- [函数式编程](http://coolshell.cn/articles/10822.html)
+- [函数式编程有哪些优点？](http://www.nowamagic.net/academy/detail/1220540)
+- [函数式编程扫盲篇](http://www.cnblogs.com/kym/archive/2011/03/07/1976519.html)
+- [函数式编程初探](http://www.ruanyifeng.com/blog/2012/04/functional_programming.html)
+- [introduction-functional-javascript](http://www.sitepoint.com/introduction-functional-javascript/)
+- [Functional Programming in Javascript === Garbage](http://awardwinningfjords.com/2014/04/21/functional-programming-in-javascript-equals-garbage.html)
+- [使用JavaScript实现“真·函数式编程”](http://jimliu.net/2015/10/21/real-functional-programming-in-javascript-1/)
+
+对象是面向对象的第一型，那么函数式编程也是一样，函数是函数式编程的第一型。
+
+在纯粹函数式程式语言中，你不是像命令式语言那样命令电脑「要做什么」，而是通过用函数来描述出问题「是什么」。
+递回在 Haskell 中非常重要。命令式语言要求你提供求解的步骤，Haskell 则倾向于让你提供问题的描述。
+这便是 Haskell 没有 while 或 for 循环的原因，递回是我们的替代方案。
+
+在面向对象编程中，我们把对象传来传去，那在函数式编程中，我们要做的是把函数传来传去，我们把他叫做 **高阶函数**
+在函数式编程中，函数是基本单位，是第一型，他几乎被用作一切，包括最简单的计算，甚至连变量都被计算所取代。
+在函数式编程中，变量只是一个名称，而不是一个存储单元，这是函数式编程与传统的命令式编程最典型的不同之处。
+
+### Persistent data structure
+
+Immutable data structures：当一个对象被创建之后、就永远不会变了，如果需要改变、就只能创一个新的。
+
+```js
+const obj = { text: 'hello' };
+obj.text = 'world' // 这样不行，因为改变了 obj 这个对象
+const newObj = { ...obj, text: 'world' }; // 必须要创建一个新对象
+```
+
+- [Immutability in JavaScript](http://www.sitepoint.com/immutability-javascript/)
+- [Persistent_data_structure](https://en.wikipedia.org/wiki/Persistent_data_structure)
+
+> fb出品的 [immutable-js](http://facebook.github.io/immutable-js/) 提供了 Immutable 的 List, Stack, Map 等数据结构，为了实现不可变性，最直接的做法可能是直接拷贝对象，但因为效率太低不可行，而是利用了 structural sharing，
+这样就可以最小化的拷贝对象的一部分。拷贝的是哪一部分呢？如图：
+
+[wiki 图示](https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Purely_functional_tree_after.svg/876px-Purely_functional_tree_after.svg.png)
+
+这样嵌套的深层对象，只需拷贝f、g、d这一个链，其他的结构共享，这样创建了一个新对象，
+就达到了 immutable 的目的，而且效率和内存占用都比较合理。但注意一个问题[Circular references](https://github.com/facebook/immutable-js/issues/259)，这个问题在 Haskell 等语言中在语言层面被解决了，
+但在js中似乎难以解决。[详解视频](https://www.youtube.com/watch?v=I7IdS-PbEgI)
+
+> Structural sharing is a powerful concept, and is what enables Clojure persistent data structures to achieve O(log n) performance on operations that would otherwise require full O(n) copies of a data structure.
+
+## redux
+
+- [UI state应该放到哪里？](https://github.com/rackt/redux/issues/595)
+- [解读 redux 的设计思路与用法](http://div.io/topic/1309)
+
+redux & redux-saga 场景:
+
+form 表单提交，触发 `FORM_POST` action，
+saga 里触发（ yield put ）`POST_SUCCESS`/`POST_FAILURE` action，
+无论提交成功或失败，都需要改变页面状态、或拉取新的列表数据，触发 `UI_CHANGE`/`PULL_DATA` action，
+`UI_CHANGE`/`PULL_DATA` 需要参数，用 `yield select` 从 `state` 里选取需要的数据（ ui状态数据需要存到全局 state 里），
+复杂场景下、需要在 saga 里对来自不同 action 的数据结果做比对、筛选等操作，再触发最终的 action（比如 步骤条的下一步）。
+
+### flux
+
+不同的 component 维护许多各自不同 state，导致数据碎片化，flux 模式利用顶层 store 能解决这个问题
+
+[本质：(state, action) => state](https://speakerdeck.com/jmorrell/jsconf-uy-flux-those-who-forget-the-past-dot-dot-dot)
+
+[Smart and Dumb Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+
+- Stores hold data, and signal when something has changed
+- Views subscribe to the stores that contain the data that it needs
+
+actions 其实就是 data，或者我认为是 mutations，即 ui 或者 server 的 response。
+action creator 是一个 help method，调用 dispatcher，传递 mutations。所以，action creator 是直接调用 dispatcher (passive) 的。
+dispatcher 是一个 pub-sub systems。
+component 直接调用 action creator
+store 监听 action creator
+component 监听 store
+
+In Flux, Store is the only place in your whole app that has privilege to mutate the data. It has no setters and only responds to actions emitted by the components. API responses are also actions, as they serve as inputs to Store. Only Store gets to decide how to update the data. Neither the UI nor other models should be able to mutate the data.
+
+#### FRP (Functional Reactive Programming)
+
+The former is Passive programming, while the latter is Reactive programming
+
+- 展现：render :: Model -> UI
+  - render 是一个接受一个数据模型参数并返回一个用户界面的函数。
+  - React.js 本质：`(state, props) => state`
+- 响应：reactive :: Action -> Model -> Model（Model, Side Effects(异步消息)）
+  - reactive 是一个接受一个动作（事件）参数和一个模型，并返回一个新的模型的函数。
+  - 有「Side Effects(异步消息)」时，reactive :: Action -> Model -> (Model, Effects Action)。参考 <https://github.com/evancz/elm-architecture-tutorial/>
+  - flux 本质：`(state, action) => state` redux 的 reducer 也是这样。
+- render 和 reactive 反复迭代即得到一个用户应该看到并可以操作的用户界面。
+
+### 服务端渲染
+
+`ReactDOMServer.renderToString()`执行时间、一般复杂的页面需要 20~50ms。数据如果是全局变量，用户并发访问服务器、就可能拿到了同一份数据，需要通过 uuid 来做标记，比较麻烦。redux 的 store 是一个通过函数构造的，数据是函数的参数，作为初始化数据，数据不是全局变量，没问题。函数式无副作用、无状态，利于并发。- @翰文
+高并发的应用，不推荐使用 react 服务器渲染，因为性能不算好，会拉低应用的 qps 。
+
 ## 调试
 
 - [Chrome DevTools’ Workspaces、Redirect 和 Fiddler / Charles 的使用](https://aarontgrogg.com/blog/2015/03/24/how-to-replace-remote-files-with-local-files-when-debugging/)
@@ -98,54 +284,53 @@ UI 库 & design
 
 ## 性能
 
-- [WebView性能、体验分析与优化](http://tech.meituan.com/WebViewPerf.html)
-- [WePY 在小程序性能调优上做出的探究](https://www.madcoder.cn/wepy-performance-research.html)
-- [js-repaint-perfs](http://leeluolee.github.io/js-repaint-perfs/#)
-- [js 框架性能测试](https://github.com/krausest/js-framework-benchmark)
+浏览器从服务器接收 HTML，把 HTML 在内存中转换成 DOM 树，在转换的过程中遇到：
 
-使用 innerHTML 把一大块元素替换掉，因为销毁的元素比较多、绑定着事件，会导致 GC 压力大。再插入新元素，再重新绑定事件。整体性能耗费比较大。
+- CSS 或 image 请求，不会阻塞 HTML 的解析、不需要等请求的返回，当返回后，只需要把返回的内容放入到 DOM 树中对应的位置。
+- JS 请求。因为 JS 有可能直接改变 DOM 树结构，为了不重新构建 DOM 树，会阻塞其他的下载和浏览器渲染。
+- 更多：[网页渲染过程](http://frontendbabel.info/articles/webpage-rendering-101/)、[JavaScript Loading Priorities in Chrome](https://addyosmani.com/blog/script-priorities/)、[让我们再聊聊浏览器资源加载优化](http://www.infoq.com/cn/articles/browser-resource-loading-optimization)
 
 ### 性能优化
 
-> [非常好又全面的文章](http://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/)
+工具：Chrome DevTools、<https://developers.google.com/web/fundamentals/performance/why-performance-matters/?hl=zh-cn>
 
-- [JavaScript内存泄露和CSS优化](https://github.com/zhansingsong/js-leakage-patterns)
-- [JavaScript 启动性能瓶颈分析与解决方案](http://mp.weixin.qq.com/s?__biz=MzIwNjQwMzUwMQ==&mid=2247484987&idx=1&sn=7f20da20bc6baed62ca8ff115209942b)
-- [让我们再聊聊浏览器资源加载优化](http://www.infoq.com/cn/articles/browser-resource-loading-optimization)
-- [Minimizing browser reflow](https://developers.google.com/speed/articles/reflow)
-- [分析关键渲染路径](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=zh-cn)
-- [Improving Web App Performance With the Chrome DevTools Timeline and Profiles](http://addyosmani.com/blog/performance-optimisation-with-timeline-profiles/)
-- [使用Continuous painting mode来分析页面的绘制状态](http://ju.outofmemory.cn/entry/18882)
-- [Memory Analysis 101](https://developer.chrome.com/devtools/docs/memory-analysis-101)
-- [Secrets of the Browser Developer Tools](http://www.83rdstasis.net/devtoolsecrets/slides/london-web/#1)
-- [使用Chrome DevTools的Timeline和Profiles提高Web应用程序的性能](http://www.oschina.net/translate/performance-optimisation-with-timeline-profiles?cmp)
-- [js-repaint-perfs](http://mathieuancelin.github.io/js-repaint-perfs/)
+[js 框架性能测试](https://github.com/krausest/js-framework-benchmark)
+、[JavaScript内存泄露和CSS优化](https://github.com/zhansingsong/js-leakage-patterns)、[了解 JavaScript 应用程序中的内存泄漏](http://www.ibm.com/developerworks/cn/web/wa-jsmemory/index.html)
 
-[了解 JavaScript 应用程序中的内存泄漏](http://www.ibm.com/developerworks/cn/web/wa-jsmemory/index.html)、
-[memory-leaks](http://javascript.info/tutorial/memory-leaks)
+html 优化：
 
-- call 比 apply 性能好！[参考](http://jsperf.com/apply-vs-call-vs-invoke)
-  -（angular1.0.6：2848行；backbone1.0.0：200行）
-- js 对象引用操作 dom 对象后，需要设置为 null 或 delete 掉，避免内存泄露
-- `eval()`、`window.eval`、`new Function` 第一个不会被 GC 回收，后两个可以被 GC 回收。每次使用他们时都会调用脚本引擎将源代码转换成可执行代码；因此尽量避免使用。
+- 根据关键渲染路径、首先加载最小可用的 css js 资源，script 标签可以用 async 标记。[分析关键渲染路径](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=zh-cn)
+- 在 head 里面尽量不引入 js, CSS 下面不能有任何的 JS 标签（包括内联JS），否则会阻塞 HTML 的解析。如果必须要在头部增加内联脚本，一定要放在 CSS 标签之前。[WebView性能、体验分析与优化](http://tech.meituan.com/WebViewPerf.html)
+- repaint：当某元素在不改变布局、发生显示/隐藏的变化时，就会发生 repaint。
+- reflow：当 DOM 以一种影响到布局的方式进行操作时，会触发 reflow。例如，样式改变影响了布局、className 改变、浏览器窗口大小改变、插入一个新元素、改变文本、新增一个元素属性。当元素 reflow 时，他的子节点和其后的任何元素也会reflow，最后所有元素进行 repaint。通过 getComputedStyle、offsetWidth、scrollWidth、clientWidth 等属性获取元素的尺寸或位置，会强行触发 reflow。
+- 减少 reflow 的方法：
+  - 多 style 变化可通过设置一次 className 完成。
+  - 将多个元素改变都在 DOMDocumentFragment 中进行，然后用一次操作将元素片段放到 DOM 中，这样只触发一次 reflow。
+  - 要在元素上做动画应该设置 `position: absolute | fixed`, 他们只会引发一个 repaint 而不是全部 reflow。
+  - 通过 `scrollTo()` 进行原生滚动，性能显著，因为没有触发 reflow。
+  - [Minimizing browser reflow](https://developers.google.com/speed/articles/reflow)、[js-repaint-perfs](http://mathieuancelin.github.io/js-repaint-perfs/)、[js-repaint-perfs](http://leeluolee.github.io/js-repaint-perfs/#)
 
-Garbage collection is a form of memory management.
-It’s not possible to force garbage collection in JavaScript.You wouldn’t want to do this, because the garbage collection process is controlled by the runtime, and it generally knows best when things should be cleaned up.
+dom 优化：
 
-本来 Javascrip 引擎能检测正在执行中的 “热” 对象并优化它、让它执行更快速；
-但 delete 操作会「严重改变」对象结构，导致引擎不能优化该对象。
-将不需要的对象属性设置为 null 也比 delete 操作好，但这也是不必要的。
+- 删除 dom 对象时，及时删除事件监听。
+- js 对象引用操作 dom 对象后，需要设置为 null 或 delete 掉
+- 尽量少访问 dom。be aware that although JavaScript engines continue to get faster, the next real bottleneck is the DOM.
+- Don’t load from uninitialized or deleted elements.
 
+js 优化：
+
+Garbage collection 是内存管理机制，在 runtime 时自动运行、不受 js 控制。
 如果某个变量引用是对对象的最后一个引用，那么垃圾回收会自动执行。
 全局变量不会被垃圾回收，除非页面刷新、跳转或关闭。
 函数作用域里的变量，在函数执行完毕、函数退出、没有引用时会被清理掉。
-删除 dom 对象时，及时解除事件监听。
-Don’t write enormous functions, as they are more difficult to optimize 
-Don’t load from uninitialized or deleted elements.
+本来 Javascrip 引擎能检测正在执行中的 “热” 对象并优化它、让它执行更快速；但 delete 操作会「严重改变」对象结构，导致引擎不能优化该对象。将不需要的对象属性设置为 null 也比 delete 操作好，但这也是不必要的。[基础和全面的总结](http://www.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/)
 
-It’s never a good idea to mix values of different types (e.g. numbers, strings, undefined or true/false) in the same array (i.e. `var arr = [1, “1”, undefined, true, “true”]`)
-
-be aware that although JavaScript engines continue to get faster, the next real bottleneck is the DOM. Reflows and repaints are just as important to minimize, so remember to only touch the DOM if it’s absolutely required. And do care about networking. HTTP requests are precious, especially on mobile, and you should be using HTTP caching to reduce the size of assets.
+- Don’t write enormous functions, as they are more difficult to optimize.
+- 避免在一个数组里存在不同数据类型 (e.g. numbers, strings, undefined or true/false)
+- 使用 innerHTML 把一大块元素替换掉，因为销毁的元素比较多、绑定着事件，会导致 GC 压力大。再插入新元素，再重新绑定事件。整体性能耗费比较大。
+- call 比 apply 性能好！[参考](http://jsperf.com/apply-vs-call-vs-invoke)（angular1.0.6：2848行；backbone1.0.0：200行）
+- `eval()`、`window.eval`、`new Function` 第一个不会被 GC 回收，后两个可以被 GC 回收。每次使用他们时都会调用脚本引擎将源代码转换成可执行代码；因此尽量避免使用。
+- [JavaScript 启动性能瓶颈分析与解决方案](https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247485658&amp;idx=1&amp;sn=a95acc8770470c50c2cd8d85a5b82e75&source=41#wechat_redirect)、[Memory Analysis 101](https://developer.chrome.com/devtools/docs/memory-analysis-101)
 
 ------
 
@@ -419,6 +604,9 @@ All elements that are `position: absolute;` are automatically treated as `displa
 - a 标签带 href 并不为空，按 enter 键都会触发其上的 click 事件，否则不会触发！
 - img script 的 src、css 的 href 都不能为空，否则会有个指向本页面的请求
 - [DOM 的 attribute 和 property](http://www.noahlu.com/blog/javascript-note/dom-attribute-property/)
+- p 标签不能嵌套块级元素，button 里面不要嵌套 a 标签。
+- ul 和 ol 的子元素不能是别的元素只能是 li，不能是别的比如 div 等（ie6会有问题）。
+- dt标签里面不能嵌套块级元素，只能嵌套内联元素，dd可以。
 
 ### 键盘、可访问性
 
@@ -427,53 +615,7 @@ All elements that are `position: absolute;` are automatically treated as `displa
 - [WAI-ARIA](http://www.w3.org/TR/wai-aria/usage#managingfocus)
 - [aria-hidden and role="presentation"](http://asurkov.blogspot.com/2012/02/aria-hidden-and-rolepresentation.html)
 
-### 浏览器渲染
-
-当浏览器从服务器接收到了 HTML 文档，并把 HTML 在内存中转换成 DOM 树，在转换的过程中如果发现某个节点 (node) 上引用了 CSS 或者 IMAGE，就会再发 1 个 request 去请求 CSS 或 image，然后继续执行下面的转换，而不需要等待 request 的返回，当 request 返回后，只需要把返回的内容放入到 DOM 树中对应的位置就 OK。
-但当引用了 JS 的时候，浏览器发送 1 个 js request 就会一直等待该 request 的返回。因为浏览器需要 1 个稳定的 DOM 树结构，而 JS 中很有可能有代码直接改变了 DOM 树结构，浏览器为了防止出现 JS 修改 DOM 树，需要重新构建 DOM 树的情况，所以就会阻塞其他的下载和呈现。
-
-结论：在 head 里面尽量不要引入 javascript，如果要引入 js 尽量将 js 内嵌，把内嵌 js 放在所有 css 的前面 (否则会打断 css 或图片的并行下载)。
-
-- [JavaScript Loading Priorities in Chrome](https://addyosmani.com/blog/script-priorities/)
-
-- [浏览器如何渲染文本](http://blog.jjgod.org/2011/04/09/how-do-browsers-render-text/)
-- [等宽字体（Monospaced Font）](http://zh.wikipedia.org/wiki/%E7%AD%89%E5%AE%BD%E5%AD%97%E4%BD%93)
-
-- 页面拥有 ID 的元素会自动创建全局变量，会不会导致 JS 问题？
-
-```html
-<!-- 浏览器地址栏输入以下代码 -->
-data:text/html,<h1>Hello, world!</h1>
-data:text/html,<html contenteditable>
-```
-
-```js
-console.log(window.top.document.compatMode); // 判断文档是标准模式还是怪异模式
-// 禁止别人以 iframe 加载你的页面
-if (window.location != window.parent.location) {
-  window.parent.location = window.location;
-}
-```
-
-- [网页渲染过程：Repaint 和 Reflow](http://frontendbabel.info/articles/webpage-rendering-101/)
-- repaint：当某元素在不改变布局、发生显示/隐藏的变化时，就会发生 repaint。
-- reflow：当 DOM 以一种影响到布局的方式进行操作时，会触发 reflow。
-  - 例如，样式改变影响了布局、className 改变、浏览器窗口大小改变、插入一个新元素、改变DOM节点的文本、新增一个元素属性，等等对 DOM 修改行为都会触发reflow
-  - 通过 getComputedStyle、offsetWidth、scrollWidth、clientWidth等属性获取元素的尺寸或位置，会被强行触发 reflow。因此多 style 变化可通过设置一次 className 完成
-  - 当元素 reflow 时，他的子结点和其后的任何元素也会reflow，最后所有元素进行 repaint
-- 减少 reflow 的方法：
-  - 将多个元素改变都在 DOMDocumentFragment 中进行，然后用一次操作将元素片段放到DOM中，这样只触发一次reflow
-  - 要在元素上做动画应该设置 `position:absolute` 或 `position:fixed`, 他们只会引发一个 repaint 而不是全部 reflow。
-  - 通过 scrollTo() 进行原生滚动，性能显著，因为没有触发 reflow。
-
-- 元素嵌套：
-  - p 标签不能嵌套块级元素，button 里面不要嵌套 a 标签。
-  - ul 和 ol 的子元素不能是别的元素只能是 li，不能是别的比如 div 等（ie6会有问题）。
-  - dt标签里面不能嵌套块级元素，只能嵌套内联元素，dd可以。
-
 ------
-
-# other
 
 ## 质量
 
@@ -503,191 +645,6 @@ if (window.location != window.parent.location) {
 - [observe-js](https://github.com/Polymer/observe-js)
 - [TemplateBinding](https://github.com/Polymer/TemplateBinding)
 - [handlebars-vs-polymer-mdv](http://jsperf.com/handlebars-vs-polymer-mdv/14)
-
-## react
-
-[react-typescript-cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet)
-
-[React Fiber 是什么](https://zhuanlan.zhihu.com/p/26027085)、
-[The how and why on React’s usage of linked list in Fiber to walk the component’s tree](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7)、
-[Inside Fiber: in-depth overview of the new reconciliation algorithm in React](https://medium.com/react-in-depth/inside-fiber-in-depth-overview-of-the-new-reconciliation-algorithm-in-react-e1c04700ef6e)、
-[The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
-
-[react isMounted 内存泄漏](https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html)：Flux Redux 将整个 app 的状态储存在所有组件最外层，避免了组件的销毁影响整个 app 的 state。
-
-生命周期 图示 dia­gram :
-![https://tylermcginnis.com/an-introduction-to-life-cycle-events-in-react-js/](https://gw.alipayobjects.com/zos/rmsportal/KMqUOATjGIAemLuRLNWF.png)  
-![http://www.cnblogs.com/twobin/p/4949888.html](https://gw.alipayobjects.com/zos/rmsportal/JRAlcAXhcdkagRIirtUP.jpg)
-
-[3 Reasons why I stopped using React.setState](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#.o2lwoysxh) /
-
-- setState 是异步的
-  - [state-updates-may-be-asynchronous](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous) / [示例](https://stackoverflow.com/a/45249445/2190503)
-- setState 引起不必要的 render
-- setState 不能覆盖所有的组件状态（像生命周期的钩子、timers、events）
-
-### [PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
-
-相比使用 Component 多了以下代码，避免了 props 和 state 不变时组件的重新渲染（即 render 函数不会执行、也就不会触发 react 内部的 virtual DOM diff、节约了计算）。
-
-```js
-shouldComponentUpdate(nextProps, nextState) {
-  return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
-}
-```
-
-- 父组件是 pure component，子组件也需要是 pure component。因为父组件的 state 和 props 保持不变时是不会重新渲染的，子组件也就不会重新渲染了。
-- 除非碰到了性能问题，不然不要用 PureComponent。遇到性能问题，也可以通过自己定制 shouldComponentUpdate 来控制。
-- 如果预期到某个组件的 props 或是 state 会「频繁变动」，那就不用使用 PureComponent，因为这样反而会变慢。示例：
-
-  ```js
-  render() {
-    // 每次传入的 style 都是一个新对象，Post 组件每次都需要 rerender，
-    // 不需要使用 PureComponent 会再多一次 props 和 state 的对比。
-    return <Post item={item} style={{ 'width': 120 }} />;
-  }
-  ```
-
-### diff & key
-
-- React.js does not need to have knowledge about what exactly changed. All it needs to know is whether the state changed at all or not.
-- While immutability does not provide easier answers to a what exactly changed problem, it provides a great answer to the is it changed at all or not question.
-- [虚拟DOM Diff算法解析](http://www.infoq.com/cn/articles/react-dom-diff)
-
-- [Dynamic Children - Why the Keys are Important](http://blog.arkency.com/2014/10/react-dot-js-and-dynamic-children-why-the-keys-are-important/)
-- 不能在组件内通过 props 获取 key 或 ref。
-- React.Children.map 会修改 key, 而 this.props.children.map 不会，参考 demo 示例
-
-dom 对象是很庞大的（上边有很多属性），其创建的开销比较大，已有的 dom 对象上做更新开销并不大，众多框架都在围绕此做优化，比如用`key`是否变化来判断对 dom 的操作是 “更新” 还是 “销毁重建”。
-
-dom批量更新：dom操作如，1.删除一个元素，2.增加一个元素，3.在增加的元素上改变一个属性。
-如果用 dom-api 一步步操作，会导致中间多次的 repaints 和 reflows，这是比较低效耗性能的。
-如果放到「虚拟 dom」上操作，会把这三个过程最终的结果，一次更新到实际 dom 树上，只用操作一次实际 dom。
-
-react virtual-dom 里一次 digest 中的 diff 只需一次，但是会随着 ui 的复杂度，性能损耗严重，virtual-dom 与原 dom 的对应也更难 (如果 angular 的脏检查的性能取决与 watcher 的数量，那 react 则是取决与 ui 规模)。 virtual-dom 的内部结构变化是不可预知的
-
-- [真实 DOM 和 react 虚 dom 讨论](http://www.zhihu.com/question/31809713)
-- [React Virtual DOM vs Incremental DOM vs Ember’s Glimmer: Fight](https://auth0.com/blog/2015/11/20/face-off-virtual-dom-vs-incremental-dom-vs-glimmer/)
-
-### HOC
-
-使用 HOC ([Higher-Order Components](https://facebook.github.io/react/docs/higher-order-components.html)) 代替 Mixins，[Mixins Considered Harmful](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html)
-
-HOC 的缺点：
-
-- Like any solution, higher-order components have their own pitfalls. For example, if you heavily use refs, you might notice that wrapping something into a higher-order component changes the ref to point to the wrapping component. In practice we discourage using refs for component communication so we don’t think it’s a big issue. In the future, we might consider adding ref forwarding to React to solve this annoyance.
-- [HOC 里的实际的 Component 名字被覆盖掉，导致多层组件嵌套难以识别](https://github.com/ant-design/ant-design-mobile/blob/0.9.12/components/_util/touchableFeedback.tsx#L10)
-
-### 处理 children
-
-需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，
-而不要用`Array.isArray(children) / children.forEach`等方法。
-`React.Children.xx`方法里有类似递归调用（详细跟踪React源码里的`traverseAllChildrenImpl`方法）、
-能自动解析类似这样的 children：
-
-```html
-<List.Body>
-  <List.Item>收银员</List.Item>
-  {[1, 2, 3].map((i, index) => (<List.Item key={index}>运营</List.Item>))}
-</List.Body>
-```
-
-而自己写的`Array.isArray`等如果不递归解析、就会把上段代码解析错误。
-
-## 函数式编程
-
-- [函数式编程](http://coolshell.cn/articles/10822.html)
-- [函数式编程有哪些优点？](http://www.nowamagic.net/academy/detail/1220540)
-- [函数式编程扫盲篇](http://www.cnblogs.com/kym/archive/2011/03/07/1976519.html)
-- [函数式编程初探](http://www.ruanyifeng.com/blog/2012/04/functional_programming.html)
-- [introduction-functional-javascript](http://www.sitepoint.com/introduction-functional-javascript/)
-- [Functional Programming in Javascript === Garbage](http://awardwinningfjords.com/2014/04/21/functional-programming-in-javascript-equals-garbage.html)
-- [使用JavaScript实现“真·函数式编程”](http://jimliu.net/2015/10/21/real-functional-programming-in-javascript-1/)
-
-对象是面向对象的第一型，那么函数式编程也是一样，函数是函数式编程的第一型。
-
-在纯粹函数式程式语言中，你不是像命令式语言那样命令电脑「要做什么」，而是通过用函数来描述出问题「是什么」。
-递回在 Haskell 中非常重要。命令式语言要求你提供求解的步骤，Haskell 则倾向于让你提供问题的描述。
-这便是 Haskell 没有 while 或 for 循环的原因，递回是我们的替代方案。
-
-在面向对象编程中，我们把对象传来传去，那在函数式编程中，我们要做的是把函数传来传去，我们把他叫做 **高阶函数**
-在函数式编程中，函数是基本单位，是第一型，他几乎被用作一切，包括最简单的计算，甚至连变量都被计算所取代。
-在函数式编程中，变量只是一个名称，而不是一个存储单元，这是函数式编程与传统的命令式编程最典型的不同之处。
-
-### Persistent data structure
-
-Immutable data structures：当一个对象被创建之后、就永远不会变了，如果需要改变、就只能创一个新的。
-
-```js
-const obj = { text: 'hello' };
-obj.text = 'world' // 这样不行，因为改变了 obj 这个对象
-const newObj = { ...obj, text: 'world' }; // 必须要创建一个新对象
-```
-
-- [Immutability in JavaScript](http://www.sitepoint.com/immutability-javascript/)
-- [Persistent_data_structure](https://en.wikipedia.org/wiki/Persistent_data_structure)
-
-> fb出品的 [immutable-js](http://facebook.github.io/immutable-js/) 提供了 Immutable 的 List, Stack, Map 等数据结构，为了实现不可变性，最直接的做法可能是直接拷贝对象，但因为效率太低不可行，而是利用了 structural sharing，
-这样就可以最小化的拷贝对象的一部分。拷贝的是哪一部分呢？如图：
-
-[wiki 图示](https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Purely_functional_tree_after.svg/876px-Purely_functional_tree_after.svg.png)
-
-这样嵌套的深层对象，只需拷贝f、g、d这一个链，其他的结构共享，这样创建了一个新对象，
-就达到了 immutable 的目的，而且效率和内存占用都比较合理。但注意一个问题[Circular references](https://github.com/facebook/immutable-js/issues/259)，这个问题在 Haskell 等语言中在语言层面被解决了，
-但在js中似乎难以解决。[详解视频](https://www.youtube.com/watch?v=I7IdS-PbEgI)
-
-> Structural sharing is a powerful concept, and is what enables Clojure persistent data structures to achieve O(log n) performance on operations that would otherwise require full O(n) copies of a data structure.
-
-## redux
-
-- [UI state应该放到哪里？](https://github.com/rackt/redux/issues/595)
-- [解读 redux 的设计思路与用法](http://div.io/topic/1309)
-
-redux & redux-saga 场景:
-
-form 表单提交，触发 `FORM_POST` action，
-saga 里触发（ yield put ）`POST_SUCCESS`/`POST_FAILURE` action，
-无论提交成功或失败，都需要改变页面状态、或拉取新的列表数据，触发 `UI_CHANGE`/`PULL_DATA` action，
-`UI_CHANGE`/`PULL_DATA` 需要参数，用 `yield select` 从 `state` 里选取需要的数据（ ui状态数据需要存到全局 state 里），
-复杂场景下、需要在 saga 里对来自不同 action 的数据结果做比对、筛选等操作，再触发最终的 action（比如 步骤条的下一步）。
-
-### flux
-
-不同的 component 维护许多各自不同 state，导致数据碎片化，flux 模式利用顶层 store 能解决这个问题
-
-[本质：(state, action) => state](https://speakerdeck.com/jmorrell/jsconf-uy-flux-those-who-forget-the-past-dot-dot-dot)
-
-[Smart and Dumb Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
-
-- Stores hold data, and signal when something has changed
-- Views subscribe to the stores that contain the data that it needs
-
-actions 其实就是 data，或者我认为是 mutations，即 ui 或者 server 的 response。
-action creator 是一个 help method，调用 dispatcher，传递 mutations。所以，action creator 是直接调用 dispatcher (passive) 的。
-dispatcher 是一个 pub-sub systems。
-component 直接调用 action creator
-store 监听 action creator
-component 监听 store
-
-In Flux, Store is the only place in your whole app that has privilege to mutate the data. It has no setters and only responds to actions emitted by the components. API responses are also actions, as they serve as inputs to Store. Only Store gets to decide how to update the data. Neither the UI nor other models should be able to mutate the data.
-
-#### FRP (Functional Reactive Programming)
-
-The former is Passive programming, while the latter is Reactive programming
-
-- 展现：render :: Model -> UI
-  - render 是一个接受一个数据模型参数并返回一个用户界面的函数。
-  - React.js 本质：`(state, props) => state`
-- 响应：reactive :: Action -> Model -> Model（Model, Side Effects(异步消息)）
-  - reactive 是一个接受一个动作（事件）参数和一个模型，并返回一个新的模型的函数。
-  - 有「Side Effects(异步消息)」时，reactive :: Action -> Model -> (Model, Effects Action)。参考 <https://github.com/evancz/elm-architecture-tutorial/>
-  - flux 本质：`(state, action) => state` redux 的 reducer 也是这样。
-- render 和 reactive 反复迭代即得到一个用户应该看到并可以操作的用户界面。
-
-### 服务端渲染
-
-`ReactDOMServer.renderToString()`执行时间、一般复杂的页面需要 20~50ms。数据如果是全局变量，用户并发访问服务器、就可能拿到了同一份数据，需要通过 uuid 来做标记，比较麻烦。redux 的 store 是一个通过函数构造的，数据是函数的参数，作为初始化数据，数据不是全局变量，没问题。函数式无副作用、无状态，利于并发。- @翰文
-高并发的应用，不推荐使用 react 服务器渲染，因为性能不算好，会拉低应用的 qps 。
 
 ## 组件设计
 
