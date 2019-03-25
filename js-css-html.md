@@ -5,14 +5,6 @@
 [codesandbox.io](https://codesandbox.io/u/warmhug) / 
 [jsfiddle.net](https://jsfiddle.net/user/dashboard/fiddles/)
 
-- [前端技术清单](https://juejin.im/post/5bdfb387e51d452c8e0aa902)
-- [33-js-concepts](https://github.com/leonardomso/33-js-concepts)
-- [remote Collaboration](https://togetherjs.com/)
-- [富文本编辑器 trix](https://github.com/basecamp/trix)
-- [富文本编辑器技术演进](https://mp.weixin.qq.com/s/9gDI1r9aAu6dHJhXg34eIg)
-- [富文本编辑器 braft-editor](https://github.com/margox/braft-editor)
-- [Javascript-WYSIWYG-editors](https://github.com/cheeaun/mooeditable/wiki/Javascript-WYSIWYG-editors)
-
 [WebAssembly](https://web.autocad.com/)
 [Web 前端中的增强现实（AR）开发技术](https://geekplux.com/2018/01/18/augmented-reality-development-tech-in-web-frontend.html)、
 [Chrome Experiments](https://experiments.withgoogle.com/collection/chrome)、
@@ -21,25 +13,31 @@
 [airbnb/javascript](https://github.com/airbnb/javascript)、
 [html5test](http://html5test.com/)、
 
-[录制并回放 web 界面中的用户操作](https://github.com/rrweb-io/rrweb)(内网 xreplay)
-
+- [录制并回放 web 界面中的用户操作](https://github.com/rrweb-io/rrweb)(内网 xreplay)
+- [remote Collaboration](https://togetherjs.com/)
+- [富文本编辑器 trix](https://github.com/basecamp/trix)
+- [富文本编辑器技术演进](https://mp.weixin.qq.com/s/9gDI1r9aAu6dHJhXg34eIg)
+- [富文本编辑器 braft-editor](https://github.com/margox/braft-editor)
+- [Javascript-WYSIWYG-editors](https://github.com/cheeaun/mooeditable/wiki/Javascript-WYSIWYG-editors)
 - [代码演示文档生成器](https://www.docz.site/)
+- [processon](https://www.processon.com/)
+- [json-server](https://github.com/typicode/json-server)
+
+框架 & 功能库
+
 - [高性能无尽列表（元素可回收）](https://github.com/bvaughn/react-virtualized)
 - [元素定位库](http://github.hubspot.com/tether/)
+- [react-grid-layout](https://github.com/STRML/react-grid-layout)
+- [amcharts](http://www.amcharts.com/demos/)
+- [react-helmet](https://github.com/nfl/react-helmet)
+- 浏览器检测：[ua检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)
 
-[现在的前端框架全是通过API获得数据，如何记录用户登录状态？](https://www.zhihu.com/question/301253397/answer/547887208) ([user-authentication-with-jwt](http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/))
-
-<https://tushuo.baidu.com/> /
-<https://github.com/STRML/react-grid-layout> / [amcharts](http://www.amcharts.com/demos/)
-<https://github.com/nfl/react-helmet>
-<https://www.processon.com/>
+- [现在的前端框架全是通过API获得数据，如何记录用户登录状态？](https://www.zhihu.com/question/301253397/answer/547887208) ([user-authentication-with-jwt](http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/))
+- [静态资源版本更新与缓存](http://www.infoq.com/cn/articles/front-end-engineering-and-performance-optimization-part1)
 
 - [front-end-application-frameworks-component-architectures](http://developer.telerik.com/featured/front-end-application-frameworks-component-architectures/)
 - [一个对前端模板技术的全面总结](http://www.html-js.com/article/2313)
-- [Web Components - building blocks of the future web](https://www.infinum.co/the-capsized-eight/articles/web-components-building-blocks-of-the-future-web)
 - [开源前端框架纵横谈](http://www.csdn.net/article/2013-04-15/2814893)
-
-浏览器检测：[ua检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)
 
 UI 库 & design
 
@@ -48,26 +46,12 @@ UI 库 & design
 [material-design-lite](https://github.com/google/material-design-lite)、
 [fineui](http://fineui.com/)、[amazeui](http://amazeui.org/)、[miniui](http://www.miniui.com/)
 [semantic-ui](http://semantic-ui.com/)、 [Flat-UI](http://designmodo.github.io/Flat-UI/)
-[goodui](https://goodui.org/)、[weui](https://github.com/weui/weui)、[goratchet](http://goratchet.com/)
+[goodui](https://goodui.org/)、[weui](https://github.com/weui/weui)
 
-- [gulp 手册1](http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C1.pdf) / [gulp 手册2](http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C2.pdf)
+调试
 
-- [你可能不需要jQuery](http://youmightnotneedjquery.com/)
-- [js秘密花园](http://bonsaiden.github.io/JavaScript-Garden/zh/)、[全面基础教程](http://yanhaijing.com/basejs/)
-- [静态资源版本更新与缓存](http://www.infoq.com/cn/articles/front-end-engineering-and-performance-optimization-part1)
-
-- 只在行首字符是 `+、-、[、(、/` 这5种情况下，加前置分号即可，其他不用加分号。
-- [Semicolons in JavaScript are optional](http://mislav.uniqpath.com/2010/05/semicolons/)
-- [JavaScript 语句后应该加分号么？](http://www.zhihu.com/question/20298345/answer/14670020)
-
-- [全面：观察者/pub-sub/facade/mvc、mvp、mvvm](http://addyosmani.com/resources/essentialjsdesignpatterns/book/)
-- [中介者模式与观察者模式有何不同？](http://www.cnblogs.com/aaronjs/archive/2013/07/18/3199282.html)
-- [Five Patterns to Help You Tame Asynchronous JavaScript](http://tech.pro/blog/1402/five-patterns-to-help-you-tame-asynchronous-javascript)
-- [JavaScript 设计模式 – 第二部分： 适配器、装饰者和工厂模式](http://www.adobe.com/cn/devnet/html5/articles/javascript-design-patterns-pt2-adapter-decorator-factory.html)
-- [Sea.js 源码解析（二）](https://github.com/lifesinger/lifesinger.github.com/issues/171)
-- [Sea.js 源码解析（三）](https://github.com/lifesinger/lifesinger.github.com/issues/175)
-- [json-server](https://github.com/typicode/json-server)
-- [一切皆为 JavaScript](https://www.csdn.net/article/2013-11-04/2817389-JavaScript-World)
+- [Chrome DevTools’ Workspaces、Redirect 和 Fiddler / Charles 的使用](https://aarontgrogg.com/blog/2015/03/24/how-to-replace-remote-files-with-local-files-when-debugging/)
+- [XSwitch](https://github.com/yize/xswitch) 原理是通过 chrome.webRequest API 来对请求进行劫持。代理到本地的，推荐写 `127.0.0.1` 而不是 `localhost`。HTTPS 下的页面访问了 http://127.0.0.1 的资源，不会被安全策略拦截。
 
 ## react
 
@@ -256,31 +240,6 @@ The former is Passive programming, while the latter is Reactive programming
 
 `ReactDOMServer.renderToString()`执行时间、一般复杂的页面需要 20~50ms。数据如果是全局变量，用户并发访问服务器、就可能拿到了同一份数据，需要通过 uuid 来做标记，比较麻烦。redux 的 store 是一个通过函数构造的，数据是函数的参数，作为初始化数据，数据不是全局变量，没问题。函数式无副作用、无状态，利于并发。- @翰文
 高并发的应用，不推荐使用 react 服务器渲染，因为性能不算好，会拉低应用的 qps 。
-
-## 调试
-
-- [Chrome DevTools’ Workspaces、Redirect 和 Fiddler / Charles 的使用](https://aarontgrogg.com/blog/2015/03/24/how-to-replace-remote-files-with-local-files-when-debugging/)
-- [XSwitch](https://github.com/yize/xswitch) 原理是通过 chrome.webRequest API 来对请求进行劫持。
-  - 代理到本地的，推荐写 `127.0.0.1` 而不是 `localhost`。HTTPS 下的页面访问了 http://127.0.0.1 的资源，不会被安全策略拦截。
-
-## es6
-
-- [ECMAScript compatibility table](http://kangax.github.io/compat-table/es6/)
-- [迭代器和生成器 generators](http://se77en.cc/2014/01/20/iterators-and-generators-translation/)
-- [es-modules 详解](https://jakearchibald.com/2017/es-modules-in-browsers/)
-- [async await](https://developers.google.com/web/fundamentals/getting-started/primers/async-functions)
-- [promise 使用问题](http://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html)
-- [q](https://github.com/kriskowal/q)
-
-### es6-modules
-
-参考其他语言，如 Python 等模块设计。[es6-modules-final](http://www.2ality.com/2014/09/es6-modules-final.html)
-
-- 静态化，支持静态分析，编译时就能确定模块的依赖关系，以及输入和输出的变量。能支持引入宏（macro）和类型检验（type system）。CommonJS和AMD模块，都只能在运行时确定。
-- `import`、`export`可以出现在模块的任何位置，但要处于模块顶层，不能放在块级作用域内。
-- 一个模块里`export deault`只能使用一次，其他输出可以用`export xx`。
-- CommonJS模块输出的是一个值的拷贝（输出后不可变），而ES6模块输出的是值的引用（输出后可变）。
-- ES6模块支持“循环依赖”，正常输出。CommonJS模块也支持，但只输出已经执行的部分，还未执行的部分不会输出。
 
 ## 性能
 
@@ -632,6 +591,7 @@ All elements that are `position: absolute;` are automatically treated as `displa
 
 ## Web Components
 
+- [Web Components - building blocks of the future web](https://www.infinum.co/the-capsized-eight/articles/web-components-building-blocks-of-the-future-web)
 - [webcomponents.org](http://webcomponents.org/)
 - [webcomponents-the-right-way](https://github.com/mateusortiz/webcomponents-the-right-way)
 - [Why Web Components Are Ready For Production](http://developer.telerik.com/featured/web-components-ready-production/)
