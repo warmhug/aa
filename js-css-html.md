@@ -13,6 +13,7 @@
 [airbnb/javascript](https://github.com/airbnb/javascript)、
 [html5test](http://html5test.com/)、
 
+- [mathigon 互动式教程](https://mathigon.org/)
 - [录制并回放 web 界面中的用户操作](https://github.com/rrweb-io/rrweb)(内网 xreplay)
 - [remote Collaboration](https://togetherjs.com/)
 - [富文本编辑器 trix](https://github.com/basecamp/trix)
@@ -59,6 +60,8 @@ UI 库 & design
 [useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
 
 [react-typescript-cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet)
+
+Concurrent 更适用于带有大量长时间渲染并含有富交互的应用。
 
 [React Fiber 是什么](https://zhuanlan.zhihu.com/p/26027085)、
 [The how and why on React’s usage of linked list in Fiber to walk the component’s tree](https://medium.com/react-in-depth/the-how-and-why-on-reacts-usage-of-linked-list-in-fiber-67f1014d0eb7)、

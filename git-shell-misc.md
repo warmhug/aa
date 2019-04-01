@@ -162,6 +162,16 @@ git checkout tag_name  # 检出标签
 
 ## git 实践
 
+```sh
+# git 三板斧
+# 一板基础斧
+add，commit，pull/push，checkout，revert
+# 二板合作斧
+merge，rebase，stash，cherry-pick
+# 三板优雅斧
+commit --amend，rebase -i
+```
+
 遵循业内比较成熟的 GIT 分支模型，整个概况如下图所示：
 
 ![git-model 2x](https://cloud.githubusercontent.com/assets/36899/7315642/015f534c-eaa2-11e4-9882-b7cc7535fb72.png)
