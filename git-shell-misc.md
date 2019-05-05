@@ -27,7 +27,7 @@ git push origin xx     # 推送到xx分支
 
 # diff & log
 git diff [version1] [version2]   # 查看版本差异
-git diff branch1..branch2  # 查看本地分支区别
+git diff --stat --color branch1..branch2  # 查看本地分支区别
 git diff branch1...remotes/origin/branch2  # 查看本地和远程分支区别
 git shortlog branch1...remotes/origin/branch2  # 查看本地和远程分支区别，信息少
 git log -p -2   # 显示最近的两次更新
@@ -47,18 +47,25 @@ git merge origin/master  # 合并远程的 repos 到本地的 master 分支上
 git merge xx           # 合并xx分支到某分支（例如：合并到主分支，先切到 master 再git merge xx）
 git merge origin/xx    # 远程上有 xx 分支，并且 git fetch origin 执行此命令，将合并此分支
 git merge --no-ff xx   # 不执行"快进式合并"，始终多产生 merge 信息，便于追踪
-git merge --squash dev  # 类似 git rebase -i 能合并要 dev 的所有提交历史到一个
+git merge --squash dev
 
 git fetch upstream         # merge remote 获取原始代码库的更新
 git merge upstream/master  # 合并进来
+
+# 合并/删除多个 commit 为一个 https://www.jianshu.com/p/4a8f4af4e803
+git log   # 找到要删除/合并 commit 之前一个 commit_id
+git rebase -i [commit_id]
+# (vi操作：方向键 + i + 需要修改的 + :wq)
+# 将需要删除的 commit_id 前的 pick 改为 d | drop
+# 将需要合并的 commit_id 前的 pick 改为 s | squash
+# (一般保留以上列表中第一条 pick 不变，其他做相应修改)
+git reflog  # 查看操作过程
+git push -f  # 强制提交
 
 # 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录
 git pull --rebase origin master  # 在开发分支上 rebase 主分支.
 git rebase --continue
 git rebase --abort
-
-https://www.jianshu.com/p/4a8f4af4e803  # 合并多个 commit 为一个完整 commit
-
 # merge 和 rebase 的问题：
 #- 如果用 rebase ，需要经常 reapply 其他提交的改动， commit 的时间顺序也会乱掉。
 #- 如果用最直接的 merge ，会产生重复无用的比如 Merge pull request pull_id from xx_branch 或者 Merge branch “branch_name” 信息，不利于 review 提交记录。
@@ -87,11 +94,6 @@ git reset --hard origin/master   # 将本地的状态回退到和远程的一样
 
 git checkout HEAD~1 -- file   # 运行 git merge xx 后，想撤销其中某个文件的 merge
 git reflog   # 生成某个串，例如 98abc5a 再 git reset --hard 98abc5a
-
-## 删除具体某个 commit
-git log   # 找到要删除的 commit 之前一个 commit_id
-git rebase -i [commit_id]  # 将列出的需要删除的 commit_id 前的 pick 改为 drop (vi操作：方向键 + i + drop + :wq)
-git push -f  # 强制提交
 
 ## 增加某个 commit 方法 cherry-pick
 git checkout develop   # 切换到 dev 分支，也可以新建个 feature 分支

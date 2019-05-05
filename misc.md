@@ -254,7 +254,8 @@ Homebrew 会自动安装好 Setuptools 和 pip ，Setuptools提供 easy_install 
 [macOS Sierra 安装 opencv 最简单方法](http://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/)
 
 ```sh
-python -m SimpleHTTPServer 3435  # python 起简单服务器
+python -m http.server [port]  # Python 3 起服务器
+python -m SimpleHTTPServer 3435  # python2 起服务器
 
 brew install python python3  # 一起安装 2.7.x 和 3.x
 

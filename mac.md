@@ -42,6 +42,33 @@ QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:
   - [官方文档](http://www.tianqi.com/plugin/) c 获取方式，设置为"code"，表示获取代码。id 模板样式，建议设置为19。icon 图标样式，范围1-5。py 地方名全拼，默认为客户地方。num 预报天数。[示例](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=18)
 - 其他：[pm2.5](http://pm25.in/hangzhou)、[农历](https://www.sojson.com/open/api/lunar/json.shtml?date=2019-02-09)
 
+## 快捷键
+
+```sh
+pmset noidle  # 阻止电脑睡眠。 同时按住 shift、control、电源键，关闭显示器
+单词自动补全：在内置的文本编辑器里，输入几个字母后，点击 Escape 键，OS X 就会提示多个单词。
+
+# 在 finder 里
+cmd + shift + . / G / D / F # 切换显示“隐藏文件” / 跳转 / 桌面 / 最近使用的全部文件
+
+# 系统截图
+command + shift + 3(4)  # 截图保存成文件
+control + command + shift + 3(4)  # 截图只是保存在剪贴板里，不保存文件
+# 批量设置图片大小
+sips -Z 640 *.jpg   # 批量修改图片的 宽或高 为指定值(最大值变为 640)，保持原来宽高比例
+sips -z height width [file]   # 修改宽和高为指定值
+# http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
+defaults read com.apple.screencapture  # 查看系统截图设置
+defaults write com.apple.screencapture type jpg  # 将系统截屏后图片保存为 jpg 格式
+defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图片保存路径
+defaults delete com.apple.screencapture name  # 撤销修改截图名
+
+## Chrome
+Command + L  # 光标定位到地址栏，输入搜索词 并按 Alt + Enter 键在 新标签页中
+Command + 1/2/3  # 跳到相应标签
+Command + Alt + →/←  # 选择 上/下 一个标签
+```
+
 ---------
 
 ## git & iTerm2 & oh-my-zsh & homebrew
@@ -161,24 +188,30 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
   "files.associations": {
     "*.wxml": "xml",
     "*.wxss": "css",
-    "*.acss": "css"
+    "*.acss": "css",
+    "*.mdx": "markdown"
   },
   "workbench.iconTheme": "vs-seti",
-  "terminal.enableAppInsights": false,
   "terminal.external.osxExec": "iTerm.app",
   "terminal.integrated.shell.osx": "/bin/zsh",
-  "terminal.integrated.copyOnSelection": true,
+  "terminal.enableAppInsights": false,
   "window.zoomLevel": 0,
   "python.pythonPath": "/usr/local/bin/python2",
   "search.smartCase": true,
+  "terminal.integrated.copyOnSelection": true,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   // 默认所有文件以 utf8 编码格式打开
   // 当单独设置 vm 文件以 gbk 编码打开时，需要设置 autoGuessEncoding 为 false.
-  "[velocity]": {
-    "files.encoding": "gbk"
-  },
+  // "[velocity]": {
+  //   "files.encoding": "gbk"
+  // },
   "files.autoGuessEncoding": false,
+  "workbench.colorTheme": "Monokai Dimmed",
+  "[markdown]": {
+    "editor.fontSize": 14,
+    "editor.letterSpacing": 1.4,
+  },
 }
 // 快捷键
 [
@@ -211,33 +244,6 @@ sftp
     "**/.DS_Store"
   ]
 }
-```
-
-## 快捷键
-
-```sh
-pmset noidle  # 阻止电脑睡眠。 同时按住 shift、control、电源键，关闭显示器
-单词自动补全：在内置的文本编辑器里，输入几个字母后，点击 Escape 键，OS X 就会提示多个单词。
-
-# 在 finder 里
-cmd + shift + . / G / D / F # 切换显示“隐藏文件” / 跳转 / 桌面 / 最近使用的全部文件
-
-# 系统截图
-command + shift + 3(4)  # 截图保存成文件
-control + command + shift + 3(4)  # 截图只是保存在剪贴板里，不保存文件
-# 批量设置图片大小
-sips -Z 640 *.jpg   # 批量修改图片的 宽或高 为指定值(最大值变为 640)，保持原来宽高比例
-sips -z height width [file]   # 修改宽和高为指定值
-# http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
-defaults read com.apple.screencapture  # 查看系统截图设置
-defaults write com.apple.screencapture type jpg  # 将系统截屏后图片保存为 jpg 格式
-defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图片保存路径
-defaults delete com.apple.screencapture name  # 撤销修改截图名
-
-## Chrome
-Command + L  # 光标定位到地址栏，输入搜索词 并按 Alt + Enter 键在 新标签页中
-Command + 1/2/3  # 跳到相应标签
-Command + Alt + →/←  # 选择 上/下 一个标签
 ```
 
 ---------
