@@ -29,7 +29,7 @@
 
 - 开发: MacDown / Marp / charles / Gas Mask / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / Dash / FileZilla
 
-- 画图: omnigraffle / PlantUML planttext.com / draw.io / iThoughtsX / asciiflow / photopea / 幕布 / mindnode lite / Visual_Paradigm /
+- 画图: omnigraffle / PlantUML planttext.com / draw.io / iThoughtsX / ProcessOn / asciiflow / photopea / 幕布 / mindnode lite / Visual_Paradigm /
 
 - Chrome 扩展：Tamper Chrome
 
@@ -229,11 +229,11 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
 
 扩展，安装目录: `~/.vscode/extensions`
 
-Terminal / Live Server / markdownlint / filesize / EditorConfig /
-Indent 4-to-2  / beautify react-beautify Auto Close(Rename) Tag / SVG Viewer /
+Terminal / Live Server / markdownlint / filesize / EditorConfig / GitLens / Settings Sync /
+Indent 4-to-2 / beautify react-beautify Auto Close(Rename) Tag / SVG Viewer /
 pangu / Hungry Delete / javascript console utils
 [https://github.com/viatsko/awesome-vscode](https://github.com/viatsko/awesome-vscode) /
-sftp
+Task Explorer / sftp
 
 ```js
 // .vscode/sftp.json 文件内容 (注意放在 proj 的根目录里)

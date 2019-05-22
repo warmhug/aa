@@ -13,19 +13,12 @@
 [airbnb/javascript](https://github.com/airbnb/javascript)、
 [html5test](http://html5test.com/)、
 
-- [mathigon 互动式教程](https://mathigon.org/)
-- [录制并回放 web 界面中的用户操作](https://github.com/rrweb-io/rrweb)(内网 xreplay)
-- [remote Collaboration](https://togetherjs.com/)
-- [富文本编辑器 trix](https://github.com/basecamp/trix)
-- [富文本编辑器技术演进](https://mp.weixin.qq.com/s/9gDI1r9aAu6dHJhXg34eIg)
-- [富文本编辑器 braft-editor](https://github.com/margox/braft-editor)
-- [Javascript-WYSIWYG-editors](https://github.com/cheeaun/mooeditable/wiki/Javascript-WYSIWYG-editors)
-- [代码演示文档生成器](https://www.docz.site/)
-- [processon](https://www.processon.com/)
-- [json-server](https://github.com/typicode/json-server)
-
 框架 & 功能库
 
+- [Babel 在线编译](https://sucrase.io/)
+- [自动 polyfill](https://polyfill.io/v3/url-builder/)
+- [react-final-form](https://github.com/final-form/react-final-form)
+- [测试金字塔](https://martinfowler.com/bliki/TestPyramid.html)
 - [各设备截图服务](https://screendump.techulus.com/)
 - [高性能无尽列表（元素可回收）](https://github.com/bvaughn/react-virtualized)
 - [元素定位库](http://github.hubspot.com/tether/)
@@ -49,11 +42,6 @@ UI 库 & design
 [fineui](http://fineui.com/)、[amazeui](http://amazeui.org/)、[miniui](http://www.miniui.com/)
 [semantic-ui](http://semantic-ui.com/)、 [Flat-UI](http://designmodo.github.io/Flat-UI/)
 [goodui](https://goodui.org/)、[weui](https://github.com/weui/weui)
-
-调试
-
-- [Chrome DevTools’ Workspaces、Redirect 和 Fiddler / Charles 的使用](https://aarontgrogg.com/blog/2015/03/24/how-to-replace-remote-files-with-local-files-when-debugging/)
-- [XSwitch](https://github.com/yize/xswitch) 原理是通过 chrome.webRequest API 来对请求进行劫持。代理到本地的，推荐写 `127.0.0.1` 而不是 `localhost`。HTTPS 下的页面访问了 http://127.0.0.1 的资源，不会被安全策略拦截。
 
 ## react
 
