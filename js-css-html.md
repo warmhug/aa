@@ -933,3 +933,20 @@ window.addEventListener('message', function(event){
   }
 }, false);
 ```
+
+## 实时通信
+
+- 轮询（定时发消息、每次都新建链接）、
+- 长轮询（发消息后 等服务端返回、再发消息）、
+- 基于流 http streaming（客户端与服务器端只保持一个持久的连接，低版本 IE 定时去监听 iframe 的 readystate 的变化、为 3 时向页面输出内容、为 4 时重新建立链接，达到不断轮询的目的）。
+
+以上都需要“服务器端维持大量连接，开销很大”。相对来说 WebSocket 有以下优势：
+
+- 服务器和客户端之间，可以双向的发送数据到对方，允许跨域。
+- 你需要一台可以做Event Loop的服务器、支持第三方的websocket主机服务器，例如Pusher或者其它，浏览器和服务器只需要做一个握手的动作就形成了一条快速通道。
+
+与 http 的区别？http 的通信只能由客户端发起，是半双工协议，在同一时刻数据只能单向流动，客户端向服务器发送请求(单向的)，然后服务器响应请求(单向的)。
+
+[websockets 的问题](https://samsaffron.com/archive/2015/12/29/websockets-caution-required)、[JavaScript之web通信](https://segmentfault.com/a/1190000000423616)
+
+[HTTP DNS 等更基础知识](https://github.com/warmhug/backend/blob/master/network.md)
