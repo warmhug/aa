@@ -23,7 +23,7 @@
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置  
 > [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / imazing / Spectacle / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
+- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / imazing / Spectacle / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 
 - 图像: lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) /
 

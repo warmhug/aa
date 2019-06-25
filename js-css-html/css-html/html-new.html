@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>html new element</title>
+</head>
+<body>
+  https://html.spec.whatwg.org/multipage/form-elements.html
+  <br>
+  Web Crypto API https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API
+  <br>
+  https://w3c.github.io/webcrypto/
+  <br>
+  Web Authentication https://w3c.github.io/webauthn/
+  <br>
+
+  <p>The concert starts at <time datetime="2018-07-07T20:00:00">20:00</time>.</p>
+
+  <ol reversed>
+    <li>United Kingdom
+    <li>Switzerland
+    <li>United States
+    <li>Norway
+  </ol>
+
+  <clippy>clippy</clippy>
+  <std-toast>std-toast</std-toast>
+
+  <details open>
+    <summary>Details</summary>
+    Something small enough to escape casual notice.
+  </details>
+  
+  <p>Heat the oven to 
+    <meter min="200" max="500"value="350">350 degrees</meter>.
+  </p>
+
+  <form onsubmit="return false" oninput="o.value = a.valueAsNumber + b.valueAsNumber">
+    <input id=a type=number step=any> +
+    <input id=b type=number step=any> =
+    <output id=o for="a b"></output>
+  </form>
+
+  <section>
+    <h2>Task Progress</h2>
+    <p>Progress: <progress id="p" max=100><span>0</span>%</progress></p>
+    <script>
+      var progressBar = document.getElementById('p');
+      function updateProgress(newValue) {
+        progressBar.value = newValue;
+        progressBar.getElementsByTagName('span')[0].textContent = newValue;
+      }
+    </script>
+  </section>
+
+
+  <dialog></dialog>
+</body>
+</html>
