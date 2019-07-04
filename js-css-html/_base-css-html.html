@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet/less" type="text/css" href="./_base.less" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+  <title>css html 基础</title>
+</head>
+<body>
+  <script>
+    console.log(window.top.document.compatMode); // 判断文档是标准模式还是怪异模式
+    /*
+    <!-- 浏览器地址栏输入以下代码 -->
+    data:text/html,<h1>Hello, world!</h1>
+    data:text/html,<html contenteditable>
+    */
+  </script>
+
+  <div class="wrapper">
+    <h2>document.scrollingElement 在桌面和移动浏览器的不同</h2>
+    <a href="https://www.zhangxinxu.com/wordpress/2019/02/document-scrollingelement/">ref</a>
+    <script>
+      console.log(document.scrollingElement.tagName);
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <a href="https://css-tricks.com/the-lengths-of-css/">css 长度单位 介绍</a>
+    <pre>
+      绝对长度: px  inch  cm  mm  （ 1in == 96px  1mm == 0.1cm == 3.78px ）
+  
+      Font-Relative Lengths (相对字体的大小)：
+        em: 基于大写字母 M 的尺寸， 元素的 font-size 改变(自身或父级)时变化， font-family 改变时不变
+        rem: 相对 root 的 font-size 大小
+        ex: based on the x-height of the current font. font-size 或 font-family 改变时都会变化
+  
+      Viewport Percentage Lengths:
+        vw: viewport width, 1vw is equal to 1% of the width of the viewport.
+        vh: it is based on the viewport height. 1vh 等于 1/100 的视口高度
+        vmin / vmax: 关于视口高度和宽度两者的最小或者最大值
+    </pre>
+  </div>
+
+  <div class="wrapper">
+    <style>
+      /* 
+      w3c css规范中指出：A:hover 必须放置在 A:link 和 A:visited 之后，否则将隐藏 A:hover 内定义的相同规则。A:active 应在 A:hover 之后，否则 A:active 中的相同规则将被隐藏。A标记的伪类书写遵循w3c css2.1 规范中的 L-V-H-A 顺序。
+      */
+      .a:link{background-color:yellow;}
+      .a:visited{background-color:blue;}
+      .a:hover{background-color:red;}
+      .a:active{background-color:green;}
+    </style>
+    <a class="a" href="#">a 标签样式指南，put your mouse on</a>
+  </div>
+
+  <div class="wrapper">
+    <span style="display: block">
+      标签嵌套 演示：
+      <!-- <p><div>p 里 不可以 放 div，会导致下边元素解析都有出错！</div></p> -->
+      <p> span 里可以放 p / div </p>
+      <ul><li>span 里可以放 ul/li </li></ul>
+      <a href="#">span 里可以放 a 标签</a>
+      <div> <a href="#">span 里的 div 里可以放 a 标签</a> </div>
+      <span> <a href="#">span 里的 span 里可以放a标签</a> </span>
+    </span>
+  </div>
+  
+  <div class="wrapper margin">
+    <h2>子元素的 margin 设置影响父元素位置</h2>
+    <div class="title">title</div>
+    <div class="content">
+      <div class="cm">
+        给父容器 .content 加上 border 或 padding 等样式后，父容器所在位置就是预期的了！
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper longchar">
+    longcharlongcharlongcharlongcharlongcharlongcharlongcharlongcharlongcharlongchar
+  </div>
+  <div class="wrapper">
+    <h2>inline block 末尾空格</h2>
+    <ul class="space">
+      <li>UX Design</li>
+      <li>Front End</li>
+      <li>Photography</li>
+    </ul>
+  </div>
+  
+</body>
+</html>

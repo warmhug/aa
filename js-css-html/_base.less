@@ -1,0 +1,42 @@
+.wrapper {
+  margin-bottom: 20px;
+}
+
+.longchar {
+  width: 200px;
+  white-space: normal; // 不能截断连续字符
+  word-break: break-all;
+}
+
+.margin {
+  .title {
+    height: 30px;
+    border: 1px solid red;
+  }
+  .content {
+    height: 100px;
+    /* border: 1px solid blue; */
+    background-color: #ddd;
+  }
+  .cm {
+    margin-top: -20px;
+  }
+}
+
+.space {
+  /* 设置字号 0 去掉 inline-block 末尾插入的空格  */
+  font-size: 0;
+  li {
+    font-size: 16px;
+
+    display: inline-block;
+    background-color: #007bc7;
+    color: #fff;
+    border-radius: 100px;
+    padding: 4px 16px;
+    
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+}
