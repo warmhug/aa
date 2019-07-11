@@ -1,9 +1,7 @@
 # js / css / html
 
-代码片段：
-[codepen.io](https://codepen.io/dashboard/) / 
-[codesandbox.io](https://codesandbox.io/u/warmhug) / 
-[jsfiddle.net](https://jsfiddle.net/user/dashboard/fiddles/)
+代码片段（题目）：
+[codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/dashboard/)、[jsfiddle.net](https://jsfiddle.net/user/dashboard/fiddles/))
 
 [whatwg HTML](https://whatwg-cn.github.io/html/)、
 [html dialog](https://demo.agektmr.com/dialog/)
@@ -41,6 +39,7 @@
 
 UI 库 & design
 
+[toast ui](https://ui.toast.com/)、
 [primereact](https://www.primefaces.org/primereact/#/)、
 [material-design](https://material.io/design/introduction/)、
 [material-design-lite](https://github.com/google/material-design-lite)、

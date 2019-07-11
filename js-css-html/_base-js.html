@@ -88,41 +88,7 @@
     console.log(slice([1, 2, 3], 1)); // TypeError 是否跟 this 有关？
   }
   demo(1, 2, 3);
-
-  /*
-    this
-  */
-  var o = {
-    user: "追梦子",
-    fn: function() {
-      console.log(this.user);
-    }
-  }
-  o.fn(); // 追梦子
-  var func = o.fn;
-  func(); // undefined
-  var bfunc = func.bind(o);
-  bfunc(); // 追梦子
-
-  /**
-    闭包：利用的是 “高阶函数” 的特性：函数可以作为参数或者返回值。
-  */
-  var fn = function(i) {
-    // 局部变量 i 由于被 fun 引用，即便 fn 执行完毕，但也不会被 垃圾回收。
-    return function() {
-      console.log(i++);
-    }
-  };
-  var fun = fn(2);
-  fun();
-  fun();
-
-  for (var j = 0; j < 3; j++) {
-    setTimeout(function() { console.log(j); }, 1000);
-    (function(j) {
-      setTimeout(function() { console.log(j); }, 3000);
-    })(j);
-  }
+  
 
   /*
     严格模式 / 非严格模式
@@ -416,24 +382,6 @@
   $(function(){
       // 执行语句
   });
-
-  // prototype.js创建对象
-  var Class = {
-      create: function () {
-          return function () {
-              this.initialize.apply(this, arguments);
-          }
-      }
-  };
-  var Ctor = Class.create();
-  Ctor.prototype={
-      initialize:function(v){
-          this.value=v;
-      },
-      showValue:function(){
-          alert(this.value);
-      }
-  }
 
   // 在 jQuery 下实现锚点的平滑跳转：
   $("html,body").animate({ scrollTop: $("#comment").offset().top}, 1000);
