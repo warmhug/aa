@@ -8,6 +8,34 @@
   <title>css html 基础</title>
 </head>
 <body>
+<pre>
+  [head 里能放什么？](https://github.com/joshbuchea/HEAD)
+  [livicons](http://livicons.com/)
+
+  - [div 和 span 都是作为容器元素](http://www.w3.org/wiki/Generic_containers_-_the_div_and_span_elements)
+  - p 标签里不能有块(block)标签，否则`<p>`标签会提前结束导致解析错误，也会连环导致其他标签解析错误。button 里面不要嵌套 a 标签。
+  - ul 和 ol 的子元素不能是别的元素只能是 li，不能是别的比如 div 等（ie6会有问题）。dt标签里面不能嵌套块级元素，只能嵌套内联元素，dd可以。
+  - `select` is inline by default
+  - a 标签带 href 并不为空，按 enter 键都会触发其上的 click 事件，否则不会触发！
+  - img script 的 src、css 的 href 都不能为空，否则会有个指向本页面的请求
+  - [DOM 的 attribute 和 property](http://www.noahlu.com/blog/javascript-note/dom-attribute-property/)
+
+  - [键盘聚焦并可点击](http://www.456bereastreet.com/archive/201302/making_elements_keyboard_focusable_and_clickable/)
+  - [aria](http://www.paciellogroup.com/blog/2010/04/html5-and-the-myth-of-wai-aria-redundance/)
+  - [WAI-ARIA](http://www.w3.org/TR/wai-aria/usage#managingfocus)
+  - [aria-hidden and role="presentation"](http://asurkov.blogspot.com/2012/02/aria-hidden-and-rolepresentation.html)
+
+
+  - querySelector api 不能传入「纯数字」的 id/class 选择器？
+  - [不能根据子元素 class 改变父元素 class](http://stackoverflow.com/questions/1014861/is-there-a-css-parent-selector)
+
+  - [BEM命名方式](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
+  - css 与 js 完全分离，用 J_ 或 j- 做js钩子
+
+  - [如何提升 CSS 选择器性能](http://www.jianshu.com/p/268c7f3dd7a6)
+  - [理解css时间函数](http://www.smashingmagazine.com/2014/04/15/understanding-css-timing-functions/)
+  - [贝塞尔曲线](http://cubic-bezier.com/#.42,0,.28,1.03)
+</pre>
   <script>
     console.log(window.top.document.compatMode); // 判断文档是标准模式还是怪异模式
     /*

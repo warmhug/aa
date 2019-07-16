@@ -6,40 +6,9 @@
   <title></title>
 </head>
 <body>
-<pre> ES
-- [ECMAScript compatibility table](http://kangax.github.io/compat-table/es6/)
-- [async await](https://developers.google.com/web/fundamentals/getting-started/primers/async-functions)
-- [promise 使用问题](http://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html)
-
-### es 与 CommonJS modules 的区别
-
-参考其他语言，如 Python 等模块设计。[es6-modules-final](http://www.2ality.com/2014/09/es6-modules-final.html)
-
-- 静态化，支持静态分析，编译时就能确定模块的依赖关系，以及输入和输出的变量。能支持引入宏（macro）和类型检验（type system）。CommonJS 和 AMD 模块，都只能在运行时确定。
-- `import`、`export`可以出现在模块的任何位置，但要处于模块顶层，不能放在块级作用域内。
-- 一个模块里`export deault`只能使用一次，其他输出可以用`export xx`。
-- CommonJS 模块输出的是一个值的拷贝（输出后不可变），而 ES6 模块输出的是值的引用（输出后可变）。
-- ES6 模块支持“循环依赖”，正常输出。CommonJS 模块也支持，但只输出已经执行的部分，还未执行的部分不会输出。
-</pre>
 <pre>
-  - 正则表达式可视化匹配：https://regex101.com/ 、 http://refiddle.com/
-
-  - [前端技术清单](https://juejin.im/post/5bdfb387e51d452c8e0aa902)
-  - [33-js-concepts](https://github.com/leonardomso/33-js-concepts)
-  - [你可能不需要jQuery](http://youmightnotneedjquery.com/)
-
-  - [全面：观察者/pub-sub/facade/mvc、mvp、mvvm](http://addyosmani.com/resources/essentialjsdesignpatterns/book/)
-  - [中介者模式与观察者模式有何不同？](http://www.cnblogs.com/aaronjs/archive/2013/07/18/3199282.html)
-  - [JavaScript 设计模式 – 第二部分： 适配器、装饰者和工厂模式](http://www.adobe.com/cn/devnet/html5/articles/javascript-design-patterns-pt2-adapter-decorator-factory.html)
-
-  - js基础介绍：https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript 、参考：http://www.w3school.com.cn/js/pro_js_typeconversion.asp
-
-  - 只在行首字符是 `+、-、[、(、/` 这5种情况下，加前置分号即可，其他不用加分号。
-  - [Semicolons in JavaScript are optional](http://mislav.uniqpath.com/2010/05/semicolons/)
-  - [JavaScript 语句后应该加分号么？](http://www.zhihu.com/question/20298345/answer/14670020)
-  - [js秘密花园](http://bonsaiden.github.io/JavaScript-Garden/zh/)、[全面基础教程](http://yanhaijing.com/basejs/)
-  - [一切皆为 JavaScript](https://www.csdn.net/article/2013-11-04/2817389-JavaScript-World)
 </pre>
+
 <script>
 
   var jsonObj = {
@@ -361,17 +330,14 @@
   /*
   $('xx').data()使用地方 - [jQuery.data](http://www.cnblogs.com/silin6/p/jQuery_data.html)
 
-  在实际应用中我们要给我们的 DOM 添加数据，如果我们给一个 DOM 添加的数据太多的话，会存在循环引用的风险，
-  例如我们添加的数据恰好引用了这个 DOM 元素，就会存在内存的泄露。所以 jquery 使用了数据缓存的机制就解决或者说避免这一问题。
+  在实际应用中我们要给我们的 DOM 添加数据，如果我们给一个 DOM 添加的数据太多的话，会存在循环引用的风险，例如我们添加的数据恰好引用了这个 DOM 元素，就会存在内存的泄露。所以 jquery 使用了数据缓存的机制就解决或者说避免这一问题。
 
   我们想在 DOM 上添加数据，但是不想引起内存的泄露，也就是我们不想引起循环引用，要尽量减少在 DOM 上挂数据。
-  jquery 的思路是这样：使用一个数据缓存对象 $.cache, 在需要绑定数据的 DOM 上扩展一个 expando 属性，这个属性存的是一个 id，这里不会存在循环引用的情况了，
-  之后将数据存在 $.cache[id] 上，当我们取 DOM 上的数据的时候，我们可以根据 DOM 上的 expando 找到 id，进而找到存在 $.cache[id] 上的数据。
-  可以看出 jquery 只是在 DOM 上扩展了一个属性 expando，数据都存在了 $.cache 中，利用 expando 这个属性建立 DOM 和缓存对象之间的联系。
-  无论我们添加多少的数据都会存储在缓存对象中，而不是直接挂在 DOM 上。
-  这个唯一 id 是一个整型值，初始为 0，调用 data 接口时自动加一，唯一 id 附加在以 $.expando 命名的属性上，
-  $.expando 是动态生成的，类似于一个时间戳，以尽可能的避免与用户变量冲突。从匹配的 DOM 元素上取到唯一 id，
-  在 $.cache 中找到唯一 id 对应的对象，再从对应的对象中找到 key 对应的值
+  jquery 的思路是这样：使用一个数据缓存对象 $.cache, 在需要绑定数据的 DOM 上扩展一个 expando 属性，这个属性存的是一个 id，这里不会存在循环引用的情况了，之后将数据存在 $.cache[id] 上，当我们取 DOM 上的数据的时候，我们可以根据 DOM 上的 expando 找到 id，进而找到存在 $.cache[id] 上的数据。
+  可以看出 jquery 只是在 DOM 上扩展了一个属性 expando，数据都存在了 $.cache 中，利用 expando 这个属性建立 DOM 和缓存对象之间的联系。无论我们添加多少的数据都会存储在缓存对象中，而不是直接挂在 DOM 上。
+  这个唯一 id 是一个整型值，初始为 0，调用 data 接口时自动加一，唯一 id 附加在以 $.expando 命名的属性上，$.expando 是动态生成的，类似于一个时间戳，以尽可能的避免与用户变量冲突。从匹配的 DOM 元素上取到唯一 id，在 $.cache 中找到唯一 id 对应的对象，再从对应的对象中找到 key 对应的值。
+
+  es6 WeakMap 
   */
 
   // 初始化

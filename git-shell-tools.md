@@ -9,6 +9,47 @@
 - [Most Starred](https://github.com/search?q=stars:%3E1&s=stars&type=Repositories)
 - [Most Forks](https://github.com/search?o=desc&q=stars:%3E1&s=forks&type=Repositories)
 
+# node & npm
+
+```sh
+# node module version example:
+`1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0`
+
+npm install tnpm -g --registry="http://registry.npm.xx.com" # 使用 cnpm 加速
+
+npm root/prefix [-g]  # 全局安装包位置
+ls `npm root -g`  # 列出全局安装的模块列表
+
+npm view <pkg> version(s)  # 查看模块的版本
+npm info <pkg>  # 查看模块的详细信息
+npm ls [-g]  # 查看当前安装模块的版本
+npm ls -g --depth=0
+
+npm repo / bugs / docs [<pkgname>]  # 浏览器自动打开提交 repo / bug / docs 的地址
+npm bin [-g]  # 可执行文件位置
+
+npm owner add <user> [<@scope>/]<pkg>
+npm owner ls [<@scope>/]<pkg>
+
+npm dist-tag ls [<pkg>]  # 查看 pkg 的发布版本
+npm dist-tag add <pkg>@<version>  # 指定某个版本作为 dist 版本，默认安装
+
+# npm link
+cd ~/projects/proj  # go into the dir of your main project
+npm i
+npm link ../tool     # link the dir of your dependency
+## 注意:
+## tool 项目脚本里 避免有依赖全局的命令出现 如 execSync('rimraf dist') 这样会 link 报错
+## tool 项目的依赖在 link 时会自动被安装，不用手动运行 npm i 命令
+
+node hello.js &  # 后台运行程序
+ps -ef | grep node  # 找到进程对应的ID
+kill 3747(进程id)  # 杀掉后台进程
+
+# 自动安装某 npm 包的 shell 命令：
+node -e "$(curl -fsSL https://a.alipayobjects.com/u/localhost/js/201406/2u6LQfOLhF.js)"
+```
+
 # git
 
 > git-tips: https://github.com/git-tips/tips

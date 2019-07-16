@@ -13,6 +13,11 @@
   </style>
 </head>
 <body>
+<pre>
+- 在 touchstart 中记录起始位置，并开始监听 touchmove 和 touchend
+- 在 touchmove 中计算当前位置和起始位置之间的 offset，并进行拖拽操作
+- 在 touchend 中取消监听 touchmove 和 touchstart，并进行释放操作
+</pre>
 <div id="block"></div>
 <script>
   function isMobileFn() {

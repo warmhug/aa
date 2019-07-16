@@ -35,6 +35,9 @@ uuid 全宇宙单独id。guid 一定范围内单独id，比 uuid 范围小。
 
 采用虚拟化技术可降低 Linux 使用硬件的成本，虚拟化技术有：VMWare / KVM / XEN / Microsoft Hyper-V 。如 CPU16 核 / 内存 24G / 硬盘 300G 的 Linux 服务器，可以 “一虚三”、即虚拟出三个虚拟机来。
 
+- [URL 编码，为什么要编码？](http://anjia.github.io/2015/04/15/jsURIEncode/)
+- 浏览器在自动选择编码方式的时候不会优先根据 html 源码中的所展示的`<meta charset="utf-8" />`代码来决定选择什么编码方式，而是优先根据“响应标头-response header”中的键为“Content-Type”的值来自动选择判断。（老IE浏览器相反）
+
 计算机中存储信息的最小单元是一个字节，即 8 个 bit，所以能表示的字符范围是 0~255 个。
 
 - ASCII 码：单字节编码，一共 128 个字符，用一个字节的低 7 位表示。
@@ -112,7 +115,7 @@ eclipse 配置 jre：preferences --> Java --> Installed JREs --> search .
 eclipse 不能读取到环境变量`System.out.print(System.getenv("JAVA_HOME"))`返回null，需要从 terminal 中打开
 `open /Applications/eclipse/Eclipse.app`。[更多](http://stackoverflow.com/questions/603785/environment-variables-in-mac-os-x?lq=1)
 
-#### mysql 启动错误：
+#### mysql 启动错误
 
 启动 `系统偏好设置 -> MySQL` 时，提示`is not owned by the mysql or _mysql user`。
 解决：`sudo chown -R  _mysql:wheel  /usr/local/mysql/data`
