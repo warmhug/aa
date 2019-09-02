@@ -20,10 +20,9 @@
 ## 软件
 
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
-> 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置  
-> [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
+> 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / imazing / Spectacle / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / ParagonNTFS / Readiris-Corporate-ESD (ocr识别) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
+- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / imazing / Spectacle / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / ParagonNTFS / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 
 - 图像: lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / NeatDownloadManager
 
@@ -36,18 +35,19 @@
 
 ### 手机软件
 
-> 查看 app URL scheme: 用 mac PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
->
-> potatsoLite://  抖音 snssdk1128  小米 miwifi  智慧星 ihc  星巴克 sbuxcn
-拼多多 pinduoduo  每日英语听力 eudic-ting  美居 iOSWidgetApp  网易云音乐 orpheuswidget://song/id
-QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:%221460986%22%7D%5D%7D
+Android: AndroMouseServer / andromouse, Splashtop, 完美远程控制(私人用版本免费) @gmail / 19****10。
 
-捷径 / api
+iOS: OplayerLite, TapEdit, TextNut, Typical, 白描, Stream, 无忧电话录音, 安兔兔测评, 悟空遥控, DVR Link, 透明家 创业邦 心理FM / 心理测试 / 门萨智商测试, IFTTT。游戏：big hunter, brain dots。
 
-- [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
-- [中国天气网（网页插件型）](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=8&icon=5)
-  - [官方文档](http://www.tianqi.com/plugin/) c 获取方式，设置为"code"，表示获取代码。id 模板样式，建议设置为19。icon 图标样式，范围1-5。py 地方名全拼，默认为客户地方。num 预报天数。[示例](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=18)
-- 其他：[pm2.5](http://pm25.in/hangzhou)、[农历](https://www.sojson.com/open/api/lunar/json.shtml?date=2019-02-09)
+- potatsoLite://  抖音 snssdk1128  小米 miwifi  智慧星 ihc  星巴克 sbuxcn  拼多多 pinduoduo  每日英语听力 eudic-ting  美居 iOSWidgetApp  网易云音乐 orpheuswidget://song/id QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:%221460986%22%7D%5D%7D
+  - 查看 app URL scheme: 用 mac PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
+- [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)、其他：[pm2.5](http://pm25.in/hangzhou)、[农历](https://www.sojson.com/open/api/lunar/json.shtml?date=2019-02-09)；[中国天气网（网页插件型）](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=8&icon=5)。[官方文档](http://www.tianqi.com/plugin/) c 获取方式，设置为"code"，表示获取代码。id 模板样式，建议设置为19。icon 图标样式，范围1-5。py 地方名全拼，默认为客户地方。num 预报天数。[示例](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=18)
+
+### U盘格式兼容性
+
+- 支持 Mac + Win 读写: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。
+- 支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。
+- 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。重装 Win 系统用老毛桃制作U盘启动工具。
 
 ## 快捷键
 
