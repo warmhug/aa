@@ -24,7 +24,7 @@
 
 - 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / imazing / Spectacle / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / ParagonNTFS / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 
-- 图像: lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / NeatDownloadManager
+- 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / perian(QuickTime插件 能转码打开mkv文件) / NeatDownloadManager
 
 - 开发: MacDown / Marp / charles / Gas Mask / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / Dash / FileZilla
 
