@@ -22,16 +22,15 @@
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / imazing / Spectacle / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / ParagonNTFS / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
-
-- 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / perian(QuickTime插件 能转码打开mkv文件) / NeatDownloadManager
+- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / imazing / Spectacle / ParagonNTFS / QuickLinks / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 
 - 开发: MacDown / Marp / charles / Gas Mask / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / Dash / FileZilla
 
-- 画图: omnigraffle / PlantUML planttext.com / draw.io / iThoughtsX / ProcessOn / asciiflow / photopea / 幕布 / mindnode lite / Visual_Paradigm /
+- 画图: PPT / omnigraffle / PlantUML planttext.com / draw.io / Visual_Paradigm / Microsoft Visio / asciiflow / iThoughtsX / ProcessOn / mindnode lite / 幕布
 
-- Chrome 扩展：Tamper Chrome
-- [web 历史](https://archive.org/web/web.php)
+- 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / photopea / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / perian(QuickTime插件 能转码打开mkv文件) / NeatDownloadManager
+
+- 其他: Tamper Chrome / Remote Mouse / [web 历史](https://archive.org/web/web.php)
 
 ### 手机软件
 
