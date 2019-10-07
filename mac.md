@@ -44,9 +44,10 @@ iOS: OplayerLite, TapEdit, TextNut, Typical, 白描, Stream, 无忧电话录音,
 
 ### U盘格式兼容性
 
-- 支持 Mac + Win 读写: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。
+- 支持 Mac + Win 的读写格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。
 - 支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。
-- 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。重装 Win 系统用老毛桃制作U盘启动工具。
+- 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。
+- 重装 Win 系统用老毛桃制作“U盘启动工具”，另外在此 <http://msdn.itelly.net/> 下载 Win 系列纯净系统 ISO 镜像文件 (可以是不同U盘))。开机(比如按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
 
 ## 快捷键
 
@@ -233,7 +234,7 @@ Terminal / Live Server / markdownlint / filesize / EditorConfig / GitLens / Sett
 Indent 4-to-2 / beautify react-beautify Auto Close(Rename) Tag / SVG Viewer /
 pangu / Hungry Delete / javascript console utils
 [https://github.com/viatsko/awesome-vscode](https://github.com/viatsko/awesome-vscode) /
-Task Explorer / sftp
+Task Explorer / sftp / Web Template Studio
 
 ```js
 // .vscode/sftp.json 文件内容 (注意放在 proj 的根目录里)
