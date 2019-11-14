@@ -104,6 +104,7 @@ git reflog  # 查看操作过程
 git push -f  # 强制提交
 
 # 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录
+# 公共仓库不建议使用 rebase https://www.fossil-scm.org/fossil/doc/trunk/www/rebaseharm.md
 git pull --rebase origin master  # 在开发分支上 rebase 主分支.
 git rebase --continue
 git rebase --abort
