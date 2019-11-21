@@ -223,6 +223,7 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
   },
 }
 // 快捷键
+// 在查找(替换)框里按 ctrl + enter 支持多行
 [
   { "key": "cmd+d", "command": "editor.action.copyLinesDownAction" },
   // 安装 Terminal 扩展后

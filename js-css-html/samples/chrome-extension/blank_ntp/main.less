@@ -8,10 +8,14 @@ a {
 }
 .top {
   text-align: center;
+  > a {
+    margin-right: 20px;
+  }
 }
 .main {
   position: relative;
   display: flex;
+  height: 96%;
   .ifr-btn {
     position: absolute; top: 10px; left: 10px; z-index: 1;
     border: none; outline: none; background: white;
@@ -22,10 +26,11 @@ a {
     // display: inline-flex;
     flex-direction: column;
     margin-left: 60px;
-    margin-right: 20px;
     .ifr {
       width: 375px; /* iPhone 6 */
-      height: 630px;
+      // height: 630px;
+      height: 100%;
+      // height: calc(100% - 60px);
       margin-right: 10px;
     }
     .websites {
@@ -40,19 +45,18 @@ a {
     display: flex;
     justify-content: center;
     &-main {
-      padding: 20px 0;
+      padding: 10px 0;
       display: flex;
       .joke {
         position: relative;
-        width: 300px;
-        padding: 10px;
-        background-color: rgba(255,255,255,.8);
-        &-main {
-          padding: 30px 10px 10px;
-          font-size: 15px;
-          img {
-            max-width: 100%;
-          }
+        background-color: rgba(255,255,255,.1);
+        color: #fff;
+        font-size: 15px;
+        width: 260px;
+        padding: 30px 10px 10px;
+        img {
+          margin-top: 10px;
+          max-width: 100%;
         }
         .small {
           height: 190px;

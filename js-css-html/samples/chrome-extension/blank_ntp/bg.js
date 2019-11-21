@@ -4,7 +4,7 @@
 
 var myObj = {
   need_remove_ad_urls: [
-    'http://www.qiushibaike.com/',
+    // 'http://www.qiushibaike.com/',
     'http://www.walxh.com'
   ]
 }
