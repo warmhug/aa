@@ -22,7 +22,7 @@
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / imazing / Spectacle / ParagonNTFS / QuickLinks / Acrobat (编辑 pdf 文件) / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
+- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / Slidepad(本地) / imazing / Spectacle / ParagonNTFS / QuickLinks / Acrobat(处理pdf) / uBar / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 
 - 开发: MacDown / Marp / charles / Gas Mask / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / Dash / FileZilla
 
