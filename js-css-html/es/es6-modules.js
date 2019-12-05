@@ -1,4 +1,4 @@
-import { Vehicle } from './Es6class2.js';
+import { Vehicle } from './es6-modules1.js';
 
 class Car extends Vehicle {
   move () {

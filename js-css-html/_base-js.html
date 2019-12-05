@@ -7,6 +7,45 @@
 </head>
 <body>
 <pre>
+代码片段 (笔试题): [codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/dashboard/)、[jsfiddle.net](https://jsfiddle.net/user/dashboard/fiddles/))
+
+ECMAScript compatibility http://kangax.github.io/compat-table/es6/、
+https://www.chromestatus.com/features、https://webkit.org/、
+https://developer.microsoft.com/en-us/microsoft-edge/platform/status/、
+https://whatwg-cn.github.io/html/、https://experiments.withgoogle.com/collection/chrome、
+http://html5test.com/、https://2018.stateofjs.com、https://2019.stateofcss.com/、
+[IE CSS Compatibility](https://msdn.microsoft.com/library/cc351024(VS.85).aspx)、https://github.com/airbnb/javascript
+
+前端组件设计 http://warmhug.github.io/2018/09/09/components-design-experience.html
+前后端通信方法 http://warmhug.github.io/2015/04/17/communication-between-fe-backend.html
+基础性能优化方法总结 http://warmhug.github.io/2015/03/31/performance.html
+html form 用法全解析 http://warmhug.github.io/2015/04/10/html-form.html
+函数式编程入门 http://warmhug.github.io/2015/04/30/functional-programming.html
+
+[现在的前端框架全是通过API获得数据，如何记录用户登录状态？](https://www.zhihu.com/question/301253397/answer/547887208) ([user-authentication-with-jwt](http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/))、
+[静态资源版本更新与缓存](http://www.infoq.com/cn/articles/front-end-engineering-and-performance-optimization-part1)、
+[一个对前端模板技术的全面总结](http://www.html-js.com/article/2313)、
+[开源前端框架纵横谈](http://www.csdn.net/article/2013-04-15/2814893)
+
+## ES 与 CommonJS modules 的区别
+- 静态化，支持静态分析，编译时就能确定模块的依赖关系，以及输入和输出的变量。能支持引入宏（macro）和类型检验（type system）。CommonJS 和 AMD 模块，都只能在运行时确定。
+- `import`、`export`可以出现在模块的任何位置，但要处于模块顶层，不能放在块级作用域内。
+- CommonJS 模块输出的是一个值的拷贝（输出后不可变），而 ES6 模块输出的是值的引用（输出后可变）。
+- ES6 模块支持“循环依赖”，正常输出。CommonJS 模块也支持，但只输出已经执行的部分，还未执行的部分不会输出。
+
+## SPA 实现
+- 如果浏览器支持 history API，使用 pjax (pushState + Ajax)
+  - 点击一个链接，通过 Ajax 获取页面部分区域数据（向服务器发送一个有PJAX标志(设置在header里)的请求，服务器返回一段相应的html片段）
+  - 通过 pushState 修改 URL 和 document.title，并把服务器返回的htm片段插入页面。
+  - Github上的文件/目录跳转加载，就是采用 pjax 的方式实现的。
+- 如果浏览器不支持 history API，使用 hash 如 [http://example.com#word](http://example.com/#word)
+  - 浏览器会把不同的 hash 记录到历史记录中，但需要监听 hash 值的变化。
+  - 对于支持 onhashchange 的浏览器，监听此事件；不支持的则要定时去判断hash的变化。
+
+spa 基础问题
+- 切换路由后会把上个路由状态生成的html全部销毁掉，再切回来恢复不到原来的样子。
+- 客户端渲染和服务端渲染，哪个快？
+- Batching HTTP Requests to Improve Performance
 </pre>
 
 <script>
@@ -143,7 +182,6 @@
 
 
   /* Object 
-
   用 var anObject = new aFunction() 形式创建对象的过程实际上可以分为三步：
     1. 建立一个新对象（anObject）；
     2. 将该对象（anObject）的 __proto__ 设置为构造函数（aFunction）prototype 引用的那个原型对象；
@@ -159,22 +197,6 @@
   anObj.__proto__ = MyFunc.prototype;
   MyFunc.call(anObj); // 将 anObj 对象作为 this 指针调用 MyFunc 函数
 
-  /* 原型、继承
-  原型链：每个对象都会在其内部初始化一个属性，就是 __proto__ 这个__proto__ 又会有自己的 __proto__，形成原型链。
-
-  函数对象与原型：
-  只有函数对象才有 prototype 属性。在创建一个对象时，JS 会自动将其原型对象设置为其构造函数的 prototype 属性所指的对象。
-  构造函数本身也是个对象，构造函数的原型对象实际上是 Function.prototype 所指的对象（并不是它的 prototype 属性所指向的那个对象）。
-  */
-  console.log(Function.prototype === Function.__proto__); // true
-  console.log(Function.prototype === Object.__proto__); // true
-  console.log(Function.prototype.__proto__ == Object.prototype); // true
-  console.log(Object.prototype.__proto__);  // null
-  console.log(Object.__proto__.__proto__);  // [object Object]
-
-  function Employee() { }
-  var fred = new Employee();
-  console.log(fred.__proto__ === Employee.prototype); // true
 
   // 实现 new 操作符 http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html
   function New (f) {
@@ -192,6 +214,7 @@
   console.log(arr instanceof Array); // true, 说明 Array 的内置原型对象的引用还是保存着的
   console.log(arr.splice);
 
+
   var o = {
     x: 8,
     valueOf: function() {
@@ -202,7 +225,8 @@
     }
   };
   console.log(o + '1', o + 1); // "101" 11
-  
+
+
   /* instanceof，判断对象是否是某个类的实例
     如果 obj instanceof Class 返回 true，那么 Class 的原型与 obj 原型链上的某个原型是同一个对象，
     但这并不意味着 obj 拥有 Class 的所有实例属性 (但肯定拥有 Class 的所有原型属性)。
@@ -230,12 +254,6 @@
   console.log(p instanceof Person); // 一直为 false，因为p的原型链已经指向别处？
   console.log(q instanceof Person);
 
-  /*
-  Object.observe() 
-  已废弃。参考：
-  http://updates.html5rocks.com/2012/11/Respond-to-change-with-Object-observe
-  http://weblog.bocoup.com/javascript-object-observe/ 、https://github.com/Polymer/observe-js
-  */
 
   /* Number
     Js 中所有数字都是浮点型

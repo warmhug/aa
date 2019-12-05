@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>es class</title>
+</head>
+<body>
+  <script>
+    // Arrow Functions in Class Properties
+    // https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1
+    // 
+    // 在 class 中的 箭头函数 比较慢，而且不在 原型链 上。
+
+    class A {
+      static color = "red";
+      counter = 0;
+      
+      handleClick = () => {
+        console.log("A.handleClick");
+        this.counter++;
+      }
+      
+      handleLongClick() {
+        console.log("A.handleLongClick");
+        this.counter++;
+      }
+    }
+    // A.prototype.handleClick is undefined
+    console.log(A.prototype, A.prototype.handleClick, A.prototype.handleLongClick);
+    new A().handleClick();
+
+
+    class B extends A {
+      handleClick = () => {
+        super.handleClick();
+
+        console.log("B.handleClick");
+      }
+
+      handleLongClick() {
+        super.handleLongClick();
+
+        console.log("B.handleLongClick");
+      }
+    }
+    console.log(B.prototype); // A {constructor: ƒ, handleLongClick: ƒ}
+    // new B().handleClick(); // Uncaught TypeError:
+
+
+    class C extends A {
+      handleClick() {
+        super.handleClick();
+
+        console.log("C.handleClick");
+      }
+    }
+    console.log(C.prototype.__proto__); // {constructor: ƒ, handleLongClick: ƒ}
+    new C().handleClick();
+  </script>
+</body>
+</html>

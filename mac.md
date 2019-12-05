@@ -5,13 +5,13 @@
 - 点击和手势: 系统偏好设置 -> 触控板 -> 勾选 “轻点来点按” / 查询与数据检测器 - 选择三指轻点 / 更多手势 - 应用Expose。
 - 三指拖移窗口: 系统偏好设置 -> 辅助功能 -> 鼠标与触控板 -> 触控板选项 -> 启用拖移 -> 三指拖移。
 - 触发角: 系统偏好设置 -> 调度中心 -> 触发角 (左上角:启动台, 左下角:显示器睡眠, 右上角:调度中心, 右下角:桌面)。
-- 快捷键: 系统偏好设置 -> 键盘 -> 快捷键，“输入法”选择 `cmd+空格`，“服务”里勾选或不选
-- iCloud文件/备忘录/Safari书签等同步：系统偏好设置 -> iCloud -> iCloud 云盘 (选项…) -> 优化 Mac 储存空间
-- 优化程序坞：系统偏好设置 -> 程序坞 - 不勾选 “在程序坞中显示最近使用的应用程序”(最后一项)
-- 程序坞 dock 右边如果没有 “最近打开程序” 搜索下设置方法。
+- 快捷键: 系统偏好设置 -> 键盘 -> 快捷键，“输入法”选择 `cmd+空格`，“服务”里勾选或不选。
+- dock: 显示隐藏 `cmd+alt+d`, 系统偏好设置 -> 程序坞 - 不勾选 “在程序坞中显示最近使用的应用程序”(最后一项)。
 - finder 工具栏: 按下 `cmd + alt`，拖动 app 到工具栏。
 - 系统顶部菜单栏: 按住 `Command` 再拖动图标，改变右边图标顺序。
 - 文本替换: 系统偏好设置 -> 键盘 -> 文本，「command + A」全选、拖拽到 finder 会生成“用户词典.plist”的文件。
+- 通知: 禁止 Enhanced Notifications 在 “勿扰模式” -> 勾选 “当显示器进入睡眠状态时/当屏幕锁定时”
+- iCloud文件/备忘录/Safari书签等同步：系统偏好设置 -> iCloud -> iCloud 云盘 (选项…) -> 优化 Mac 储存空间
 - 外接显示器旋转：系统偏好设置 -> 显示器 -> 外接窗口 -> 旋转
 
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
@@ -28,7 +28,7 @@
 
 - 画图: PPT / omnigraffle / PlantUML planttext.com / draw.io / Visual_Paradigm / Microsoft Visio / asciiflow / iThoughtsX / ProcessOn / mindnode lite / 幕布
 
-- 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / photopea / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / perian(QuickTime插件 能转码打开mkv文件) / NeatDownloadManager
+- 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / photopea / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / perian(QuickTime插件 能转码打开mkv文件) / NeatDownloadManager / [mp3smaller](https://www.mp3smaller.com) [audio-converter](https://online-audio-converter.com/)
 
 - 其他: Tamper Chrome / Remote Mouse / [web 历史](https://archive.org/web/web.php)
 

@@ -7,6 +7,14 @@
 </head>
 <body>
   <script>
+    /*
+    Object.observe() 
+    已废弃。参考：
+    http://updates.html5rocks.com/2012/11/Respond-to-change-with-Object-observe
+    http://weblog.bocoup.com/javascript-object-observe/ 、https://github.com/Polymer/observe-js
+    */
+
+
     /**
      * Computed property keys
      * Method definition shorthand
@@ -20,22 +28,9 @@
     };
     console.log(obj);
 
-    /**
-     *  Destructured assignment
-     */
-    var options = {
-     repeat: true,
-     save: false,
-     rules: {
-       custom: 10,
-     }
-    };
-    var { repeat, rules: { custom }} = options;
-    console.log('Destructured assignment:', custom);
 
     /**
-     *  Block–scoped variables
-     *  let 使用
+     *  Block–scoped variables  let 使用
      */
     var es = [];
     for (var i = 0; i < 10; i++) {
@@ -45,20 +40,6 @@
       };
     }
     es[6]();
-
-
-    /**
-     *  set map
-     */
-    var s = new Set();
-    s.add("a").add("b").add("a");
-    s.size === 2;
-    s.has("a") === true;
-
-    var m = new Map();
-    m.set("hello", 42);
-    m.set(s, 34);
-    m.get(s) == 34;
 
 
     /**
@@ -87,32 +68,6 @@
       setTimeout(function() {console.log(i); }, 100 * i);
     }
   </script>
-
-  <script>
-    // 对象里不能使用 arrow function
-    function Person(name) {
-      this.name = name;
-      this.say();
-    }
-    Person.prototype = {
-      work() {
-        console.log('I can work!');
-        console.log(this);
-      },
-      walk: () => {
-        console.log(this); // 箭头函数，注意此处 this
-      },
-      say() {
-        console.log('I can say!');
-        setTimeout(() => {
-          console.log('say again');
-        }, 10);
-      }
-    };
-    var p = new Person('me');
-    p.work();
-    p.walk();
-    p.say();
-  </script>
+  
 </body>
 </html>

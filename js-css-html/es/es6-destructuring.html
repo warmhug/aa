@@ -8,6 +8,20 @@
 <body>
   <script>
 
+    /**
+     *  Destructured assignment
+     */
+    var options = {
+     repeat: true,
+     save: false,
+     rules: {
+       custom: 10,
+     }
+    };
+    var { repeat, rules: { custom }} = options;
+    console.log('Destructured assignment:', custom);
+
+
     // extra 变量问题复现
     const { result, extra } = { result: 'pass', extra: 'b' };
     switch (result) {
