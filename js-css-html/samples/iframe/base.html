@@ -8,9 +8,14 @@
 </head>
 <body>
   <pre>
-移动端业务页面、打开(全屏)嵌入的 iframe 页面，点击浏览器返回、返回不到业务页面、需要销毁 iframe。
-
 iFrame 那些事 https://afantasy.ninja/2018/07/15/dive-into-iframe/
+
+存在的问题：
+- 移动端页面、打开(全屏)嵌入的 iframe 页面，点浏览器返回、返回不到业务页面、需要销毁 iframe。
+- 浏览器刷新 iframe url 状态丢失、后退前进按钮无法使用。
+- 里边 弹出框 的位置、难居中，浏览器 resize 时自动居中 更难处理。
+- 主文档和 iframe 文档如果不同域、免登录处理麻烦，涉及 cookie 透传。
+- 需要完全重新加载，比较慢。
   </pre>
 
   <script>

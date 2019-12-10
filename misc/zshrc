@@ -77,7 +77,7 @@ alias npmr="open `npm root -g`"
 #source /usr/local/bin/virtualenvwrapper.sh
 
 ## java  参考：http://chessman-126-com.iteye.com/blog/2162466
-export JAVA_6_HOME=`/usr/libexec/java_home -v 1.6` # Mac默认 JDK 6（Mac默认自带了一个jdk6版本）
+#export JAVA_6_HOME=`/usr/libexec/java_home -v 1.6` # Mac默认 JDK 6（Mac默认自带了一个jdk6版本）
 #export JAVA_7_HOME=`/usr/libexec/java_home -v 1.7` # 设置 JDK 7
 export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8` # 设置 JDK 8
 #alias命令动态切换JDK版本

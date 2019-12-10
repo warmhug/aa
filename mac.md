@@ -24,7 +24,7 @@
 
 - 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / Slidepad(本地) / imazing / Spectacle / ParagonNTFS / QuickLinks / Acrobat(处理pdf) / uBar / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 
-- 开发: MacDown / Marp / charles / Gas Mask / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / Dash / FileZilla
+- 开发: MacDown / Marp / charles / Gas Mask / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / Dash / FileZilla / npkill(删除node_modules)
 
 - 画图: PPT / omnigraffle / PlantUML planttext.com / draw.io / Visual_Paradigm / Microsoft Visio / asciiflow / iThoughtsX / ProcessOn / mindnode lite / 幕布
 
