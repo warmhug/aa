@@ -9,7 +9,7 @@ var concat = require('gulp-concat');
 var eventStream = require('event-stream');
 
 
-//cors跨域
+// cors 跨域
 // var cors = require('express-cors')
 // app.use(cors({
 //   allowedOrigins: [

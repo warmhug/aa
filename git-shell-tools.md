@@ -85,7 +85,7 @@ git diff master origin/master   # 比较本地的 master 和远程的 master 分
 git merge origin/master  # 合并远程的 repos 到本地的 master 分支上
 
 # merge
-git merge xx           # 合并xx分支到某分支（例如：合并到主分支，先切到 master 再git merge xx）
+git merge xx           # 合并xx分支到当前分支（例如：合并到主分支，先切到 master 再git merge xx）
 git merge origin/xx    # 远程上有 xx 分支，并且 git fetch origin 执行此命令，将合并此分支
 git merge --no-ff xx   # 不执行"快进式合并"，始终多产生 merge 信息，便于追踪
 git merge --squash dev
@@ -105,6 +105,8 @@ git push -f  # 强制提交
 
 # 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录
 # 公共仓库不建议使用 rebase https://www.fossil-scm.org/fossil/doc/trunk/www/rebaseharm.md
+git checkout feature
+git rebase master  # 把 master 分支当 feature 分支的基点
 git pull --rebase origin master  # 在开发分支上 rebase 主分支.
 git rebase --continue
 git rebase --abort

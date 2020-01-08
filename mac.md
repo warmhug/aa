@@ -22,7 +22,7 @@
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / Slidepad(本地) / imazing / Spectacle / ParagonNTFS / QuickLinks / Acrobat(处理pdf) / uBar / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
+- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / Slidepad(本地) / Hammerspoon / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / QuickLinks / Acrobat(处理pdf) / uBar / afloat / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris (ocr识别 中文效果差) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 
 - 开发: MacDown / Marp / charles / Gas Mask / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / Dash / FileZilla / npkill(删除node_modules)
 
@@ -30,11 +30,11 @@
 
 - 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / photopea / licecap (kap gifify) / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / XnConvert(免费任务式图像处理软件) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool(查看文件详细信息) / HandBrake / MKVToolnix(开源免费 mkv 文件字幕抽取) / perian(QuickTime插件 能转码打开mkv文件) / NeatDownloadManager / [mp3smaller](https://www.mp3smaller.com) [audio-converter](https://online-audio-converter.com/)
 
-- 其他: Tamper Chrome / Remote Mouse / [web 历史](https://archive.org/web/web.php)
+- 其他: Tamper Chrome / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web/web.php)
 
 ### 手机软件
 
-iOS: 今日热榜 语音合成助手, OplayerLite, TapEdit, TextNut, Typical, 白描, Stream, 无忧电话录音, 安兔兔测评, 悟空遥控, DVR Link, 透明家 创业邦 心理FM / 心理测试 / 门萨智商测试, IFTTT。游戏：big hunter, brain dots。
+iOS: NFC Tools, 捷径社区, 全历史, 今日热榜, 语音合成助手, OplayerLite, TapEdit, TextNut, Typical, 白描, Stream, 无忧电话录音, 安兔兔测评, 悟空遥控, DVR Link, 透明家 创业邦 心理FM / 心理测试 / 门萨智商测试, IFTTT。游戏：big hunter, brain dots。
 Android: AndroMouseServer / andromouse, Splashtop。
 
 - potatsoLite://  抖音 snssdk1128  小米 miwifi  智慧星 ihc  星巴克 sbuxcn  拼多多 pinduoduo  每日英语听力 eudic-ting  美居 iOSWidgetApp  网易云音乐 orpheuswidget://song/id QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:%221460986%22%7D%5D%7D

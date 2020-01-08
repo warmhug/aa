@@ -21,17 +21,25 @@ http://html5test.com/、https://2018.stateofjs.com、https://2019.stateofcss.com
 基础性能优化方法总结 http://warmhug.github.io/2015/03/31/performance.html
 html form 用法全解析 http://warmhug.github.io/2015/04/10/html-form.html
 函数式编程入门 http://warmhug.github.io/2015/04/30/functional-programming.html
-
-[现在的前端框架全是通过API获得数据，如何记录用户登录状态？](https://www.zhihu.com/question/301253397/answer/547887208) ([user-authentication-with-jwt](http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/))、
-[静态资源版本更新与缓存](http://www.infoq.com/cn/articles/front-end-engineering-and-performance-optimization-part1)、
-[一个对前端模板技术的全面总结](http://www.html-js.com/article/2313)、
+[静态资源版本更新与缓存](http://www.infoq.com/cn/articles/front-end-engineering-and-performance-optimization-part1)
+[一个对前端模板技术的全面总结](http://www.html-js.com/article/2313)
 [开源前端框架纵横谈](http://www.csdn.net/article/2013-04-15/2814893)
+
+
+## 登录、Cookie、cors 跨域
+[CORS 跨域 Cookie 的设置与获取](https://www.jianshu.com/p/13d53acc124f):
+对于跨域的 XMLHttpRequest 请求，需要设置withCredentials 属性为 true。
+服务端的响应中必须携带 Access-Control-Allow-Credentials: true 首部，服务器不得设置 Access-Control-Allow-Origin 的值为*。
+
+[现在的前端框架全是通过API获得数据，如何记录用户登录状态？](https://www.zhihu.com/question/301253397/answer/547887208) ([user-authentication-with-jwt](http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/))
+
 
 ## ES 与 CommonJS modules 的区别
 - 静态化，支持静态分析，编译时就能确定模块的依赖关系，以及输入和输出的变量。能支持引入宏（macro）和类型检验（type system）。CommonJS 和 AMD 模块，都只能在运行时确定。
 - `import`、`export`可以出现在模块的任何位置，但要处于模块顶层，不能放在块级作用域内。
 - CommonJS 模块输出的是一个值的拷贝（输出后不可变），而 ES6 模块输出的是值的引用（输出后可变）。
 - ES6 模块支持“循环依赖”，正常输出。CommonJS 模块也支持，但只输出已经执行的部分，还未执行的部分不会输出。
+
 
 ## SPA 实现
 - 如果浏览器支持 history API，使用 pjax (pushState + Ajax)
@@ -41,7 +49,6 @@ html form 用法全解析 http://warmhug.github.io/2015/04/10/html-form.html
 - 如果浏览器不支持 history API，使用 hash 如 [http://example.com#word](http://example.com/#word)
   - 浏览器会把不同的 hash 记录到历史记录中，但需要监听 hash 值的变化。
   - 对于支持 onhashchange 的浏览器，监听此事件；不支持的则要定时去判断hash的变化。
-
 spa 基础问题
 - 切换路由后会把上个路由状态生成的html全部销毁掉，再切回来恢复不到原来的样子。
 - 客户端渲染和服务端渲染，哪个快？
