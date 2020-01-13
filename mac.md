@@ -40,6 +40,7 @@ Android: AndroMouseServer / andromouse, Splashtop。
 - potatsoLite://  抖音 snssdk1128  小米 miwifi  智慧星 ihc  星巴克 sbuxcn  拼多多 pinduoduo  每日英语听力 eudic-ting  美居 iOSWidgetApp  网易云音乐 orpheuswidget://song/id QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:%221460986%22%7D%5D%7D
   - 查看 app URL scheme: 用 mac PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
 - [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)、其他：[pm2.5](http://pm25.in/hangzhou)、[农历](https://www.sojson.com/open/api/lunar/json.shtml?date=2019-02-09)；[中国天气网（网页插件型）](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=8&icon=5)。[官方文档](http://www.tianqi.com/plugin/) c 获取方式，设置为"code"，表示获取代码。id 模板样式，建议设置为19。icon 图标样式，范围1-5。py 地方名全拼，默认为客户地方。num 预报天数。[示例](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=18)
+- iOS 捷径里，编码后的文字用 base64 可以解码成音频。
 
 ### U盘格式兼容性
 
