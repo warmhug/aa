@@ -39,7 +39,7 @@ Android: AndroMouseServer / andromouse, Splashtop。
 
 - potatsoLite://  抖音 snssdk1128  小米 miwifi  智慧星 ihc  星巴克 sbuxcn  拼多多 pinduoduo  每日英语听力 eudic-ting  美居 iOSWidgetApp  网易云音乐 orpheuswidget://song/id QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:%221460986%22%7D%5D%7D
   - 查看 app URL scheme: 用 mac PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
-- [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)、其他：[pm2.5](http://pm25.in/hangzhou)、[农历](https://www.sojson.com/open/api/lunar/json.shtml?date=2019-02-09)；[中国天气网（网页插件型）](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=8&icon=5)。[官方文档](http://www.tianqi.com/plugin/) c 获取方式，设置为"code"，表示获取代码。id 模板样式，建议设置为19。icon 图标样式，范围1-5。py 地方名全拼，默认为客户地方。num 预报天数。[示例](http://i.tianqi.com/index.php?c=code&py=hangzhou&num=3&id=18)
+- [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/) / [pm2.5](http://pm25.in/hangzhou) / [天气网](http://www.tianqi.com/plugin/)
 - iOS 捷径里，编码后的文字用 base64 可以解码成音频。
 
 ### U盘格式兼容性
@@ -55,15 +55,11 @@ Android: AndroMouseServer / andromouse, Splashtop。
 pmset noidle  # 阻止电脑睡眠。 同时按住 shift、control、电源键，关闭显示器
 单词自动补全：在内置的文本编辑器里，输入几个字母后，点击 Escape 键，OS X 就会提示多个单词。
 
-# 在 finder 里
-cmd + shift + . / G / D / F # 切换显示“隐藏文件” / 跳转 / 桌面 / 最近使用的全部文件
+cmd + shift + . / G / D / F # 在 finder 切换显示“隐藏文件” / 跳转 / 桌面 / 最近使用的全部文件
+cmd + shift + 3/4  # 截图保存成文件，加 control 只是保存在剪贴板
 
-# 系统截图
-command + shift + 3(4)  # 截图保存成文件
-control + command + shift + 3(4)  # 截图只是保存在剪贴板里，不保存文件
-# 批量设置图片大小
+sips -z height width [file]   # 修改图片的宽和高为指定值
 sips -Z 640 *.jpg   # 批量修改图片的 宽或高 为指定值(最大值变为 640)，保持原来宽高比例
-sips -z height width [file]   # 修改宽和高为指定值
 # http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
 defaults read com.apple.screencapture  # 查看系统截图设置
 defaults write com.apple.screencapture type jpg  # 将系统截屏后图片保存为 jpg 格式
