@@ -4,11 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <style>
-    input:invalid {
-      border: 2px dashed red;
+    form:invalid, input:invalid {
+      border: 1px dashed red;
     }
     input:invalid:required {
       background-image: linear-gradient(to right, pink, lightgreen);
+    }
+    #date::after {
+      content: 'text/number等input不支持伪元素';
+      display: block;
+      width: 50px;
     }
     input:valid {
       border: 1px solid black;
@@ -24,9 +29,9 @@
   </a>
   <hr>
   <!-- onsubmit 的 return 不能少 -->
-  <form id="myForm" action="" onsubmit="return formCheck()">
+  <form id="form" action="" onsubmit="return formCheck()">
     文本 <input type="text" pattern="[A-Za-z]{3}" id="text" name="text" required />
-    数字 <input type="number" name="number" min="0" value="1">
+    数字 <input type="number" name="number" min="0" value="1" id="num">
     邮箱 <input type="email" name="email">
     搜索 <input type="search" name="search" results="5" autosave="saved-searches">
     <br />
@@ -35,7 +40,7 @@
     <br />
     <input type="tel" name="tel">
     <input type="url" name="url">
-    <input type="date" name="date">
+    <input type="date" name="date" id="date">
     <input type="datetime-local" name="datetime-local">
     <input type="month" name="month">
     <input type="time" name="time">
@@ -57,7 +62,7 @@
     }
     function formSubmit(e) {
       console.log('submit', e);
-      // document.getElementById("myForm").submit()
+      // document.getElementById("form").submit()
     }
   </script>
 </body>

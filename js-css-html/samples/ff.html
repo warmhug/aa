@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>input:before 测试</title>
+    <style>
+        input:before,
+        input:after {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            outline: 1px solid red;
+        }
+        input:after {
+            width: 15px;
+            height: 5px;
+            outline-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div>button <input type="button"></div>
+    <div>color <input type="color"></div>
+    <div>date <input type="date"></div>
+    <div>datetime-local <input type="datetime-local"></div>
+    <div>email <input type="email"></div>
+    <div>file <input type="file"></div>
+    <div>hidden <input type="hidden"></div>
+    <div>image <input type="image"></div>
+    <div>month <input type="month"></div>
+    <div>number <input type="number"></div>
+    <div>passwork <input type="password"></div>
+    <div>range <input type="range"></div>
+    <div>reset <input type="reset"></div>
+    <div>search <input type="search"></div>
+    <div>submit <input type="submit"></div>
+    <div>text <input type="text"></div>
+    <div>tel <input type="tel"></div>
+    <div>time <input type="time"></div>
+    <div>number <input type="number"></div>
+    <div>url <input type="url"></div>
+    <div>week <input type="week"></div>
+    <div>datetime <input type="datetime"></div>
+    <div>checkbox <input type="checkbox"></div>
+    <div>radio <input type="radio"></div>
+</body>
+</html>
+
+input 伪元素支持情况
