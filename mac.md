@@ -24,13 +24,14 @@
 
 - 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / Slidepad(本地) / Hammerspoon / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / QuickLinks / Acrobat / uBar / afloat / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris
 
-- 开发: MacDown / Marp / charles / Gas Mask / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / meld / Fork / Sequel-pro / ngrok / axure RP(公司) / npkill(删除node_modules)
+- 开发: MacDown / Marp / charles / Gas Mask / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / meld / Fork / Sequel-pro / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules)
 
-- 画图: PPT / photopea / omnigraffle / PlantUML planttext.com / draw.io / Visual_Paradigm / Visio / asciiflow / iThoughtsX / ProcessOn / mindnode lite / 幕布
+- 画图: PPT / photopea / omnigraffle / PlantUML planttext.com draw.io terrastruct / Visual_Paradigm / Visio / asciiflow / iThoughtsX / ProcessOn / mindnode lite / 幕布
 
 - 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime插件) / NeatDownloadManager
 
-- 其他: Tamper Chrome / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web/web.php) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
+- 其他: Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web/web.php) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
+- Chrome: Tamper / Wayback Machine / Memex / 一叶
 
 ### 手机软件
 
