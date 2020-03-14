@@ -43,8 +43,8 @@ function makeTpl(file, isMobile) {
   </head>
   <body>
     <div id="example"/>
-    <script src="https://as.alipayobjects.com/g/component/react/15.3.2/react.js"></script>
-    <script src="https://as.alipayobjects.com/g/component/react/15.3.2/react-dom.js"></script>
+    <script src="https://gw.alipayobjects.com/os/lib/react/16.13.0/umd/react.production.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/lib/react-dom/16.13.0/umd/react-dom.production.min.js"></script>
     <script src="/dist/shared.js"></script>
     <script src="/dist/${file}.js"></script>
     <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
