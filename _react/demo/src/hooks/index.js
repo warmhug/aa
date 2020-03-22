@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import useEventCallback from './useEventCallback';
+import usePrevious from './usePrevious';
 import Child from './Child';
 import DeepChild from './DeepChild';
 import { TodosDispatch } from './context';
@@ -14,6 +15,8 @@ const Index = () => {
   const [count1, setCount1] = useState(0);
   const [text, updateText] = useState('');
   console.log('text change', text);
+
+  const prevCount = usePrevious(count);
 
   // 即便 `text` 变了也会被记住:
   const handleSubmit = useEventCallback(() => {
@@ -45,7 +48,7 @@ const Index = () => {
   }, [count1])
 
   return (<div>
-    <button onClick={() => setCount(count + 1)}>btn1 {count}</button>
+    <button onClick={() => setCount(count + 1)}>btn1 {count} {prevCount}</button>
     <button onClick={() => setCount1(count1 + 1)}>btn2 {count1}</button>
     <button onClick={onAlert}>点我后，再点 btn1</button>
     <input value={text} onChange={e => updateText(e.target.value)} />
