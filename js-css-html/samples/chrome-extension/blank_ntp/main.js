@@ -22,6 +22,19 @@ $('#gen').click(function () {
   });
 })
 
+function randomItem(arr) {
+  var original = arr;
+  var remainder;
+  return function () {
+    // console.log(remainder && remainder.length)
+    if (!(remainder && remainder.length)) {
+      remainder = original.slice();
+    }
+    var res = remainder.splice(Math.random() * remainder.length | 0, 1)[0];
+    // console.log(res)
+    return  typeof res === 'string' ? res.trim().replace(/(\r\n|\n|\r)/gm, '<br />') : res;
+  };
+}
 
 $(function () {
   $('[data-toggle="popover"]').popover({
@@ -30,6 +43,22 @@ $(function () {
     }
   })
 
-  // const url = chrome.runtime.getURL('~/Library/Mobile Documents/com~apple~CloudDocs/2008-now.txt');
-  // console.log('url', url)
+  var jr;
+  var jokeMain = $('#jokeMain');
+  $.ajax({
+    url: 'http://localhost:9998/?joke=1',
+    dataType: 'json',
+    success: (data) => {
+      jr = randomItem(data);
+      jokeMain.html(jr());
+      // jokeMain.html(data[Math.floor(Math.random() * data.length)]);
+    }
+  })
+  $('#changeJoke').click(function () {
+    jokeMain.html(jr());
+  });
+  jokeMain.hide();
+  $('#jokeMain1').click(function () {
+    jokeMain.toggle();
+  })
 })

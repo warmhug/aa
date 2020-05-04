@@ -381,6 +381,8 @@ if [ -d "$JOKE_PATH"/node_modules ]; then
   echo "MY_Info: the node_modules folder already exists in $JOKE_PATH"
 else
   echo "MY_Info: execute 'npm install' command in $JOKE_PATH"
+  cd $JOKE_PATH
+  npm install
 fi
 
 ls
