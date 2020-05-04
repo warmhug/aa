@@ -16,6 +16,7 @@
 
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
 - iCloud 目录多出了“Keynote / Pages ...“等空目录，是为了引导你安装相应软件，安装完之后、可以在 ”系统偏好设置 -> iCloud -> iCloud Drive -> 选项“里去掉勾选相应项目，文件夹里的空目录自动会消失。
+- iBook 缓存位置 ~/Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks
 
 ## 软件
 
@@ -24,11 +25,11 @@
 
 - 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / Slidepad(本地) / Hammerspoon / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / QuickLinks / Acrobat / uBar / afloat / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris
 
-- 开发: MacDown / Marp / charles / Gas Mask / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / meld / Fork / Sequel-pro / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules)
+- 开发: MacDown / Marp / charles / Gas Mask / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / meld / Fork / Sequel-pro / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / screen.so
 
 - 画图: PPT / photopea / omnigraffle / PlantUML planttext.com draw.io terrastruct / Visual_Paradigm / Visio / asciiflow / iThoughtsX / ProcessOn / mindnode lite / 幕布
 
-- 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime插件) / NeatDownloadManager
+- 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime插件) / NeatDownloadManager
 
 - 其他: Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web/web.php) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
 - Chrome: Tamper / Wayback Machine / Memex / 一叶
@@ -106,6 +107,7 @@ chsh -s /bin/zsh  # 修改 shell 为 zsh ，系统默认使用 /bin/bash 作为 
 
 ```sh
 # homebrew - macOS 不可或缺的套件管理器 (安装不成功可查找 homebrew 国内源)
+# https://tourcoder.com/homebrew-slowly/
 brew help / list / update  # https://brew.sh/
 ```
 

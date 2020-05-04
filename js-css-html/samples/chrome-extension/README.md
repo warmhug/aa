@@ -7,7 +7,7 @@
 
 开发教程：[https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
 
-## 调试方法：
+## 调试方法
 
 1. manifest -> background -> scripts 调试位置：打开 `chrome://extensions/` 相应的插件名、点“背景页”。
 2. manifest -> content_scripts 设置的 js 位置：“控制台 -> Sources -> Content scripts”

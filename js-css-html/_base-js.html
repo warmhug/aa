@@ -9,6 +9,15 @@
 <pre>
 代码片段 (笔试题): [codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/dashboard/)、[jsfiddle.net](https://jsfiddle.net/user/dashboard/fiddles/))
 
+- 从输入URL到页面加载完成 http://fex.baidu.com/blog/2014/05/what-happen/
+https://github.com/trekhleb/javascript-algorithms
+- [js秘密花园](http://bonsaiden.github.io/JavaScript-Garden/zh/)
+- [33-js-concepts](https://github.com/leonardomso/33-js-concepts)
+- [你可能不需要jQuery](http://youmightnotneedjquery.com/)
+- https://htmldom.dev/
+- 只在行首字符是 +、-、[、(、/ 这5种情况下，加前置分号即可。
+- lodash 常用函数: throttle / escape / unescape
+
 ECMAScript compatibility http://kangax.github.io/compat-table/es6/、
 https://www.chromestatus.com/features、https://webkit.org/、
 https://developer.microsoft.com/en-us/microsoft-edge/platform/status/、
@@ -67,15 +76,25 @@ spa 基础问题
 
 <script>
 
-  var jsonObj = {
-    a: undefined,
-    b: null,
-    c: false,
-    d: true,
-    e: 2
+  /**
+  闭包：利用的是 “高阶函数” 的特性：函数可以作为参数或者返回值。
+  */
+  var fn = function(i) {
+    // 局部变量 i 由于被 fun 引用，即便 fn 执行完毕，但也不会被 垃圾回收。
+    return function() {
+      console.log(i++);
+    };
   };
-  console.log(JSON.stringify(jsonObj));
+  var fun = fn(2);
+  fun();
+  fun();
 
+  for (var j = 0; j < 3; j++) {
+    setTimeout(() => console.log(j), 1000);
+    (function(j) {
+      setTimeout(() => console.log(j), 3000);
+    })(j);
+  }
 
   /* Function
   JS 中的函数运行在它们被定义的作用域里, 而不是它们被执行 (调用) 的作用域里。
@@ -143,6 +162,15 @@ spa 基础问题
   /*
     undefined & null
   */
+  var jsonObj = {
+    a: undefined,
+    b: null,
+    c: false,
+    d: true,
+    e: 2
+  };
+  console.log(JSON.stringify(jsonObj));
+
   // undefined 是不可靠的，可用 void 0 代替：http://shapeshed.com/the-void-of-undefined-in-javascript/
   console.log(void 0 === undefined);
   function isUndefined(obj) {
@@ -249,7 +277,6 @@ spa 基础问题
     但这并不意味着 obj 拥有 Class 的所有实例属性 (但肯定拥有 Class 的所有原型属性)。
   */
   console.log(1 instanceof Number, new Number(1) instanceof Number);
-  
   // iframe 内 js 对象和父文档 js 对象是两套
   console.log(top.a instanceof Array, top.a instanceof top.Array);
 
@@ -321,12 +348,8 @@ spa 基础问题
 
 
   /*  String 对象
-
     JavaScript 的字符串是不可变的（immutable），String 类定义的方法都不能改变字符串的内容。
     像 String.toUpperCase() 这样的方法，返回的是全新的字符串，而不是修改原始字符串。
-
-    更多参考：http://www.w3school.com.cn/js/pro_js_referencetypes.asp
-  
     toString()方法转换为字符串，
     1. 调用每个值都有的toString()方法，toString可指定基数，默认为十进制, null和undefined没有这个方法
     2. 不知道转换值为null或undefined情况下 使用String()

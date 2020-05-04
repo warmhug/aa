@@ -29,4 +29,7 @@ $(function () {
       return $('#qrcode').html();
     }
   })
+
+  // const url = chrome.runtime.getURL('~/Library/Mobile Documents/com~apple~CloudDocs/2008-now.txt');
+  // console.log('url', url)
 })
