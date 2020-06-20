@@ -693,12 +693,13 @@ ls -- 找出需要的color名字
 ## markdown 语法
 
 - 标题 ( h1~h6 ) 格式为使用相应个数的 “#” 作前缀
-- 行末加两个或多个空格才是真正的换行 br 标签。
+- 行末加两个或多个空格才是真正的换行 br 标签
 - 空一行（两个回车）分段生成 p 标签
 - 引用 ">" 记号直接借鉴邮件标准
 - 使用 “-” “+” “*” 开头、来表示无序列表，使用 数字 + “.” 开头表示有序列表
 - 使用 * 或 _ 包裹文本产生 strong 效果：__strong__ **strong**
 
+- 使用 `- [] 跑步` 或 `- [x] 吃饭` 标记任务
 - 使用 [test](http://example.net "optional title") 来标记普通链接。
 - 使用 ![img](https://zos.alipayobjects.com/rmsportal/lcLKYXUWPbqkavfJbMGx.png "optional title") 来标记图片。可以使用相对路径。
 
