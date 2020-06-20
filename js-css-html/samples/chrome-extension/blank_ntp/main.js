@@ -32,7 +32,7 @@ function randomItem(arr) {
     }
     var res = remainder.splice(Math.random() * remainder.length | 0, 1)[0];
     // console.log(res)
-    return  typeof res === 'string' ? res.trim().replace(/(\r\n|\n|\r)/gm, '<br />') : res;
+    return typeof res === 'string' ? res.trim().replace(/(\r\n|\n|\r)/gm, '<br />') : res;
   };
 }
 
@@ -46,10 +46,13 @@ $(function () {
   var jr;
   var jokeMain = $('#jokeMain');
   $.ajax({
-    url: 'http://localhost:9998/?joke=1',
-    dataType: 'json',
+    // 在 _joke 文件夹里启动 node server
+    // url: 'http://localhost:9998/?joke=1',
+    // 直接在 iCloud 文件夹目录启动 server，可以用 python -m http.server 9998
+    url: 'http://localhost:9998/2008-now.txt',
+    // dataType: 'json',
     success: (data) => {
-      jr = randomItem(data);
+      jr = randomItem(data.split('\n\n'));
       jokeMain.html(jr());
       // jokeMain.html(data[Math.floor(Math.random() * data.length)]);
     }

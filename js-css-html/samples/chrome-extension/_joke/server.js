@@ -18,11 +18,6 @@ var enumExts = ['jpg', 'jpeg', 'gif', 'png'];
 var local1 = '/Users/hua/Library/Mobile\ Documents/com~apple~CloudDocs/2008-now.txt';
 var local2 = '/Users/hua/Library/Mobile\ Documents/com~apple~CloudDocs/图片收集';
 
-function handleJoke1(res) {
-  var content = fs.readFileSync(local1).toString().split('\n\n');
-  res.writeHead(200, {'Content-Type': jsonContentType});
-  res.end(JSON.stringify(content));
-}
 function handleJoke2(res) {
   var items = [];
   var dirName;
@@ -60,7 +55,11 @@ http.createServer(function (request, response) {
   var query = parsedUrl.query;
 
   if (query.joke == '1') {
-    handleJoke1(response);
+    // 设置 json 类型
+    // var content = fs.readFileSync(local1).toString().split('\n\n');
+    // response.writeHead(200, {'Content-Type': jsonContentType});
+    // response.end(JSON.stringify(content));
+    response.end(fs.readFileSync(local1).toString());
   }
   if (query.joke == '2') {
     handleJoke2(response);
