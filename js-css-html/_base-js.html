@@ -76,6 +76,44 @@ spa 基础问题
 
 <script>
 
+  // 变量提升
+  var x = 1; // Initialize x
+  var y; // Declare y
+  console.log(x + " " + y); // '1 undefined'
+  y = 2; // Initialize y
+
+  var name = 'World!';
+  (function () {
+    // var name; 相当于多了这个
+    if (typeof name === 'undefined') {
+      var name = 'Jack';
+      console.log('Goodbye ' + name);
+    } else {
+      console.log('Hello ' + name);
+    }
+  })();
+
+  // 局部变量和全局变量
+  (function(){
+    var x = y = 1;
+  })();
+  console.log(y);
+  console.log(x);
+
+  // 数组去重
+  let array=[0,3,4,5,3,4,7,8,2,2,5,4,6,7,8,0,2,0,90];
+  [...new Set(array)]
+
+  // var 与 let 区别
+  const Greeters = []
+  for (let i = 0 ; i < 10 ; i++) {
+    Greeters.push(function () { return console.log(i) })
+  }
+  Greeters[0]() // 0
+  Greeters[1]() // 1
+  Greeters[2]() // 2
+
+
   /**
   闭包：利用的是 “高阶函数” 的特性：函数可以作为参数或者返回值。
   */
@@ -356,19 +394,12 @@ spa 基础问题
   */
 
   console.log('a' == new String('a'));
-  console.log('abc中国'.charCodeAt(0));  // 获取指定位置字符的 Unicode 编码
   console.log(String.fromCharCode(255)); // Unicode 编码大于 255 就能确定是双字节
-
-  var oStringObject = new String("hello world");
-  console.log(oStringObject.valueOf() == oStringObject.toString());  // true
-
-  var oSo = new String("yel");
-  console.log(oSo.localeCompare("br"), oSo.localeCompare("ye"), oSo.localeCompare("zo"));
 
   // console.log(20013.toString());  // 报错
   console.log(20013..toString(2)); // 你没看错, 就是两个 .
   console.log((20013).toString(2));
-  
+
   var bol = true;
   var num = 10;
   console.log(bol.toString());  // 'true'
@@ -376,7 +407,7 @@ spa 基础问题
 
   console.log(String(null), String(undefined));  // 'null' 'undefined'
 
-  var s = 'test'; 
+  var s = 'test';
   s.len = 4; // 创建包装对象，为包装对象添加属性 len
   console.log(s.len); // 查找其len属性，返回 undefined
 </script>
