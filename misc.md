@@ -1,6 +1,8 @@
 
 # misc
 
+Excel 模糊匹配 <http://club.excelhome.net/thread-1048885-1-1.html>
+
 [SaaS（科技）行业导航](http://www.allsaas.cn/)
 SaaS 平台：[氚云](https://h3yun.com/index.php?g=Chuanyun&m=Scene&a=index)、[搭搭云](https://www.dadayun.cn/)
 
