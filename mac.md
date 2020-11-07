@@ -32,7 +32,7 @@
 - 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime插件) / NeatDownloadManager
 
 - 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web/web.php) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
-- Chrome: Tamper / Wayback Machine / Memex / 一叶
+- Chrome: Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / doc-viewer Office PPT幻灯片编辑器 / Tampermonkey gitpod npmhub /
 
 ### 手机软件
 
