@@ -27,7 +27,7 @@
 
 - 开发: MacDown / Marp / charles / Gas Mask / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / meld / Fork / Sequel-pro / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / screen.so
 
-- 画图: PPT / photopea / omnigraffle / PlantUML planttext.com draw.io terrastruct / Visual_Paradigm / Visio / asciiflow / iThoughtsX / ProcessOn / mindnode lite / 幕布
+- 画图: PPT / photopea / omnigraffle / PlantUML planttext.com draw.io terrastruct / Visual_Paradigm / Visio / asciiflow.com / iThoughtsX / ProcessOn / mindnode lite / 幕布
 
 - 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime插件) / NeatDownloadManager
 
@@ -37,12 +37,8 @@
 ### 手机软件
 
 捷径社区, 全历史, 今日热榜, 语音合成助手, OplayerLite, TapEdit, TextNut, Typical, 白描, Stream, 无忧电话录音, 安兔兔测评, 悟空遥控, DVR Link, 透明家 创业邦 心理FM / 心理测试 / 门萨智商测试, IFTTT, Splashtop, andromouse.
-游戏：big hunter, brain dots.
-
-- potatsoLite://  抖音 snssdk1128  小米 miwifi  智慧星 ihc  星巴克 sbuxcn  拼多多 pinduoduo  每日英语听力 eudic-ting  美居 iOSWidgetApp  网易云音乐 orpheuswidget://song/id QQ音乐 qqmusic://qq.com/media/playSonglist?p=%7B%22song%22:%5B%7B%22songid%22:%221460986%22%7D%5D%7D
-  - 查看 app URL scheme: 用 mac PP助手(或[Apple Configurator 2](https://www.jianshu.com/p/73e65b0a9b86)) 下载相应 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。
-- [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/) / [pm2.5](http://pm25.in/hangzhou) / [天气网](http://www.tianqi.com/plugin/)
-- iOS 捷径里，编码后的文字用 base64 可以解码成音频。
+游戏：big hunter, brain dots。
+查看 app URL scheme: 下载 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。 [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
 
 ### U盘格式兼容性
 
@@ -76,20 +72,7 @@ Command + Alt + →/←  # 选择 上/下 一个标签
 
 ---------
 
-## git & iTerm2 & oh-my-zsh & homebrew
-
-- 先安装 Xcode (`xcode-select --install` 安装 Command Line Tools)
-  - 安装失败，直接从 [这里](https://developer.apple.com/download/more/) 下载 Command Line Tools
-- 再生成 `.ssh` 目录: `ssh-keygen -t rsa -C "hua@xx.com"`
-- 获取公钥 `cat ~/.ssh/id_rsa.pub` 再登陆 Github，个人设置、添加 ssh 即可。
-
-[Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
-
-```sh
-# code ~/.gitconfig
-git config                # 配置个人信息
-git config --global alias.st status
-```
+## iTerm2 & oh-my-zsh & homebrew
 
 - iTerm2 的 Preferences > Keys 里 HotKey 设置为 Command + `
 - iTerm2 的 Profiles > Keys 里点 + 弹出输入 ⌥→ / ⌥← Action 设置为 Send Escape sequence , f / b
@@ -102,8 +85,7 @@ chsh -s /bin/zsh  # 修改 shell 为 zsh ，系统默认使用 /bin/bash 作为 
 # 只在 iTerm2 里修改 shell : `Preferences -> Profiles -> Default -> General -> Command`
 ```
 
-- 美化 zsh 界面：安装 [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)，它有很多 Plugins 和 Themes.
-  - 注意：会在 用户目录 生成新的 `.zshrc` 文件，可替换成自己的文件
+美化 zsh 界面：安装 [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)，它有很多 Plugins 和 Themes。注意：会在 用户目录 生成新的 `.zshrc`
 
 ```sh
 # homebrew - macOS 不可或缺的套件管理器 (安装不成功可查找 homebrew 国内源)
@@ -112,10 +94,6 @@ brew help / list / update  # https://brew.sh/
 ```
 
 ## shadowsocks
-
-> trojan-gfw 能翻墙？
-
-shadowsocks [服务器官网](https://portal.shadowsocks.com.hk/) / [客户端下载](https://www.vpnto.net/posts/macos-shadowsocks/) / [github ShadowsocksX-NG](https://github.com/shadowsocks/ShadowsocksX-NG/releases)，下载完成后、设置好代理服务器。首先让 terminal 走代理：
 
 ```sh
 ## 方法一：terminal 里的 curl 能走代理
@@ -145,25 +123,7 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
 @with result
 
 *.github.com +proxy
-*.google.com +proxy
 *.medium.com +proxy
-*.youtube.com +proxy
-*.twitter.com +proxy
-*.facebook.com +proxy
-*.instagram.com +proxy
-*.whatsapp.com +proxy
-*.quora.com +proxy
-*.amazon.com +proxy
-*.microsoft.com +proxy
-*line.me +proxy
-*.stackoverflow.com +proxy
-*.npmjs.com +proxy
-*.heroku.com +proxy
-*.cloudflare.com +proxy
-*.salesforce.com +proxy
-*.ant.design +direct
-*.apple.com +direct
-*.alipay.com +direct
 *.icloud.com +direct
 
 * +direct
@@ -175,54 +135,11 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
 
 - 配置文件路径: `~/Library/Application\ Support/Code/User`
 - 安装 code 命令：`cmd + shift + p` Shell Command: Install 'code' command in PATH
+- 配置项: Preferences > Settings > settings.json
+- 在查找(替换)框里按 ctrl + enter 支持多行
 
 ```js
-// Preferences > Settings > settings.json
-{
-  "editor.fontSize": 13,
-  "editor.tabSize": 2,
-  "editor.dragAndDrop": true,
-  "editor.scrollBeyondLastLine": false,
-  "editor.formatOnType": true,
-  "editor.renderIndentGuides": true,
-  "editor.renderWhitespace": "boundary",
-  "editor.showFoldingControls": "always",
-  "editor.tabCompletion": "on",
-  "editor.wordWrap": "on",
-  "window.title": "${activeEditorLong}",
-  "files.exclude": {
-    "**/.idea": true
-  },
-  "files.associations": {
-    "*.wxml": "xml",
-    "*.wxss": "css",
-    "*.acss": "css",
-    "*.mdx": "markdown"
-  },
-  "workbench.iconTheme": "vs-seti",
-  "terminal.external.osxExec": "iTerm.app",
-  "terminal.integrated.shell.osx": "/bin/zsh",
-  "terminal.enableAppInsights": false,
-  "window.zoomLevel": 0,
-  "python.pythonPath": "/usr/local/bin/python2",
-  "search.smartCase": true,
-  "terminal.integrated.copyOnSelection": true,
-  "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": false,
-  // 默认所有文件以 utf8 编码格式打开
-  // 当单独设置 vm 文件以 gbk 编码打开时，需要设置 autoGuessEncoding 为 false.
-  // "[velocity]": {
-  //   "files.encoding": "gbk"
-  // },
-  "files.autoGuessEncoding": false,
-  "workbench.colorTheme": "Monokai Dimmed",
-  "[markdown]": {
-    "editor.fontSize": 14,
-    "editor.letterSpacing": 1.4,
-  },
-}
 // 快捷键
-// 在查找(替换)框里按 ctrl + enter 支持多行
 [
   { "key": "cmd+d", "command": "editor.action.copyLinesDownAction" },
   // 安装 Terminal 扩展后
@@ -238,28 +155,11 @@ pangu / Hungry Delete / javascript console utils
 [https://github.com/viatsko/awesome-vscode](https://github.com/viatsko/awesome-vscode) /
 Task Explorer / sftp / Web Template Studio
 
-```js
-// .vscode/sftp.json 文件内容 (注意放在 proj 的根目录里)
-{
-  "name": "s1",
-  "host": "hostName",
-  "username": "user",
-  "password": "xxx",
-  "protocol": "sftp",
-  "remotePath": "/home/username/build",
-  "ignore": [
-    "**/.vscode/**",
-    "**/.git/**",
-    "**/.DS_Store"
-  ]
-}
-```
 
 ---------
 
 ## 虚拟机
 
-- 用 Virtualbox + win xp/7（要下载[官方正版](http://pcriver.com/operating-systems/windows-xp-professional-iso-download/)、不能是国内处理过的 ghost 版本）
 - virtualbox win7 网络设置为 bridged adapter (name: wifi) [如图](https://gw.alipayobjects.com/zos/rmsportal/auNTgeEEHVFfWklRjRsK.png)、在家里网络正常，但很奇怪在公司内网不能连接？？
 - [虚拟机里的 win 键盘是用的 ctrl 键](https://forums.virtualbox.org/viewtopic.php?f=8&t=63567&hilit=keyboard)
 - 安装后重启，或点击菜单 Devices -> Insert Guest Additions CD image… 使能访问 host 电脑并自动调整分辨率

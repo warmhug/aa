@@ -60,6 +60,14 @@ URL 中包含中文时需要进行编码，但 URL 中 `?` 前后部分（分别
 
 git-tips: https://github.com/git-tips/tips
 
+[Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
+
+```sh
+# code ~/.gitconfig
+git config                # 配置个人信息
+git config --global alias.st status
+```
+
 ```sh
 # 分支
 git checkout -b xx   # 新建并直接切换到xx分支
