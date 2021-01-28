@@ -23,7 +23,7 @@
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / Dozer / Slidepad(本地) / Hammerspoon / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / QuickLinks / Acrobat / uBar / afloat / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris
+- 系统: AppCleaner / iZip Unarchiver / iStat-Menus / hidden-bar Vanilla Dozer / Slidepad(本地) / Hammerspoon / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / QuickLinks / Acrobat / uBar / afloat / Sloth / Smoothscroll / androidfiletransfer / OmniDiskSweeper / Readiris
 
 - 开发: MacDown / Marp / charles / Gas Mask / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / meld / Fork / Sequel-pro / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / screen.so
 
@@ -32,7 +32,7 @@
 - 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime插件) / NeatDownloadManager
 
 - 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web/web.php) / Enounce MySpeed 加减速网页 flash 播放速度，注意需要专门的卸载工具
-- Chrome: Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / doc-viewer Office PPT幻灯片编辑器 / Tampermonkey gitpod npmhub /
+- Chrome: Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / doc-viewer Office PPT幻灯片编辑器 / Tampermonkey gitpod npmhub / screenity
 
 ### 手机软件
 

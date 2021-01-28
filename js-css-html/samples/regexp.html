@@ -10,7 +10,7 @@
 
     // trim
     var trim = function(){
-      return this.replace( /(^\s*)|(\s*$)/g , "");
+      return this.replace(/(^\s*)|(\s*$)/g , "");
     }
     var ltrim = function(){
       return this.replace(/(^\s*)/g,"");
@@ -24,7 +24,7 @@
      *  预定义字符  \t \n \r . \d \D \w
      *  要对它们进行转义
      */
-    console.log( 'S89(KKK,L)'.test(/S\d+[\(]\w+,\w+\)/g) );
+    console.log('S89(KKK,L)'.test(/S\d+[\(]\w+,\w+\)/g) );
 
     console.log(/index(\.web)?\.tsx$/.test('index.web.tsx'))
     console.log(/index(\.web)?\.tsx$/.test('index.tsx'))

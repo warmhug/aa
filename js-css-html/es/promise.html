@@ -6,6 +6,35 @@
 </head>
 <body>
   <script>
+    var getA = cb => cb('a');
+    var getB = cb => cb('b');
+    var getC = cb => cb('c');
+    // callback
+    getA(a => {
+      console.log(a);
+      getB(b => {
+        console.log(b);
+        getC(c => {
+          console.log(c);
+        })
+      })
+    })
+
+    // promise
+    var getPa = () => new Promise((resolve, reject) => setTimeout(() => resolve('pa'), 500));
+    var getPb = () => new Promise((resolve, reject) => setTimeout(() => resolve('pb'), 500));
+    var getPc = () => new Promise((resolve, reject) => setTimeout(() => resolve('pc'), 500));
+    getPa().then(a => {
+      console.log(a);
+      return getPb(a)
+    }).then(b => {
+      console.log(b);
+      return getPc(b)
+    }).then(c => {
+      console.log(c);
+    });
+
+
     function timeout(duration = 0) {
       return new Promise((resolve, reject) => {
         setTimeout(resolve, duration);
@@ -24,21 +53,6 @@
     }).catch(err => {
       console.log('final catch', err)
     });
-
-    // Promise.all
-    Promise.all([
-      new Promise(function (resolve) {
-        console.log('p1');
-        window.addEventListener('DOMContentLoaded', () => resolve('dom ready'));
-      }),
-      new Promise(function (resolve) {
-        resolve('fake promise');
-      })
-    ]).then(res => console.log('res: ', res));
-
-    // 不管成功失败，都返回所有结果，不退出
-    Promise.almost = r => Promise.all(r.map(p => p.catch ? p.catch(e => e) : p));
-
   </script>
 </body>
 </html>
