@@ -6,7 +6,7 @@
 </head>
 <body>
   <script>
-    function unloadHandler(e) {
+    const unloadHandler = (e) => {
       e.preventDefault(); // required in some browsers
       e.returnValue = ""; // required in some browsers
       return "Custom message to show to the user"; // only works in old browsers

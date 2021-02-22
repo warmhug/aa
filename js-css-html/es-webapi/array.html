@@ -7,6 +7,14 @@
 </head>
 <body>
   <script>
+    // 元素翻转 https://stackoverflow.com/questions/872310/javascript-swap-array-elements
+    var list = [{ a: 1 }, { b: 2 }];
+    var b = list[1];
+    list[1] = list[0];
+    console.log(list, b);
+    list[0] = b;
+    console.log(list);
+
     // 模拟 repeat 效果
     console.log(Array(20).fill([1, 2, 3]).flat());
 
