@@ -48,8 +48,7 @@ $(function () {
   var res = [];
   ['2008-now', '__书影'].forEach(file => $.ajax({
     // 在 _joke 文件夹里启动 node server
-    // url: 'http://localhost:9998/?joke=1',
-    // 直接在 iCloud 文件夹目录启动 server，可以用 python -m http.server 9998
+    // url: 'http://localhost:9998/?joke=1'
     url: `http://localhost:9998/${file}.txt`,
     // dataType: 'json',
     success: (data) => {

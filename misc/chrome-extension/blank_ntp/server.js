@@ -16,7 +16,7 @@ var jsonContentType = 'application/json; charset=utf-8';
 
 var enumExts = ['jpg', 'jpeg', 'gif', 'png'];
 var local1 = '/Users/hua/Library/Mobile\ Documents/com~apple~CloudDocs/2008-now.txt';
-var local2 = '/Users/hua/Library/Mobile\ Documents/com~apple~CloudDocs/图片收集';
+var local2 = '/Users/hua/Library/Mobile\ Documents/com~apple~CloudDocs/图片集';
 
 function handleJoke2(res) {
   var items = [];
