@@ -287,6 +287,13 @@ ln -sv ~/Library/Mobile\ Documents/com~apple~CloudDocs/ ~/iCloud\ Drive
 alias simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
 ```
 
+### ssh & scp
+
+scp -r ~/Downloads/build/ root@118.31.47.xx:/home/admin/nginx/
+ssh root@118.31.47.xx xyxyxy
+cd /home/admin/nginx/
+cp -r ./build ./build-back1
+
 ### curl
 
 与服务器交互数据的工具，支持 http,https,ftp,ftps,telnet 等多种协议，常被用来抓取网页和监控Web服务器状态。
@@ -352,7 +359,6 @@ find / -size -1000k   #查找出小于1000KB的文件
 
 find . -name '*.DS_Store' -type f -delete   # 删除某目录及子目录下的 .DS_Store 文件
 ```
-
 
 vim 是 vi 的增强版本。相比vi添加了显示颜色等功能。
 ![vim 键盘图](https://zos.alipayobjects.com/rmsportal/MOPJrAnojdFvAToZkESi.gif)
