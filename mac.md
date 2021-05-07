@@ -27,7 +27,7 @@
 
 - 开发: MacDown / Marp / charles / Gas Mask / [color-note](https://itunes.apple.com/us/app/color-note/id1099028591) / meld / Fork / Sequel-pro / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / screen.so
 
-- 画图: PPT / photopea / omnigraffle / PlantUML planttext.com draw.io terrastruct / Visual_Paradigm / Visio / asciiflow.com / iThoughtsX / ProcessOn / mindnode lite / 幕布
+- 画图: PPT / photopea / omnigraffle / PlantUML planttext.com draw.io terrastruct / Visual_Paradigm / Visio / asciiflow.com / textik.com / flowchart.fun / iThoughtsX / ProcessOn / mindnode lite / 幕布
 
 - 图像: cmd + shift + 5 截图或录视频 / lightshot (snip jietu(qq) Skitch) / licecap (kap gifify) / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime插件) / NeatDownloadManager
 
