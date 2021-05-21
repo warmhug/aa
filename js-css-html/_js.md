@@ -9,30 +9,8 @@
 - 只在行首字符是 +、-、[、(、/ 这5种情况下，加前置分号即可。
 - lodash 常用函数: throttle / escape / unescape
 
-ECMAScript compatibility http://kangax.github.io/compat-table/es6/、
-https://www.chromestatus.com/features、https://webkit.org/、
-https://developer.microsoft.com/en-us/microsoft-edge/platform/status/、
-https://whatwg-cn.github.io/html/、https://experiments.withgoogle.com/collection/chrome、
-http://html5test.com/、https://2018.stateofjs.com、https://2019.stateofcss.com/、
-[IE CSS Compatibility](https://msdn.microsoft.com/library/cc351024(VS.85).aspx)、
-
-前端组件设计 http://warmhug.github.io/2018/09/09/components-design-experience.html
-前后端通信方法 http://warmhug.github.io/2015/04/17/communication-between-fe-backend.html
-基础性能优化方法总结 http://warmhug.github.io/2015/03/31/performance.html
-函数式编程入门 http://warmhug.github.io/2015/04/30/functional-programming.html
-静态资源版本更新与缓存 http://www.infoq.com/cn/articles/front-end-engineering-and-performance-optimization-part1
-一个对前端模板技术的全面总结 http://www.html-js.com/article/2313
-开源前端框架纵横谈 http://www.csdn.net/article/2013-04-15/2814893
-
-## 规范
-https://github.com/airbnb/javascript
-https://eslint.org/
-https://github.com/danielstjules/jsinspect
-https://github.com/kucherenko/jscpd (vs code: Copy/Paste Detector) https://www.code-inspector.com/
-
 
 ## http 缓存
-- Cache-Control 之 no-cache https://www.jianshu.com/p/1744780ddda0
 - 200、304 状态图 https://img2018.cnblogs.com/blog/907596/201903/907596-20190302011346217-1805589363.png (文章 https://www.cnblogs.com/kevingrace/p/10459429.html)
 
 
