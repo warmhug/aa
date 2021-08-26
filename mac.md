@@ -1,4 +1,4 @@
-# mac (macOS Mojave 10.14)
+# Mac
 
 ## 系统设置
 
@@ -13,6 +13,7 @@
 - 通知: 禁止 Enhanced Notifications 在 “勿扰模式” -> 勾选 “当显示器进入睡眠状态时/当屏幕锁定时”
 - iCloud文件/备忘录/Safari书签等同步：系统偏好设置 -> iCloud -> iCloud 云盘 (选项…) -> 优化 Mac 储存空间
 - 外接显示器旋转：系统偏好设置 -> 显示器 -> 外接窗口 -> 旋转
+- Mac m1 外接显示器分辨率低：系统偏好设置 -> 显示器 -> 按住 Option 键的同时点击“缩放”
 
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
 - iCloud 目录多出了“Keynote / Pages ...“等空目录，是为了引导你安装相应软件，安装完之后、可以在 ”系统偏好设置 -> iCloud -> iCloud Drive -> 选项“里去掉勾选相应项目，文件夹里的空目录自动会消失。
@@ -30,7 +31,7 @@
 - 图像: lightshot (snip) / licecap (kap gifify) / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager
 
 - 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web)
-- Chrome: Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
+- Chrome: 一键切换(Jomic) 搜索拐杖 / Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
 
 ### 手机软件
 

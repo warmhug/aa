@@ -7,22 +7,6 @@
   <title>HTML 5 API</title>
 </head>
 <body>
-  <h2>navigator.geolocation</h2>
-  <script>
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        alert('Success: \n' + JSON.stringify(position));
-        alert('latitude: \n' + position.coords.latitude);
-        alert('country: \n' + position.coords.country);
-      }, function (error) {
-        alert('Err: \n' + JSON.stringify(error));
-        alert('Err code: \n' + JSON.stringify(error.code));
-      });
-    } else {
-      /* geolocation IS NOT available */
-    }
-  </script>
-
   <h2>localStorage / sessionStorage</h2>
   <pre>
     本地存储问题：

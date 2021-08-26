@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Object</title>
+</head>
+<body>
+  <script>
+    var o = {
+      _t: 'm',
+      a: 7,
+      d: 20,
+      // 对象的访问器属性
+      get b() { return this.a + 1; },
+      set b(x) { this.a = x / 2; this.d = x / 2 }
+    };
+    console.log(o.a, o.d)
+    console.log(o.b)
+    o.b = 10
+    console.log(o.a, o.b, o.d, o.t)
+
+    o.__defineGetter__("t", function() { return this.a + this._t; });
+    o.__defineSetter__("t", function(arg) { this._t = arg; });
+    console.log(o.t);
+    o.t = 'e';
+    console.log(o.t);
+
+
+    function Vehicle(name) {
+      this._name = name;
+    }
+    Object.defineProperty(Vehicle.prototype, 'name', {
+      get: function () {
+        return this._name;
+      },
+      set: function (value) {
+        this._name = value
+      }
+    });
+
+    var o = { a: 0 }
+    Object.defineProperties(o, {
+        "b": { get: function () { return this.a + 1; } },
+        "c": { set: function (x) { this.a = x / 2; } }
+    });
+    o.c = 10 // Runs the setter, which assigns 10 / 2 (5) to the 'a' property
+    console.log(o.b) // Runs the getter, which yields a + 1 or 6
+  </script>
+
+
+<script>
+  var options = {
+    'a':'aa',
+    'b':'bb'
+  },
+  defaults={
+    'b':'dbdb',
+    'c':'cc'
+  },
+  attr = Object.create(options);
+  for (var key in defaults) {
+    if (!options.hasOwnProperty(key)) {
+    attr[key] = defaults[key];
+    }
+  }
+  console.log(attr)
+</script>
+
+<script>
+  var o;
+
+  // 创建一个原型为null的空对象
+  o = Object.create(null);
+
+  o = {};
+  // 以字面量方式创建的空对象就相当于:
+  o = Object.create(Object.prototype);
+
+  o = Object.create(Object.prototype, {
+    // foo会成为所创建对象的数据属性
+    foo: { writable:true, configurable:true, value: "hello" },
+    // bar会成为所创建对象的访问器属性
+    bar: {
+    writable: true,
+    enumerable: true,
+    configurable: false,
+    get: function() { return 10 },
+    set: function(value) { console.log("Setting `o.bar` to", value) }
+  }})
+
+  o.foo = 2;
+  for (var prop in o) {
+     console.log(prop)
+  }
+</script>
+
+<script>
+  var o = {};
+
+  Object.defineProperty(o, 'key', {
+    get: function() { alert('not allowed access key!') },
+    configurable: true,
+  });
+
+  o.a = 1;
+  // 等同于 :
+  Object.defineProperty(o, "a", {
+    value : 1,
+    writable : true,
+    configurable : true,
+    enumerable : true
+  });
+
+  // 另一方面，
+  Object.defineProperty(o, "a", { value : 1 });
+  // 等同于 :
+  Object.defineProperty(o, "a", {
+    value : 1,
+    writable : false,
+    configurable : false,
+    enumerable : false
+  });
+
+
+  var obj = {};
+  Object.defineProperties(obj, {
+    "property1": {
+      value: true,
+      writable: true
+    },
+    "property2": {
+      value: "Hello",
+      writable: false
+    }
+  });
+  alert(obj.property2) //弹出"Hello"
+</script>
+</body>
+</html>
