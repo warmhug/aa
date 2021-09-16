@@ -25,6 +25,7 @@
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
 zip加密: zip -e output.zip ~/xx.txt
+zip解密: https://www.jianshu.com/p/bf4a6244180f
 
 - 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper
 
@@ -81,8 +82,9 @@ Command + Alt + →/←  # 选择 上/下 一个标签
 - [cdto - 在 ITerm 里打开当前 Finder 路径](https://github.com/jbtule/cdto)
 
 ```sh
-zsh --version  # Mac 系统自带了 zsh
+# 官方 shell 修改方法 https://support.apple.com/zh-cn/HT208050
 chsh -s /bin/zsh  # 修改 shell 为 zsh ，系统默认使用 /bin/bash 作为 default shell
+zsh --version  # Mac 系统自带了 zsh
 # 只在 iTerm2 里修改 shell : `Preferences -> Profiles -> Default -> General -> Command`
 ```
 
