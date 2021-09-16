@@ -421,14 +421,7 @@ echo $SHELL # csh 是 C Shell。bash，sh，zsh 是 Bourne Shell 的变种。
 env / printenv JAVA_HOME  # 打印环境变量
 
 >  >>  &>  &>>  2>&1  # 输出重定向
-&> 文件    # 正确和错误的输出都保存到同一个文件中
-> 文件 2>&1   # 正确和错误的输出都保存到同一个文件中
-> 文件1 2>文件2  # 正确的输出放到文件1，错误的输出放到文件2
-
 # 管道符 |
-;   # 几个命令并行执行，不管有无报错
-&&   # 几个命令依次执行，报错就停止
-||   # 前一条命令报错，后一条命令才会执行，否则不执行。 如：ls && echo yes || echo no
 
 # shell 变量叠加：
 x=123
@@ -569,18 +562,11 @@ eclipse 不能读取到环境变量`System.out.print(System.getenv("JAVA_HOME"))
 
 ## hybrid app
 
-[京东多端统一开发框架 - Taro](https://mp.weixin.qq.com/s?__biz=MzIxMzExMjYwOQ%3D%3D&mid=2651890991&idx=1&sn=6dcf81fd2639bc20d7245990a30fefd0)
-
-[QQ空间面向移动时代Hybrid架构设计](https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2650993637&idx=1&sn=8a2673272575abbef4b0f6dbc25e0186)
-
 [Apache Cordova - 前身是 PhoneGap](https://cordova.apache.org/) 是移动 hybrid 开发方式先驱，
 其他公司内部部署的 bridge 等，大都效仿于它。
 
-[H5与Native交互之JSBridge技术](http://tech.youzan.com/jsbridge/)
-
 一般 hybrid 应用流程：用户从click开始，到 launch WebView , WebView 去加载 CDN 上的 HTML 文件，页面 loading 起来后才会去获取 JSON 数据。但在 launch WebView 的时候网络处于空等状态，这会浪费时间。Android 机器 launch WebView 大概需要1秒以内（客户端如果是多进程的架构，WebView 在另一个进程内部，launch 一次 WebView 除了进程 loading 还有浏览器内核的加载）。
 [Tencent/VasSonic](https://github.com/Tencent/VasSonic) /
-[手机QQ Hybrid 的架构如何优化演进？](https://mp.weixin.qq.com/s/evzDnTsHrAr2b9jcevwBzA)
 
 大体优化思路就是：缓存/预加载/并行，缓存一切网络请求，尽量在用户打开之前就加载好所有内容，能并行做的事不串行做。这里有些优化手段需要做好一整套工具和流程支持，需要跟开发效率权衡，视实际需求优化。
 

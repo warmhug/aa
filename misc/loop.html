@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>demo</title>
+</head>
+<body>
+  <script>
+    const loop = (arr = [], ps, deep = 0) => {
+      let obj = arr.find((item) => item.nodeName === ps[deep]);
+      if (!obj) {
+        obj = {};
+        arr.push(obj);
+      }
+      obj.nodeName = ps[deep];
+      obj.nodeType = deep < ps.length - 1 ? 'folder' : 'file';
+      while(deep < ps.length - 1) {
+        obj.children = loop(obj.children, ps, deep + 1);
+        return arr;
+      }
+      return arr;
+    };
+    const arr1 = [{a:1, children: [{b:1}]}];
+    console.log(loop(arr1, ['aa', 'bb', 'cc']), arr1);
+
+    const loop0 = (deep) => {
+      const obj = {
+        deep,
+      };
+      while(deep) {
+        obj.children = loop0(deep - 1);
+        return obj;
+      }
+    };
+    console.log(loop0(3));
+  </script>
+</body>
+</html>
