@@ -8,6 +8,10 @@
 </head>
 <body>
   <h2>navigator.geolocation</h2>
+  <pre>
+    2021-09 Chrome 浏览器在 4G 热点和家里 WiFi 环境下，不会执行 getCurrentPosition 公司 WiFi 可以。
+    2012-01 三星gt-i9003(安卓2.3.5)、中兴ZTE-U880(安卓2.2.2) 浏览器不执行 getCurrentPosition 也没有是否允许定位的提示框弹出。
+  </pre>
   <script>
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {

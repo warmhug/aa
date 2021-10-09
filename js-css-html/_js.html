@@ -6,7 +6,7 @@
 </head>
 <body>
 <pre>
-代码片段 (笔试题): [codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/)、[jsfiddle.net](https://jsfiddle.net/user/dashboard/fiddles/))
+代码片段 (笔试题): [codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/))
 
 - 从输入URL到页面加载完成 http://fex.baidu.com/blog/2014/05/what-happen/
 - js 算法 https://github.com/trekhleb/javascript-algorithms
@@ -471,6 +471,15 @@ react virtual-dom 里一次 digest 中的 diff 只需一次，但是会随着 ui
     });
   }
 </script>
+
+<pre>
+## 2013-08 兼容性问题
+- IE8及以下，ajax请求地址和参数相同时，会在一段事件内，读取浏览器缓存的ajax返回文件数据，而不去重新请求。-- 解决：请求参数加时间戳  
+- JSON.stringify 只支持IE8\9\10标准文档模式，考虑到文档设置有兼容性视图模式（IE67模式）需要对此方法做兼容（参考json2.js）  
+- input、textarea的blur事件中删改页面元素，会影响作用区域周围的元素事件处理。例如：点提交btn，先触发了blur事件，改变btn周围的元素，使得btn位置变动，此时btn的事件处理函数不会触发，再点才可触发。
+- IE8里在某个元素上设置`background: transparent;`，给此元素添加事件，并不会触发事件，像click mousedown事件
+- IE9什么原因能导致input file框点击没反应？
+</pre>
 
 </body>
 </html>

@@ -18,6 +18,20 @@
 
 
   var list = [93, 1, 7, 9, 8, 3, 10, 33, 79, 45, 32, 11, 0, 88, 99, 12, 4, 66, 64, 31, 100, 78];
+  function quickSort1(low, hi) {
+      var l = low, r = hi;
+      if (l >= r) return;
+      var key = randnumArr[l];
+      while (l < r) {
+          while (l < r && randnumArr[r] >= key) r--;
+          randnumArr[l] = randnumArr[r];
+          while (l < r && randnumArr[l] <= key) l++;
+          randnumArr[r] = randnumArr[l];
+      }
+      randnumArr[l] = key;
+      quickSort1(low, l - 1);
+      quickSort1(l + 1, hi);
+  }
   // 快排（递归）/（堆栈）
   function quickSort(arr, l, r) {
     if (l < r) {

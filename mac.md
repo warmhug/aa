@@ -7,9 +7,10 @@
 - 触发角: 系统偏好设置 -> 调度中心 -> 触发角 (左上角:启动台, 左下角:显示器睡眠, 右上角:调度中心, 右下角:桌面)。
 - 快捷键: 系统偏好设置 -> 键盘 -> 快捷键，“输入法”选择 `cmd+空格`，“服务”里勾选或不选。
 - dock: 显示隐藏 `cmd+alt+d`, 系统偏好设置 -> 程序坞 - 不勾选 “在程序坞中显示最近使用的应用程序”(最后一项)。
-- finder 工具栏: 按下 `cmd + alt`，拖动 app 到工具栏。
+- Finder 工具栏: 按下 `cmd + alt`，拖动 app 到工具栏。
+- QuickLook: 搜索下载 QLMarkdown / QLStephen / QuickLookJSON 并放到 `~/Library/QuickLook` 或 `/Library/QuickLook` 目录。如果不生效、`killall Finder` 重启 Finder。
 - 系统顶部菜单栏: 按住 `Command` 再拖动图标，改变右边图标顺序。
-- 文本替换: 系统偏好设置 -> 键盘 -> 文本，「command + A」全选、拖拽到 finder 会生成“用户词典.plist”的文件。
+- 文本替换: 系统偏好设置 -> 键盘 -> 文本，「command + A」全选、拖拽到 Finder 会生成“用户词典.plist”的文件。
 - 通知: 禁止 Enhanced Notifications 在 “勿扰模式” -> 勾选 “当显示器进入睡眠状态时/当屏幕锁定时”
 - iCloud文件/备忘录/Safari书签等同步：系统偏好设置 -> iCloud -> iCloud 云盘 (选项…) -> 优化 Mac 储存空间
 - 外接显示器旋转：系统偏好设置 -> 显示器 -> 外接窗口 -> 旋转
@@ -24,9 +25,6 @@
 > macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
 > 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-zip加密: zip -e output.zip ~/xx.txt
-zip解密: https://www.jianshu.com/p/bf4a6244180f
-
 - 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper
 
 - 开发: MacDown / Marp / charles / Gas-Mask / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / screen.so
@@ -35,10 +33,12 @@ zip解密: https://www.jianshu.com/p/bf4a6244180f
 
 - 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web)
 - Chrome: 一键切换(Jomic) 搜索拐杖 / Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
+- zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
+- 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
 
 ### 手机软件
 
-捷径社区, 全历史, 今日热榜, 语音合成助手, OplayerLite, TapEdit, TextNut, Typical, 白描, Stream, 无忧电话录音, 安兔兔测评, 悟空遥控, DVR Link, 透明家 创业邦 心理FM / 心理测试 / 门萨智商测试, IFTTT, Splashtop, andromouse.
+今日热榜, 白描, Stream, 无忧电话录音, DVR Link, Splashtop, andromouse.
 游戏：big hunter, brain dots。
 查看 app URL scheme: 下载 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。 [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
 
