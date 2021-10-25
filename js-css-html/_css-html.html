@@ -42,6 +42,21 @@
 </pre>
 
   <div style="margin-bottom: 20px;">
+    <style>
+      /* https://www.w3school.com.cn/cssref/css_selectors.asp
+        :first-of-type 等同于 :nth-of-type(1) 从后往前选择用 xx-last-xx
+       */
+      .box .test:first-of-type { background:#ff0000; }
+    </style>
+    <div class="box">
+      <p>这是第1个段落。注释掉此行，选择器才会匹配！</p>
+      <p class='test'>这是第2个段落。 .test 明显是父元素.box内同类型标签元素P中的第二个元素,所以.test元素并没有被匹配标红！</p>
+      <div>这是第2个DIV。</div>
+      <p>这是第3个段落。</p>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 20px;">
     <span style="display: block">
       标签嵌套 演示：
       <!-- <p><div>p 里 不可以 放 div，会导致下边元素解析都有出错！</div></p> -->
