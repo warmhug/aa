@@ -33,6 +33,4 @@ const Index = () => {
   )
 }
 
-ReactDOM.render(
-  <Index />
-  , document.getElementById('example'));
+ReactDOM.render(<Index /> , document.getElementById('example'));
