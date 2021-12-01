@@ -12,18 +12,15 @@
 - 系统顶部菜单栏: 按住 `Command` 再拖动图标，改变右边图标顺序。
 - 文本替换: 系统偏好设置 -> 键盘 -> 文本，「command + A」全选、拖拽到 Finder 会生成“用户词典.plist”的文件。
 - 通知: 禁止 Enhanced Notifications 在 “勿扰模式” -> 勾选 “当显示器进入睡眠状态时/当屏幕锁定时”
-- iCloud文件/备忘录/Safari书签等同步：系统偏好设置 -> iCloud -> iCloud 云盘 (选项…) -> 优化 Mac 储存空间
-- 外接显示器旋转：系统偏好设置 -> 显示器 -> 外接窗口 -> 旋转
 - Mac m1 外接显示器分辨率低：系统偏好设置 -> 显示器 -> 按住 Option 键的同时点击“缩放”
 
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
-- iCloud 目录多出了“Keynote / Pages ...“等空目录，是为了引导你安装相应软件，安装完之后、可以在 ”系统偏好设置 -> iCloud -> iCloud Drive -> 选项“里去掉勾选相应项目，文件夹里的空目录自动会消失。
 - iBook 缓存位置 ~/Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks
 
 ## 软件
 
-> macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开
-> 「xxx.app已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的, 解决方法是改变 Mac 系统安全设置. [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
+> macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
+> [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
 - 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper
 
@@ -88,7 +85,7 @@ zsh --version  # Mac 系统自带了 zsh
 # 只在 iTerm2 里修改 shell : `Preferences -> Profiles -> Default -> General -> Command`
 ```
 
-美化 zsh 界面：安装 [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)，它有很多 Plugins 和 Themes。注意：会在 用户目录 生成新的 `.zshrc`
+美化 zsh 界面：安装 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh#manual-installation)、使用 manual install 方式、不需要翻墙，它有很多 Plugins 和 Themes。注意：会在 用户目录 生成新的 `.zshrc`
 
 ```sh
 # homebrew - macOS 不可或缺的套件管理器 (安装不成功可查找 homebrew 国内源)
@@ -96,29 +93,11 @@ zsh --version  # Mac 系统自带了 zsh
 brew help / list / update  # https://brew.sh/
 ```
 
-## shadowsocks
+## 代理
 
-```sh
-## 方法一：terminal 里的 curl 能走代理
-### 查看 ShadowsocksX-NG 客户端 http 代理端口 (通过软件设置查看)，并在 .zshrc 里加入
-alias proxyh='export http_proxy=http://127.0.0.1:1087 https_proxy=http://127.0.0.1:1087'
+命令行代理 `brew install proxychains-ng` 修改 /usr/local/etc/proxychains.conf 配置文件“末尾”部分内容
+`#socks4  127.0.0.1 9050` 改为 `socks5  127.0.0.1 1080`。使用 `proxychains4 -q curl https://twitter.com` 测试是否成功，不成功则需要重启 Mac，按下 `Cmd + R` 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
 
-## 方法二：所有请求都能走
-brew install proxychains-ng
-
-# 修改 /usr/local/etc/proxychains.conf 配置文件“末尾”部分内容，如下：
-#socks4  127.0.0.1 9050
-socks5  127.0.0.1 1080
-
-proxychains4 curl https://twitter.com/  
-# 测试是否成功 不成功则需要
-# 重启 Mac，按下 Cmd + R 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态
-proxy curl https://twitter.com/  # 方便点、在 .zshrc 里设置 `alias proxy="proxychains4 -q"`
-```
-
-shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全局模式“并不是”所有app都走代理(比如 terminal 不走)。
-配合 [SwitchyOmega](https://www.switchyomega.com/) 方便增删特定网址到代理列表中。
-代理模式切换时，系统的「偏好设置－网络－高级－代理」里会跟着切换。
 疑问：有些代理服务器、用 SwitchyOmega 首次加载 需要代理的网页 会失败、然后自动刷新 访问成功，[问题跟踪](https://github.com/FelisCatus/SwitchyOmega/issues/1511#issuecomment-433313269)
 
 ```txt
@@ -126,7 +105,6 @@ shadowsocks 代理模式分为「PAC自动模式」和「全局模式」，全�
 @with result
 
 *.github.com +proxy
-*.medium.com +proxy
 *.icloud.com +direct
 
 * +direct
@@ -158,18 +136,6 @@ pangu / Hungry Delete / javascript console utils
 [https://github.com/viatsko/awesome-vscode](https://github.com/viatsko/awesome-vscode) /
 Task Explorer / sftp / Web Template Studio
 
-
----------
-
-## 虚拟机
-
-- virtualbox win7 网络设置为 bridged adapter (name: wifi) [如图](https://gw.alipayobjects.com/zos/rmsportal/auNTgeEEHVFfWklRjRsK.png)、在家里网络正常，但很奇怪在公司内网不能连接？？
-- [虚拟机里的 win 键盘是用的 ctrl 键](https://forums.virtualbox.org/viewtopic.php?f=8&t=63567&hilit=keyboard)
-- 安装后重启，或点击菜单 Devices -> Insert Guest Additions CD image… 使能访问 host 电脑并自动调整分辨率
-- 设置 Shared Folders
-
-> 注意：当 virtualBox 运行时，Android 官方安装的虚拟机、开不起来！  
-> 虚拟机里查看 ip 地址可以看到，例如 10.0.2.2 可访问 host 主机的 localhost , Genymotion android emulator 相应ip为 10.0.3.2
 
 ---------
 
@@ -292,6 +258,18 @@ ls
 printf "\n"
 read -n1 -rsp $'Press any key to exit...\n'
 ```
+
+---------
+
+## 虚拟机
+
+- virtualbox win7 网络设置为 bridged adapter (name: wifi) [如图](https://gw.alipayobjects.com/zos/rmsportal/auNTgeEEHVFfWklRjRsK.png)、在家里网络正常，但很奇怪在公司内网不能连接？？
+- [虚拟机里的 win 键盘是用的 ctrl 键](https://forums.virtualbox.org/viewtopic.php?f=8&t=63567&hilit=keyboard)
+- 安装后重启，或点击菜单 Devices -> Insert Guest Additions CD image… 使能访问 host 电脑并自动调整分辨率
+- 设置 Shared Folders
+
+> 注意：当 virtualBox 运行时，Android 官方安装的虚拟机、开不起来！  
+> 虚拟机里查看 ip 地址可以看到，例如 10.0.2.2 可访问 host 主机的 localhost , Genymotion android emulator 相应ip为 10.0.3.2
 
 ---------
 

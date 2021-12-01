@@ -1,5 +1,4 @@
 # bin 目录加入环境变量
-# 检查: subl /etc/paths
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # 使用 homebrew 安装的 python2 覆盖 “系统默认的” python2
@@ -29,23 +28,7 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-
 ## proxy
-### 需要安装 ShadowsocksX-NG 1.6.1 以上版本
-
-#### 方法一: 使用 proxychains4 
-alias proxy="proxychains4 -q"
-
-#### 方法二: 设置 http_proxy ，iTerm 支持。输入 env 查看是否成功设置
-#### proxyh 为 ShadowsocksX-NG 客户端 http 代理端口 (通过软件设置查看)
-alias proxyh='export http_proxy=http://127.0.0.1:1087 https_proxy=http://127.0.0.1:1087'
-alias proxys='export http_proxy=socks5://127.0.0.1:1080 https_proxy=socks5://127.0.0.1:1080'  
-alias proxyoff='unset http_proxy https_proxy' 
-
-#### git clone https://github.com/ant-design/ant-design.git 使用 https 协议 clone 比较快
 ##### 使用 阿里郎 代理（关掉其他代理服务器），先开启 阿里郎 网络加速
 alion() {
     proxy=$(lsof -i -n -P | grep LISTEN |grep AliMgrSoc | tr -s ' ' | cut -d' ' -f 9)
@@ -68,13 +51,8 @@ alioff() {
 }
 
 # 运行 alias 查看所有别名
-#alias vi="subl"
 alias sz="code ~/.zshrc"
 alias se="source ~/.zshrc"
-alias npmr="open `npm root -g`"
-
-# Python 虚拟环境 Virtualenv/VirtualenvWrapper
-#source /usr/local/bin/virtualenvwrapper.sh
 
 ## java  参考：http://chessman-126-com.iteye.com/blog/2162466
 #export JAVA_6_HOME=`/usr/libexec/java_home -v 1.6` # Mac默认 JDK 6（Mac默认自带了一个jdk6版本）
@@ -98,22 +76,3 @@ export PATH=${PATH}:$ANDROID_SKD_HOME/platform-tools
 export ANDROID_NDK=$HOME/Library/Android/android-ndk-r14b
 export ANDROID_NDK_HOME=$HOME/Library/Android/android-ndk-r14b
 export PATH="$ANDROID_NDK:$PATH"
-
-## tomcat
-#export PATH=$PATH:/Applications/apache-tomcat-8.0.27/bin
-
-## maven
-#export MAVEN_HOME=/usr/share/maven
-#export MAVEN_HOME=/Applications/apache-maven-3.3.3
-#export PATH=$PATH:$MAVEN_HOME/bin
-
-## gradle
-#export GRADLE_HOME=/Applications/gradle-2.7
-#export PATH=$PATH:$GRADLE_HOME/bin
-
-## mysql
-#export PATH="/usr/local/mysql/bin:$PATH"
-
-## sofa-sdk
-#export SOFA_HOME="/Applications/sofa-sdk"
-#export PATH="$SOFA_HOME:$PATH"
