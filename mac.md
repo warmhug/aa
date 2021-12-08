@@ -76,7 +76,7 @@ Command + Alt + →/←  # 选择 上/下 一个标签
 - iTerm2 的 Preferences > Keys 里 HotKey 设置为 Command + `
 - iTerm2 的 Profiles > Keys 里点 + 弹出输入 ⌥→ / ⌥← Action 设置为 Send Escape sequence , f / b
 - iTerm2 的 Profiles > Window - Transparency 设置透明度 / Style 设置为 `Full-Width Top of Screen`
-- [cdto - 在 ITerm 里打开当前 Finder 路径](https://github.com/jbtule/cdto)
+- [cdto](https://github.com/jbtule/cdto) 使用 [2.6 版本](https://github.com/jbtule/cdto/issues/46) 能在 ITerm (不是系统默认 terminal) 里打开当前 Finder 路径
 
 ```sh
 # 官方 shell 修改方法 https://support.apple.com/zh-cn/HT208050

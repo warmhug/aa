@@ -2,18 +2,13 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # 使用 homebrew 安装的 python2 覆盖 “系统默认的” python2
-export PATH="$(brew --prefix python)/libexec/bin:$PATH"
-
-# 使用 vim
-export EDITOR='vim'
-#export PS1="\u \w$"
-
-
-## homebrew 加速
-export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
+# export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com  # homebrew 加速
 ### brew install autojump 后提示需要添加的内容
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
+export EDITOR='vim'
+#export PS1="\u \w$"
 
 # 以下 zshrc 模板去掉了很多没用到的命令和注释
 # 完整模板看这里：https://github.com/robbyrussell/oh-my-zsh/blob/master/templates/zshrc.zsh-template
@@ -57,13 +52,13 @@ alias se="source ~/.zshrc"
 ## java  参考：http://chessman-126-com.iteye.com/blog/2162466
 #export JAVA_6_HOME=`/usr/libexec/java_home -v 1.6` # Mac默认 JDK 6（Mac默认自带了一个jdk6版本）
 #export JAVA_7_HOME=`/usr/libexec/java_home -v 1.7` # 设置 JDK 7
-export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8` # 设置 JDK 8
+# export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8` # 设置 JDK 8
 #alias命令动态切换JDK版本
 #alias jdk6="export JAVA_HOME=$JAVA_6_HOME"
 #alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
-export JAVA_HOME=$JAVA_8_HOME #默认JDK
-export CLASSPATH=.:$JAVA_HOME/lib:
-export PATH=$PATH:$JAVA_HOME/bin
+# export JAVA_HOME=$JAVA_8_HOME #默认JDK
+# export CLASSPATH=.:$JAVA_HOME/lib:
+# export PATH=$PATH:$JAVA_HOME/bin
 
 ## android sdk
 export ANDROID_HOME=$HOME/Library/Android/sdk
