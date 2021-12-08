@@ -74,3 +74,34 @@ function traverseDFS(callback, treeData) {
 }
 traverseDFS(id => id === "0-0-1", tree);
 console.log(selNode);
+
+
+
+// 深度遍历 dfs 广度遍历 bfs
+function dfs(data) {}
+
+const data = {
+  id: 0,
+  children: [
+    {
+      id: 1,
+      children: [
+        {
+          id: 3,
+        },
+        {
+          id: 4,
+        }
+      ]
+    },
+    {
+      id: 2,
+    }
+  ]
+};
+
+// 执行后 返回以下结果
+dfs(data) // [0, 1, 3, 4, 2]
+bfs(data) // [0, 1, 2, 3, 4]
+
+

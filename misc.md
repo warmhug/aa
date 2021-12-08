@@ -470,22 +470,6 @@ echo %cd%  # %cd% 可用在 批处理文件中 或 命令行中，其内容为�
 cd %~dp0  # 进入批处理所在目录
 ```
 
-## markdown 语法
-
-:+1: :smile: :smiley: :laughing:
-- [emoji-cheat-sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
-- [Emoji Unicode Tables](http://www.unicode.org/emoji/charts/full-emoji-list.html)
-
-任务 `- [] 跑步` 或 `- [x] 吃饭`；普通链接 [test](http://example.net "optional") 。图片 ![img | center | 100x100](https://zos.alipayobjects.com/rmsportal/lcLKYXUWPbqkavfJbMGx.png "optional")。
-
-| Item      |    Value | Qty  |
-| :-------- | --------:| :--: |
-| Computer  | 1600 USD |  5   |
-
-<details>
-  <summary>Is this production ready?</summary>
-  Next.js has been powering `https://zeit.co` since its inception.
-</details>
 
 
 
@@ -689,3 +673,66 @@ g++ file.cc file1.cc
 ## Go
 
 编程哲学的重塑是Go语言独树一帜的根本原因，其它语言仍难以摆脱OOP或函数式编程的烙印，只有Go完全放弃了这些，对编程范式重新思考，对热门的面向对象编程提供极度简约但却完备的支持。Go是互联网时代的C语言，不仅会制霸云计算，10年内将会制霸整个IT领域。
+
+
+
+
+---------
+
+## plantuml
+
+@startgantt
+/'
+单行注释、放在 单引号之间，多行注释前后加斜杠
+[正式上线] lasts 1 day and starts at 2020/03/20
+'/
+'skinparam classFontSize 10'
+
+scale 2
+project starts the 2019/12/16
+saturday are closed
+sunday are closed
+2020/01/01 is closed
+2020/01/22 to 2020/02/02 is closed
+2019/12/16 to 2019/12/30 are named [十二月]
+2020/01/01 to 2020/01/31 are named [一月]
+'2020/02/01 to 2020/02/30 are named [二月]'
+
+-- 开发阶段（灰色背景是节假日、不计入总时间） --
+[环境准备] as [hj] lasts 2 days and is colored in Lavender/LightBlue
+then [首页 3d] lasts 3 days
+[流程管理 4d] as [lc] lasts 4 days
+[hj] -> [lc]
+
+[<size:13><b>交付中心 <color:red>11d] as [jf] lasts 11 days
+[jf] starts at [lc]'s end and is colored in Yellow/Green
+[列表 3d] lasts 3 days and starts at [jf]'s start 
+[大图 3d] lasts 3 days and starts at [jf]'s start
+[明细 3d] lasts 3 days and starts at [jf]'s start
+[大图 3d] lasts 3 days and starts at [jf]'s start
+[任务 3d] lasts 3 days and starts at [jf]'s start
+[权限 5d] as [qx] lasts 5 days and starts at [jf]'s end
+
+-- 测试阶段 --
+[集成测试 5d] as [jc] lasts 5 days and is colored in Fuchsia/FireBrick 
+[qx] -> [jc]
+
+@endgantt
+
+
+## markdown 语法
+
+:+1: :smile: :smiley: :laughing:
+- [emoji-cheat-sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
+- [Emoji Unicode Tables](http://www.unicode.org/emoji/charts/full-emoji-list.html)
+
+任务 `- [] 跑步` 或 `- [x] 吃饭`；普通链接 [test](http://example.net "optional") 。图片 ![img | center | 100x100](https://zos.alipayobjects.com/rmsportal/lcLKYXUWPbqkavfJbMGx.png "optional")。
+
+| Item      |    Value | Qty  |
+| :-------- | --------:| :--: |
+| Computer  | 1600 USD |  5   |
+
+<details>
+  <summary>Is this production ready?</summary>
+  Next.js has been powering `https://zeit.co` since its inception.
+</details>

@@ -1,5 +1,22 @@
 /* eslint no-unused-vars: 0, no-mixed-operators: 0, no-redeclare: 0  */
 
+// 防抖 debounce 截流 throttle
+
+// 深度遍历 dfs 广度遍历 bfs
+
+// 排序 返回一个新的数组对象
+function orderBy(data, fn) {}
+const sortArr = orderBy([{ weight: 10 }, { weight: 3 }, { weight: 2 } ], item => item.weight);
+
+// 实现 Promise.all 或 Promise.race 方法
+function promiseAll(tasks) {}
+const task1 = new Promise(resolve => resolve(1));
+const task2 = new Promise(resolve => setTimeout(() => resolve(2), 2000));
+promiseAll([task1, task2]).then(results => {
+  // 2秒后执行
+  // results === [1, 2] 
+})
+
 // 正则表达式验证 6 位数字密码？6~15位数字、字母？
 // /^\d{6}$/  /^[a-zA-Z0-9]{6,15}$/
 
