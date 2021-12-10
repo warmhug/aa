@@ -1,4 +1,5 @@
 /* eslint no-unused-vars: 0, no-mixed-operators: 0, no-redeclare: 0  */
+// react关键点
 
 // 防抖 debounce 截流 throttle
 

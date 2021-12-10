@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>demo</title>
+</head>
+<body>
+  <div id="ele"></div>
+  <script>
+    const ele = document.getElementById('ele');
+    setTimeout(() => {
+      ele.style.height = '2000px';
+    }, 3000);
+    const reSize = () => {
+      console.log('resize event');
+    };
+    // resize 事件只在 window 变化时触发，内部元素变化不会触发
+    // window.addEventListener('resize', reSize, true);
+
+    // 注册在 元素上 不起作用
+    // ele.addEventListener('resize', reSize);
+
+    // 使用 ResizeObserver
+    new ResizeObserver(entries => {
+      for (let entry of entries) {
+        console.log('entries', entries);
+      }
+    }).observe(ele);
+  </script>
+</body>
+</html>
