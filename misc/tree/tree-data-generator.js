@@ -1,3 +1,4 @@
+// 生成 多叉树
 function generateData(x = 3, y = 2, z = 1, gData = []) {
   // x：每一级下的节点总数。y：每级节点里有y个节点、存在子节点。z：树的level层级数（0表示一级）
   function _loop(_level, _preKey, _tns) {
@@ -29,3 +30,15 @@ function calcTotal(x = 3, y = 2, z = 1) {
   const rec = (n) => n >= 0 ? x * Math.pow(y, n--) + rec(n) : 0;
   return rec(z + 1);
 }
+
+function getLeafCount(data) {
+  if (!data.children) {
+    return 1;
+  }
+  let count = 0;
+  for (let index = 0; index < data.children.length; index++) {
+    count += getLeafCount(data.children[index]);
+  }
+  return count;
+}
+console.log(getLeafCount(generateData()));
