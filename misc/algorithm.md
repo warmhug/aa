@@ -4,6 +4,7 @@
 
 几种常见的JS递归算法 https://juejin.cn/post/6844904014207795214
 
+js 算法 https://github.com/trekhleb/javascript-algorithms
 
 [LeetCode](https://leetcode.com/)
 [Google 历年笔试面试30题](http://ask.julyedu.com/question/447)

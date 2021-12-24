@@ -2,6 +2,7 @@
 	st = status
 	co = checkout
 	ci = commit
+	br = branch
 [user]
 	name = 然则
 	email = hualei5280@gmail.com

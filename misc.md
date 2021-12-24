@@ -1,6 +1,27 @@
 
 # misc
 
+npm & git 工作环境设置
+
+```sh
+# 命令行登录 registry
+npm login --registry=https://registry-cnpm.xx.work
+
+# 内部仓库、设置内部邮箱
+git config user.name "然则"
+git config user.email "hualei.hl@xx-inc.com"
+
+# 全局默认设置 code ~/.gitconfig
+git config --list
+git config --global alias.st status
+git config --global alias.ci commit
+
+# yarn 源设置
+yarn/npm config get registry # 查看源
+yarn install --registry https://registry.npm.taobao.org/  #指定源
+```
+
+
 - [Most Starred](https://github.com/search?q=stars:%3E1&s=stars&type=Repositories)
 - [Most Forks](https://github.com/search?o=desc&q=stars:%3E1&s=forks&type=Repositories)
 - [github-rank](http://github-rank.com/star)
@@ -17,56 +38,13 @@ npm install tnpm -g --registry="http://registry.npm.xx.com" # 使用 cnpm 加速
 node hello.js &  # 后台运行程序
 ps -ef | grep node  # 找到进程对应的ID
 kill 3747(进程id)  # 杀掉后台进程
-
-# 自动安装某 npm 包的 shell 命令：
-node -e "$(curl -fsSL https://a.alipayobjects.com/u/localhost/js/201406/2u6LQfOLhF.js)"
 ```
 
 Excel 模糊匹配 <http://club.excelhome.net/thread-1048885-1-1.html>
 
-系统设计 https://github.com/donnemartin/system-design-primer
-[我在系统设计上犯过的14个错](https://mp.weixin.qq.com/s?__biz=MjM5MzYzMzkyMQ==&mid=2649826281&idx=1&sn=9c80215f5ee4b9fcf3be91012ad13608#rd)
-编程语言分类：<http://hyperpolyglot.org/>
-
-- 注意：mac不区分文件名的大小写，类名及文件名大小写改变后，不会自动刷新。编译时可能抛出“找不到类”的错误，要重新删除相应文件，再下载下来
-- Docker 镜像加速地址：登录阿里云、找到 Docker Hub 镜像站点，拷贝专属加速器地址。
-
-uuid 全宇宙单独id。guid 一定范围内单独id，比 uuid 范围小。
-
-[正向代理与反向代理有什么区别](http://mp.weixin.qq.com/s/ikrI3rmSYs83wdSWqq2QIg)
-代理（proxy）是一种路由请求方式，将不同源的请求通过同一个服务器处理，原因可能有很多：缓存、安全，甚至是故意模糊请求的来源。有转发代理、反向代理等。反向代理用于控制请求如何被发送到服务器，例如现在有五个服务器，但有四个不希望有用户直接访问。因而将所有的请求转发到第五个服务器，然后再代理给其他服务器。反向代理也被用于平衡负载和通过缓存请求改进系统的整体表现。
-
-采用虚拟化技术可降低 Linux 使用硬件的成本，虚拟化技术有：VMWare / KVM / XEN / Microsoft Hyper-V 。如 CPU16 核 / 内存 24G / 硬盘 300G 的 Linux 服务器，可以 “一虚三”、即虚拟出三个虚拟机来。
-
-- [URL 编码，为什么要编码？](http://anjia.github.io/2015/04/15/jsURIEncode/)
-- 浏览器在自动选择编码方式的时候不会优先根据 html 源码中的所展示的`<meta charset="utf-8" />`代码来决定选择什么编码方式，而是优先根据“响应标头-response header”中的键为“Content-Type”的值来自动选择判断。（老IE浏览器相反）
-
-计算机中存储信息的最小单元是一个字节，即 8 个 bit，所以能表示的字符范围是 0~255 个。
-
-- ASCII 码：单字节编码，一共 128 个字符，用一个字节的低 7 位表示。
-- ISO-8859-1：单字节编码，扩展了 ASCII，总共能表示 256 个字符，涵盖了大多数西欧语言字符。
-- GB2312：双字节编码，编码范围 A1~F7，包含 6763 个汉字。
-- GBK：兼容并扩展了 gb2312，编码范围是 8140~FEFE(去掉 XX7F)，总共有 23940 个码位，能表示 21003 个汉字。
-- utf-8、utf-16
-
-URL 中包含中文时需要进行编码，但 URL 中 `?` 前后部分（分别是 uri 和 QueryString 查询字符串）编码方式不同，后端相应的解码方式也不同。
-
-- 对 uri 部分进行解码的字符集是在 connector 的 `<Connector URIEncoding="UTF-8" />` 中定义的，如果没有定义，将以默认编码 ISO-8859-1 解析，所以最好设置为 utf-8 编码。
-- 而 HTTP 的 get 方式请求的 QueryString 与 post 方式请求的表单参数都是作为 `Parameters` 保存的，都通过 `request.getParameter` 获取参数值，对它们的解码也是在该方法第一次被调用时进行的（注意：要在第一次调用 request.getParameter 方法之前就设置 request.setCharacterEncoding(charset)，否则 post 表单提交上来的数据可能出现乱码）。浏览器根据 ContentType 的 charset 编码格式对之进行编码，然后提交到服务器，服务端同样也是用 ContentType 中的字符集进行解码的。
-
-
-
 # git
 
-git-tips: https://github.com/git-tips/tips
-
 [Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
-
-```sh
-# code ~/.gitconfig
-git config                # 配置个人信息
-git config --global alias.st status
-```
 
 ```sh
 # 分支
