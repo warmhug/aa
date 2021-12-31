@@ -449,6 +449,37 @@ cd %~dp0  # 进入批处理所在目录
 ```
 
 
+### system_login 系统脚本
+
+```sh
+#!/bin/bash
+
+exists(){
+  command -v "$1" >/dev/null 2>&1
+}
+
+# use forever as joke server manager
+if exists forever; then
+  echo 'MY_Info: forever has been installed'
+else
+  echo 'MY_Info: execute "npm install forever -g"'
+  npm install forever -g
+fi
+
+JOKE_PATH=~/inner/__/js-css-html/joke
+if [ -d "$JOKE_PATH"/node_modules ]; then
+  echo "MY_Info: the node_modules folder already exists in $JOKE_PATH"
+else
+  echo "MY_Info: execute 'npm install' command in $JOKE_PATH"
+  cd $JOKE_PATH
+  npm install
+fi
+
+ls
+printf "\n"
+read -n1 -rsp $'Press any key to exit...\n'
+```
+
 
 
 ---------

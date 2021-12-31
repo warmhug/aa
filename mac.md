@@ -19,8 +19,7 @@
 
 ## 软件
 
-> macOS 10.12 “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
-> [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
+macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
 
 - 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper
 
@@ -31,22 +30,19 @@
 - 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web)
 - Chrome: 一键切换(Jomic) 搜索拐杖 / Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
 - zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
+- rar[工具](https://www.rarlab.com/download.htm): `rar a test.rar test/` 压缩 test 目录内容生成 test.rar 文件。
+- https://www.keka.io 压缩解压 7z zip 等。mac 选中文件右键 -> 压缩生成zip 或者 服务“使用keka压缩”。
+- [zip、rar、7z文件密码破解](https://github.com/jaredsburrows/rarcrack)、[7zcrack](https://github.com/tp7309/tt7zcrack)
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
 
-### 手机软件
+- 手机软件: 今日热榜, 白描, Stream, 无忧电话录音, DVR Link, Splashtop, andromouse. 游戏：big hunter, brain dots。
+  - 查看 app URL scheme: 下载 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。 [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
 
-今日热榜, 白描, Stream, 无忧电话录音, DVR Link, Splashtop, andromouse.
-游戏：big hunter, brain dots。
-查看 app URL scheme: 下载 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。 [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
+- U盘格式
+  - 支持 Mac + Win 的读写格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。
+  - 重装 Win 系统用老毛桃制作“U盘启动工具”，另外在此 <http://msdn.itelly.net/> 下载 Win 系列纯净系统 ISO 镜像文件 (可以是不同U盘))。开机(比如按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
 
-### U盘格式兼容性
-
-- 支持 Mac + Win 的读写格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。
-- 支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。
-- 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。
-- 重装 Win 系统用老毛桃制作“U盘启动工具”，另外在此 <http://msdn.itelly.net/> 下载 Win 系列纯净系统 ISO 镜像文件 (可以是不同U盘))。开机(比如按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
-
-## 快捷键
+快捷键
 
 ```sh
 pmset noidle  # 阻止电脑睡眠。 同时按住 shift、control、电源键，关闭显示器
@@ -71,27 +67,53 @@ Command + Alt + →/←  # 选择 上/下 一个标签
 
 ---------
 
-## iTerm2 & oh-my-zsh & homebrew
+> [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
+
+安装 git & gcc `xcode-select --install`
+
+## iTerm2 & oh-my-zsh
+
+```sh
+# Mac shell 修改方法 https://support.apple.com/zh-cn/HT208050
+chsh -s /bin/zsh  # 修改 shell 为 zsh ，系统默认使用 /bin/bash
+zsh --version  # Mac 系统自带了 zsh
+```
 
 - iTerm2 的 Preferences > Keys 里 HotKey 设置为 Command + `
 - iTerm2 的 Profiles > Keys 里点 + 弹出输入 ⌥→ / ⌥← Action 设置为 Send Escape sequence , f / b
 - iTerm2 的 Profiles > Window - Transparency 设置透明度 / Style 设置为 `Full-Width Top of Screen`
-- [cdto](https://github.com/jbtule/cdto) 使用 [2.6 版本](https://github.com/jbtule/cdto/issues/46) 能在 ITerm (不是系统默认 terminal) 里打开当前 Finder 路径
+- [cdto](https://github.com/jbtule/cdto) 使用 [2.6 版本](https://github.com/jbtule/cdto/issues/46) 能在 ITerm (不是系统默认 terminal) 里打开当前 Finder 路径.
+- 只在 iTerm2 里修改 shell : `Preferences -> Profiles -> Default -> General -> Command`
+- 安装 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh#manual-installation)、使用 manual install 方式、不需要翻墙，它有很多 Plugins 和 Themes。注意：会在 用户目录 生成新的 `.zshrc`
+
+
+## homebrew & ruby & jekyll
 
 ```sh
-# 官方 shell 修改方法 https://support.apple.com/zh-cn/HT208050
-chsh -s /bin/zsh  # 修改 shell 为 zsh ，系统默认使用 /bin/bash 作为 default shell
-zsh --version  # Mac 系统自带了 zsh
-# 只在 iTerm2 里修改 shell : `Preferences -> Profiles -> Default -> General -> Command`
+# https://brew.sh/
+# brew 国内源 https://www.jianshu.com/p/bea984d27cd2
+cd "$(brew --repo)"
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote -v
+brew update / list
 ```
-
-美化 zsh 界面：安装 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh#manual-installation)、使用 manual install 方式、不需要翻墙，它有很多 Plugins 和 Themes。注意：会在 用户目录 生成新的 `.zshrc`
 
 ```sh
-# homebrew - macOS 不可或缺的套件管理器 (安装不成功可查找 homebrew 国内源)
-# https://tourcoder.com/homebrew-slowly/
-brew help / list / update  # https://brew.sh/
+# mac 自带的 ruby 在运行 jekyll 时有问题，需要新安装 ruby@3
+brew install ruby   # 过程中有些依赖出错、就相应单独安装，比如 brew install libyaml / readline / ...
+ruby -v   # 在 .zshrc 里加入 ruby@3 的 bin 路径，新打开 terminal 查看
+which ruby / gem  # 查看目录
+gem env # 查看更详细信息
+
+gem install jekyll bundler  # 安装在 /opt/homebrew/lib/ruby/gems 目录
+gem install --user-install bundler jekyll  # 安装在 ~/.gem 目录
+jekyll serve   # 启动报错 缺少 webrick
+bundle add webrick   # 报错 Could not locate Gemfile
+bundle init  # 生成 Gemfile 之后再运行 bundle add webrick 随后 jekyll serve 成功
+
+gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 ```
+
 
 ## 代理
 
@@ -226,38 +248,6 @@ http://localhost:8080  # 重启并测试
 https://localhost  # 测试 https
 ```
 
----------
-
-system_login 系统脚本
-
-```sh
-#!/bin/bash
-
-exists(){
-  command -v "$1" >/dev/null 2>&1
-}
-
-# use forever as joke server manager
-if exists forever; then
-  echo 'MY_Info: forever has been installed'
-else
-  echo 'MY_Info: execute "npm install forever -g"'
-  npm install forever -g
-fi
-
-JOKE_PATH=~/inner/__/js-css-html/joke
-if [ -d "$JOKE_PATH"/node_modules ]; then
-  echo "MY_Info: the node_modules folder already exists in $JOKE_PATH"
-else
-  echo "MY_Info: execute 'npm install' command in $JOKE_PATH"
-  cd $JOKE_PATH
-  npm install
-fi
-
-ls
-printf "\n"
-read -n1 -rsp $'Press any key to exit...\n'
-```
 
 ---------
 
