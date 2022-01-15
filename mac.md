@@ -23,7 +23,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 
 - 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper
 
-- 开发: MacDown / Marp / charles / Gas-Mask / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / screen.so
+- 开发: MacDown / Marp / charles / Gas-Mask / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / [XSwitch](https://github.com/yize/xswitch)
 
 - 图像: lightshot (snip) / licecap (kap gifify) / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager
 
@@ -157,6 +157,160 @@ Indent 4-to-2 / beautify react-beautify Auto Close(Rename) Tag / SVG Viewer /
 pangu / Hungry Delete / javascript console utils
 [https://github.com/viatsko/awesome-vscode](https://github.com/viatsko/awesome-vscode) /
 Task Explorer / sftp / Web Template Studio
+
+
+---------
+
+## Git / Npm
+
+[Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
+
+npm & git 工作环境设置
+
+```sh
+# 命令行登录 registry
+npm login --registry=https://registry-cnpm.xx.work
+
+# 内部仓库、设置内部邮箱
+git config user.name "然则"
+git config user.email "hualei.hl@xx-inc.com"
+
+# 全局默认设置 code ~/.gitconfig
+git config --list
+git config --global alias.st status
+git config --global alias.ci commit
+
+# yarn 源设置
+yarn/npm config get registry # 查看源
+yarn install --registry https://registry.npm.taobao.org/  #指定源
+```
+
+
+```sh
+# node & npm
+npm install tnpm -g --registry="http://registry.npm.xx.com" # 使用 cnpm 加速
+
+node hello.js &  # 后台运行程序
+ps -ef | grep node  # 找到进程对应的ID
+kill 3747(进程id)  # 杀掉后台进程
+```
+
+head caret tilde 区别 https://scarletsky.github.io/2016/12/29/tilde-and-caret-in-git/
+
+```sh
+# 分支
+git checkout -b xx origin/xx    # 新建xx分支，并跟踪远程xx分支
+git branch -d xx       # 删除分支xx
+git push origin :xx    # 删除远程分支xx
+git push origin xx:xx  # 上传我本地的xx分支到远程仓库中去，仍称它为xx分支
+
+git diff [version1] [version2]   # 查看版本差异
+
+git pull --rebase       # 同 git fetch + git rebase
+git pull -p # remove all your local branches which are remotely deleted.
+
+git fetch origin  # 同步远程repos, 更新本地仓库的所有 origin/* 分支信息
+git merge origin/xx    # 远程上有 xx 分支，并且 git fetch  执行此命令，将合并此分支
+git merge --no-ff xx   # 不执行"快进式合并"，始终多产生 merge 信息，便于追踪
+
+# 合并/删除多个 commit 为一个 https://www.jianshu.com/p/4a8f4af4e803
+git log   # 找到要删除/合并 commit 之前一个 commit_id
+git rebase -i [commit_id]
+git push -f  # 强制提交
+
+# 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录
+# 公共仓库不建议使用 rebase https://www.fossil-scm.org/fossil/doc/trunk/www/rebaseharm.md
+# https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history
+# merge 和 rebase 的问题：
+#- 如果用 rebase ，需要经常 reapply 其他提交的改动， commit 的时间顺序也会乱掉。
+#- 如果用最直接的 merge ，会产生重复无用的比如 Merge pull request pull_id from xx_branch 或者 Merge branch “branch_name” 信息，不利于 review 提交记录。
+
+# 回退恢复：
+## working tree (add之前，原始状态)
+git checkout .
+git clean -xdf # 删除所有 .gitignore 里指定的文件或目录，包括新建文件、node_modules 等
+
+## index 内的回滚 (add后 commit之前，暂存区)
+git reset [file | 057d]    # 回退文件、或回退到某个版本  
+git reset HEAD^    # 回退所有内容到上一个版本
+git reset HEAD^ a.py    # 回退 a.py 这个文件的版本到上一个版本
+
+## commit 之后的回滚
+git reset --[soft | hard] [HEAD^ | 057d]  # --soft 不修改本地文件 --hard 本地的文件修改都被丢弃
+git reset --hard origin/master   # 将本地的状态回退到和远程的一样
+
+## 回滚远程主干代码，并且 不抹掉 提交记录，使用 revert
+git revert -n commit_id..  # (注意 ..) 把从 commit_id 到 head 的所有提交 revert 掉，-n 表示只产生一条记录
+
+## 增加某个 commit 方法 cherry-pick
+git cherry-pick 62ecb3 # 一般用于将 bugfix commit pick 到不同版本上
+
+## 修改提交信息 修改注释 https://help.github.com/articles/changing-a-commit-message/
+git commit --amend  # 修改 most recently commit 比如加 --reset-author
+
+git stash [pop | list | drop]   # 暂存未提交的修改
+
+# remote
+git remote add origin git@xxx.git    # 加入服务器
+git remote -v  # 列出现有的远程地址
+git remote set-url origin xxx  # 改变远程地址为 xxx
+
+# 操作tag
+git tag 0.0.1       # 打轻量标签
+git tag -a 0.0.1 -m 'Release version 0.0.1'
+git push origin v1.5
+git push [origin] --tags    # 推送所有标签到服务器
+```
+
+### git 实践
+
+```sh
+# git 三板斧
+# 一板基础斧 add，commit，pull/push，checkout，revert
+# 二板合作斧 merge，rebase，stash，cherry-pick
+# 三板优雅斧 commit --amend，rebase -i
+```
+
+业内成熟的 GIT 分支模型 https://cloud.githubusercontent.com/assets/36899/7315642/015f534c-eaa2-11e4-9882-b7cc7535fb72.png
+
+图中共有五种分支，这五种分支可分为两大类：
+
+- 只读分支：`master` 和 `develop`，不可直接 commit/push，只能 merge，会长久存在远程仓库中；
+- 开发分支：`feature`, `release` 和 `hotfixes`，可以直接 commit/push，不会长久存在远程仓库中。
+
+* master: 线上部署的分支，是最稳定的，只接受来自 `release` 和 `hotfixes` 的 MR。
+* develop: 处于开发状态的最新分支，接受来自 `feature` 和 `release` 的 MR。
+* feature: 分支为功能开发分支，一个功能对应一个 feature。
+
+1. 需要发布一个版本时，基于 develop 分支创建一个 `release-` 前缀的分支；
+2. 在 release 分支上，可以切一些 `bugfix-` 分支修复一些 bug，提 MR 至对应 release 分支；
+3. 当 release 分支稳定没有问题后，发一个 MR 到 master，并且同时发一个 MR 到 develop 分支；
+4. 合并 MR 后，master 可以打一个 tag，标记版本号；删除 release 分支。
+
+1. 基于 master 创建一个 `hotfix-` 前缀的分支；
+2. 开发完成并且测试通过后，提一个 MR 到 master，并且同时发一个 MR 到 develop 分支；
+3. 合并两个 MR 后，master 可以打一个 tag 做标记；删除 hotfix 分支。
+
+commit 规范
+
+1. 每个功能点或 bug 务必创建 issue，并在 commit 信息中加上 issue 信息，比如：`git commit -m "feat: 支持新功能 #210"`，`closes #214, #215`，当合并 MR 时，可以自动关闭关联的 issue。
+
+```sh
+# https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y
+git commit -m "feat(schema): 支持枚举类型 #210"    <- 表明是属于 schema 模块的功能点
+git commit -m "chore(style): 修复文字换行问题 #213" <- 表明是针对样式的修复
+git commit -m "fix: closes #222"                 <- 表明是修复 #222 的一个 bug
+git commit -m "refactor(activity): ..."          <- 表明是针对活动的一些重构
+git commit -m "docs: 说明如何支持枚举类型"           <- 表明是文档相关的 commit
+git commit -m "test: remove only"                <- 表明是修复测试用例的 commit
+```
+
+issue
+
+- 开发任务的 issue ，一般都已经明确目标，格式：`[功能模块]功能描述` 功能模块表明这个 issue 是属于哪个模块。
+- 非开发任务的 issue，比如：需求、讨论、方案、系分。标题应尽量简明，描述中可详细展开说明，可以 `cc @xx`。
+- 每个 issue 看情况加上 labels，labels 类型（[示例](http://024028.oss-cn-hangzhou-zmf.aliyuncs.com/uploads/fengdie/fengdie-web/2483775ac8f9f7f113f3611cabe3ffbc/Snip20151016_29.png)）：`BUG` 缺陷 `IMPROVEMENT` 功能优化点 `TODO` 待排需求 `需求` 待讨论的需求和议题 `文档` 包含使用说明、发布日志，可以移入 wiki。
+
 
 
 ---------

@@ -18,6 +18,46 @@ promiseAll([task1, task2]).then(results => {
   // results === [1, 2] 
 })
 
+
+// ============================================================
+
+// 变量提升
+
+
+// 局部变量和全局变量
+(function(){
+  var x = y = 1;
+})();
+console.log(y);
+console.log(x);
+
+// var 与 let 区别
+const Greeters = []
+for (let i = 0 ; i < 10 ; i++) {
+  Greeters.push(function () { return console.log(i) })
+}
+Greeters[0]() // 0
+Greeters[1]() // 1
+
+// 闭包：利用的是 “高阶函数” 的特性：函数可以作为参数或者返回值。
+var fn = function(i) {
+  // 局部变量 i 由于被 fun 引用，即便 fn 执行完毕，但也不会被 垃圾回收。
+  return function() {
+    console.log(i++);
+  };
+};
+var fun = fn(2);
+fun();
+fun();
+
+for (var j = 0; j < 3; j++) {
+  setTimeout(() => console.log(j), 1000);
+  (function(j) {
+    setTimeout(() => console.log(j), 3000);
+  })(j);
+}
+
+
 // 正则表达式验证 6 位数字密码？6~15位数字、字母？
 // /^\d{6}$/  /^[a-zA-Z0-9]{6,15}$/
 
