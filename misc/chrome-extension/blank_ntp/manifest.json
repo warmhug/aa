@@ -13,7 +13,8 @@
 		"tabs",
 		"topSites",
     "history",
-    "webNavigation"
+    "webNavigation",
+    "bookmarks"
   ],
   "background": {
     "scripts": ["bg.js"],
@@ -28,6 +29,6 @@
     }
   ],
   "browser_action": {},
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://gw.alipayobjects.com; object-src 'self'",
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://code.jquery.com https://gw.alipayobjects.com; object-src 'self'",
   "manifest_version": 2
 }
