@@ -17,27 +17,26 @@
   <script src="jquery-ui.min.js"></script>
   <!-- bootstrap.js Bootstrap v3.3.7 -->
   <script src="https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js"></script>
-  <!-- VelocityJS.org (1.2.3) -->
-  <script src="https://gw.alipayobjects.com/os/rmsportal/RdovmdMkqfgcJQmvIyCY.js"></script>
   <!-- qrcode.js @author davidshimjs -->
   <script src="https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js"></script>
 </head>
 <body>
   <div class="top">
-  <div id="bookmarks">
-    <a href="chrome://bookmarks" target="_blank">管理书签</a>
-  </div>
-  <div id="editdialog"></div>
+    <div id="bookmarks">
+      <a href="chrome://bookmarks" target="_blank">chrome://bookmarks</a>
+    </div>
     <a href="http://localhost/__/misc/chrome-extension/img.html">img 处理</a> 
-    <a href="http://localhost:9999">http://localhost:9999</a> 
-    <a id="ip" data-container="body" data-toggle="popover" data-placement="bottom"
-    data-trigger="hover" data-html="true"></a>
+    <a
+      id="ip" 
+      data-container="body" 
+      data-toggle="popover" 
+      data-placement="bottom"
+      data-trigger="hover"
+      data-html="true"
+    ></a>
     <div id="qrcode" style="display: none;"></div>
   </div>
   <div class="main">
-    <button class="ifr-btn" id="showIfr">show</button>
-    <span style="color: rgba(255, 255, 255, .4); margin-top:-20px;width: 0;">set "show" to localStorage</span>
-    <div class="s1" id="ifr-wrap"></div>
     <div class="s2">
       <div class="s2-main">
         <div class="joke clearfix">
@@ -49,14 +48,11 @@
           python -m http.server 9998  or  python -m SimpleHTTPServer 9998
         </div>
         <div class="other">
-          <textarea id="qrcode_input"></textarea> <br>
-          <button class="gen" id="gen">生成二维码</button>
-          <div class="dqr" id="dqr"></div>
+          <textarea id="textID"></textarea>
         </div>
       </div>
     </div>
   </div>
-  <script src="ifr/ifr-page.js"></script>
   <script src="ip.js"></script>
   <script src="main.js"></script>
   <script src="bookmarks.js"></script>

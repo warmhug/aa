@@ -11,7 +11,12 @@ function dumpNode(bookmarkNode, query) {
     }
     var anchor = $('<a>');
     anchor.attr('href', bookmarkNode.url);
-    anchor.text(bookmarkNode.title);
+    anchor.attr('title', bookmarkNode.title);
+    let formatTitle = bookmarkNode.title;
+    if (bookmarkNode.title.length > 60) {
+      formatTitle = bookmarkNode.title.substring(0, 60) + '...';
+    }
+    anchor.text(formatTitle);
     /*
      * When clicking on a bookmark in the extension, a new tab is fired with
      * the bookmark url.
@@ -41,7 +46,8 @@ function dumpBookmarks(query) {
     console.log('bookmarkTreeNodes', bookmarkTreeNodes);
     let newChilds = [];
     const roots = bookmarkTreeNodes[0].children;
-    if (roots[0].title === '书签栏') {
+    const isChromeOrEdgeFav = ['书签栏', '收藏夹栏'].includes(roots[0].title);
+    if (isChromeOrEdgeFav) {
       newChilds = [...roots[0].children, roots[1]];
     }
     const bms = dumpTreeNodes(newChilds, query);

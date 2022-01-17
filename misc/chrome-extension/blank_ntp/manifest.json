@@ -2,10 +2,7 @@
   "name": "Blank new tab page",
   "description": "Override the new tab page with a blank one",
   "version": "0.2",
-  "incognito": "split",
-  "chrome_url_overrides": {
-    "newtab": "blank.html"
-  },
+  "manifest_version": 2,
   "permissions": [
     "webRequest",
 		"webRequestBlocking",
@@ -16,19 +13,10 @@
     "webNavigation",
     "bookmarks"
   ],
-  "background": {
-    "scripts": ["bg.js"],
-    "persistent": true
+  "incognito": "split",
+  "chrome_url_overrides": {
+    "newtab": "blank.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["*://*/*"],
-      "js": ["inject/util.js", "inject/inject.js"],
-      "all_frames": true,
-      "run_at": "document_end"
-    }
-  ],
   "browser_action": {},
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://code.jquery.com https://gw.alipayobjects.com; object-src 'self'",
-  "manifest_version": 2
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://code.jquery.com https://gw.alipayobjects.com; object-src 'self'"
 }

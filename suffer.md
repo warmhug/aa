@@ -1,5 +1,21 @@
 
 
+## 2022
+
+日历应用中 第三方组件 react-big-calendar 支持写自定义的 EventWrapper 组件，还需要根据组件的某个 prop 获取数据。
+但组件会被 react-big-calendar 重复渲染很多次(次数不可控)，而数据只用获取一次。此时 useEffect 的监听 该怎么写？
+
+```js
+// EventWrapper 组件
+const { param1, param2, mode } = props;
+useEffect(() => {
+  if (mode === 'a') {
+    fetchData({ param1, param2 })
+  }
+  // 怎么确保只请求一次，同时监听 prop 变化？
+}, []);
+```
+
 ## 2020~2021
 
 - beforeunload 事件里有 ajax 等不到返回、页面就会关闭，怎么解决？

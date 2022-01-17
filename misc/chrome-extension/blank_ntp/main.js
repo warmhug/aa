@@ -1,26 +1,15 @@
-
+// console.log('bg page', chrome.extension.getBackgroundPage());
 
 $('#jokeMain1').click(function () {
   $(this).parent().toggleClass('small')
 });
 
-// qrcode text
-var qri = $("#qrcode_input");
-qri.val(localStorage.getItem('qrtxt') || '');
-qri.change(function () {
-  localStorage.setItem('qrtxt', $(this).val());
-})
-$('#gen').click(function () {
-  $('#dqr').html('');
-  new QRCode($('#dqr')[0], {
-    text: qri.val(),
-    width: 200,
-    height: 200,
-    colorDark: "#003450",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
-  });
-})
+// 输入框本地存储
+var textID = $("#textID");
+textID.val(localStorage.getItem('textLocal') || '');
+textID.change(function () {
+  localStorage.setItem('textLocal', $(this).val());
+});
 
 function randomItem(arr) {
   var original = arr;
@@ -41,12 +30,12 @@ $(function () {
     content: function () {
       return $('#qrcode').html();
     }
-  })
+  });
 
   var jr;
   var jokeMain = $('#jokeMain');
   var res = [];
-  ['2008-now', '__书影'].forEach(file => $.ajax({
+  ['_师说', '__书影'].forEach(file => $.ajax({
     // 在 _joke 文件夹里启动 node server
     // url: 'http://localhost:9998/?joke=1'
     url: `http://localhost:9998/${file}.txt`,
