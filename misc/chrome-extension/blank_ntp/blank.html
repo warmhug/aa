@@ -15,6 +15,7 @@
   <!-- 使用 cdn 打开速度慢 -->
   <!-- <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
   <script src="jquery-ui.min.js"></script>
+  <script src="idb-keyval@5.0.2.js"></script>
   <!-- bootstrap.js Bootstrap v3.3.7 -->
   <script src="https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js"></script>
   <!-- qrcode.js @author davidshimjs -->
@@ -23,7 +24,7 @@
 <body>
   <div class="top">
     <div id="bookmarks">
-      <a href="chrome://bookmarks" target="_blank">chrome://bookmarks</a>
+      <a href="chrome://bookmarks" id="bkManager">chrome://bookmarks</a>
     </div>
     <a href="http://localhost/__/misc/chrome-extension/img.html">img 处理</a> 
     <a
@@ -40,12 +41,12 @@
     <div class="s2">
       <div class="s2-main">
         <div class="joke clearfix">
-          <button type="button" class="btn btn-link" id="changeJoke">换一个</button>
+          <span class="btn btn-link" id="changeJoke">换一个</span>
+          <span class="btn btn-link" id="butDirectory">load</span>
           <div class="joke-main" id="jokeMain">jokeMain</div>
           <div class="small" id="jokeMain1">
             <img src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
           </div>
-          python -m http.server 9998  or  python -m SimpleHTTPServer 9998
         </div>
         <div class="other">
           <textarea id="textID"></textarea>

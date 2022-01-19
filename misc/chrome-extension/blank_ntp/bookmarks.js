@@ -12,6 +12,11 @@ function dumpNode(bookmarkNode, query) {
     var anchor = $('<a>');
     anchor.attr('href', bookmarkNode.url);
     anchor.attr('title', bookmarkNode.title);
+    anchor.on('click', () => {
+      if (bookmarkNode.url.indexOf('chrome://') === 0) {
+        chrome.tabs.create({url: bookmarkNode.url});
+      }
+    })
     let formatTitle = bookmarkNode.title;
     if (bookmarkNode.title.length > 60) {
       formatTitle = bookmarkNode.title.substring(0, 60) + '...';
@@ -61,4 +66,8 @@ function dumpBookmarks(query) {
 
 $(function () {
   dumpBookmarks();
+  $('#bkManager').click((e) => {
+    // console.log('ttt', this, e.target.textContent);
+    chrome.tabs.create({url: e.target.textContent});
+  });
 });

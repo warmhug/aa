@@ -32,20 +32,48 @@ $(function () {
     }
   });
 
+  const dbKey = 'ce_fileContent';
+  let ctFromDb;
+  const getContents = async () => {
+    try {
+      // https://web.dev/file-system-access/  get set 方法来自 idb-keyval@5.0.2 操作 IndexedDB
+      const fileHandleOrUndefined = await get(dbKey);
+      if (fileHandleOrUndefined) {
+        return fileHandleOrUndefined;
+      }
+    } catch (error) { alert(error.name, error.message); }
+  }
+  const butDir = document.getElementById('butDirectory');
+  butDir.addEventListener('click', async () => {
+    if (ctFromDb && window.confirm('使用 IndexedDB 里的内容？')) {
+      return;
+    }
+    const filesHandle = await window.showOpenFilePicker({
+      types: [{ description: 'Text Files', accept: { 'text/plain': ['.txt'] } }],
+      multiple: true
+    });
+    const fileContents = await Promise.all(filesHandle.map(async (fileHandle) => {
+      const file = await fileHandle.getFile();
+      const contents = await file.text();
+      // console.log('ccc', contents);
+      return contents;
+    }));
+    try {
+      await set(dbKey, fileContents.join());
+      alert('选择的内容写入 IndexedDB 成功');
+      // location.reload();
+    } catch (error) { alert(error.name, error.message); }
+  });
+
   var jr;
   var jokeMain = $('#jokeMain');
-  var res = [];
-  ['_师说', '__书影'].forEach(file => $.ajax({
-    // 在 _joke 文件夹里启动 node server
-    // url: 'http://localhost:9998/?joke=1'
-    url: `http://localhost:9998/${file}.txt`,
-    // dataType: 'json',
-    success: (data) => {
-      res = res.concat(data.split('\n\n'))
-      jr = randomItem(res);
-      jokeMain.html(jr());
-    }
-  }))
+
+  getContents().then(res => {
+    ctFromDb = res;
+    jr = randomItem(res.split('\n\n'));
+    jokeMain.html(jr());
+  });
+
   $('#changeJoke').click(function () {
     jokeMain.html(jr());
   });
