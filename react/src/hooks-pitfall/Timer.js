@@ -5,15 +5,21 @@ export default (props) => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
+      console.log(`Count: ${count}`);
       // setCount(count + 1);
       // https://reactjs.org/docs/hooks-reference.html#functional-updates
-      setCount(count => count + 1);
+      // setCount(count => count + 1);
     }, 1000);
-    return () => clearInterval(intervalId);
+    // return () => clearInterval(intervalId);
   }, []);
   // }, [count]);
 
+  const handleClick = () => setCount(count => count + 1);
+
   return (
-    <div>The count is: {count}</div>
+    <div>
+      The count is: {count}
+      <button onClick={handleClick}>+</button>
+    </div>
   );
 }

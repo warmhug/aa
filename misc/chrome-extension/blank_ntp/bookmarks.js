@@ -66,8 +66,8 @@ function dumpBookmarks(query) {
 
 $(function () {
   dumpBookmarks();
-  $('#bkManager').click((e) => {
+  $('#bkManager, #setting').click((e) => {
     // console.log('ttt', this, e.target.textContent);
-    chrome.tabs.create({url: e.target.textContent});
+    chrome.tabs.create({url: e.target.href});
   });
 });

@@ -2,6 +2,11 @@
 
 ## 2022
 
+一个组件里 点击触发请求、返回成功或失败，设置 isSuccess 的布尔值。另一个组件 需要监听 成功和重新点击 的状态，即 重新点击 isSuccess 不能为 true，但上次点击后 已经把它设置为了 true 怎么解决？
+
+useEffect 里监听的 多个状态、互相有影响，怎么解决？分别写 useEffect
+
+### 2022-01
 日历应用中 第三方组件 react-big-calendar 支持写自定义的 EventWrapper 组件，还需要根据组件的某个 prop 获取数据。
 但组件会被 react-big-calendar 重复渲染很多次(次数不可控)，而数据只用获取一次。此时 useEffect 的监听 该怎么写？
 

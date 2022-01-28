@@ -12,6 +12,7 @@ const Index = () => {
       <Throttle />
       <Es />
       <Timer />
+      <Timer1 />
     </div>
   );
 }

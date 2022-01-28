@@ -38,7 +38,7 @@
     "extract-text-webpack-plugin": "^2.1.2",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
-    "postcss": "^6.0.14",
+    "postcss": "8.x",
     "postcss-loader": "^2.0.9",
     "postcss-pxtorem": "^4.0.1",
     "serve-index": "~1.7.2",
