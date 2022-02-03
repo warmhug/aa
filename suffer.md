@@ -2,13 +2,12 @@
 
 ## 2022
 
-一个组件里 点击触发请求、返回成功或失败，设置 isSuccess 的布尔值。另一个组件 需要监听 成功和重新点击 的状态，即 重新点击 isSuccess 不能为 true，但上次点击后 已经把它设置为了 true 怎么解决？
-
-useEffect 里监听的 多个状态、互相有影响，怎么解决？分别写 useEffect
+- 一个组件里 点击触发请求、返回成功或失败，设置 isSuccess 的布尔值。另一个组件 需要监听 成功和重新点击 的状态，即 重新点击 isSuccess 不能为 true，但上次点击后 已经把它设置为了 true 怎么解决？
+- useEffect 里监听的 多个状态、互相有影响，怎么解决？分别写 useEffect。
+- antd 多层弹窗嵌套需要设置 [getPopupContainer](https://img.alicdn.com/imgextra/i3/O1CN01uK3oLs1dJyW9Y1sZJ_!!6000000003716-0-tps-1234-1166.jpg)
 
 ### 2022-01
-日历应用中 第三方组件 react-big-calendar 支持写自定义的 EventWrapper 组件，还需要根据组件的某个 prop 获取数据。
-但组件会被 react-big-calendar 重复渲染很多次(次数不可控)，而数据只用获取一次。此时 useEffect 的监听 该怎么写？
+react-big-calendar 日历组件支持自定义的 EventWrapper 子组件，业务场景中 EventWrapper 组件需要根据某个业务 prop 调用接口获取数据。但 EventWrapper 可能会被 react-big-calendar 加载卸载或重复渲染很多次(次数不可控)，而只用在“第一次加载或卸载再加载”时调用接口一次即可。此时 useEffect 的监听 该怎么写？
 
 ```js
 // EventWrapper 组件
@@ -47,7 +46,17 @@ useEffect(() => {
    - 无尽列表翻页 [issues/12406](https://github.com/ant-design/ant-design/issues/12406)
    - 搜索框和单选选择框合并 [0.12 效果](https://012x.ant.design/components/select/#demo-search)、[1.x修改](https://github.com/ant-design/ant-design/issues/1390)、1.0 [changelog](https://github.com/ant-design/ant-design/issues/1050)
    - 数据项有重复时 会乱跳，如视频：[mp4](https://gw.alipayobjects.com/os/rmsportal/GxGqYTHnIXRioQTbtkok.mp4)
-- Upload 组件 多文件合并到一个 xhr 里上传 [issues/8579](https://github.com/ant-design/ant-design/issues/8579)
+- Upload 组件 
+   - 多文件合并到一个 xhr 里上传 [issues/8579](https://github.com/ant-design/ant-design/issues/8579)
+   - 使用内部的 UploadList 来[自定义进度条显示位置](https://github.com/ant-design/ant-design/issues/8387)
+   - umi-request 基于 fetch 实现、不支持显示上传文件的进度，而 axios 可以支持。
+   - 使用`beforeUpload`来限制上传文件大小、`customRequest`自定义上传接口和上传进度。
+- Upload 上传文件/夹 (参考 语雀 或 teambition 上传资源)
+   - 上传的文件或文件夹、都会存在一个`fileList`列表里，文件属性`webkitRelativePath`的值存在时、表示上传的是文件夹里的文件。`onChange`会在上传状态(上传中、已完成、失败等)变化时调用。
+   - 多次点上传按钮时、可根据`fileList`里每个条目的`uid`标记来区分新旧。两次上传同一个文件夹时、需要 分别创建不同的文件夹名，比如后缀加上(1)。
+   - 需要等待 所有文件都上传后 (即状态都是 done) 并且至少有一个文件上传成功，再创建目录。
+   - 前端根据每个文件的`webkitRelativePath`值，循环构造出多层 文件夹 的层级数据，传给后端。
+   - 后端一般需要起“异步”的任务、创建各级文件夹，前端轮询异步任务状态、判断是否成功。
 
 #### redux / dva / umi
 

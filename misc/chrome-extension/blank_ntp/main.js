@@ -7,7 +7,7 @@ $('#jokeMain1').click(function () {
 // 输入框本地存储
 var textID = $("#textID");
 textID.val(localStorage.getItem('textLocal') || '');
-textID.change(function () {
+textID.on('input', function () {
   localStorage.setItem('textLocal', $(this).val());
 });
 
