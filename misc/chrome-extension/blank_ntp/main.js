@@ -5,10 +5,24 @@ $('#jokeMain1').click(function () {
 });
 
 // 输入框本地存储
-var textID = $("#textID");
-textID.val(localStorage.getItem('textLocal') || '');
-textID.on('input', function () {
-  localStorage.setItem('textLocal', $(this).val());
+// var textID = $("#textID");
+// textID.val(localStorage.getItem('textLocal') || '');
+// textID.on('input', function () {
+//   localStorage.setItem('textLocal', $(this).val());
+// });
+$(function () {
+  const editor = new toastui.Editor({
+    el: document.querySelector('#textID'),
+    previewStyle: 'tab',
+    height: '500px',
+    initialValue: localStorage.getItem('textLocal') || '',
+    events: {
+      change: (aa) => {
+        // console.log('aaa', aa, editor.getMarkdown());
+        localStorage.setItem('textLocal', editor.getMarkdown());
+      }
+    }
+  });
 });
 
 function randomItem(arr) {

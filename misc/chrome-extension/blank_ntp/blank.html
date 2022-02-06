@@ -2,24 +2,12 @@
 <head>
   <meta charset="UTF-8" />
   <title>Blank New Tab</title>
-  <!-- bootstrap.css Bootstrap v3.3.7 -->
-  <link rel="stylesheet" href="https://gw.alipayobjects.com/os/rmsportal/SaEqgaEyUazqSndgTxGj.css">
+  <link rel="stylesheet" href="lib/bootstrap.css">
+  <link rel="stylesheet" href="lib/jquery-ui.min.css">
+  <link rel="stylesheet" href="lib/toastui-editor.min.css">
   <link rel="stylesheet/less" type="text/css" href="main.less" />
-  <!-- Less - Leaner CSS v2.7.1 -->
+  <!-- Less - Leaner CSS v2.7.1 必须要先引入 less 文件 -->
   <script src="https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js"></script>
-  <!-- jQuery v1.12.4 -->
-  <!-- <script src="https://gw.alipayobjects.com/os/rmsportal/YbGjMuYEbXdIGJRsqOSA.js"></script> -->
-  <script src="https://gw.alipayobjects.com/os/lib/jquery/3.6.0/dist/jquery.min.js"></script>
-  <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css"> -->
-  <link rel="stylesheet" href="jquery-ui.min.css">
-  <!-- 使用 cdn 打开速度慢 -->
-  <!-- <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script> -->
-  <script src="jquery-ui.min.js"></script>
-  <script src="idb-keyval@5.0.2.js"></script>
-  <!-- bootstrap.js Bootstrap v3.3.7 -->
-  <script src="https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js"></script>
-  <!-- qrcode.js @author davidshimjs -->
-  <script src="https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js"></script>
 </head>
 <body>
   <div class="top">
@@ -52,11 +40,19 @@
           </div>
         </div>
         <div class="other">
-          <textarea id="textID"></textarea>
+          <!-- <textarea id="textID" class="textID"></textarea> -->
+          <div id="textID" class="textID"></div>
         </div>
       </div>
     </div>
   </div>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/jquery-ui.min.js"></script>
+  <script src="lib/bootstrap.js"></script>
+  <script src="lib/idb-keyval@5.0.2.js"></script>
+  <script src="lib/toastui-editor-all.min.js"></script>
+  <!-- qrcode.js @author davidshimjs -->
+  <script src="https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js"></script>
   <script src="ip.js"></script>
   <script src="main.js"></script>
   <script src="bookmarks.js"></script>
