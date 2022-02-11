@@ -34,7 +34,6 @@ useEffect(() => {
 - web excel 缺点：数据量大时页面死掉。
 - 下载文件不能直接可点击下载，需要设置 csrf token 来避免安全问题。
 - [大规格文件的上传优化](https://aotu.io/notes/2020/05/12/file-upload/index.html)
-- def [缓存设置](https://work.def.alibaba-inc.com/doc/assets_header#5qC85byP)
 
 
 #### antd

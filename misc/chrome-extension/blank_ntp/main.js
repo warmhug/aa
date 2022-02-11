@@ -11,10 +11,19 @@ $('#jokeMain1').click(function () {
 //   localStorage.setItem('textLocal', $(this).val());
 // });
 $(function () {
+  // 压缩地址 https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js
+  // api 地址 https://nhn.github.io/tui.editor/latest/  对原 js 有改动
+  const el = document.querySelector('#textID');
   const editor = new toastui.Editor({
-    el: document.querySelector('#textID'),
+    el,
     previewStyle: 'tab',
     height: '500px',
+    initialEditType: 'wysiwyg',
+    extendedAutolinks: true,
+    linkAttributes: {
+      target: '_blank',
+    },
+    // toolbarItems: [['a']],
     initialValue: localStorage.getItem('textLocal') || '',
     events: {
       change: (aa) => {
@@ -23,6 +32,16 @@ $(function () {
       }
     }
   });
+  // 点击打开链接
+  const handle = (evt, flag) => {
+    // 把 .toastui-editor-contents 元素的 contenteditable 设为 false ，内部的 链接 就能自动跳转
+    // console.log('tar', evt.target.tagName, editor.isWysiwygMode());
+    if (evt?.target?.tagName === 'A' && evt?.target?.href && editor.isWysiwygMode()) {
+      // 因为 evt?.target?.href 里的 & 号被转义、导致跳转不对，所以用 innerText
+      window.open(evt?.target?.innerText);
+    }
+  }
+  el.addEventListener('click', (evt) => handle(evt, true));
 });
 
 function randomItem(arr) {

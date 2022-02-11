@@ -34,7 +34,6 @@
 
 ## 测试
 Google [lighthouse](https://developers.google.com/web/tools/lighthouse/)、类似服务 [web.dev/measure](https://web.dev/measure)、[webpagetest](https://www.webpagetest.org/)、[pagespeed insights](https://developers.google.com/speed/pagespeed/insights/)
-鲁班尺 lbc.alibaba-inc.com
 
 CI/CD、JS 覆盖率工具 [istanbul](https://istanbul.js.org/)。测试-漏测率。
 
