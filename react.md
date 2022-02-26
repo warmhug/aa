@@ -9,7 +9,8 @@
 
 - React Hooks 使用误区 https://zhuanlan.zhihu.com/p/450513902
 - 不优雅的 React Hooks https://zhuanlan.zhihu.com/p/455317250
-- https://mp.weixin.qq.com/s?__biz=MzIzMjcxNzE5MA==&mid=2247488097&idx=1&sn=e8a6d71d1c05c8be04c25b32af43fb09
+- 陷阱 https://mp.weixin.qq.com/s?__biz=MzIzMjcxNzE5MA==&mid=2247488097&idx=1&sn=e8a6d71d1c05c8be04c25b32af43fb09
+- useLayoutEffect和useEffect的区别 https://zhuanlan.zhihu.com/p/348701319
 
 https://beta.reactjs.org/ 
 https://github.com/mithi/react-philosophies

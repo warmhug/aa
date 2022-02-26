@@ -182,6 +182,8 @@ git config --global alias.ci commit
 
 # yarn 源设置
 yarn/npm config get registry # 查看源
+# node-sass 需要单独设置国内源
+npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass
 yarn install --registry https://registry.npm.taobao.org/  #指定源
 ```
 

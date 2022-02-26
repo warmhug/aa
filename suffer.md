@@ -56,6 +56,7 @@ useEffect(() => {
    - 需要等待 所有文件都上传后 (即状态都是 done) 并且至少有一个文件上传成功，再创建目录。
    - 前端根据每个文件的`webkitRelativePath`值，循环构造出多层 文件夹 的层级数据，传给后端。
    - 后端一般需要起“异步”的任务、创建各级文件夹，前端轮询异步任务状态、判断是否成功。
+- Popover 和 Tooltip 组件，children 如果不是元素、而是 {props.children} 不起作用。
 
 #### redux / dva / umi
 
