@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Date</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/zh-cn.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/zh-cn.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/locale/de.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/locale/zh-cn.js"></script>
 </head>
 <body>
 <script>
@@ -51,6 +54,14 @@
   console.log(moment([2000, 1, 1, 0, 0, 0]).toString())
   console.log(new Date(2000, 1, 1, 0, 0, 0).toString())
   console.log(moment([2017, 6, 13, 0, 10, 10]).isBefore(moment(), 'day'))
+
+  console.log(moment(), moment.locale()); // zh-cn
+  moment.locale('en');
+  // 更新 locale 比如把 英文的 起始时间周日改为周一
+  moment.updateLocale(moment.locale(), {
+    week: { dow: 1, doy: 4 }
+  });
+  console.log(moment(), moment.locale()); // en
 </script>
 
 <script>
@@ -62,14 +73,6 @@
   d1.setMonth(13);
   dm.month(13);  // moment 对越界时间的处理、与原生不同！
   console.log(d1, dm);
-
-  function setMonth(date, month) {
-    date.setDate(Math.min(date.getDate(), lastDayOfMonth(new Date(date.getFullYear(), month))));
-    date.setMonth(month);
-  }
-  var bd = new Date(2017, 2, 31);
-  setMonth(bd, 1);
-  console.log(bd);
 </script>
 
 </body>
