@@ -31,14 +31,3 @@ function calcTotal(x = 3, y = 2, z = 1) {
   return rec(z + 1);
 }
 
-function getLeafCount(data) {
-  if (!data.children) {
-    return 1;
-  }
-  let count = 0;
-  for (let index = 0; index < data.children.length; index++) {
-    count += getLeafCount(data.children[index]);
-  }
-  return count;
-}
-console.log(getLeafCount(generateData()));

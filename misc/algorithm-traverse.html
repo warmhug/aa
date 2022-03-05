@@ -1,3 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+<script>
+const data = {
+  id: 0,
+  children: [
+    { id: 1, children: [{ id: 3 }, { id: 4 }]},
+    { id: 2 }
+  ]
+};
+
+// dfs(data) // [0, 1, 3, 4, 2]
+// bfs(data) // [0, 1, 2, 3, 4]
+
 /**
  * 怎么生成 类似以下结构的 tree 数据？(注意 id 的值需要反馈节点所在树的位置)
  [{
@@ -51,9 +69,9 @@ function traverseBFS(callback, treeData) {
     if (callback(node.id)) {
       return node;
     }
-    queue = queue.concat(node.children); // Node is not target, add its children to the queue
+    queue = queue.concat(node.children);
   }
-  return null; // No result found
+  return null;
 }
 console.log(traverseBFS(id => id === "0-0-1", tree));
 
@@ -76,32 +94,18 @@ traverseDFS(id => id === "0-0-1", tree);
 console.log(selNode);
 
 
+function getLeafCount(data) {
+  if (!data.children) {
+    return 1;
+  }
+  let count = 0;
+  for (let index = 0; index < data.children.length; index++) {
+    count += getLeafCount(data.children[index]);
+  }
+  return count;
+}
+console.log(getLeafCount({ id: 0, children: tree }));
 
-// 深度遍历 dfs 广度遍历 bfs
-function dfs(data) {}
-
-const data = {
-  id: 0,
-  children: [
-    {
-      id: 1,
-      children: [
-        {
-          id: 3,
-        },
-        {
-          id: 4,
-        }
-      ]
-    },
-    {
-      id: 2,
-    }
-  ]
-};
-
-// 执行后 返回以下结果
-dfs(data) // [0, 1, 3, 4, 2]
-bfs(data) // [0, 1, 2, 3, 4]
-
-
+</script>
+</body>
+</html>

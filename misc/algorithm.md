@@ -1,6 +1,6 @@
 
 # 算法
-递归、尾递归，构造多叉树、二叉树，排序算法。
+递归、尾递归，构造多叉树、二叉树(中序遍历)，排序算法。
 
 几种常见的JS递归算法 https://juejin.cn/post/6844904014207795214  
 js 算法 https://github.com/trekhleb/javascript-algorithms  

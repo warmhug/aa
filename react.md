@@ -14,6 +14,8 @@
 
 https://beta.reactjs.org/ 
 https://github.com/mithi/react-philosophies
+https://react.iamkasong.com/
+https://xueshiming.cn/2021/05/08/React%20%E4%B9%8B%20Fiber%20%E6%9E%B6%E6%9E%84/
 
 react 需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，而不要用`Array.isArray(children) / children.forEach`等方法。
 
