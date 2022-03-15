@@ -50,7 +50,7 @@ IDE: [eclipse-theia](https://github.com/eclipse-theia/theia)、[coding.腾讯�
 
 文件管理：[top10-javascript-file-managers](https://hackernoon.com/top-10-javascript-file-managers-8o2p34vw)、[file-browser](https://reactjsexample.com/tag/file-browser/)、[file-manager](https://js.plus/products/file-manager)、[OpusCapita](https://demo.core.dev.opuscapita.com/filemanager/master/?currentComponentName=FileManager&maxContainerWidth=100%25&showSidebar=false)、[dxFileManager](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxFileManager/)、[dhtmlxFileManager](https://dhtmlx.com/docs/products/dhtmlxFileManager/)、[syncfusion/file-manager](https://www.syncfusion.com/blogs/post/introducing-new-javascript-file-manager-control.aspx)、[webix/filemanager](https://webix.com/filemanager/)。
 
-其他：[react-sketchapp](https://github.com/airbnb/react-sketchapp)、[fabricjs](http://fabricjs.com/)(canvas)、[ua 检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)、[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)、[code-inspector](https://www.code-inspector.com/)、[自动 polyfill](https://polyfill.io/v3/url-builder/)、[jsfuck 代码混淆](http://www.jsfuck.com/)、[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)、[franc](https://github.com/wooorm/franc)、[togetherjs](https://togetherjs.com/)、[docz](https://www.docz.site/)、[wiki.js](https://wiki.js.org/)、[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)。
+其他：[react-sketchapp](https://github.com/airbnb/react-sketchapp)、[fabricjs](http://fabricjs.com/)(canvas)、[ua 检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)、[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)、[code-inspector](https://www.code-inspector.com/)、[自动 polyfill](https://polyfill.io/v3/url-builder/)、[jsfuck 代码混淆](http://www.jsfuck.com/)、[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)、[franc](https://github.com/wooorm/franc)、[togetherjs](https://togetherjs.com/)、[docz](https://www.docz.site/)、[wiki.js](https://wiki.js.org/)、[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)。营销/游戏/大屏。
 
 
 
@@ -135,10 +135,7 @@ GUI 研发：[umi-ui](https://umijs.org/guide/umi-ui.html)、[angular-console](h
 
 表单: [formily](https://github.com/alibaba/formily)、[build forms from JSON Schema](https://github.com/mozilla-services/react-jsonschema-form)、[react-final-form](https://github.com/final-form/react-final-form)、[AForm模型驱动生成表单](http://xiehuiqi220.github.io/AForm/doc/book/index.html)。
 
-营销/游戏/大屏。
-
 AI图转码: 西安交大[设计图转代码](https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489854&idx=1&sn=4828d5d36c3becdf8b1f46490b5ce708)、[Microsoft Sketch2Code](https://github.com/Microsoft/ailab/tree/master/Sketch2Code)、[sketch2code](https://azure.microsoft.com/en-us/blog/turn-your-whiteboard-sketches-to-working-code-in-seconds-with-sketch2code)、[pix2code](https://github.com/tonybeltramelli/pix2code)、[Screenshot-to-code](https://github.com/emilwallner/Screenshot-to-code)。
-
 
 AI Design: Google [AutoDraw](https://www.autodraw.com/) (原理[介绍](https://research.googleblog.com/2017/04/teaching-machines-to-draw.html))、鲁班、[sketch-rnn](https://github.com/tensorflow/magenta/blob/master/magenta/models/sketch_rnn/README.md)、[机器作艺术画](https://robotart.org/artworks/)、设计与人工智能[系列报告](http://sheji.ai/#/?_k=twxxpk)、[lobe.ai 生成表情](https://lobe.ai/)。
 
