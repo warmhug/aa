@@ -2,6 +2,8 @@
 
 - [蚂蚁前端框架和工程化](https://github.com/sorrycc/blog/issues/85)、oneconsole
 
+[bit 介绍](https://juejin.cn/post/6844903872108953607)
+
 工具的易用和完善度打分：
 - 做业务上的基础工具，很难按 文档说明 一次性 的就能做好跑起来。
 - 构建 COMPRESS=none 不支持，产物不一致、本地没问题 线上有问题。
@@ -26,6 +28,13 @@
 - antd 的 dropdown 动画速度慢、禁止掉动画。
 - 一个页面有多个“富文本实例”同时初始化、比较耗时？导致页面卡顿？
 - 某个操作 触发多次 ajax 请求、再 setState 页面，导致卡顿？
+
+
+## 埋点监控
+
+为什么大厂前端监控都在用GIF做埋点？ https://mp.weixin.qq.com/s?__biz=MzAxODE4MTEzMA==&mid=2650099077&idx=1&sn=813d2c96cd940dc95b0f47585b989c2f
+
+AEM [表单分析](https://img.alicdn.com/imgextra/i3/O1CN01x1xSNj26XMy1xUikf_!!6000000007671-0-tps-2934-1678.jpg)
 
 
 ## 效能

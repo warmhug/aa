@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Debounce from './Debounce';
 import Throttle from './Throttle';
 import Es from './EventState';
-import Timer from './Timer';
 
 const Index = () => {
   return (
@@ -11,8 +10,6 @@ const Index = () => {
       <Debounce />
       <Throttle />
       <Es />
-      <Timer />
-      <Timer1 />
     </div>
   );
 }
