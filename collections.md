@@ -1,49 +1,71 @@
 
+[chromestatus](https://www.chromestatus.com/features)、
+[edge-status](https://developer.microsoft.com/en-us/microsoft-edge/status/)、
+[webkit](https://webkit.org/)、[stateofjs](https://stateofjs.com/)、[stateofcss](https://stateofcss.com/)、
+[html5test](http://html5test.com/)、[chrome-experiments](https://experiments.withgoogle.com/collection/chrome)。
+html 规则检测 https://validator.w3.org 、 http://infohound.net/tidy
+head 里能放什么 https://github.com/joshbuchea/HEAD
+js秘密花园 http://bonsaiden.github.io/JavaScript-Garden/zh/
+33-js-concepts https://github.com/leonardomso/33-js-concepts
 
-#### 研发流程
+- css 时间函数 http://www.smashingmagazine.com/2014/04/15/understanding-css-timing-functions
+- css 长度 https://css-tricks.com/the-lengths-of-css
+  - 绝对长度: px inch cm mm。
+  - rem: 相对 root 的 font-size 大小  em: 基于大写字母 M 的尺寸  ex: 基于 x 字母高度  1vh 等于 1/100 的视口高度
 
-[The Evolution of a Software Engineer](https://medium.com/@webseanhickey/the-evolution-of-a-software-engineer-db854689243)、[某G的前端开发方式](http://fex.baidu.com/blog/2014/03/G-ossip/)。
 
-- 文档计划: 前端系分 [研发过程图](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*jRrGSYNyLqIAAAAAAAAAAABjARQnAQ)([图1](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*z-C8SpqQo08AAAAAAAAAAABjARQnAQ))、技术图 (计划图/时序图/类图)
-- 数据接口: oneapi 接口和 mock 平台，[postman](https://www.getpostman.com/) ([paw](https://paw.cloud/) [hoppscotch](https://hoppscotch.io/))。 oneapi / dummy-mock / dip。
-- 质量&测试&埋点监控：arms / quick a+ / spm / aplus / retcode / clue。
-- 研发平台：阿里def、蚂蚁雨燕 / just / 优酷hub / 菜鸟cone。
-- 脚手架/组件库：阿里[rax](https://rax.js.org/)跨容器的渲染引擎、antd、umi/qiankun、[primereact](https://www.primefaces.org/primereact/)、[material-design-lite](https://github.com/google/material-design-lite)、[jQuery miniui](http://www.miniui.com/)、[toast ui](https://ui.toast.com/)、[goodui](https://goodui.org/)。
-- 微前端：bigfish-onex / icestark([介绍](https://mp.weixin.qq.com/s/L-6ygB2CpdGO1hXRCx5QuQ)) / microx(克军)
-- GUI 研发: 飞冰ice / form builder / FormRender 。
+- [GitHub search?q=stars](https://github.com/search?q=stars:%3E1&s=stars&type=Repositories)、[GitHub topics/javascript](https://github.com/topics/javascript)、[Stack Overflow Developer Survey](https://insights.stackoverflow.com/survey)、[JavaScript risingstars](https://risingstars.js.org)、[awesome-react](https://github.com/enaqx/awesome-react)、[awesome-react-components](https://github.com/brillout/awesome-react-components)、[react-china](http://react-china.org/)。
+- [uxtools.co](https://uxtools.co/tools/design)、[2018前端技术清单](https://juejin.im/post/5bdfb387e51d452c8e0aa902)、[2019中国开源软件榜](https://www.oschina.net/project/top_cn_2019)。
+- [搜 issue](https://help.github.com/articles/searching-issues/)
+  - 搜索“某repo”里有“某个评论者”参与的包含的“某个词”的 issue: [warmhug + ant-design-mobile](https://github.com/search?utf8=%E2%9C%93&q=xxxx+commenter%3Awarmhug+repo%3Aant-design%2Fant-design-mobile&type=Issues)
+  - 搜索“某user”里有“某个评论者”参与的包含的“某个词”的 issue: [warmhug + xxxx](https://github.com/search?utf8=%E2%9C%93&q=xxxx+commenter%3Awarmhug+user%3Aant-design&type=Issues)
+  - 搜索“某人”创建的在“body”里包含“某个词”的 issue: [warmhug + xx](https://github.com/search?utf8=%E2%9C%93&q=xx+in%3Abody+author%3Awarmhug&type=Issues)
+
+
+
+## 功能库
+
+- UI: [react-data-grid](https://github.com/adazzle/react-data-grid)、[moveable](https://github.com/daybrush/moveable)、[react-grid-layout](https://github.com/STRML/react-grid-layout)、[Re-Flex](https://github.com/leefsmp/Re-Flex)、[react-mosaic](https://github.com/nomcopter/react-mosaic)、[ScrollTrigger](https://github.com/terwanerik/ScrollTrigger)、[react-virtualized](https://github.com/bvaughn/react-virtualized)、[元素定位tether](https://github.com/shipshapecode/tether)、[tailwindcss](https://github.com/tailwindcss/tailwindcss)、分步指引([shepherd](https://github.com/shipshapecode/shepherd)/[driver.js](https://github.com/kamranahmedse/driver.js))、[react-trello](https://github.com/rcdexta/react-trello)。[css 图标集](http://livicons.com/)
+
+- 小程序&移动端: [taro](https://taro.aotu.io/)、[remax](https://github.com/remaxjs/remax)、[alibaba/rax](https://github.com/alibaba/rax)、[flutter](https://github.com/flutter/flutter)。
+
+- 前后端：[zeit/swr](https://github.com/zeit/swr)、[web-servers](https://gist.github.com/willurd/5720255)、[swagger](https://swagger.io/)、[json-server、](https://github.com/typicode/json-server)[miragejs](https://miragejs.com/)、[browser-functions](https://medium.com/@richardyoung00/browser-functions-a-new-serverless-platform-using-web-browser-execution-engines-31d2293e650b)、[isomorphic-git](https://isomorphic-git.org/en/)、[onedev](https://github.com/theonedev/onedev)(DevOps平台)。
+
+- 图表: antv、[alibaba/GGEditor](https://github.com/alibaba/GGEditor)、[workflow 设计器 wfd](https://github.com/guozhaolong/wfd/)、[amcharts](http://www.amcharts.com/demos/)。
+
+- 日历: [fullcalendar](https://fullcalendar.io/)、[webix/scheduler](https://webix.com/scheduler/)、[react-big-calendar](https://github.com/jquense/react-big-calendar)、[tui.calendar](https://github.com/nhn/tui.calendar)
+
+- 地图：antv [L7](https://l7.antv.vision/zh)、饿了么 [react-amap](https://elemefe.github.io/react-amap/)。数据源 [datav data](http://datav.aliyun.com/tools/atlas/#&lat=33.50475906922609&lng=104.2822265625&zoom=4)、[hcharts.cn/mapdata](https://img.hcharts.cn/mapdata/)，高德点聚合 [markerclusterer](https://lbs.amap.com/api/javascript-api/example/marker/markerclusterer)。
+
+- IDE: [eclipse-theia](https://github.com/eclipse-theia/theia)、[coding.腾讯、](https://coding.net/)[stackblitz](https://stackblitz.com/)、[gitpod](https://www.gitpod.io/) (蚂蚁 cloudIDE)。
+
+- 编辑器: [slate](https://github.com/ianstormtaylor/slate)、[trix](https://github.com/basecamp/trix)、[braft-editor](https://github.com/margox/braft-editor)、[edtr-io](https://github.com/edtr-io)、[svg-editors](https://css-tricks.com/browser-based-svg-editors/)、[各种编辑器](https://github.com/JefMari/awesome-wysiwyg)、数学公式[编辑器](https://www.mathcha.io/)、[zebra-editor-core](https://github.com/acccco/zebra-editor-core)、[tui-editor](https://ui.toast.com/tui-editor/)、[craft.js](https://github.com/prevwong/craft.js)、[react-visual-editor](https://github.com/anye931123/react-visual-editor)。
+
+- 截图：[dom-to-image和html2canvas原理](https://github.com/zhangyu0414/notebook-to-record-learning)、[各设备截图服务](https://screendump.techulus.com/)、录制回放 [rrweb](https://github.com/rrweb-io/rrweb) (内网 xreplay)、[screen-share-party](https://ba.net/screen-share-party/#9730179072993984)。
+
+- 文件管理：[top10-javascript-file-managers](https://hackernoon.com/top-10-javascript-file-managers-8o2p34vw)、[file-browser](https://reactjsexample.com/tag/file-browser/)、[file-manager](https://js.plus/products/file-manager)、[OpusCapita](https://demo.core.dev.opuscapita.com/filemanager/master/?currentComponentName=FileManager&maxContainerWidth=100%25&showSidebar=false)、[dxFileManager](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxFileManager/)、[dhtmlxFileManager](https://dhtmlx.com/docs/products/dhtmlxFileManager/)、[syncfusion/file-manager](https://www.syncfusion.com/blogs/post/introducing-new-javascript-file-manager-control.aspx)、[webix/filemanager](https://webix.com/filemanager/)。
+
+- 其他：[react-sketchapp](https://github.com/airbnb/react-sketchapp)、[fabricjs](http://fabricjs.com/)(canvas)、[ua 检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)、[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)、[code-inspector](https://www.code-inspector.com/)、[自动 polyfill](https://polyfill.io/v3/url-builder/)、[jsfuck 代码混淆](http://www.jsfuck.com/)、[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)、[franc](https://github.com/wooorm/franc)、[togetherjs](https://togetherjs.com/)、[docz](https://www.docz.site/)、[wiki.js](https://wiki.js.org/)、[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)、/ oneshot / web-Excel / 机器人工厂。
+
 - 营销/游戏/大屏: 魔石 / 魔切 / 喵动 / 犸良 / sherry / 幻鹦-大屏。
-- AI 图转码: imgcook(控件识别) / dumbo / 闲鱼UI2Code / 视觉稿还原比对-蒙娜丽莎 。
-- 其他：parrot 国际化方案集 / oneshot / web-Excel / 机器人工厂
 
-#### 功能库
+bootstrap.css v3.3.7 https://gw.alipayobjects.com/os/rmsportal/SaEqgaEyUazqSndgTxGj.css
+bootstrap.js v3.3.7 https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js
 
-UI: [react-data-grid](https://github.com/adazzle/react-data-grid)、[moveable](https://github.com/daybrush/moveable)、[react-grid-layout](https://github.com/STRML/react-grid-layout)、[Re-Flex](https://github.com/leefsmp/Re-Flex)、[react-mosaic](https://github.com/nomcopter/react-mosaic)、[ScrollTrigger](https://github.com/terwanerik/ScrollTrigger)、[react-virtualized](https://github.com/bvaughn/react-virtualized)、[元素定位tether](https://github.com/shipshapecode/tether)、[tailwindcss](https://github.com/tailwindcss/tailwindcss)、分步指引([shepherd](https://github.com/shipshapecode/shepherd)/[driver.js](https://github.com/kamranahmedse/driver.js))、[react-trello](https://github.com/rcdexta/react-trello)。
-
-小程序&移动端: [taro](https://taro.aotu.io/)、[remax](https://github.com/remaxjs/remax)、[alibaba/rax](https://github.com/alibaba/rax)、[flutter](https://github.com/flutter/flutter)。
-
-前后端：[zeit/swr](https://github.com/zeit/swr)、[web-servers](https://gist.github.com/willurd/5720255)、[swagger](https://swagger.io/)、[json-server、](https://github.com/typicode/json-server)[miragejs](https://miragejs.com/)、[browser-functions](https://medium.com/@richardyoung00/browser-functions-a-new-serverless-platform-using-web-browser-execution-engines-31d2293e650b)、[isomorphic-git](https://isomorphic-git.org/en/)、[onedev](https://github.com/theonedev/onedev)(DevOps平台)。
-
-图表: antv、[alibaba/GGEditor](https://github.com/alibaba/GGEditor)、[workflow 设计器 wfd](https://github.com/guozhaolong/wfd/)、[amcharts](http://www.amcharts.com/demos/)。
-
-日历: [fullcalendar](https://fullcalendar.io/)、[webix/scheduler](https://webix.com/scheduler/)、[react-big-calendar](https://github.com/jquense/react-big-calendar)、[tui.calendar](https://github.com/nhn/tui.calendar)
-
-地图：antv [L7](https://l7.antv.vision/zh)、饿了么 [react-amap](https://elemefe.github.io/react-amap/)。数据源 [datav data](http://datav.aliyun.com/tools/atlas/#&lat=33.50475906922609&lng=104.2822265625&zoom=4)、[hcharts.cn/mapdata](https://img.hcharts.cn/mapdata/)，高德点聚合 [markerclusterer](https://lbs.amap.com/api/javascript-api/example/marker/markerclusterer)。
-
-IDE: [eclipse-theia](https://github.com/eclipse-theia/theia)、[coding.腾讯、](https://coding.net/)[stackblitz](https://stackblitz.com/)、[gitpod](https://www.gitpod.io/) (蚂蚁 cloudIDE)。
-
-编辑器: [slate](https://github.com/ianstormtaylor/slate)、[trix](https://github.com/basecamp/trix)、[braft-editor](https://github.com/margox/braft-editor)、[edtr-io](https://github.com/edtr-io)、[svg-editors](https://css-tricks.com/browser-based-svg-editors/)、[各种编辑器](https://github.com/JefMari/awesome-wysiwyg)、数学公式[编辑器](https://www.mathcha.io/)、[zebra-editor-core](https://github.com/acccco/zebra-editor-core)、[tui-editor](https://ui.toast.com/tui-editor/)、[craft.js](https://github.com/prevwong/craft.js)、[react-visual-editor](https://github.com/anye931123/react-visual-editor)。
-
-截图：[dom-to-image和html2canvas原理](https://github.com/zhangyu0414/notebook-to-record-learning)、[各设备截图服务](https://screendump.techulus.com/)、录制回放 [rrweb](https://github.com/rrweb-io/rrweb) (内网 xreplay)、[screen-share-party](https://ba.net/screen-share-party/#9730179072993984)。
-
-文件管理：[top10-javascript-file-managers](https://hackernoon.com/top-10-javascript-file-managers-8o2p34vw)、[file-browser](https://reactjsexample.com/tag/file-browser/)、[file-manager](https://js.plus/products/file-manager)、[OpusCapita](https://demo.core.dev.opuscapita.com/filemanager/master/?currentComponentName=FileManager&maxContainerWidth=100%25&showSidebar=false)、[dxFileManager](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxFileManager/)、[dhtmlxFileManager](https://dhtmlx.com/docs/products/dhtmlxFileManager/)、[syncfusion/file-manager](https://www.syncfusion.com/blogs/post/introducing-new-javascript-file-manager-control.aspx)、[webix/filemanager](https://webix.com/filemanager/)。
-
-其他：[react-sketchapp](https://github.com/airbnb/react-sketchapp)、[fabricjs](http://fabricjs.com/)(canvas)、[ua 检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)、[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)、[code-inspector](https://www.code-inspector.com/)、[自动 polyfill](https://polyfill.io/v3/url-builder/)、[jsfuck 代码混淆](http://www.jsfuck.com/)、[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)、[franc](https://github.com/wooorm/franc)、[togetherjs](https://togetherjs.com/)、[docz](https://www.docz.site/)、[wiki.js](https://wiki.js.org/)、[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)。
+jQuery v1.12.4 https://gw.alipayobjects.com/os/rmsportal/YbGjMuYEbXdIGJRsqOSA.js
+https://gw.alipayobjects.com/os/lib/jquery/3.6.0/dist/jquery.min.js
+https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js
+https://code.jquery.com/ui/1.13.0/jquery-ui.js
+https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css
 
 
 
 ---
 
-### 文档 & 图
+## 文档 & 图
 
 输入是信息，输出才是知识。由管理工具演化为知识生产。
 
@@ -94,304 +116,42 @@ Google: [gsuite](https://gsuite.google.com/) ([google-forms](https://docs.google
 系统: [drawio-aws-cloudcraft](https://www.diagrams.net/blog/drawio-aws-cloudcraft)、([placeholder](https://www.diagrams.net/blog/placeholder-scope)、[mermaid](https://www.diagrams.net/blog/mermaid-diagrams)、[network](https://www.diagrams.net/blog/network-diagrams)、[org](https://www.diagrams.net/blog/org-charts))
 
 
----
-
-### 生成 & 搭建 & 可视化
-
-AECP 开发平台架构 https://img.alicdn.com/imgextra/i2/O1CN01VFIoNq1E0PCIklFol_!!6000000000289-2-tps-2482-1410.png
-
-Microsoft Power Apps 中，页面的生产过程是由字段的布局来决定的，字段对应的组件可以切换。在 Mendix、OutSystems 中。页面虽然是基于模型来生产的，但整体开发体验，依然是面向页面和组件视角的。组件可以绑定字段。
-从前端对低代码提效本质的分析来看，可视化搭建本质上是通过可视化手段降低了前端开发的上手门槛，但开发思路和源码开发基本是一样的。其提高开发效率的主要手段是，通过丰富的静态模板让页面开发少写一些代码。没有元数据的支持，其对开发效率的提升至多是线性的，而我们需要的是数量级的提升。
-由于模型元数据驱动和可视化搭建在本质思路上的不同，在可视化搭建基础上，集成模型驱动的能力，会让整个产品的复杂性增加，产品定位不清晰，扩展性差。与其这样，不如从0开始打造一个纯净的模型驱动低代码开发工具。
-[截图](https://img.alicdn.com/imgextra/i3/O1CN016r6qdv2ABADXwgty2_!!6000000008164-0-tps-1644-1584.jpg)
 
 
-[2020/01/13/the-no-code-delusion](https://www.alexhudson.com/2020/01/13/the-no-code-delusion/)、[无代码编程介绍](https://mp.weixin.qq.com/s/eKvSxOvSyEZEr3BLloCXdw)
-[antd-lowcode](http://g.alicdn.com/code/npm/@ali/antd-lowcode/0.5.1/example/index.html)
+## 安全
 
-Markdown + 卡片 [可视化搭建](https://zhuanlan.zhihu.com/p/164558106)、
-宜搭、[云凤蝶](https://www.yunfengdie.com/home)、[阿里云外网建站](https://ac.aliyun.com/jianzhan)。微软 Power [Platform](https://yuque.antfin-inc.com/chenyu/articles/skei6i)。AWS [honeycode](https://www.honeycode.aws/)、[mendix](https://www.mendix.com/)。
+[a 标签中 target="_blank" 的安全漏洞](https://www.tutorialdocs.com/article/html-opener-blank.html) 详细地解释了该漏洞的攻击方法和原理。并在文末给出了防范该漏洞的解决办法：给 a 标签增加 rel="noopener noreferrer nofollow"。
 
-[SaaS（科技）行业导航](http://www.allsaas.cn/)、SaaS 平台：[氚云](https://h3yun.com/index.php?g=Chuanyun&m=Scene&a=index)、[搭搭云](https://www.dadayun.cn/)、[明道云](https://blog.mingdao.com/13061.html)、[appsheet](https://www.appsheet.com/)、[fibery](https://fibery.io)、[openchakra](https://openchakra.app/)、[百度amis](https://baidu.github.io/amis/#/docs/getting-started)、[tumult](https://tumult.com/)(YC投资)、
-[grapesjs](https://grapesjs.com/)、[noflojs](https://noflojs.org/)、[pagedraw](https://pagedraw.io/)、Google Web Designer (类似 Dreamweaver) 2013 发布 2017 停止更新。
+cors跨域：http头可以伪造，所以跨域的时候记得带上sessionId做身份验证；防止允许跨域的站点被入侵；不要对 Access–Control-Allow-Origin 使用`*`
 
-[What's Salesforce?](https://tryretool.com/blog/salesforce-for-engineers/) 、Salesforce [Lightning](https://www.salesforce.com/cn/campaign/lightning)
+[csrf 详解](https://tech.meituan.com/fe_security_csrf.html)、[csrf漏洞](http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html)、[wiki中文](http://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0)
+XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。
+跨站请求攻击，简单地说，是攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并执行一些操作（如发邮件，发消息，甚至财产操作如转帐和购买商品）。由于浏览器曾经认证过，所以被访问的网站会认为是真正的用户操作而去执行。这利用了web中用户身份验证的一个漏洞：简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的。
+为防止csrf漏洞，传统表单里默认有生成了随机token的隐藏input，同步提交表单时能自动提交上去，同步提交后刷新页面会再次更新token。
+但使用Ajax异步提交时，提交时要从Cookie里(或页面上)获得token值（这里假设攻击者不能获得第三方的Cookie，但用户的Cookie很容易由于网站的XSS漏洞而被盗取），另外要考虑在提交后是否需要手动更新Cookie里(或页面上)的token。
+> [ajax里如何更新csrf token](http://www.v2ex.com/t/82751) ，最后的一段评论提到：csrf-token的目的是，让攻击者不能伪造请求（如通过img发起的请求会带上cookie）。因此，csrf-token不需要每个请求都改变，只需要确保对于每个session不一致即可，同一个session内不变没有问题。
 
-云上[编排](https://blog.csdn.net/devcloud/article/details/93175186)([cloudcraft](https://app.cloudcraft.co/)/阿里[ros](https://cn.aliyun.com/product/ros)/华为云[aos](https://www.jianshu.com/p/2301a1729fcc)/[Terraform](https://blog.csdn.net/yejingtao703/article/details/80574363)/[PAD图](https://baike.baidu.com/item/PAD%E5%9B%BE))、[图编排(](https://www.atatech.org/articles/170866)[相关](https://www.atatech.org/articles/174875/))
-
-GUI 研发：[umi-ui](https://umijs.org/guide/umi-ui.html)、[angular-console](https://angularconsole.com/)
-
-表单: [formily](https://github.com/alibaba/formily)、[build forms from JSON Schema](https://github.com/mozilla-services/react-jsonschema-form)、[react-final-form](https://github.com/final-form/react-final-form)、[AForm模型驱动生成表单](http://xiehuiqi220.github.io/AForm/doc/book/index.html)。
-
-AI图转码: 西安交大[设计图转代码](https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489854&idx=1&sn=4828d5d36c3becdf8b1f46490b5ce708)、[Microsoft Sketch2Code](https://github.com/Microsoft/ailab/tree/master/Sketch2Code)、[sketch2code](https://azure.microsoft.com/en-us/blog/turn-your-whiteboard-sketches-to-working-code-in-seconds-with-sketch2code)、[pix2code](https://github.com/tonybeltramelli/pix2code)、[Screenshot-to-code](https://github.com/emilwallner/Screenshot-to-code)。
-
-AI Design: Google [AutoDraw](https://www.autodraw.com/) (原理[介绍](https://research.googleblog.com/2017/04/teaching-machines-to-draw.html))、鲁班、[sketch-rnn](https://github.com/tensorflow/magenta/blob/master/magenta/models/sketch_rnn/README.md)、[机器作艺术画](https://robotart.org/artworks/)、设计与人工智能[系列报告](http://sheji.ai/#/?_k=twxxpk)、[lobe.ai 生成表情](https://lobe.ai/)。
-
-AI 编码/代码推荐: [为什么难](https://www.outsystems.com/blog/posts/ai-machine-learning-future-low-code/)、Facebook [Aroma](https://code.fb.com/developer-tools/aroma/)、[Would-AI-be-able-to-write-code](https://www.quora.com/Would-AI-be-able-to-write-code)。
-
-JS 实现神经网络、[天猫精灵](https://open.bot.tmall.com/)、机器人工厂、阿里文娱 [AI 视频智能](https://ailab.youku.com/#/)、JS IM / [botui](https://github.com/moinism/botui)
+jsonp请求也需要「防止csrf漏洞」，例如可以用jsonp获取通讯录列表。
+ajax 方式的 csrf token 放到 post 提交的 body 里、随其他数据一起提交。
 
 
----
+反爬虫 https://segmentfault.com/a/1190000017899193
+循序渐进学加密 https://segmentfault.com/a/1190000019437132
 
-### 低代码
+蚂蚁内容风险识别接口服务 https://docs.alipay.com/pre-open/api_pre/alipay.security.risk.content.analyze
+撞库 https://baike.baidu.com/item/%E6%92%9E%E5%BA%93/16480882?fr=aladdin
+人机识别服务接口 RDS https://apires.alipay.com/isp/previewDetail.htm?apiId=4967
+IFAA 生物认证 https://tech.antfin.com/products/IFAA
 
-物料(模板、页面、区块、基础组件、业务组件、布局组件) 
+安全资讯网站博客
+- 先知社区 https://xz.aliyun.com
+- freebuf https://www.freebuf.com/articles/web
+- 安全客 https://www.anquanke.com/vul
+- 台湾217战队 http://blog.orange.tw/
+- 腾讯云牵头制定首个IEEE业务安全风控全球标准 https://www.toutiao.com/i6681138895255503374 
+- 蚂蚁研发者门户 安全&风控 专题
+- 2019 RSAC 对安全技术领域发展的思考
+- RSA原理浅析
+- OTP动态付款码(仟墨)、数字证书(万佛)、支付盾、安全控件(文同)
+- 反洗钱、欺诈/盗用、信息窃取篡改、病毒/木马/钓鱼/防火墙、安全意识、负面舆情治理
 
-[引擎](https://img.alicdn.com/imgextra/i1/O1CN01rYYbMH1KKSEUlOB3B_!!6000000001145-2-tps-1196-736.png): 
-入料引擎（Materialin Engine）Material for Schema [架构图](https://img.alicdn.com/imgextra/i3/O1CN01ySybed1u7TAlCEmgI_!!6000000005990-2-tps-1698-467.png)；编排引擎（Choreography Engine）Schema to Schema [架构图](https://img.alicdn.com/imgextra/i1/O1CN01BV9MmX26om0c3PECA_!!6000000007709-2-tps-1542-829.png)；渲染引擎（Rendering Engine）Schema to UI [架构图](https://img.alicdn.com/imgextra/i3/O1CN01u0oISH1tUXVQ8V8Wu_!!6000000005905-2-tps-1834-536.png)；出码引擎（Codeout Engine）Schema to Code [架构图](https://img.alicdn.com/imgextra/i1/O1CN01rvvk6H1X433D49JOc_!!6000000002869-2-tps-1382-690.png)。
-
-区块（Block）：一系列业务组件、布局组件等组合而成的代码片段，不对外提供可配置的属性；区块内部具备完整的内部样式、事件、生命周期管理、状态管理、数据流转机制，能独立存在和运行，通过代码片段的复制实现跨页面、跨应用的快速复用，保障功能和数据的正常。
-模板（Template）：特定垂直业务领域内的业务组件、区块可组合为单个页面，或者是再配合路由组合为多个页面集，统称为模板。
-
-https://img.alicdn.com/imgextra/i4/O1CN01z4bl431OOoSsB0Fgl_!!6000000001696-0-tps-2647-1048.jpg
-
-
-#### schema 基础协议规范
-
-```js
-{
-  "version": "1.0.0",      //当前协议版本号
-  "componentsMap": [{      //组件描述
-    "componentName": "Button",
-    "package": "alife/next",
-    "version": "1.0.0",
-    "destructuring": true,
-    "exportName": "Select",
-    "subName": "Button",
-  }, {
-    "componentName": "CustomInput",
-    "package": "@ali/custom",
-    "version": "1.0.0",
-    "main": "/lib/input",
-    "destructuring": true,
-    "exportName": "Input"
-  }],
-  "componentsTree": [{
-    "componentName": "Page",   //单个页面。枚举类型 Page|Block|Component
-    "fileName": "Page1",
-    "meta": {          //页面元信息
-      "title": "首页",    //页面标题描述
-      "router": "/",     //页面路由
-      "spmb": "abef21",  //spm B位
-    },
-    "props": {},
-    "defaultProps": {   // 默认props：  选填 仅用于定义低代码业务组件的默认属性 固定对象
-      "name": "xxx"
-    },
-    "css": "body {font-size: 12px;} .table { width: 100px;}", 
-    "state": {                       // 初始state： 选填 对象类型/变量表达式
-      "btnText": "submit",                     // 默认数据值： 选填 变量表达式
-      "num": 8,
-      "num2": 5
-    },
-    "lifeCycles": {                   //生命周期:          选填 对象类型
-      "didMount": {
-        "type": "JSExpression",
-        "value": "function() {        //生命周期方法：      选填 函数类型\
-            console.log('did mount');\
-        }",
-      },
-      "willUnmount": {
-        "type": "JSExpression",
-        "value": "function() {\
-          console.log('will unmount');\
-        }"
-      }
-    },
-    "methods": {                     // 自定义方法对象：     选填 对象类型
-      "testFunc": { //自定义方法： 选填 函数类型
-        "type": "JSExpression",
-        "value": "function() {             \
-            console.log('test func');\
-          }"
-      },
-      "getNum": {
-        "type": "JSExpression",
-        "value": "function(a, b){\
-                return a + b;\
-              }"
-      }
-    },
-    "dataSource": {                  // 数据源对象：选填  对象类型
-      "list": [{                          // 数据请求列表    必填  数组类型
-        "id": "list",                // 单个数据请求id标识    必填  字符串类型
-        "isInit": true,              // 是否为初始数据             必填     布尔类型/变量表达式
-        // 建议改个名字，比如 auto | loadOnInit
-        "type": "fetch/mtop/jsonp",  //请求类型   必填    字符串类型
-        "options": {                //请求类型对应参数  必填  对象类型
-          "uri": "",                      //请求地址        必填  字符串/变量表达式
-          "params": {},                //请求参数       选填   字符串/变量表达式
-          "method": "GET",             //请求方法              必填   字符串/变量表达式
-          "isCors": true,              //是否支持跨域,   对应credentials = 'include'     选填  布尔
-          "timeout": 5000,             //超时时间单位ms     选填   数字类型 单位ms
-          "headers": {}                //请求header参数  选填   请求头信息
-        },
-        "dataHandler": { //异步请求回调： 选填  函数类型
-          "type": "JSExpression",
-          "value": "function(data, err) {} "
-        }
-      }],
-      "dataHandler": {  // 所有初始异步数据接口执行完成后的回调   选填 函数类型
-        "type": "JSExpression",
-        "value": "function(dataMap) { }",
-      }
-    },
-    "children": [{
-      "componentName": "Button",    
-      "props": {                      
-        "text": {
-          "type": "JSExpression",
-          "value": "getNum(state.num, state.num2) + '万'"
-        }
-      },
-      "condition": {
-        "type": "JSExpression",
-        "value": "state.num > state.num2"
-      }
-    },{
-      "componentName": "Div",
-      "props": {
-        "className": "",
-        "text": {
-          "type": "JSExpression",
-          "value": "i18n['i18n-jwg27yo4']"
-        }
-      },
-      "condition": {                     // 函数类型属性：选填 函数类型
-        "type": "JSExpression",
-        "value": "!!this.state.isshow",  // 渲染条件： 选填 根据表达式结果判断是否渲染物料 默认值true
-      },
-      "loop": [],                        // 循环渲染数据：选填 根据数据循环渲染物料 默认不进行循环渲染；
-      "loopArgs": ["item", "index"],     // 循环迭代对象、索引名称 选填
-      "children": [{
-        "componentName": "Button",
-        "props": {
-          "prop1": 1234, // 简单 json 数据
-          "prop2": [{   // 简单 json 数据
-            "label": "选项1",
-            "value": 1
-          }, {
-            "label": "选项2",
-            "value": 2
-          }],
-          "prop3": [{
-            "name": "myName",
-            "rule": {
-              "type": "JSExpression",
-              "value": "/\w+/i"
-            }
-          }],
-          "valueBind": { // 变量绑定
-            "type": "JSExpression",
-            "value": "this.state.user.name"
-          },
-          "onClick": { // 动作绑定
-            "type": "JSExpression",
-            "value": "function(e) { console.log(e.target.innerText) }",
-          },
-          "onClick2": { // 动作绑定2
-            "type": "JSExpression",
-            "value": "this.submit",
-          },
-        }, 
-      }]
-    }],
-  }],
-  "utils": [{
-    "name": "clone",
-    "type": "npm",
-    "content": {
-      "package": "lodash",
-      "version": "0.0.1",
-      "exportName": "clone",
-      "subName": "",
-      "destructuring": false,
-      "main": "/lib/clone"
-    }
-  }, {
-    "name": "beforeRequestHandler",
-    "type": "function",
-    "content": {
-      "type": "JSFunction",
-      "value": "function(){\n ... \n}"
-    }
-  }],
-  "constants": {
-    "ENV": "prod",
-    "DOMAIN": "xxx.alibab.com"
-  },
-  "config": {  //当前应用配置信息
-    "sdkVersion": "1.0.3",  //渲染模块版本
-    "historyMode": "hash",  // 浏览器路由：brower  哈希路由：hash
-    "targetRootID": "J_Container",
-    "layout": {
-      "componentName": "BasicLayout",
-      "props": {
-      	"logo": "...",
-        "name": "测试网站"
-      },
-    },
-    "theme": {
-      //for Fusion use dpl defined
-      "package": "@alife/theme-fusion",
-      "version": "^0.1.0",
-      //for Antd use variable
-      "primary": "#ff9966"
-    }
-  },
-  "i18n": {
-    "zh-CN": {
-      "i18n-jwg27yo4": "你好",
-      "i18n-jwg27yo3": "中国"
-    },
-    "en-US": {
-      "i18n-jwg27yo4": "Hello",
-      "i18n-jwg27yo3": "China"
-    }
-  }
-}
-```
-
-区块级API（实现区块级内部的上下文，数据流，状态管理）
-
-```js
-this.state
-this.setState()
-this.dataSourceMap[oneRequest.id]: {
-  load(params), status, data, error
-}
-this.reloadDataSource()
-this.xxx()
-```
-
-页面级api（实现页面级内部的上下文，数据流，状态管理，从而实现区块之间的通信）
-
-```js
-this.page
-this.page.state
-this.page.setState()
-this.page.props
-this.page.xxx()
-this.page.dataSourceMap
-this.page.reloadDataSource()
-```
-
-低代码业务组件 API (开发一个低代码业务组件需要用到的API，实现内部的上下文，数据流，状态管理)
-
-```js
-this.component
-this.component.state
-this.component.setState()
-this.component.props
-this.component.xxx()
-this.component.dataSourceMap
-this.component.reloadDataSource()
-```
-
-获取循环数据对象 api (获取在循环场景下的数据对象)
-
-```js
-this.item
-this.index
-```

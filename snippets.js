@@ -3,19 +3,32 @@
 // [codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/))
 
 // 从输入URL到页面加载完成 http://fex.baidu.com/blog/2014/05/what-happen/
-// js秘密花园 http://bonsaiden.github.io/JavaScript-Garden/zh/
-// 33-js-concepts https://github.com/leonardomso/33-js-concepts
 // 只在行首字符是 +、-、[、(、/ 这5种情况下，加前置分号即可。
+// 浏览器地址栏可输入 data:text/html,Hello外围标签
+// div/span 都是容器元素， p dt 标签里不能有块(block)标签， button 里面不要嵌套 a 标签。
+// img script 的 src、css 的 href 都不能为空。 DOM 的 attribute 和 property 区别。
+// a 伪类需遵循 css2 规范中的 L-V-H-A (a:link visited hover active) 顺序。
+// 没有 css-parent-selector 。 BEM命名方式。  如何提升 CSS 选择器性能 http://www.jianshu.com/p/268c7f3dd7a6
 
 /*
 - [WebAssembly](https://juejin.im/entry/5b20d09d6fb9a01e242490b1) 不是一门编程语言，而是一份字节码标准。 各种复杂的计算：图像处理、3D运算(大型 3D 网页游戏)、语音识别、音视频编码解码。区块链合约。 [madewithwebassembly](https://madewithwebassembly.com/)、eBay 的[条形码扫描](https://www.infoq.cn/article/vc*q7psQqWMaVU8igJeD)、[Google earth web](https://earth.google.com/web/) 版、[autocad](https://web.autocad.com/login) web 版
 - [PWA](https://developers.google.com/web/progressive-web-apps/) Service Worker 需要运行于 HTTPS 或本地 localhost 环境，是继 Web Worker 后又一个新的线程。来实现离线页面功能。 Service Worker 是独立于页面的一个运行环境，它在页面关闭后仍可以运行。Web Worker 在页面关闭后不再运行。
 */
+/*
+在函数式编程中，函数实际上即是描述了一种集合到集合的映射关系。即这个函数在入参与结果之间建立了映射关系。在任意时间任意状态调用一个函数，都能获得同样的结果，也就是说它不会被任何可变状态影响、不会产生副作用。如 Redux 中的 compose，常见的函数柯里化，ImmutableJS 等等，都可以视为对于函数式编程范式的一种实现。
+柯里化 foo(1, 2, 3) curried(1)(2)(3)
+函数链式调用 sum(1)(2,3)(4,5,6)... val.f1().f2().f3() 嵌套调用 f3(f2(f1(val)))  管道符 
+TC39 数据流编程 Pipe/Flow Pipeline Operator
+const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)));
+*/
+
+// 笔试套路：写出所有可能解法，也写出最经典解法。
 
 
 // react关键点
 // 防抖 debounce 截流 throttle
 // 深度遍历 dfs 广度遍历 bfs
+
 
 // 排序 返回一个新的数组对象
 function orderBy(data, fn) {}

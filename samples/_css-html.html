@@ -2,44 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <!-- 以下设置会 自动刷新页面 -->
-  <!-- <meta http-equiv="refresh" content="6"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>css html 基础</title>
 </head>
 <body>
-<pre>
-  html 规则检测 https://validator.w3.org 、 http://infohound.net/tidy
-  head 里能放什么 https://github.com/joshbuchea/HEAD
-  css 图标集 http://livicons.com/
-
-  - 浏览器地址栏可输入 data:text/html,Hello外围标签
-  - 判断文档是标准模式还是怪异模式 window.top.document.compatMode
-
-  - div/span 都是容器元素 http://www.w3.org/wiki/Generic_containers_-_the_div_and_span_elements
-  - p 标签里不能有块(block)标签，否则会提前结束导致解析错误，也会连环导致其他标签解析错误。
-  - button 里面不要嵌套 a 标签。select 是内联元素。
-  - a 标签带 href 并不为空，按 enter 键都会触发其上的 click 事件，否则不会触发！
-  - a 伪类需遵循 css2 规范中的 L-V-H-A (a:link visited hover active) 顺序。
-  - img script 的 src、css 的 href 都不能为空，否则会有个指向本页面的请求。
-  - DOM 的 attribute 和 property 区别。
-  - ul 和 ol 的子元素不能是别的元素只能是 li，不能是别的比如 div 等（ie6会有问题）。
-  - dt 标签里面不能嵌套块级元素，只能嵌套内联元素，dd 可以。
-  - WAI-ARIA: aria-hidden and role="presentation"
-
-  - 不能根据子元素 class 改变父元素 class http://stackoverflow.com/questions/1014861/is-there-a-css-parent-selector
-  - BEM命名方式 http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax
-  - css 浏览器私有属性写在前面，W3C标准属性在后面，Hack属性在更后面。
-  - 如何提升 CSS 选择器性能 http://www.jianshu.com/p/268c7f3dd7a6
-  - css时间函数 http://www.smashingmagazine.com/2014/04/15/understanding-css-timing-functions
-  - css 长度 https://css-tricks.com/the-lengths-of-css
-    - 绝对长度: px inch cm mm。
-    - rem: 相对 root 的 font-size 大小；em: 基于大写字母 M 的尺寸；ex: 基于 x 字母高度。
-    - 1vh 等于 1/100 的视口高度；vmin/vmax。
-
-  - querySelector api 不能传入「纯数字」的 id/class 选择器？
-  - document.scrollingElement 在桌面和移动浏览器的不同 https://www.zhangxinxu.com/wordpress/2019/02/document-scrollingelement
-</pre>
 
   <div style="margin-bottom: 20px;">
     <style>
