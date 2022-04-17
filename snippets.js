@@ -17,6 +17,7 @@
 /*
 在函数式编程中，函数实际上即是描述了一种集合到集合的映射关系。即这个函数在入参与结果之间建立了映射关系。在任意时间任意状态调用一个函数，都能获得同样的结果，也就是说它不会被任何可变状态影响、不会产生副作用。如 Redux 中的 compose，常见的函数柯里化，ImmutableJS 等等，都可以视为对于函数式编程范式的一种实现。
 柯里化 foo(1, 2, 3) curried(1)(2)(3)
+var curry = fn => judge = (...args) => args.length === fn.length ? fn(...args) : (...arg) => judge(...args, ...arg)
 函数链式调用 sum(1)(2,3)(4,5,6)... val.f1().f2().f3() 嵌套调用 f3(f2(f1(val)))  管道符 
 TC39 数据流编程 Pipe/Flow Pipeline Operator
 const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)));

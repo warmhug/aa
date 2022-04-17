@@ -4,7 +4,7 @@
 
 几种常见的JS递归算法 https://juejin.cn/post/6844904014207795214  
 js 算法 https://github.com/trekhleb/javascript-algorithms  
-JS iot https://evothings.com/
+
 [LeetCode](https://leetcode.com/)、[Google笔试面试](http://ask.julyedu.com/question/447)。
 计算机科学中有哪些重要的算法？https://www.applysquare.com/topic-cn/RT1ia720O/
 2009 POJ推荐50题 —— ACM暑假集训 列表中大约有70个题目 选做其中的50道，且每类题目有最低数量限制。北京大学ACM在线评测系统 http://acm.pku.edu.cn/JudgeOnline

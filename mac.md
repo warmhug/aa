@@ -23,9 +23,9 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 
 - 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper
 
-- 开发: MacDown / Marp / charles / Gas-Mask / whistle / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / [XSwitch](https://github.com/yize/xswitch) / porter.io
+- 开发: MacDown / Marp / charles / Gas-Mask / whistle / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / [XSwitch](https://github.com/yize/xswitch) / porter.io / https://devtool.tech/html-md
 
-- 图像: lightshot (snip) / licecap (kap gifify) / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager
+- 图像: lightshot (snip) / licecap (kap gifify) / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
 
 - 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web)
 - Chrome: 一键切换(Jomic) 搜索拐杖 / Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity

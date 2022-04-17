@@ -80,6 +80,8 @@ CI/CD、JS 覆盖率工具 [istanbul](https://istanbul.js.org/)。测试-漏测�
 
 ## 生成 & 搭建 & 可视化
 
+https://github.com/imcuttle/mometa
+
 AECP 开发平台架构 https://img.alicdn.com/imgextra/i2/O1CN01VFIoNq1E0PCIklFol_!!6000000000289-2-tps-2482-1410.png
 
 Microsoft Power Apps 中，页面的生产过程是由字段的布局来决定的，字段对应的组件可以切换。在 Mendix、OutSystems 中。页面虽然是基于模型来生产的，但整体开发体验，依然是面向页面和组件视角的。组件可以绑定字段。

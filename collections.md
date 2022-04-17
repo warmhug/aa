@@ -22,6 +22,8 @@ js秘密花园 http://bonsaiden.github.io/JavaScript-Garden/zh/
   - 搜索“某人”创建的在“body”里包含“某个词”的 issue: [warmhug + xx](https://github.com/search?utf8=%E2%9C%93&q=xx+in%3Abody+author%3Awarmhug&type=Issues)
 
 
+https://coolshell.cn/
+
 
 ## 功能库
 
@@ -39,7 +41,7 @@ js秘密花园 http://bonsaiden.github.io/JavaScript-Garden/zh/
 
 - IDE: [eclipse-theia](https://github.com/eclipse-theia/theia)、[coding.腾讯、](https://coding.net/)[stackblitz](https://stackblitz.com/)、[gitpod](https://www.gitpod.io/) (蚂蚁 cloudIDE)。
 
-- 编辑器: [slate](https://github.com/ianstormtaylor/slate)、[trix](https://github.com/basecamp/trix)、[braft-editor](https://github.com/margox/braft-editor)、[edtr-io](https://github.com/edtr-io)、[svg-editors](https://css-tricks.com/browser-based-svg-editors/)、[各种编辑器](https://github.com/JefMari/awesome-wysiwyg)、数学公式[编辑器](https://www.mathcha.io/)、[zebra-editor-core](https://github.com/acccco/zebra-editor-core)、[tui-editor](https://ui.toast.com/tui-editor/)、[craft.js](https://github.com/prevwong/craft.js)、[react-visual-editor](https://github.com/anye931123/react-visual-editor)。
+- 编辑器: [slate](https://github.com/ianstormtaylor/slate)、[trix](https://github.com/basecamp/trix)、[braft-editor](https://github.com/margox/braft-editor)、[edtr-io](https://github.com/edtr-io)、[svg-editors](https://css-tricks.com/browser-based-svg-editors/)、[各种编辑器](https://github.com/JefMari/awesome-wysiwyg)、数学公式[编辑器](https://www.mathcha.io/)、[zebra-editor-core](https://github.com/acccco/zebra-editor-core)、[tui-editor](https://ui.toast.com/tui-editor/)、[craft.js](https://github.com/prevwong/craft.js)、[react-visual-editor](https://github.com/anye931123/react-visual-editor)、[stylojs](https://stylojs.com/)。
 
 - 截图：[dom-to-image和html2canvas原理](https://github.com/zhangyu0414/notebook-to-record-learning)、[各设备截图服务](https://screendump.techulus.com/)、录制回放 [rrweb](https://github.com/rrweb-io/rrweb) (内网 xreplay)、[screen-share-party](https://ba.net/screen-share-party/#9730179072993984)。
 
@@ -80,7 +82,7 @@ Roam Research [介绍](https://www.zhihu.com/question/384453977)、[介绍1](htt
 [语雀 实时保存 方案](https://klab.yuque.com/docs/share/0e3ee249-d977-492b-82f2-6b44d26bd4af) (平侠/遇春 2021-01)、[语雀后端技术](https://mp.weixin.qq.com/s/VM61gkZuYYqE4pVhpba3nQ)、[隆昊《富文本编辑器的技术演进》](https://myslide.cn/slides/21863)、[有道云笔记富文本编辑器技术演进](https://mp.weixin.qq.com/s/9gDI1r9aAu6dHJhXg34eIg)。
 
 [飞书在线文档协同](https://mp.weixin.qq.com/s?__biz=MzkzNTIwNTAwOA==&mid=2247496795&idx=1&sn=5edf65ebf8609ada7981a9a804b072d3)、
-实时协作技术 [ot-vs-crdt](https://www.tiny.cloud/blog/real-time-collaboration-ot-vs-crdt/) / [xi-editor-CRDTs](https://xi-editor.io/docs/rope_science_08.html) / [are-crdts-suitable](https://blog.kevinjahns.de/are-crdts-suitable-for-shared-editing/)、[vs code 多人协作](https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/connectivity)、[CKEditor 多人协作](https://ckeditor.com/collaborative-editing/)。
+实时协作技术 [ot-vs-crdt](https://www.tiny.cloud/blog/real-time-collaboration-ot-vs-crdt/) / [xi-editor-CRDTs](https://xi-editor.io/docs/rope_science_08.html) / [are-crdts-suitable](https://blog.kevinjahns.de/are-crdts-suitable-for-shared-editing/)、[vs code 多人协作](https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/connectivity)、[CKEditor 多人协作](https://ckeditor.com/collaborative-editing/)、[automerge](https://github.com/automerge/automerge)、[crdt](https://wiki.nikitavoloboev.xyz/distributed-systems/crdt)。
 
 [文档协同的三元结构-浩初](https://www.yuque.com/docs/share/92faca9c-2162-4fe2-974d-193164650b11)、[resume生成](https://github.com/visiky/resume)
 

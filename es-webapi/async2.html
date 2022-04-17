@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>async 并发</title>
+</head>
+<body>
+  <script>
+    // 控制并发请求数量
+    // https://juejin.cn/post/6976028030770610213
+    // https://zhuanlan.zhihu.com/p/349666099
+    async function asyncPool(poolLimit, array, iteratorFn) {
+      const res = [];
+      const exec = [];
+      for (const item of array) {
+        const p = Promise.resolve().then(() => iteratorFn(item, array));
+        res.push(p);
+        console.log('p1', res, res.length);
+        if (poolLimit <= array.length) {
+          const e = p.then(() => {
+            exec.splice(exec.indexOf(e), 1);
+          });
+          exec.push(e);
+          console.log('e1', exec);
+          if (poolLimit <= exec.length) {
+            console.log('p2', exec);
+            await Promise.race(exec);
+          }
+        }
+      }
+      return Promise.all(res);
+    }
+    const timeout = t => new Promise(resolve => {
+      setTimeout(() => {
+        console.log('ttt', t);
+        resolve(t);
+      }, t);
+    });
+    asyncPool(2, [3000, 4000, 5000, 6000], timeout);
+  </script>
+</body>
+</html>

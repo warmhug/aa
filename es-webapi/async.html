@@ -8,7 +8,29 @@
 </head>
 <body>
   <script>
+    // async await 实现原理 https://zhuanlan.zhihu.com/p/115112361
     // await 后需要是 Promise
+
+    async function test() {
+      console.log('test start');
+      await otherTest();
+      console.log('test end');
+    }
+    async function otherTest() {
+      console.log('otherTest');
+    }
+    test();
+    console.log('after test');
+    // 输出 test start -> otherTest -> after test -> test end
+    // async 后函数相当于变成了
+    function test() {
+      console.log('test start');
+      const p = new Promise((res, rej) => {
+          otherTest();
+      });
+      p.then(() => console.log('test end'));
+      return p;
+    }
 
     var t1 = +new Date();
 
