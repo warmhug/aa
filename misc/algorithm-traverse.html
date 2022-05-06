@@ -5,6 +5,114 @@
 </head>
 <body>
 <script>
+
+// https://segmentfault.com/a/1190000004620352
+// 二叉树 前中后序遍历  数组表示法 [3,9,20,null,null,15,7]
+var binaryTree = {
+  value: 1,
+  left: {
+    value: 2,
+    left: {
+      value: 4,
+    }
+  },
+  right: {
+    value: 3,
+    left: {
+      value: 5,
+      left: {
+        value: 7,
+      },
+      right: {
+        value: 8,
+      },
+    },
+    right: {
+      value: 6,
+    }
+  }
+};
+var levelTraverse = function (root) {
+  if (!root) {
+    return;
+  }
+  const que = [root];
+  while(que.length) {
+    const node = que.shift();
+    console.log('current node', node.value);
+    if (node.left) {
+      que.push(node.left);
+    }
+    if (node.right) {
+      que.push(node.right);
+    }
+  }
+};
+levelTraverse(binaryTree);
+
+// 前序遍历 根左右
+var preOrder = function (root) {
+  if (!root) {
+    return;
+  }
+  console.log('pre current node', root.value);
+  preOrder(root.left);
+  preOrder(root.right);
+}
+preOrder(binaryTree);
+var preOrderUnRecur = function (root) {
+  if (!root) {
+    return;
+  }
+  const stack = [root];
+  while (stack.length) {
+    const node = stack.pop();
+    console.log('preUn current node', node.value);
+    if (node.right) {
+      stack.push(node.right);
+    }
+    if (node.left) {
+      stack.push(node.left);
+    }
+  }
+}
+preOrderUnRecur(binaryTree);
+
+// 中序遍历 左根右
+var inOrder = function (root) {
+  if (!root) {
+    return;
+  }
+  inOrder(root.left);
+  console.log('in current node', root.value);
+  inOrder(root.right);
+}
+inOrder(binaryTree);
+
+// 后序遍历 左右根
+var postOrder = function (root) {
+  if (!root) {
+    return;
+  }
+  postOrder(root.left);
+  postOrder(root.right);
+  console.log('post current node', root.value);
+}
+postOrder(binaryTree);
+
+// leetcode 104. 二叉树的最大深度
+var maxDepth = function (root) {
+  if (!root) {
+    return 0;
+  }
+  var lh = maxDepth(root.left);
+  var rh = maxDepth(root.right);
+  console.log('lr', lh, rh);
+  return Math.max(lh, rh) + 1;
+}
+console.log('maxDepth', maxDepth(binaryTree));
+
+
 const data = {
   id: 0,
   children: [
@@ -19,7 +127,7 @@ const data = {
 /**
  * 怎么生成 类似以下结构的 tree 数据？(注意 id 的值需要反馈节点所在树的位置)
  [{
-   id: '0',
+    id: '0',
     children: [{
       id: '0-0',
       children: [{

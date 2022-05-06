@@ -275,7 +275,7 @@ var argh = bind(handler, undefined, 5, 10);
 
 
 // debounce 和 throttle 区别 https://github.com/lishengzxc/bblog/issues/7
-// debounce 请求时序问题
+// debounce 请求时序问题  https://juejin.cn/post/6943877239612276744
 
 // https://remysharp.com/2010/07/21/throttling-function-calls
 function debounce(fn, delay) {

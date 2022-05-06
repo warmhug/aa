@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>模拟 Promise</title>
+</head>
+<body>
+  <script>
+    // https://zhuanlan.zhihu.com/p/58428287
+    // https://segmentfault.com/a/1190000009478377
+    function PromiseImpl(fn) {
+      let callbacks = [];
+      this.then = (resolveFn, rejectFn) => {
+        callbacks.push(resolveFn);
+        return this;
+      };
+      const resolve = (value) => {
+        callbacks.forEach(item => {
+          item(value);
+        })
+      }
+      fn(resolve);
+    }
+    const pro = new PromiseImpl((resolve, reject) => {
+      setTimeout(() => {
+        resolve(1);
+      }, 100);
+    });
+    pro.then((data1) => {
+      console.log(data1);
+    }, error => console.log(error)).then(data => {
+      console.log(data);
+    }, error => console.log(error));
+  </script>
+</body>
+</html>
