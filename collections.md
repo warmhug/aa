@@ -25,6 +25,11 @@ js秘密花园 http://bonsaiden.github.io/JavaScript-Garden/zh/
 https://coolshell.cn/
 
 
+## 架构
+
+[前端领域的 “干净架构”](https://zhuanlan.zhihu.com/p/458410158)
+
+
 ## 功能库
 
 - UI: [react-data-grid](https://github.com/adazzle/react-data-grid)、[moveable](https://github.com/daybrush/moveable)、[react-grid-layout](https://github.com/STRML/react-grid-layout)、[Re-Flex](https://github.com/leefsmp/Re-Flex)、[react-mosaic](https://github.com/nomcopter/react-mosaic)、[ScrollTrigger](https://github.com/terwanerik/ScrollTrigger)、[react-virtualized](https://github.com/bvaughn/react-virtualized)、[元素定位tether](https://github.com/shipshapecode/tether)、[tailwindcss](https://github.com/tailwindcss/tailwindcss)、分步指引([shepherd](https://github.com/shipshapecode/shepherd)/[driver.js](https://github.com/kamranahmedse/driver.js))、[react-trello](https://github.com/rcdexta/react-trello)。[css 图标集](http://livicons.com/)
