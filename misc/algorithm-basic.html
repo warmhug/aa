@@ -20,6 +20,7 @@
     }
     return arr;
   }
+  // 冒泡排序优化 对已排序的做标记、只排序未排的部分
   function bubbleSort1(arr) {
     let _count = 1;
     for (let i = 0; i < arr.length; i++) {
@@ -49,6 +50,7 @@
   }
   var arr = [2,3,1,5,0];
   console.log(quickSort(arr));
+
 
   // 爬楼梯 f(x)=f(x−1)+f(x−2)
   // 斐波那契数列：前面相邻两项之和，构成了后一项。
@@ -98,6 +100,8 @@
     }
   };
   console.log('twoSum', twoSum([1,2,3,7,11,15], 9));
+
+  // 876. 链表的中间结点
 
   // 136. 只出现一次的数字  位运算异或 时间复杂度：O(n)，空间复杂度：O(1)
 

@@ -2,12 +2,15 @@
 # 算法
 递归、尾递归，构造多叉树、二叉树(中序遍历)，排序算法。
 
+算法入门 https://leetcode.cn/study-plan/algorithms/?progress=uw39h4i  
 几种常见的JS递归算法 https://juejin.cn/post/6844904014207795214  
 js 算法 https://github.com/trekhleb/javascript-algorithms  
 
-[leetcode-cn](https://leetcode-cn.com/)、[LeetCode](https://leetcode.com/)、[Google笔试面试](http://ask.julyedu.com/question/447)。
+[leetcode-master](https://github.com/youngyangyang04/leetcode-master)、[leetcode-cn](https://leetcode-cn.com/)、[LeetCode](https://leetcode.com/)、[Google笔试面试](http://ask.julyedu.com/question/447)。
 计算机科学中有哪些重要的算法？https://www.applysquare.com/topic-cn/RT1ia720O/
 2009 POJ推荐50题 —— ACM暑假集训 列表中大约有70个题目 选做其中的50道，且每类题目有最低数量限制。北京大学ACM在线评测系统 http://acm.pku.edu.cn/JudgeOnline
+
+常用算法方法：查找(二分法)、双指针(快慢指针)、动态规划、滑动窗口、
 
 数据结构
 
@@ -26,6 +29,11 @@ js 算法 https://github.com/trekhleb/javascript-algorithms
 
 迭代与递归：迭代用重复结构，而递归用选择结构。递归重复函数调用的开销很大，将占用很长的处理器时间和大量的内存空间。迭代通常发生在函数内，因此没有重复调用函数和多余内存赋值的开销。
 尾递归算法和单向递归算法可用迭代算法来代替。斐波那契数列计算的递归改循环迭代所带来的速度大幅提升。汉诺塔问题的递归算法中有两处递归调用，并且其中一处递归调用语句后还有其他语句，因此该递归算法不是尾递归或单向递归。要把这样的递归算法转化为非递归算法，并没有提高程序运行的速度，反而会使程序变得复杂难懂，这是不可取的。
+
+# 数学
+
+数字两两组合 有多少种？
+
 
 《微积分》是学习《概率统计》和《线性代数》的必备条件。初学者，请一定按照“微积分---概率论---线性代数”的流程来学习，因为“求导/求积”的运算是后期概率运算的基础。
 一个国家的教学水平，整体反应在教材的水平上；一个大学的教学水平，也反应在教材水平上。全国除顶尖985学校之外，其余学校的数学水平都很不理想，绝大多数学校的数学课程都是直接从苏联数学继承过来的。
