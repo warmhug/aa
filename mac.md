@@ -171,6 +171,10 @@ npm & git 工作环境设置
 # 命令行登录 registry
 npm login --registry=https://registry-cnpm.xx.work
 
+# 生成 ssh key
+ssh-keygen -t rsa -C "email@example.com"
+# 再把 ~/.ssh/id_rsa.pub 文件内容添加到 github
+
 # 内部仓库、设置内部邮箱
 git config user.name "然则"
 git config user.email "hualei.hl@xx-inc.com"
