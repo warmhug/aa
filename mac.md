@@ -2,7 +2,10 @@
 
 ## 系统设置
 
-- 点击和手势: 系统偏好设置 -> 触控板 -> 勾选 “轻点来点按” / 查询与数据检测器 - 选择三指轻点 / 更多手势 - 应用Expose。
+- 点击和手势: 系统偏好设置 -> 触控板
+  - 勾选 “轻点来点按”
+  - 启用词典：查询与数据检测器 - 选择三指轻点
+  - 更多手势 - 应用Expose。
 - 三指拖移窗口: 系统偏好设置 -> 辅助功能 -> 鼠标与触控板 -> 触控板选项 -> 启用拖移 -> 三指拖移。
 - 触发角: 系统偏好设置 -> 调度中心 -> 触发角 (左上角:启动台, 左下角:显示器睡眠, 右上角:调度中心, 右下角:桌面)。
 - 快捷键: 系统偏好设置 -> 键盘 -> 快捷键，“输入法”选择 `cmd+空格`，“服务”里勾选或不选。
@@ -21,14 +24,14 @@
 
 macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
 
-- 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper
+- 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper / https://u.tools
 
 - 开发: MacDown / Marp / charles / Gas-Mask / whistle / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / [XSwitch](https://github.com/yize/xswitch) / porter.io / https://devtool.tech/html-md
 
-- 图像: lightshot (snip) / licecap (kap gifify) / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
+- 图像: snipaste / lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
 
 - 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web)
-- Chrome: 一键切换(Jomic) 搜索拐杖 / Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
+- Chrome: 一键切换(Jomic) 搜索拐杖 / 沙拉查词 / Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
 - zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
 - rar[工具](https://www.rarlab.com/download.htm): `rar a test.rar test/` 压缩 test 目录内容生成 test.rar 文件。
 - https://www.keka.io 压缩解压 7z zip 等。mac 选中文件右键 -> 压缩生成zip 或者 服务“使用keka压缩”。
@@ -37,6 +40,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 
 - 手机软件: 今日热榜, 白描, Stream, 无忧电话录音, DVR Link, Splashtop, andromouse. 游戏：big hunter, brain dots。
   - 查看 app URL scheme: 下载 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。 [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
+  - iOS 桌面小组件 [js 开发](https://github.com/2214962083/ios-scriptable-tsx)、脚本 [API](https://docs.scriptable.app/)
 
 - U盘格式
   - 支持 Mac + Win 的读写格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。

@@ -12,6 +12,7 @@
     Promise.when = function () {
       //var args = Array.prototype.slice.call(arguments, 0);
       // unpacking arguments by hand benchmarked faster  -- flightjs
+      // https://dev.to/psiho/javascript-performance-benchmarking-aka-jsperf-with-jsbench-me-2ojn
       var l = arguments.length;
       var args = new Array(l);
       for (var i = 0; i < l; i++) args[i] = arguments[i];

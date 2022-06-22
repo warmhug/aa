@@ -22,32 +22,9 @@ ZSH_THEME="ys"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
-
-## proxy
-##### 使用 阿里郎 代理（关掉其他代理服务器），先开启 阿里郎 网络加速
-alion() {
-    proxy=$(lsof -i -n -P | grep LISTEN |grep AliMgrSoc | tr -s ' ' | cut -d' ' -f 9)
-    export http_proxy=$proxy
-    export https_proxy=$proxy
-    export no_proxy=localhost
-    git config --global http.proxy socks5://${proxy}
-    git config --global https.proxy socks5://${proxy}
-    echo "需要先开启“阿里郎网络加速”，git config 代理地址为 $proxy"
-}
-alioff() {
-    unset http_proxy
-    unset https_proxy
-    unset no_proxy
-    git config --global --unset http.proxy
-    git config --global --remove-section http
-    git config --global --unset https.proxy
-    git config --global --remove-section https
-    echo '关闭 git config 代理'
-}
-
 # 运行 alias 查看所有别名
-alias sz="code ~/.zshrc"
-alias se="source ~/.zshrc"
+alias cz="code ~/.zshrc"
+alias sz="source ~/.zshrc"
 
 ## java  参考：http://chessman-126-com.iteye.com/blog/2162466
 #export JAVA_6_HOME=`/usr/libexec/java_home -v 1.6` # Mac默认 JDK 6（Mac默认自带了一个jdk6版本）

@@ -1,9 +1,5 @@
 // console.log('bg page', chrome.extension.getBackgroundPage());
 
-$('#jokeMain1').click(function () {
-  $(this).parent().toggleClass('small')
-});
-
 // 输入框本地存储
 // var textID = $("#textID");
 // textID.val(localStorage.getItem('textLocal') || '');
@@ -113,5 +109,6 @@ $(function () {
   jokeMain.hide();
   $('#jokeMain1').click(function () {
     jokeMain.toggle();
+    $(this).toggleClass('small');
   })
 })
