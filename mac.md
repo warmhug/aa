@@ -104,13 +104,17 @@ brew update / list
 
 ```sh
 # mac 自带的 ruby 在运行 jekyll 时有问题，需要新安装 ruby@3
-brew install ruby   # 过程中有些依赖出错、就相应单独安装，比如 brew install libyaml / readline / ...
+brew install ruby
+# 过程中有些依赖出错、就相应单独安装，比如 brew install libyaml / readline / ...
 ruby -v   # 在 .zshrc 里加入 ruby@3 的 bin 路径，新打开 terminal 查看
 which ruby / gem  # 查看目录
 gem env # 查看更详细信息
 
 gem install jekyll bundler  # 安装在 /opt/homebrew/lib/ruby/gems 目录
 gem install --user-install bundler jekyll  # 安装在 ~/.gem 目录
+
+# jekyll 是在 /opt/homebrew/opt/ruby/bin/ 不是在 /usr/local/bin 里
+# jekyll 是在 /opt/homebrew/lib/ruby/gems/3.1.0/gems/jekyll-4.2.2 
 jekyll serve   # 启动报错 缺少 webrick
 bundle add webrick   # 报错 Could not locate Gemfile
 bundle init  # 生成 Gemfile 之后再运行 bundle add webrick 随后 jekyll serve 成功

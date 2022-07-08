@@ -29,6 +29,7 @@ https://coolshell.cn/
 
 [前端领域的 “干净架构”](https://zhuanlan.zhihu.com/p/458410158)
 
+徐飞 - [业务中的前端组件化体系](https://zhuanlan.zhihu.com/p/383129585)
 
 ## 功能库
 

@@ -30,6 +30,15 @@ useEffect(() => {
 
 ## 2020~2021
 
+dashboard 数据边界细节很多。
+
+周日报遗留问题：
+复制文字+多个图片、分别上传多个图片。
+保存过期、前端存。大表格崩溃、大小极限。 编辑页 id 输错、结果处理。
+一次性复制进去、还是会弹出事项选择框。导入上一篇 事项匹配错误。
+断网再连上、报标题不能为空。新版日志编辑器：选中报错、任务样式问题。 
+
+
 - beforeunload 事件里有 ajax 等不到返回、页面就会关闭，怎么解决？
 - 使用 `DOMParser().parseFromString(xml, 'text/xml');`解析 xml 时、需要把 xml 里的 `&` 等特殊符号 转义为 `&amp;` 不然会解析错误；参考 解答[一](https://stackoverflow.com/questions/17423495/how-to-solve-ampersand-conversion-issue-in-xml)、[二](https://stackoverflow.com/questions/11555890/how-to-parse-xml-with-special-character-specifically-for-ampersand)。
 - 使用 `https://localhost` 或 umi 报 Disconnected from the devServer, trying to reconnect... 提示、设置 `chrome://flags/#allow-insecure-localhost` 能暂时解决。

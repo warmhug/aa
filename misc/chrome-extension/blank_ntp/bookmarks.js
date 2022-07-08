@@ -29,7 +29,10 @@ function dumpNode(bookmarkNode, query) {
     anchor.click(function() {
       // chrome.tabs.create({url: bookmarkNode.url});
     });
-    anchor.prepend(`<img src="chrome://favicon/${bookmarkNode.url}" />`);
+    // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
+    const iconUrl = bookmarkNode.url ? 
+      `chrome://favicon/${bookmarkNode.url}` : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
+    anchor.prepend(`<img src="${iconUrl}" />`);
   }
   // console.log('bookmarkNode.title', bookmarkNode.title, bookmarkNode.children);
   var li = $(bookmarkNode.title ? '<li>' : '<div>').append(anchor);
