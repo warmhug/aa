@@ -186,11 +186,14 @@ ssh-keygen -t rsa -C "email@example.com"
 # 内部仓库、设置内部邮箱
 git config user.name "然则"
 git config user.email "hualei.hl@xx-inc.com"
+# github 设置单独的 name email, 在 .gitconfig 里新增以下命令
+[includeIf "gitdir:~/inner/-/"]
+  	path = .gitconfig-github
+# 再新建 - 目录 和 .gitconfig-github 文件
 
 # 全局默认设置 code ~/.gitconfig
-git config --list
+git config --l
 git config --global alias.st status
-git config --global alias.ci commit
 
 # yarn 源设置
 yarn/npm config get registry # 查看源
