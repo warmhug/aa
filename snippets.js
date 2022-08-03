@@ -45,8 +45,6 @@ promiseAll([task1, task2]).then(results => {
 })
 
 
-// ============================================================
-
 // 变量提升 https://www.jianshu.com/p/0f49c88cf169
 var v='Hello World';
 (function(){
@@ -54,6 +52,10 @@ var v='Hello World';
   alert(v);
   v='I love you';
 })();
+
+const add = () => window.addEventListener('click', () => console.log(aa))
+add();
+const aa = 'sss';
 
 // 局部变量和全局变量
 (function(){
@@ -357,6 +359,29 @@ function addEventListener(target, eventType, callback) {
   }
 }
 
+/* 
+  prototype arrow function this
+*/
+function Person(name) {
+  this.name = name;
+  this.say();
+}
+Person.prototype = {
+  work() {
+    console.log('I can work!');
+    console.log(this);
+  },
+  walk: () => {
+    console.log(this); // 箭头函数，注意此处 this
+  },
+  say() {
+    console.log('I can say!');
+  }
+};
+var p = new Person('me');
+p.work();
+p.walk();
+p.say();
 
 /*
   创建 People (父类) 和 Male (子类) 实现继承
@@ -455,6 +480,15 @@ var arr = [];
 console.log(arr instanceof Array); // true, 说明 Array 的内置原型对象的引用还是保存着的
 console.log(arr.splice);
 
+
+var o;
+// 创建一个原型为null的空对象
+o = Object.create(null);
+o = {};
+// 以字面量方式创建的空对象就相当于:
+o = Object.create(Object.prototype);
+o.foo = 2;
+console.log(o);
 
 var o = {
   x: 8,
