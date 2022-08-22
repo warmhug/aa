@@ -11,16 +11,6 @@ body {
   // https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_filter_all
   filter: opacity(90%);
 }
-.top {
-  text-align: center;
-  &-right {
-    display: flex;
-    align-items: center;
-    a {
-      margin-left: 10px;
-    }
-  }
-}
 .main {
   position: relative;
   display: flex;
@@ -65,23 +55,28 @@ body {
 #bookmarks {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #fff;
   font-size: 12px;
   padding: 0 8px;
-  > ul {
+  #bmright {
     display: flex;
-    border: none;
-    flex: 1;
-    position: relative;
-    li:last-child {
-      position: absolute;
-      right: 1px;
-    }
+    align-items: center;
   }
-  ul a {
+  > ul li {
+    margin-right: 10px;
+  }
+  > ul, #bmright > ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+  a {
     display: flex;
     align-items: flex-start;
-    margin: 2px 0;
+    margin: 2px;
     white-space: nowrap;
   }
   img {

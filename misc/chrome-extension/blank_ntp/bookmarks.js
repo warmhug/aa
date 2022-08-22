@@ -13,7 +13,7 @@ function dumpNode(bookmarkNode, query) {
     anchor.attr('href', bookmarkNode.url);
     anchor.attr('title', bookmarkNode.title);
     anchor.on('click', () => {
-      if (bookmarkNode.url.indexOf('chrome://') === 0) {
+      if (bookmarkNode.url?.indexOf('chrome://') === 0) {
         chrome.tabs.create({url: bookmarkNode.url});
       }
     })
@@ -50,7 +50,7 @@ function dumpTreeNodes(bookmarkNodes, query) {
   return list;
 }
 function dumpBookmarks(query) {
-  var bookmarkTreeNodes = chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
+  chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
     console.log('bookmarkTreeNodes', bookmarkTreeNodes);
     let newChilds = [];
     const roots = bookmarkTreeNodes[0].children;
@@ -58,12 +58,25 @@ function dumpBookmarks(query) {
     if (isChromeOrEdgeFav) {
       newChilds = [...roots[0].children, roots[1]];
     }
-    const bms = dumpTreeNodes(newChilds, query);
-    $('#bookmarks').prepend(bms);
-    // https://api.jqueryui.com/menu/
-    bms.menu({
-      // position: { my: "left top", at: "right-5 top+5" }
+    // 筛选出文件夹 布局到右边
+    const bmLinks = [];
+    const bmFolds = [];
+    newChilds.forEach(item => {
+      if (item.url) {
+        bmLinks.push(item);
+      } else {
+        bmFolds.push(item);
+      }
     });
+    // for back
+    // const bms = dumpTreeNodes(newChilds, query);
+    // $('#bookmarks').prepend(bms);
+    // // https://api.jqueryui.com/menu/
+    // bms.menu({
+    //   // position: { my: "left top", at: "right-5 top+5" }
+    // });
+    $('#bookmarks').prepend(dumpTreeNodes(bmLinks, query));
+    $('#bmright').prepend(dumpTreeNodes(bmFolds, query).menu());
   });
 }
 

@@ -98,6 +98,9 @@ $(function () {
   var jokeMain = $('#jokeMain');
 
   getContents().then(res => {
+    if (!res) {
+      return;
+    }
     ctFromDb = res;
     jr = randomItem(res.split('\n\n'));
     jokeMain.html(jr());
