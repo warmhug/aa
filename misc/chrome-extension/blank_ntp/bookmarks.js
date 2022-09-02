@@ -9,25 +9,39 @@ function dumpNode(bookmarkNode, query) {
         return $('<span></span>');
       }
     }
+    // html 0宽字符: U+200B  U+200C  U+200D   U+FEFF  &zwnj;&ZeroWidthSpace;&#xFEFF
+    // 使用 正则替换、jQuery 的 html() 方法处理 都没效果。
+    let formatTitle = bookmarkNode.title
+      // .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    // console.log('unicode', formatTitle, formatTitle.length, formatTitle.charAt(0));
+    // formatTitle = $('<div />').html(formatTitle).text();
+    // formatTitle = $('<div />').html(formatTitle).html().replace(/\u200C/g, '');
+    // formatTitle.split('').forEach(console.log);
+    formatTitle = [...formatTitle].map((item, idx) => {
+      // console.log(formatTitle.charCodeAt(idx))
+      const unicodeZeroSpaces = [8203, 8204, 8205, 8236, 8288, 8289, 8290, 8291, 8292, 65279];
+      if (unicodeZeroSpaces.includes(formatTitle.charCodeAt(idx))) {
+        return '';
+      }
+      return item;
+    }).join('');
+    // console.log('formatTitle', formatTitle);
+    if (formatTitle.length > 60) {
+      formatTitle = formatTitle.substring(0, 60) + '...';
+    }
     var anchor = $('<a>');
     anchor.attr('href', bookmarkNode.url);
     anchor.attr('title', bookmarkNode.title);
-    anchor.on('click', () => {
-      if (bookmarkNode.url?.indexOf('chrome://') === 0) {
-        chrome.tabs.create({url: bookmarkNode.url});
-      }
-    })
-    let formatTitle = bookmarkNode.title;
-    if (bookmarkNode.title.length > 60) {
-      formatTitle = bookmarkNode.title.substring(0, 60) + '...';
-    }
     anchor.text(formatTitle);
     /*
      * When clicking on a bookmark in the extension, a new tab is fired with
      * the bookmark url.
      */
+    // anchor.on('click', () => { });
     anchor.click(function() {
-      // chrome.tabs.create({url: bookmarkNode.url});
+      if (bookmarkNode.url?.indexOf('chrome://') === 0) {
+        chrome.tabs.create({url: bookmarkNode.url});
+      }
     });
     // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
     const iconUrl = bookmarkNode.url ? 

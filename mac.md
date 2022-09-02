@@ -22,9 +22,10 @@
 
 ## 软件
 
-macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
+macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。  
+关闭 sip 方法：关机后、按住右上角电源键(非m1按下`Cmd + R`) 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
 
-- 系统: AppCleaner / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper / https://u.tools
+- 系统: AppCleaner / afloatx (不可用) / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper / https://u.tools
 
 - 开发: MacDown / Marp / charles / Gas-Mask / whistle / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / [XSwitch](https://github.com/yize/xswitch) / porter.io / https://devtool.tech/html-md
 
@@ -58,10 +59,12 @@ cmd + shift + 3/4  # 截图保存成文件，加 control 只是保存在剪贴�
 sips -z height width [file]   # 修改图片的宽和高为指定值
 sips -Z 640 *.jpg   # 批量修改图片的 宽或高 为指定值(最大值变为 640)，保持原来宽高比例
 # http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
+# defaults help  /  man defaults
 defaults read com.apple.screencapture  # 查看系统截图设置
 defaults write com.apple.screencapture type jpg  # 将系统截屏后图片保存为 jpg 格式
 defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图片保存路径
 defaults delete com.apple.screencapture name  # 撤销修改截图名
+defaults write com.apple.helpviewer DevMode -bool TRUE  # 系统的帮助窗口设置为不前置
 
 ## Chrome
 Command + L  # 光标定位到地址栏，输入搜索词 并按 Alt + Enter 键在 新标签页中
@@ -125,8 +128,7 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 
 ## 代理
 
-命令行代理 `brew install proxychains-ng` 修改 /usr/local/etc/proxychains.conf 配置文件“末尾”部分内容
-`#socks4  127.0.0.1 9050` 改为 `socks5  127.0.0.1 1080`。使用 `proxychains4 -q curl https://twitter.com` 测试是否成功，不成功则需要重启 Mac，按下 `Cmd + R` 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
+命令行代理 `brew install proxychains-ng` 修改 /usr/local/etc/proxychains.conf 配置文件“末尾”部分内容 `#socks4  127.0.0.1 9050` 改为 `socks5  127.0.0.1 1080`。使用 `proxychains4 -q curl https://twitter.com` 测试是否成功，不成功则需要关闭 sip。
 
 疑问：有些代理服务器、用 SwitchyOmega 首次加载 需要代理的网页 会失败、然后自动刷新 访问成功，[问题跟踪](https://github.com/FelisCatus/SwitchyOmega/issues/1511#issuecomment-433313269)
 
@@ -182,6 +184,12 @@ npm login --registry=https://registry-cnpm.xx.work
 # 生成 ssh key
 ssh-keygen -t rsa -C "email@example.com"
 # 再把 ~/.ssh/id_rsa.pub 文件内容添加到 github
+
+# 如果报错 Permission denied (publickey,gssapi-with-mic). 使用另一种生成方式
+# https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html
+ssh-keygen -t ed25519 -C hualei.hl@xx.com
+ssh-add ~/.ssh/id_ed25519
+# 再把 ~/.ssh/id_ed25519.pub 文件内容添加到 gitlab
 
 # 内部仓库、设置内部邮箱
 git config user.name "然则"
