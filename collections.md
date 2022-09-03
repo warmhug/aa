@@ -1,4 +1,9 @@
 
+[2021 大前端技术回顾及未来展望](https://mp.weixin.qq.com/s/HfZDrrqDNUVpnU-aegKxcg)
+
+[2021 年 Rust 生态版图调研报告](https://zhuanlan.zhihu.com/p/458046979)
+
+
 [chromestatus](https://www.chromestatus.com/features)、
 [edge-status](https://developer.microsoft.com/en-us/microsoft-edge/status/)、
 [webkit](https://webkit.org/)、[stateofjs](https://stateofjs.com/)、[stateofcss](https://stateofcss.com/)、
