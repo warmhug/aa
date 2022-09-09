@@ -43,9 +43,11 @@ function dumpNode(bookmarkNode, query) {
         chrome.tabs.create({url: bookmarkNode.url});
       }
     });
+    // https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/api/favicon/content.js
+    // console.log('rt', chrome.runtime.getURL('_favicon/?page_url=https://www.google.com&size=64'));
     // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
     const iconUrl = bookmarkNode.url ? 
-      `chrome://favicon/${bookmarkNode.url}` : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
+      chrome.runtime.getURL(`_favicon/?page_url=${bookmarkNode.url}`) : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
     anchor.prepend(`<img src="${iconUrl}" />`);
   }
   // console.log('bookmarkNode.title', bookmarkNode.title, bookmarkNode.children);
@@ -65,7 +67,7 @@ function dumpTreeNodes(bookmarkNodes, query) {
 }
 function dumpBookmarks(query) {
   chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
-    console.log('bookmarkTreeNodes', bookmarkTreeNodes);
+    // console.log('bookmarkTreeNodes', bookmarkTreeNodes);
     let newChilds = [];
     const roots = bookmarkTreeNodes[0].children;
     const isChromeOrEdgeFav = ['书签栏', '收藏夹栏'].includes(roots[0].title);

@@ -1,15 +1,15 @@
 // console.log('bg page', chrome.extension.getBackgroundPage());
 
 // 输入框本地存储
-// var textID = $("#textID");
-// textID.val(localStorage.getItem('textLocal') || '');
-// textID.on('input', function () {
+// var editor = $("#editor");
+// editor.val(localStorage.getItem('textLocal') || '');
+// editor.on('input', function () {
 //   localStorage.setItem('textLocal', $(this).val());
 // });
 $(function () {
   // 压缩地址 https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js
   // api 地址 https://nhn.github.io/tui.editor/latest/  对原 js 有改动
-  const el = document.querySelector('#textID');
+  const el = document.querySelector('#editor');
   const editor = new toastui.Editor({
     el,
     previewStyle: 'tab',
@@ -113,5 +113,35 @@ $(function () {
   $('#jokeMain1').click(function () {
     jokeMain.toggle();
     $(this).toggleClass('small');
-  })
-})
+  });
+
+
+  // https://bytedance.feishu.cn/drive/me/ 页面的部分请求 403 错误，导致在 iframe 里显示不正常。
+  // 因为代码里 window.parent 判断如果是在 iframe 里，会让 request headers 里的 x-csrftoken 设置失败。
+  const url = 'https://bytedance.feishu.cn/drive/me/';
+  chrome.cookies.get({ name: '_csrf_token', url }, cookieStores => {
+    // console.log('cookieStores', cookieStores.value);
+    chrome.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds: [3, 4],
+      addRules: [
+        {
+          "id": 4,
+          "priority": 1,
+          "action": {
+            "type": "modifyHeaders",
+            "requestHeaders": [
+              // { "header": "aatest", "operation": "set", "value": cookieStores.value },
+              { "header": "x-csrftoken", "operation": "set", "value": cookieStores.value }
+            ]
+          },
+          "condition": { "urlFilter": 'space/api', "resourceTypes": ["xmlhttprequest"] }
+        }
+      ]
+    }, (res) => {
+      // console.log('dnres', res);
+      $('#ifr').attr('src', url);
+    })
+  });
+
+});
+

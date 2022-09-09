@@ -44,6 +44,8 @@
 - Top Sites in China - Alexa [https://www.alexa.com/topsites/countries/CN](https://www.alexa.com/topsites/countries/CN)
 - 全球TOP10热门国家特点 [https://www.atatech.org/articles/87311](https://www.atatech.org/articles/87311)
 
+[如何提炼产品亮点，卖点及竞争点?](https://www.zhihu.com/question/36529737)
+
 运营分类：用户运营、产品运营、商家商品运营和内容运营。
 
 运营工具：Excel数据处理能力、SQL能力、P图基础技能、调研技巧。

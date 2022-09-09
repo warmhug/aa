@@ -1,22 +1,44 @@
 {
   "name": "Blank new tab page",
   "description": "Override the new tab page with a blank one",
-  "version": "0.2",
-  "manifest_version": 2,
-  "permissions": [
-    "webRequest",
-		"webRequestBlocking",
-		"<all_urls>",
-		"tabs",
-		"topSites",
-    "history",
-    "webNavigation",
-    "bookmarks"
-  ],
+  "version": "1.0",
+  "manifest_version": 3,
   "incognito": "split",
   "chrome_url_overrides": {
     "newtab": "blank.html"
   },
-  "browser_action": {},
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://code.jquery.com https://gw.alipayobjects.com; object-src 'self'"
+  "action": {},
+  "permissions": [
+    "bookmarks",
+    "cookies",
+    "favicon",
+    "history",
+    "tabs",
+    "topSites",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "webNavigation",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://bytedance.feishu.cn/"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "ruleset_1",
+      "enabled": true,
+      "path": "rules.json"
+    }]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://bytedance.feishu.cn/drive/*"],
+      "js": ["inject.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
 }

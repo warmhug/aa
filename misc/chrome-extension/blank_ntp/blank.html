@@ -5,46 +5,42 @@
   <link rel="stylesheet" href="lib/bootstrap.css">
   <link rel="stylesheet" href="lib/jquery-ui.min.css">
   <link rel="stylesheet" href="lib/toastui-editor.min.css">
-  <link rel="stylesheet/less" type="text/css" href="main.less" />
+  <link rel="stylesheet" href="main.css">
+  <!-- <link rel="stylesheet/less" type="text/css" href="main.less" /> -->
   <!-- Less - Leaner CSS v2.7.1 必须要先引入 less 文件 -->
-  <script src="https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js"></script>
+  <!-- <script src="https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js"></script> -->
 </head>
 <body>
   <img class="pageBgImg" src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
   <div id="bookmarks">
     <div id="bmright">
       <a id="bkManager" href="chrome://bookmarks">书签</a>
-      <a id="setting" href="chrome://settings/appearance" >设置</a>
+      <a id="setting" href="chrome://settings/appearance">设置</a>
     </div>
   </div>
-  <div style="text-align: center;">
-    <a href="http://localhost/__/misc/chrome-extension/img.html">img 处理</a> 
-    <a
-      id="ip" 
-      data-container="body" 
-      data-toggle="popover" 
-      data-placement="bottom"
-      data-trigger="hover"
-      data-html="true"
-    ></a>
-    <div id="qrcode" style="display: none;"></div>
-  </div>
   <div class="main">
-    <div class="s2">
-      <div class="s2-main">
-        <div class="joke clearfix">
-          <div class="joke-main" id="jokeMain">jokeMain</div>
-          <span class="btn btn-link" id="changeJoke">换一个</span>
-          <span class="btn btn-link" id="butDirectory">load</span>
-          <div class="small" id="jokeMain1">
-            <img src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
-          </div>
+    <div class="core">
+      <!-- <textarea id="editor" class="editor"></textarea> -->
+      <div id="editor" class="editor"></div>
+      <div class="contentWrap clearfix">
+        <a id="butDirectory">load</a>
+        <a id="changeJoke">换一个</a>
+        <div id="jokeMain">jokeMain</div>
+        <div id="jokeMain1" class="small">
+          <img src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
         </div>
-        <div class="other">
-          <!-- <textarea id="textID" class="textID"></textarea> -->
-          <div id="textID" class="textID"></div>
-        </div>
+        <a href="http://localhost/__/misc/chrome-extension/img.html">img 处理</a> 
+        <a id="ip" data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"></a>
+        <div id="qrcode" style="display: none;"></div>
       </div>
+    </div>
+    <div class="frame">
+      <iframe
+        class="ifr"
+        id="ifr"
+        sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
+      >
+      </iframe>
     </div>
   </div>
   <script src="lib/jquery.min.js"></script>
@@ -53,10 +49,10 @@
   <script src="lib/idb-keyval@5.0.2.js"></script>
   <script src="lib/toastui-editor-all.js"></script>
   <!-- <script src="lib/toastui-editor-all.min.js"></script> -->
-  <!-- qrcode.js @author davidshimjs -->
-  <script src="https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js"></script>
+  <script src="lib/qrcode.js"></script>
   <script src="ip.js"></script>
   <script src="main.js"></script>
   <script src="bookmarks.js"></script>
+  <!-- <script src="study.js"></script> -->
  </body>
 </html>
