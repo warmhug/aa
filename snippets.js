@@ -23,7 +23,30 @@ TC39 数据流编程 Pipe/Flow Pipeline Operator
 const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)));
 */
 
+/*
+笔试初级
+- 图文卡片，图片上 hover 显示半透明灰色背景、一个 button 在水平垂直居中位置。
+- lodash 防抖和节流的 区别和应用场景？ 千位分隔符问题的实现方案？正则
+- 检测 浏览器 滚动条停止滚动？ 实现一个弹窗组件？ 设计一个好用强大的图片上传组件？ 面向对象的思维来设计俄罗斯方块？虚拟滚动？
+- js decorators 的 polyfill 实现 https://www.sitepoint.com/javascript-decorators-what-they-are/
+*/
+
 // 笔试套路：写出所有可能解法，也写出最经典解法。
+// 聊聊微软面试 https://mp.weixin.qq.com/s/-NESGyGBbF3WakPFieAT0w
+
+// https://github.com/hzfe/awesome-interview
+// https://github.com/yifeikong/reverse-interview-zh
+// https://github.com/lydiahallie/javascript-questions
+// https://h5bp.org/Front-end-Developer-Interview-Questions/translations/chinese/
+// https://github.com/MaximAbramchuck/awesome-interview-questions
+// 2020 https://github.com/CavsZhouyou/Front-End-Interview-Notebook
+// 2019
+// https://mp.weixin.qq.com/s/e-IC588SZPJK2QRBm3KuHA
+// https://segmentfault.com/a/1190000019496107
+// 2018
+// https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2651011223&idx=2&sn=54acfe1d565f650c52fcea5481ad1195
+// https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers
+// 2017 https://github.com/jawil/blog/issues/22
 
 
 // react关键点

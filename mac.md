@@ -38,6 +38,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - https://www.keka.io 压缩解压 7z zip 等。mac 选中文件右键 -> 压缩生成zip 或者 服务“使用keka压缩”。
 - [zip、rar、7z文件密码破解](https://github.com/jaredsburrows/rarcrack)、[7zcrack](https://github.com/tp7309/tt7zcrack)
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
+- 欧路: 修改 /Users/hua/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改)：100000000000 重启
 
 - 手机软件: 今日热榜, 白描, Stream, 无忧电话录音, DVR Link, Splashtop, andromouse. 游戏：big hunter, brain dots。
   - 查看 app URL scheme: 下载 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。 [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
