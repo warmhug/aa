@@ -47,7 +47,7 @@ function dumpNode(bookmarkNode, query) {
     // console.log('rt', chrome.runtime.getURL('_favicon/?page_url=https://www.google.com&size=64'));
     // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
     const iconUrl = bookmarkNode.url ? 
-      chrome.runtime.getURL(`_favicon/?page_url=${bookmarkNode.url}`) : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
+      chrome.runtime.getURL(`_favicon/?pageUrl=${bookmarkNode.url}`) : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
     anchor.prepend(`<img src="${iconUrl}" />`);
   }
   // console.log('bookmarkNode.title', bookmarkNode.title, bookmarkNode.children);
@@ -103,3 +103,5 @@ $(function () {
     chrome.tabs.create({url: e.target.href});
   });
 });
+
+

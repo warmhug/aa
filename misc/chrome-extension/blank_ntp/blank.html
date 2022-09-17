@@ -1,7 +1,8 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Blank New Tab</title>
+  <title>我的Tab</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
   <link rel="stylesheet" href="lib/bootstrap.css">
   <link rel="stylesheet" href="lib/jquery-ui.min.css">
   <link rel="stylesheet" href="lib/toastui-editor.min.css">
@@ -20,13 +21,16 @@
   </div>
   <div class="main">
     <div class="core">
-      <!-- <textarea id="editor" class="editor"></textarea> -->
-      <div id="editor" class="editor"></div>
-      <div class="contentWrap clearfix">
-        <a id="butDirectory">load</a>
-        <a id="changeJoke">换一个</a>
-        <div id="jokeMain">jokeMain</div>
-        <div id="jokeMain1" class="small">
+      <div class="editor">
+        <ul class="nav nav-tabs" id="eTabs" role="tablist"></ul>
+        <div class="tab-content" id="eTabContent"></div>
+        <div id="tuiEditor"></div>
+      </div>
+      <div class="notes clearfix">
+        <a id="notesLoad">load</a>
+        <a id="changeNote">换一个</a>
+        <div id="notesContent">notesContent</div>
+        <div id="notesImg" class="small">
           <img src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
         </div>
         <a href="http://localhost/__/misc/chrome-extension/img.html">img 处理</a> 
@@ -34,25 +38,27 @@
         <div id="qrcode" style="display: none;"></div>
       </div>
     </div>
-    <div class="frame">
-      <iframe
-        class="ifr"
-        id="ifr"
-        sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
-      >
-      </iframe>
-    </div>
+    <iframe
+      class="ifr"
+      id="ifr"
+      sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
+    >
+    </iframe>
   </div>
+
   <script src="lib/jquery.min.js"></script>
   <script src="lib/jquery-ui.min.js"></script>
   <script src="lib/bootstrap.js"></script>
   <script src="lib/idb-keyval@5.0.2.js"></script>
   <script src="lib/toastui-editor-all.js"></script>
-  <!-- <script src="lib/toastui-editor-all.min.js"></script> -->
   <script src="lib/qrcode.js"></script>
-  <script src="ip.js"></script>
+  <!-- <script src="lib/toastui-editor-all.min.js"></script> -->
+
+  <script src="js/ip.js"></script>
+  <script src="js/bookmarks.js"></script>
+  <script src="js/notes.js"></script>
+  <script src="js/editor.js"></script>
   <script src="main.js"></script>
-  <script src="bookmarks.js"></script>
   <!-- <script src="study.js"></script> -->
  </body>
 </html>

@@ -8,16 +8,19 @@
     "webRequestBlocking",
     "https://img.alicdn.com/tps/*"
   ],
+  "browser_action": {},
   "background": {
     "scripts": ["bg.js"],
     "persistent": true
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*", "https://www.alipay.com/*"],
-      "js": ["util.js", "inject.js"],
+      "matches": ["*://*/*", "https://www.alipay.com/*", "<all_urls>"],
+      "js": ["inj.js"],
       "css": ["inject.css"],
       "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true,
       "run_at": "document_end"
     }
   ]

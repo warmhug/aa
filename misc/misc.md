@@ -21,6 +21,10 @@
 
 2019-10-14 德勤中国 唤醒教育 转机中把握先机
 
+[我要做一个什么样的程序员](http://blog.csdn.net/skyflying2012/article/details/41790899)  
+[算法工程师](https://www.zhihu.com/question/23869208)：算法牛逼了就能进化到科学家，别的牛逼了只能是工程师。  
+2019-05
+
 
 - 通信
   - 聊聊中国的通信行业：从“七国八制”到“中华”脊梁 [https://segmentfault.com/a/1190000019289008](https://segmentfault.com/a/1190000019289008)

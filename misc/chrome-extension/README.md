@@ -7,7 +7,8 @@
 
 调试方法
 
-1. manifest -> background -> scripts 调试位置：打开 `chrome://extensions/` 相应的插件名、点“背景页”。
+0. 打开 `chrome://extensions/` 相应的插件名、点“刷新”按钮，点击 `chrome://newtab` 页面的 后退 按钮。
+1. manifest -> background -> scripts 打开 `chrome://extensions/` 相应的插件名、点“背景页”。
 2. manifest -> content_scripts 设置的 js 位置：“控制台 -> Sources -> Content scripts”
 
 ## 其他
@@ -16,6 +17,14 @@
 
 - in background pages (v3 变为 service works): onMessage
 - in content script: sendMessage
+
+### 2022-09-17
+
+override [newtab](https://developer.chrome.com/docs/extensions/mv3/override/) 后的页面是 chrome-extension://pbcjojjclbiihmponegploiehianebdk/blank.html
+不能在此页面运行 `chrome.scripting.executeScript` why?
+
+chrome.webRequest 和 chrome.webNavigation 都不能获取到 HTTP [Response Body](https://stackoverflow.com/questions/18534771/chrome-extension-how-to-get-http-response-body)
+
 
 ### 2022-09-08
 

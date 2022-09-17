@@ -1,18 +1,3 @@
-
-
-getLocalIPs(function (ips) { // <!-- ips is an array of local IP addresses.
-  localIP = 'http://' + ips[0] + '';
-  $('#ip').html(localIP).attr('href', localIP);
-  new QRCode(document.getElementById("qrcode"), {
-    text: localIP,
-    width: 200,
-    height: 200,
-    colorDark: "#000000",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
-  });
-});
-
 // get local ip https://github.com/dlo83/local-ip-chrome-extension
 function getLocalIPs(callback) {
   var ips = [];
@@ -43,3 +28,26 @@ function getLocalIPs(callback) {
     pc.setLocalDescription(sdp);
   }, function onerror() { });
 }
+
+
+$(function () {
+
+  $('[data-toggle="popover"]').popover({
+    content: function () {
+      return $('#qrcode').html();
+    }
+  });
+  getLocalIPs(function (ips) { // local IP addresses.
+    localIP = 'http://' + ips[0] + '';
+    $('#ip').html(localIP).attr('href', localIP);
+    new QRCode(document.getElementById("qrcode"), {
+      text: localIP,
+      width: 200,
+      height: 200,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  });
+
+});

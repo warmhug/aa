@@ -15,43 +15,51 @@ body {
   position: relative;
   display: flex;
   height: 96%;
+  margin: 10px;
 }
 .main .core {
-  flex: 1;
-  margin: 10px;
-  max-width: 640px;
+  flex: 2;
+  margin-right: 10px;
+  /* max-width: 680px; */
 }
 .main .core .editor {
-  height: 450px;
+  overflow: hidden;
   background-color: #fff;
 }
-.main .core .contentWrap {
+.main .core .editor .nav {
+  margin: 5px;
+}
+.main .core .editor .tab-content iframe {
+  width: 100%;
+  height: calc(100% - 52px);
+}
+.main .core .notes {
   position: relative;
   background-color: rgba(255,255,255,0.1);
   color: #ddd;
   font-size: 14px;
   padding: 0 10px;
 }
-.main .core .contentWrap a {
+.main .core .notes a {
   color: #fff;
   cursor: pointer;
   display: inline-block;
   margin: 10px 10px 10px 0;
 }
-.main .core .contentWrap img {
+.main .core .notes img {
   max-width: 100%;
 }
-.main .core .contentWrap #jokeMain {
+.main .core .notes #notesText {
   margin-bottom: 10px;
 }
-.main .core .contentWrap .small {
+.main .core .notes .small {
   height: 190px;
   overflow: hidden;
 }
-.main .frame .ifr {
-  width: 750px;
+.main .ifr {
+  flex: 1;
+  /* width: 750px; */
   height: 100%;
-  margin: 10px 0;
   background-color: white;
 }
 

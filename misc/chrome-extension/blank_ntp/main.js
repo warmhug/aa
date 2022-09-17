@@ -1,147 +1,56 @@
-// console.log('bg page', chrome.extension.getBackgroundPage());
+console.log('new tab page', chrome);
 
-// 输入框本地存储
-// var editor = $("#editor");
-// editor.val(localStorage.getItem('textLocal') || '');
-// editor.on('input', function () {
-//   localStorage.setItem('textLocal', $(this).val());
-// });
-$(function () {
-  // 压缩地址 https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js
-  // api 地址 https://nhn.github.io/tui.editor/latest/  对原 js 有改动
-  const el = document.querySelector('#editor');
-  const editor = new toastui.Editor({
-    el,
-    previewStyle: 'tab',
-    height: '500px',
-    initialEditType: 'wysiwyg',
-    extendedAutolinks: true,
-    linkAttributes: {
-      target: '_blank',
-    },
-    // toolbarItems: [['a']],
-    initialValue: localStorage.getItem('textLocal') || '',
-    events: {
-      change: (aa) => {
-        // console.log('aaa', aa, editor.getMarkdown());
-        localStorage.setItem('textLocal', editor.getMarkdown());
-      }
-    }
-  });
-  // 点击打开链接
-  const handle = (evt, flag) => {
-    // 把 .toastui-editor-contents 元素的 contenteditable 设为 false ，内部的 链接 就能自动跳转
-    // console.log('tar', evt.target.tagName, editor.isWysiwygMode());
-    if (evt?.target?.tagName === 'A' && evt?.target?.href && editor.isWysiwygMode()) {
-      // 因为 evt?.target?.href 里的 & 号被转义、导致跳转不对，所以用 innerText
-      window.open(evt?.target?.innerText);
-    }
+const drivePrefix = 'https://bytedance.feishu.cn/drive/';
+const docxPrefix = 'https://bytedance.feishu.cn/docx/';
+
+(async () => {
+  // programmatically injected content_scripts
+  const rcs = await chrome.scripting.getRegisteredContentScripts();
+  // console.log('rcs', rcs);
+  const id = '1';
+  if (!rcs.find(item => item.id === id)) {
+    await chrome.scripting.registerContentScripts([{
+      id,
+      js: ['lib/cls.js', 'inject.js'],
+      matches: [`${drivePrefix}*`, `${docxPrefix}*`],
+      // matches: ["https://www.baidu.com/", "<all_urls>"],
+      allFrames: true,
+      runAt: 'document_idle',
+    }]);
+    // console.log('register success');
   }
-  el.addEventListener('click', (evt) => handle(evt, true));
-});
-
-function randomItem(arr) {
-  var original = arr;
-  var remainder;
-  return function () {
-    // console.log(remainder && remainder.length)
-    if (!(remainder && remainder.length)) {
-      remainder = original.slice();
-    }
-    var res = remainder.splice(Math.random() * remainder.length | 0, 1)[0];
-    // console.log(res)
-    return typeof res === 'string' ? res.trim().replace(/(\r\n|\n|\r)/gm, '<br />') : res;
-  };
-}
-
-$(function () {
-  $('[data-toggle="popover"]').popover({
-    content: function () {
-      return $('#qrcode').html();
-    }
-  });
-
-  const dbKey = 'ce_fileContent';
-  let ctFromDb;
-  const getContents = async () => {
-    try {
-      // https://web.dev/file-system-access/  get set 方法来自 idb-keyval@5.0.2 操作 IndexedDB
-      const fileHandleOrUndefined = await get(dbKey);
-      if (fileHandleOrUndefined) {
-        return fileHandleOrUndefined;
-      }
-    } catch (error) { alert(error.name, error.message); }
-  }
-  const butDir = document.getElementById('butDirectory');
-  butDir.addEventListener('click', async () => {
-    if (ctFromDb && window.confirm('使用 IndexedDB 里的内容？')) {
-      return;
-    }
-    const filesHandle = await window.showOpenFilePicker({
-      types: [{ description: 'Text Files', accept: { 'text/plain': ['.txt'] } }],
-      multiple: true
-    });
-    const fileContents = await Promise.all(filesHandle.map(async (fileHandle) => {
-      const file = await fileHandle.getFile();
-      const contents = await file.text();
-      // console.log('ccc', contents);
-      return contents;
-    }));
-    try {
-      await set(dbKey, fileContents.join());
-      alert('选择的内容写入 IndexedDB 成功');
-      // location.reload();
-    } catch (error) { alert(error.name, error.message); }
-  });
-
-  var jr;
-  var jokeMain = $('#jokeMain');
-
-  getContents().then(res => {
-    if (!res) {
-      return;
-    }
-    ctFromDb = res;
-    jr = randomItem(res.split('\n\n'));
-    jokeMain.html(jr());
-  });
-
-  $('#changeJoke').click(function () {
-    jokeMain.html(jr());
-  });
-  jokeMain.hide();
-  $('#jokeMain1').click(function () {
-    jokeMain.toggle();
-    $(this).toggleClass('small');
-  });
-
 
   // https://bytedance.feishu.cn/drive/me/ 页面的部分请求 403 错误，导致在 iframe 里显示不正常。
   // 因为代码里 window.parent 判断如果是在 iframe 里，会让 request headers 里的 x-csrftoken 设置失败。
-  const url = 'https://bytedance.feishu.cn/drive/me/';
-  chrome.cookies.get({ name: '_csrf_token', url }, cookieStores => {
-    // console.log('cookieStores', cookieStores.value);
-    chrome.declarativeNetRequest.updateDynamicRules({
-      removeRuleIds: [3, 4],
-      addRules: [
-        {
-          "id": 4,
-          "priority": 1,
-          "action": {
-            "type": "modifyHeaders",
-            "requestHeaders": [
-              // { "header": "aatest", "operation": "set", "value": cookieStores.value },
-              { "header": "x-csrftoken", "operation": "set", "value": cookieStores.value }
-            ]
-          },
-          "condition": { "urlFilter": 'space/api', "resourceTypes": ["xmlhttprequest"] }
-        }
-      ]
-    }, (res) => {
-      // console.log('dnres', res);
-      $('#ifr').attr('src', url);
-    })
+  const url = `${drivePrefix}me`;
+  const cookieStores = await chrome.cookies.get({ name: '_csrf_token', url });
+  // console.log('cookieStores', cookieStores.value);
+  const res = await chrome.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: [3, 4],
+    addRules: [
+      {
+        "id": 4,
+        "priority": 1,
+        "action": {
+          "type": "modifyHeaders",
+          "requestHeaders": [
+            // { "header": "aatest", "operation": "set", "value": cookieStores.value },
+            { "header": "x-csrftoken", "operation": "set", "value": cookieStores.value }
+          ]
+        },
+        "condition": { "urlFilter": 'space/api', "resourceTypes": ["xmlhttprequest"] }
+      }
+    ]
   });
+  // console.log('dnres', res);
+  $('#ifr').attr('src', url);
 
-});
+  editorFn(JSON.stringify([
+    ['', ''],
+    [docxPrefix + 'doxcn2EDJtEmqNmb6uVnJ5MTUbc', ''],
+    [docxPrefix + 'doxcnL8nSmUoRzFpuQc9Dwm5Wqe', ''],
+    [docxPrefix + 'doxcnSCX57RMgHoglsT8S3bM4xe', ''],
+  ]));
+
+})();
 

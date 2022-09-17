@@ -25,13 +25,13 @@
 macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。  
 关闭 sip 方法：关机后、按住右上角电源键(非m1按下`Cmd + R`) 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
 
-- 系统: AppCleaner / afloatx (不可用) / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / imazing / Fenêtre Lite / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper / https://u.tools
+- 系统: AppCleaner / afloatx (不可用) / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper / https://u.tools
 
 - 开发: MacDown / Marp / charles / Gas-Mask / whistle / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / [XSwitch](https://github.com/yize/xswitch) / porter.io / https://devtool.tech/html-md
 
 - 图像: snipaste / lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
 
-- 其他: webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web)
+- 其他: vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / [web 历史](https://archive.org/web)
 - Chrome: 一键切换(Jomic) 搜索拐杖 / 沙拉查词 / Tamper / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
 - zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
 - rar[工具](https://www.rarlab.com/download.htm): `rar a test.rar test/` 压缩 test 目录内容生成 test.rar 文件。
@@ -149,8 +149,8 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 
 - 配置文件路径: `~/Library/Application\ Support/Code/User`
 - 安装 code 命令：`cmd + shift + p` Shell Command: Install 'code' command in PATH
-- 配置项: Preferences > Settings > settings.json
 - 在查找(替换)框里按 ctrl + enter 支持多行
+- 设置 [tab group](https://github.com/microsoft/vscode/issues/100335#issuecomment-964358943) 
 
 ```js
 // 快捷键
@@ -176,12 +176,7 @@ Task Explorer / sftp / Web Template Studio
 
 [Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
 
-npm & git 工作环境设置
-
 ```sh
-# 命令行登录 registry
-npm login --registry=https://registry-cnpm.xx.work
-
 # 生成 ssh key
 ssh-keygen -t rsa -C "email@example.com"
 # 再把 ~/.ssh/id_rsa.pub 文件内容添加到 github
@@ -204,17 +199,17 @@ git config user.email "hualei.hl@xx-inc.com"
 git config --l
 git config --global alias.st status
 
-# yarn 源设置
-yarn/npm config get registry # 查看源
+# 以下对 pnpm yarn 同样生效
 # node-sass 需要单独设置国内源
 npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass
-yarn install --registry https://registry.npm.taobao.org/  #指定源
-```
-
-
-```sh
-# node & npm
+npm config get registry # 查看源
+npm config list
+npm login --registry=https://registry-cnpm.xx.work  # 命令行登录 registry
 npm install tnpm -g --registry="http://registry.npm.xx.com" # 使用 cnpm 加速
+yarn install --registry https://registry.npm.taobao.org/  #指定源
+yarn config set registry <url-to-your-registry>
+npm view lerna
+npx lerna list  # 免全局安装
 
 node hello.js &  # 后台运行程序
 ps -ef | grep node  # 找到进程对应的ID

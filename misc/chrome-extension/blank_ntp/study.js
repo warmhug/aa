@@ -33,15 +33,17 @@ chrome.webRequest.onHeadersReceived.addListener(function(details) {
 },
 { urls: ['*://*/*'], types: ['sub_frame'] }, ['responseHeaders']);
 
+chrome.webRequest.onCompleted.addListener(details => {
+  console.log('ttt', details);
+}, {urls: ["<all_urls>"]})
+
 chrome.webNavigation.onDOMContentLoaded.addListener(function (details) {
   // 去广告
   console.log('onDOMContentLoaded', details)
 }, { url: [{ hostContains: 'google.com' }] });
 
-
-// Fired when an action icon is clicked
-chrome.action.onClicked.addListener(function (tab) {
-  alert(tab.url)
+chrome.webNavigation.onCompleted.addListener(details => {
+  // console.log('ttt', details);
 });
 
 chrome.tabs.captureVisibleTab(function (params) {
