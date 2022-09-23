@@ -20,8 +20,12 @@
 
 ### 2022-09-17
 
+梳理清楚各个 js 执行的先后顺序。注意 chrome.webRequest 和 chrome.webNavigation 生命周期顺序。
+
+`chrome://newtab` 页面 以 iframe 方式嵌入 feishu.cn 页面、并且 注入 content_script 如果在 content_script 里访问 `chrome://newtab` 页面的 `window.xx` (即 `top.xxx`) 则会报错: Uncaught SecurityError: Blocked a frame with origin "https://bytedance.feishu.cn" from accessing a frame with origin "chrome-extension://pbcjojjclbiihmponegploiehianebdk". The frame requesting access has a protocol of "https". 同样 `chrome://newtab` 页面、因为跨域 也不能访问 iframe 里的 feishu.cn 页面 window 对象。
+
 override [newtab](https://developer.chrome.com/docs/extensions/mv3/override/) 后的页面是 chrome-extension://pbcjojjclbiihmponegploiehianebdk/blank.html
-不能在此页面运行 `chrome.scripting.executeScript` why?
+不能在此页面运行 `chrome.scripting.executeScript` why? https://bugs.chromium.org/p/chromium/issues/detail?id=1191971
 
 chrome.webRequest 和 chrome.webNavigation 都不能获取到 HTTP [Response Body](https://stackoverflow.com/questions/18534771/chrome-extension-how-to-get-http-response-body)
 

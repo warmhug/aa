@@ -18,9 +18,9 @@ body {
   margin: 10px;
 }
 .main .core {
-  flex: 2;
+  flex: 1;
+  width: 1px;
   margin-right: 10px;
-  /* max-width: 680px; */
 }
 .main .core .editor {
   overflow: hidden;
@@ -29,9 +29,22 @@ body {
 .main .core .editor .nav {
   margin: 5px;
 }
-.main .core .editor .tab-content iframe {
+.main .core .editor .tab-pane iframe {
   width: 100%;
   height: calc(100% - 52px);
+}
+.main .core .editor .tab-pane.active.multi-iframe {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  padding-bottom: 30px;
+}
+.main .core .editor .tab-pane.active.multi-iframe iframe {
+  flex-shrink: 0;
+  width: 630px;
+  height: 500px;
+  margin: 8px;
+  border: 1px solid gray;
 }
 .main .core .notes {
   position: relative;
@@ -57,8 +70,9 @@ body {
   overflow: hidden;
 }
 .main .ifr {
-  flex: 1;
-  /* width: 750px; */
+  flex: none;
+  border: none;
+  width: 490px;
   height: 100%;
   background-color: white;
 }

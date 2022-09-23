@@ -5,53 +5,60 @@ console.log('inject page', chrome);
 // https://stackoverflow.com/questions/9515704
 // https://stackoverflow.com/questions/12395722
 // window.parent = window;
-// // debugger
-// console.log('after window.parent', window.parent, window.parent === window);
+// window.top = window;
+// https://developer.mozilla.org/en-US/docs/Web/API/Window
+// window 对象的 parent top 属性都是 只读 的。
 
-var actualCode = '// Some code example \n' + 
-                 'window.xxx = "xxx"';
-document.documentElement.setAttribute('onreset', actualCode);
-document.documentElement.dispatchEvent(new CustomEvent('reset'));
-document.documentElement.removeAttribute('onreset');
+console.log('urlsMap', urlsMap);
 
+if (location.href.indexOf(urlsMap.icloud) === 0) {
+  console.log('window?.filterMainJs', window?.filterMainJs, window.top === window);
+}
 
 if (window !== top) {
-  // console.log(document.documentElement.outerHTML);
-  console.log('pathname', location.pathname);
-  if (location.pathname.indexOf('/drive/') === 0) {
-    dealDriveMe();
-  } else if (location.pathname.indexOf('/docx/') === 0) {
+
+  if (location.href.indexOf(urlsMap.drive) === 0) {
+    // 给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面
     cls(() => {
+      [...document.getElementsByTagName('a')].forEach(item => {
+        item.target = '_parent';
+        item.addEventListener('click', evt => {
+          // evt.preventDefault();
+          evt.stopPropagation();
+          evt.stopImmediatePropagation();
+        });
+      });
+    });
+  }
+
+  if (location.href.indexOf(urlsMap.docx) === 0) {
+    cls(() => {
+      // extensions cannot send messages to content scripts using this method.
       chrome.runtime.sendMessage({
-        title: document.querySelector('.note-title__input').innerHTML || document.title,
-        href: location.href,
+        title: document.querySelector('.note-title__input')?.innerHTML || document.title,
       }, (response) => {});
     });
   }
-}
 
-// 给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面
-function dealDriveMe() {
-  const changeATartet = () => {
-    [...document.getElementsByTagName('a')].forEach(item => {
-      // console.log('exec in iframe', item);
-      item.target = '_parent';
-      item.addEventListener('click', evt => {
-        // alert(22);
-        // evt.preventDefault();
-        evt.stopPropagation();
-        evt.stopImmediatePropagation();
+  if (location.href.indexOf(urlsMap.bd) === 0) {
+    // 修改 百度框计算 结果样式
+    const showSpecialEle = (ele) => {
+      if (!ele) return;
+      // console.log('ccc', ele, document.body.children);
+      ele.parentNode.removeChild(ele);
+      document.body.appendChild(ele);
+      [...document.body.children].forEach(item => {
+        if (item !== ele) {
+          item.style.display = 'none';
+        } else {
+          ele.style.margin = '10px 0 0 30px';
+        }
       });
+    }
+    cls(() => {
+      showSpecialEle(document.querySelector('[srcid="51044"]'));
+      showSpecialEle(document.querySelector('[srcid="5601"]'));
     });
-  };
+  }
 
-  // onload 事件之后、页面还没渲染出正确元素
-  // window.addEventListener('load', () => {
-  //   console.log('onload', document.getElementsByTagName('a'));
-  //   changeATartet();
-  // });
-  // 使用 Performance cls 方法代替 onload 监测 dom 稳定时机
-  cls(() => {
-    changeATartet();
-  });
 }

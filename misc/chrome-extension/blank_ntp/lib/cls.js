@@ -1,3 +1,8 @@
+// 使用 Performance cls 方法代替 onload 监测 dom 稳定的时机
+// 因为 onload 事件之后，异步 js 延迟渲染的元素 还没出现。
+// window.addEventListener('load', () => {
+//   console.log('onload', document.getElementsByTagName('a'));
+// });
 function cls(cb = () => {}) {
   // 使用 cls 指标的事件 from https://web.dev/i18n/en/cls/
   let clsValue = 0;
@@ -35,5 +40,5 @@ function cls(cb = () => {}) {
       }
     }
   }).observe({type: 'layout-shift', buffered: true});
-  
+
 }

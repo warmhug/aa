@@ -22,7 +22,7 @@
 
 ## 软件
 
-macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。  
+macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
 关闭 sip 方法：关机后、按住右上角电源键(非m1按下`Cmd + R`) 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
 
 - 系统: AppCleaner / afloatx (不可用) / iZip Unarchiver / Paste / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper / https://u.tools
@@ -118,7 +118,7 @@ gem install jekyll bundler  # 安装在 /opt/homebrew/lib/ruby/gems 目录
 gem install --user-install bundler jekyll  # 安装在 ~/.gem 目录
 
 # jekyll 是在 /opt/homebrew/opt/ruby/bin/ 不是在 /usr/local/bin 里
-# jekyll 是在 /opt/homebrew/lib/ruby/gems/3.1.0/gems/jekyll-4.2.2 
+# jekyll 是在 /opt/homebrew/lib/ruby/gems/3.1.0/gems/jekyll-4.2.2
 jekyll serve   # 启动报错 缺少 webrick
 bundle add webrick   # 报错 Could not locate Gemfile
 bundle init  # 生成 Gemfile 之后再运行 bundle add webrick 随后 jekyll serve 成功
@@ -150,7 +150,7 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 - 配置文件路径: `~/Library/Application\ Support/Code/User`
 - 安装 code 命令：`cmd + shift + p` Shell Command: Install 'code' command in PATH
 - 在查找(替换)框里按 ctrl + enter 支持多行
-- 设置 [tab group](https://github.com/microsoft/vscode/issues/100335#issuecomment-964358943) 
+- 设置 [tab group](https://github.com/microsoft/vscode/issues/100335#issuecomment-964358943)
 
 ```js
 // 快捷键
@@ -166,8 +166,7 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 Terminal / Live Server / markdownlint / filesize / EditorConfig / GitLens / Settings Sync /
 Indent 4-to-2 / beautify react-beautify Auto Close(Rename) Tag / SVG Viewer /
 pangu / Hungry Delete / javascript console utils
-[https://github.com/viatsko/awesome-vscode](https://github.com/viatsko/awesome-vscode) /
-Task Explorer / sftp / Web Template Studio
+https://github.com/viatsko/awesome-vscode / Task Explorer / Web Template Studio
 
 
 ---------
@@ -252,7 +251,7 @@ git checkout .
 git clean -xdf # 删除所有 .gitignore 里指定的文件或目录，包括新建文件、node_modules 等
 
 ## index 内的回滚 (add后 commit之前，暂存区)
-git reset [file | 057d]    # 回退文件、或回退到某个版本  
+git reset [file | 057d]    # 回退文件、或回退到某个版本
 git reset HEAD^    # 回退所有内容到上一个版本
 git reset HEAD^ a.py    # 回退 a.py 这个文件的版本到上一个版本
 
@@ -338,17 +337,10 @@ issue
 
 ## Apache
 
-[Get Apache, MySQL, PHP and phpMyAdmin working on OSX](https://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-10-yosemite/) 、
-[apache_virtualhosts](http://lowagie.com/apache_virtualhosts)
-
-[设置 CORS 跨域访问](https://stackoverflow.com/questions/40178363/request-header-field-x-requested-with-is-not-allowed-by-access-control-allow-hea)
-
 ```sh
 httpd -v  # find the Apache version
 sudo apachectl restart / start / stop   # 开关重启
 code /etc/apache2/httpd.conf  # 编辑 Apche 的配置文件
-
-找到 "#LoadModule php5_module libexec/apache2/libphp5.so"  去掉前边的`#`号，打开php
 
 改变 localhost 目录指向：
 
@@ -385,39 +377,36 @@ Listen 9999
 </VirtualHost>
 ```
 
-> 如果出现 403 You dont have permission to access 错误，修改目录权限 everyone 为“只读”，再重启 Apache
+> 出现 403 You dont have permission to access 错误，
+> 修改 路径下 各级目录 权限 everyone 为 “只读”，再重启 Apache
 
 访问：<http://localhost> / <http://localhost:9999/>
 
-有些 API 比如 html5 getUserMedia / geolocation 必须要在 https 环境下生效，参考配置如下(ssl 证书另外自行生成)：
-
-- <http://www.jianshu.com/p/bd016015efe7>
-- <http://www.cnblogs.com/y500/p/3596473.html>
-
-结合以下 nginx https 设置、来全面支持。
+有些 https 环境下生效，ssl 证书自行生成。结合 nginx https 设置、来全面支持。
 
 ---------
 
 ## nginx
 
 ```sh
-brew install nginx  
+brew install nginx  # 安装过程比如缺少 pcre2 ca-certificates 单独 brew install xx 安装
 sudo nginx  # 启动
 sudo nginx -s stop  # 关闭
 sudo nginx -s stop && sudo nginx  # 重启
 
-code /usr/local/etc/nginx/nginx.conf  # 打开配置文件
+code /usr/local/etc/nginx/nginx.conf  # intel 打开配置文件
+code /opt/homebrew/etc/nginx/nginx.conf # m1
 
 # 更改 http / HTTPS → server 区块里的配置为：
 location / {
     #root   html;
-    root    /Users/hua/inner;
     autoindex on;
+    root    /Users/hua/inner;
     index  index.html index.htm;
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, PUT, DELETE';
+    add_header 'Access-Control-Allow-Headers' 'Content-Type';
 }
-
-https 设置: https://www.jianshu.com/p/fe0fadb38600
-https 设置: https://www.jianshu.com/p/fc1e81efc867
 
 http://localhost:8080  # 重启并测试
 https://localhost  # 测试 https
@@ -433,7 +422,7 @@ https://localhost  # 测试 https
 - 安装后重启，或点击菜单 Devices -> Insert Guest Additions CD image… 使能访问 host 电脑并自动调整分辨率
 - 设置 Shared Folders
 
-> 注意：当 virtualBox 运行时，Android 官方安装的虚拟机、开不起来！  
+> 注意：当 virtualBox 运行时，Android 官方安装的虚拟机、开不起来！
 > 虚拟机里查看 ip 地址可以看到，例如 10.0.2.2 可访问 host 主机的 localhost , Genymotion android emulator 相应ip为 10.0.3.2
 
 ---------

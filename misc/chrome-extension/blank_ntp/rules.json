@@ -11,9 +11,13 @@
     "action": {
       "type": "modifyHeaders",
       "requestHeaders": [
-        { "header": "cc", "operation": "remove" },
         { "header": "aaaa", "operation": "set", "value": "vaaa" },
-        { "header": "bbbb", "operation": "set", "value": "vbbb" }
+        { "header": "sec-ch-ua", "operation": "remove" },
+        { "header": "sec-ch-ua-mobile", "operation": "remove" },
+        { "header": "sec-ch-ua-platform", "operation": "remove" },
+        { "header": "sec-fetch-user", "operation": "set", "value": "?1" },
+        { "header": "sec-fetch-dest", "operation": "set", "value": "document" },
+        { "header": "sec-fetch-site", "operation": "set", "value": "same-origin" }
       ]
     },
     "condition": { "urlFilter": "drive/me", "resourceTypes": ["sub_frame"] }
@@ -24,11 +28,21 @@
     "action": {
       "type": "modifyHeaders",
       "responseHeaders": [
-        { "header": "h1", "operation": "remove" },
-        { "header": "h2", "operation": "set", "value": "v2" },
-        { "header": "h3", "operation": "append", "value": "v3" }
+        { "header": "X-Frame-Options", "operation": "remove" }
       ]
     },
-    "condition": { "urlFilter": "headers.com/123", "resourceTypes": ["sub_frame"] }
+    "condition": { "urlFilter": "baidu.com/s", "resourceTypes": ["sub_frame"] }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        { "header": "content-security-policy", "operation": "set", "value": "img-src 'self' blob: data: icloud.com.cn *.icloud.com.cn *.apple.com *.cdn-apple.com *.icloud-content.com *.icloud-content.com.cn *.apple-mapkit.com *.mzstatic.com; media-src 'self' blob: data: *.icloud.com.cn *.apple.com *.cdn-apple.com *.icloud-content.com *.icloud-content.com.cn; font-src 'self' blob: data: icloud.com.cn *.icloud.com.cn *.apple.com *.cdn-apple.com; connect-src blob: 'self' icloud.com.cn *.icloud.com.cn *.apple.com *.cdn-apple.com *.icloud-content.com *.icloud-content.com.cn *.apple-mapkit.com; base-uri 'self' *.icloud.com.cn *.cdn-apple.com; report-uri https://feedbackws.icloud.com.cn/reportRaw"},
+        { "header": "X-Frame-Options", "operation": "remove" }
+      ]
+    },
+    "condition": { "urlFilter": "icloud.com.cn", "resourceTypes": ["sub_frame"] }
   }
 ]
