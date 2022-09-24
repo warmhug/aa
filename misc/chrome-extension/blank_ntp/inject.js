@@ -1,4 +1,4 @@
-console.log('inject page', chrome);
+console.log('inject page, ISOLATED window object', chrome, urlsMap);
 
 // 以下直接修改 window 对象无效，原因是 content_scripts 是独立环境执行
 // https://developer.chrome.com/docs/extensions/mv3/content_scripts/#isolated_world
@@ -9,7 +9,16 @@ console.log('inject page', chrome);
 // https://developer.mozilla.org/en-US/docs/Web/API/Window
 // window 对象的 parent top 属性都是 只读 的。
 
-console.log('urlsMap', urlsMap);
+var iScript = document.createElement('script');
+// csp 限制不能 eval 代码
+// iScript.textContent = 'console.log(window);';
+// 需要在 manifest 里设置 web_accessible_resources 才能把 chrome-extension://*.js 注入到各个页面里
+iScript.src = chrome.runtime.getURL('inject-sub.js');
+(document.head||document.documentElement).appendChild(iScript);
+iScript.onload = function() {
+  iScript.remove();
+};
+
 
 if (location.href.indexOf(urlsMap.icloud) === 0) {
   console.log('window?.filterMainJs', window?.filterMainJs, window.top === window);

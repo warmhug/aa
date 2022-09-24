@@ -44,5 +44,19 @@
       ]
     },
     "condition": { "urlFilter": "icloud.com.cn", "resourceTypes": ["sub_frame"] }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "chrome-extension://pbcjojjclbiihmponegploiehianebdk/test.js"
+      }
+    },
+    "condition": {
+      "urlFilter": "https://www.xxxxx/main.js",
+      "resourceTypes": ["script"]
+    }
   }
 ]
