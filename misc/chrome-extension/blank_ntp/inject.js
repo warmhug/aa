@@ -27,11 +27,17 @@ if (location.href.indexOf(urlsMap.icloud) === 0) {
 if (window !== top) {
 
   if (location.href.indexOf(urlsMap.drive) === 0) {
-    // 给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面
     cls(() => {
-      [...document.getElementsByTagName('a')].forEach(item => {
+      // 隐藏部分内容
+      document.querySelector('.sidebar-mouse-in-out').style.display = 'none';
+      document.querySelector('header.sc-gsDJrp').style.display = 'none';
+      document.querySelector('.sc-fIoroj').style.display = 'none';
+      document.querySelector('.sc-eJwXpk').style.display = 'none';
+      document.querySelector('[data-sel="explorer-v3-folder-list"]').style.display = 'none';
+      // 给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面 [...document.getElementsByTagName('a')]
+      document.querySelectorAll('a').forEach((item) => {
         item.target = '_parent';
-        item.addEventListener('click', evt => {
+        item.addEventListener('click', (evt) => {
           // evt.preventDefault();
           evt.stopPropagation();
           evt.stopImmediatePropagation();
@@ -44,6 +50,7 @@ if (window !== top) {
     cls(() => {
       // extensions cannot send messages to content scripts using this method.
       chrome.runtime.sendMessage({
+        _ext: true,
         title: document.querySelector('.note-title__input')?.innerHTML || document.title,
       }, (response) => {});
     });
@@ -70,4 +77,15 @@ if (window !== top) {
     });
   }
 
+  if (location.href.indexOf(urlsMap.googleTranslate) === 0) {
+    cls(() => {
+      // console.log('sss', document.body.clientHeight, document.body.scrollHeight);
+      // 不能直接访问 top 里对象
+      // console.log('wt', window.top.document.querySelector(`[href="${location.href}"]`));
+      chrome.runtime.sendMessage({
+        _ext: true,
+        windowSize: { height: document.body.scrollHeight },
+      }, (response) => {});
+    });
+  }
 }

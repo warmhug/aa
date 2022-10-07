@@ -14,37 +14,69 @@ body {
 .main {
   position: relative;
   display: flex;
-  height: 96%;
-  margin: 10px;
+  height: calc(100% - 32px);
+  margin: 4px;
 }
+
+.main .side-iframe {
+  flex: none;
+  border: none;
+  background-color: white;
+  width: 490px;
+  height: 100%;
+  margin-left: 4px;
+}
+
 .main .core {
   flex: 1;
   width: 1px;
-  margin-right: 10px;
 }
-.main .core .editor {
+.main .core .tabs {
+  position: relative;
   overflow: hidden;
   background-color: #fff;
 }
-.main .core .editor .nav {
+.main .core .tabs .extend {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.main .core .tabs .nav {
   margin: 5px;
 }
-.main .core .editor .tab-pane iframe {
+.main .core .tabs .tab-pane .iframe-wrap {
+  position: relative;
+}
+.main .core .tabs .tab-pane .iframe-wrap .iframe-title {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  opacity: .2;
+}
+.main .core .tabs .tab-pane .iframe-wrap > iframe {
   width: 100%;
   height: calc(100% - 52px);
 }
-.main .core .editor .tab-pane.active.multi-iframe {
+.main .core .tabs .tab-pane .tp-row {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
   padding-bottom: 30px;
 }
-.main .core .editor .tab-pane.active.multi-iframe iframe {
-  flex-shrink: 0;
-  width: 630px;
+.main .core .tabs .tab-pane .tp-row .iframe-wrap {
+  flex: 1;
+  /* flex-shrink: 0; */
+  /* width: 630px; */
   height: 500px;
   margin: 8px;
   border: 1px solid gray;
+  overflow: hidden;
+}
+.main .core .tabs .tab-pane .tp-row .iframe-wrap iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
 }
 .main .core .notes {
   position: relative;
@@ -68,13 +100,6 @@ body {
 .main .core .notes .small {
   height: 190px;
   overflow: hidden;
-}
-.main .ifr {
-  flex: none;
-  border: none;
-  width: 490px;
-  height: 100%;
-  background-color: white;
 }
 
 #bookmarks {

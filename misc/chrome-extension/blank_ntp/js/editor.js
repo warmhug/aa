@@ -1,57 +1,5 @@
 
-function editorFn(defaultLinks) {
-  const curTabIdx = parseInt(localStorage.getItem('tabIndex') ?? 0);
-  const links = localStorage.getItem('links') || defaultLinks;
-  const parsedLinks = JSON.parse(links);
-  let navs = '', contents = '';
-  parsedLinks.forEach((item, idx) => {
-    navs += `<li role="presentation" data-idx="${idx}">
-    <a href="#tabContent${idx}" data-toggle="tab">${item[1] || '-'}</a>
-    </li>`;
-    contents += `<div class="tab-pane" id="tabContent${idx}" role="tabpanel"></div>`;
-  });
-  $('#eTabContent').html(contents);
-  $('#eTabs').html(navs);
-  $('#eTabs li').click(e => {
-    const ele = $(e.currentTarget);
-    ele.find('a').tab('show');
-    const idx = ele.data('idx');
-    localStorage.setItem('tabIndex', idx);
-    const cts = parsedLinks[idx][0];
-    if (Array.isArray(cts)) {
-      $(`#tabContent${idx}`).
-        removeClass('multi-iframe').addClass('multi-iframe').
-        html(cts.map(ct => `<iframe src="${ct}" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"></iframe>`).join(' '));
-    } else if (cts && typeof cts === 'string') {
-      $(`#tabContent${idx}`).html(`<iframe src="${cts}" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"></iframe>`);
-    }
-    // iframe.off().on('load', () => {
-    //   // 不能直接访问跨域页面
-    //   console.log('tt', iframe[0].contentWindow.document.title);
-    // });
-    // 给 iframe 大一点空间
-    if (idx === 0) {
-      $('.editor').siblings().show();
-    } else {
-      $('.editor').siblings().hide();
-    }
-  }).eq(curTabIdx).trigger("click");
-  chrome.runtime.onMessage.addListener((request, sender, res) => {
-    // console.log('ssss', request, sender, res);
-    if (request.title) {
-      localStorage.setItem('links', JSON.stringify(parsedLinks.map((item, idx) => {
-        if (item[0] === sender.url && !item[1]) {
-          $('#eTabs li').eq(idx).find('a').html(request.title);
-          return [item[0], request.title];
-        }
-        return item;
-      })));
-    }
-    // 没有 res 会报错吗 Unchecked runtime.lastError: The message port closed before a response was received.
-    res('aaa');
-  });
-
-
+$(function () {
   // 压缩地址 https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js
   // api 地址 https://nhn.github.io/tui.editor/latest/  对原 js 有改动
   const el = document.querySelector('#tuiEditor');
@@ -83,4 +31,4 @@ function editorFn(defaultLinks) {
   });
   // 把 tuiEditor 放到 tabs 中
   $('#eTabContent').children()[0].appendChild(el);
-}
+});

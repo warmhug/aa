@@ -56,6 +56,71 @@ stop
 
 ```text
 @startuml
+
+rectangle Arrows
+rectangle Up
+rectangle Down
+rectangle Left
+rectangle Right
+
+Arrows -u-> Up
+Arrows -d-> Down
+Arrows -l-> Left
+Arrows -r-> Right
+
+@enduml
+```
+
+
+```text
+@startuml
+
+left to right direction
+'top to bottom direction
+
+rectangle Arrows
+rectangle C
+rectangle D
+rectangle E
+rectangle F
+
+Arrows --> C
+Arrows --> D
+Arrows --> E
+Arrows --> F
+Arrows --[hidden]> E
+
+@enduml
+```
+
+
+```text
+@startuml
+left to right direction
+'top to bottom direction
+
+rectangle Arrows
+note top : aaa\nbbb
+rectangle A
+rectangle B
+rectangle C
+rectangle D
+rectangle E
+rectangle F
+
+Arrows --> A
+A --> B
+A --> C
+Arrows -u-> D
+Arrows -u-> E
+Arrows -u-> F
+
+@enduml
+```
+
+
+```text
+@startuml
 '测试神奇效果：试试不同地方换行
 'A -> B -> C -> D
 
@@ -144,6 +209,23 @@ participant "Second" as S
 U -> F  : "start"
 F -> S
 
+@enduml
+```
+
+
+```text
+@startuml
+:sss;
+split
+   :A;
+   kill
+split again
+   :B;
+   detach
+split again
+   :C;
+   kill
+end split
 @enduml
 ```
 

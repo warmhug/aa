@@ -40,9 +40,10 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
 - 欧路: 修改 /Users/hua/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改)：100000000000 重启
 
-- 手机软件: 今日热榜, 白描, Stream, 无忧电话录音, DVR Link, Splashtop, andromouse. 游戏：big hunter, brain dots。
-  - 查看 app URL scheme: 下载 ipa 文件，修改后缀为 .zip 解压缩，进入 Payload/xx.app 右键显示包内容、找到直接根目录下的 info.plist 文件 xcode 打开、找到 Bundle identifier 再搜索相应的 URL Schemes 即可。Android 下载 apk 文件，通过 在线反编译工具 查看`AndroidManifest.xml`文件内容里的 intent-filter scheme 值。 [iOS12捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [查看某个 app 的更新频率](https://www.applyzer.com/)
-  - iOS 桌面小组件 [js 开发](https://github.com/2214962083/ios-scriptable-tsx)、脚本 [API](https://docs.scriptable.app/)
+- 手机软件: DVR Link, big hunter, brain dots, [捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/) / [mac scriptable](https://scriptable.app/mac-beta/) [iOS scriptable](https://docs.scriptable.app/)
+- iPhone 恢复出厂设置后，系统软件版本是 iOS 最新版、不是出厂时的旧版本。
+- iPhone 连接数据线恢复备份的文件后，各个第三方app仍然需要重新下载、发现卡死状态 用手机网络 优先下载重要app 其他的暂停并排队，app内本地的聊天记录还是会丢失 要提前备份并立即恢复！
+- iPhone 在最新 beta 版系统软件做备份后、不能恢复到旧稳定版本！ https://apple.stackexchange.com/q/328535/228571  [ios版本列表](https://developer.apple.com/documentation/ios-ipados-release-notes)
 
 - U盘格式
   - 支持 Mac + Win 的读写格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。
@@ -75,7 +76,7 @@ Command + Alt + →/←  # 选择 上/下 一个标签
 
 ---------
 
-> [国外典型程序员：生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
+> [国外程序员生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
 安装 git & gcc `xcode-select --install`
 

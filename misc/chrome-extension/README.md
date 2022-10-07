@@ -18,6 +18,9 @@
 - in background pages (v3 变为 service works): onMessage
 - in content script: sendMessage
 
+
+rules.json 里的 modifyHeaders 修改 responseHeaders 会生效，但是不显示在 Chrome DevTools 里。ref [issue](https://bugs.chromium.org/p/chromium/issues/detail?id=258064)
+
 ### 2022-09-17
 
 梳理清楚各个 js 执行的先后顺序。注意 chrome.webRequest 和 chrome.webNavigation 生命周期顺序。

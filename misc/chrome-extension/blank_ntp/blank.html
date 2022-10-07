@@ -21,10 +21,11 @@
   </div>
   <div class="main">
     <div class="core">
-      <div class="editor">
+      <div class="tabs">
         <ul class="nav nav-tabs" id="eTabs" role="tablist"></ul>
         <div class="tab-content" id="eTabContent"></div>
         <div id="tuiEditor"></div>
+        <span class="extend" id="closeSide">↗</span>
       </div>
       <div class="notes clearfix">
         <a id="notesLoad">load</a>
@@ -39,8 +40,8 @@
       </div>
     </div>
     <iframe
-      class="ifr"
-      id="ifr"
+      class="side-iframe"
+      id="sideIframe"
       sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
     >
     </iframe>
@@ -54,12 +55,12 @@
   <script src="lib/qrcode.js"></script>
   <!-- <script src="lib/toastui-editor-all.min.js"></script> -->
 
-  <script src="js/ip.js"></script>
+  <script src="constants.js"></script>
+  <script src="regestry.js"></script>
   <script src="js/bookmarks.js"></script>
   <script src="js/notes.js"></script>
+  <script src="js/tabs.js"></script>
   <script src="js/editor.js"></script>
-  <script src="constants.js"></script>
-  <script src="main.js"></script>
   <!-- <script src="study.js"></script> -->
  </body>
 </html>

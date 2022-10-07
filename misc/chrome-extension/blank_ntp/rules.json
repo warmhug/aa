@@ -38,9 +38,16 @@
     "priority": 1,
     "action": {
       "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "aaaa", "operation": "set", "value": "vaaae" },
+        { "header": "sec-fetch-user", "operation": "set", "value": "?1" },
+        { "header": "sec-fetch-dest", "operation": "set", "value": "document" },
+        { "header": "sec-fetch-site", "operation": "set", "value": "same-origin" }
+      ],
       "responseHeaders": [
-        { "header": "content-security-policy", "operation": "set", "value": "img-src 'self' blob: data: icloud.com.cn *.icloud.com.cn *.apple.com *.cdn-apple.com *.icloud-content.com *.icloud-content.com.cn *.apple-mapkit.com *.mzstatic.com; media-src 'self' blob: data: *.icloud.com.cn *.apple.com *.cdn-apple.com *.icloud-content.com *.icloud-content.com.cn; font-src 'self' blob: data: icloud.com.cn *.icloud.com.cn *.apple.com *.cdn-apple.com; connect-src blob: 'self' icloud.com.cn *.icloud.com.cn *.apple.com *.cdn-apple.com *.icloud-content.com *.icloud-content.com.cn *.apple-mapkit.com; base-uri 'self' *.icloud.com.cn *.cdn-apple.com; report-uri https://feedbackws.icloud.com.cn/reportRaw"},
-        { "header": "X-Frame-Options", "operation": "remove" }
+        { "header": "aaaa", "operation": "set", "value": "vaaabb" },
+        { "header": "content-security-policy", "operation": "set", "value": "img-src 'self'"},
+        { "header": "x-frame-options", "operation": "remove" }
       ]
     },
     "condition": { "urlFilter": "icloud.com.cn", "resourceTypes": ["sub_frame"] }
@@ -58,5 +65,43 @@
       "urlFilter": "https://www.xxxxx/main.js",
       "resourceTypes": ["script"]
     }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "aaaa", "operation": "set", "value": "vaaa" },
+        { "header": "sec-fetch-user", "operation": "set", "value": "?1" },
+        { "header": "sec-fetch-dest", "operation": "set", "value": "document" },
+        { "header": "sec-fetch-site", "operation": "set", "value": "same-origin" }
+      ],
+      "responseHeaders": [
+        { "header": "aaaa", "operation": "set", "value": "vaaagg" },
+        { "header": "content-security-policy", "operation": "remove"},
+        { "header": "X-Frame-Options", "operation": "remove" }
+      ]
+    },
+    "condition": { "urlFilter": "translate.google.com", "resourceTypes": ["sub_frame"] }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "aaaa", "operation": "set", "value": "vaaa" },
+        { "header": "sec-fetch-user", "operation": "set", "value": "?1" },
+        { "header": "sec-fetch-dest", "operation": "set", "value": "document" },
+        { "header": "sec-fetch-site", "operation": "set", "value": "same-origin" }
+      ],
+      "responseHeaders": [
+        { "header": "aaaa", "operation": "set", "value": "vaaagg" },
+        { "header": "content-security-policy", "operation": "remove"},
+        { "header": "X-Frame-Options", "operation": "remove" }
+      ]
+    },
+    "condition": { "urlFilter": "feishu.cn/messenger", "resourceTypes": ["sub_frame"] }
   }
 ]

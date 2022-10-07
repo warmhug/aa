@@ -42,12 +42,6 @@ console.log('new tab page', chrome);
     ]
   });
   // console.log('dnres', res);
-  $('#ifr').attr('src', url);
-
-  editorFn(JSON.stringify(iframes));
-
-  $('#imgTool').click(() => {
-    location.href = chrome.runtime.getURL('./img.html');
-  });
+  $('#sideIframe').attr('src', url);
 
 })();
