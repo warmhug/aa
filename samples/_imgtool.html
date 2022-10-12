@@ -129,15 +129,5 @@
       img.src = _url;
     }
   </script>
-
-  <script>
-    window.addEventListener('load', () => {
-      chrome?.runtime?.sendMessage({
-        _ext: true,
-        windowSize: { height: document.body.scrollHeight },
-      }, (response) => {});
-    });
-  </script>
-
 </body>
 </html>

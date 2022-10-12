@@ -13,13 +13,12 @@ const bdCalendar = `${urlsMap.bd}s?ie=utf-8&f=3&rsv_bp=1&tn=baidu&wd=%E6%97%A5%E
 
 const bdCalc = `${urlsMap.bd}s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=计算器&oq=jsremovechild&rsv_pq=b182e3880000228a&rsv_t=9a81mc67VbBj9NGuw4atYhq9UbrhLFXXYXjJKx8CKH0zPRXorLIIZnJ6%2B8s&rqlang=cn&rsv_enter=1&rsv_dl=tb&rsv_btype=t&inputT=6424&rsv_sug3=42&rsv_sug1=30&rsv_sug7=101&rsv_sug2=0&rsv_sug4=9132`;
 
-const imgTool = './assets/img.html';
+const mytool = './assets/mytool/index.html';
 
 const NEWLINE = '|';
 
 const iframes = [
-  [null, ''],
-  [[googleTranslate, NEWLINE, bdCalendar, bdCalc, NEWLINE, imgTool], '工具'],
+  [[googleTranslate, NEWLINE, mytool, NEWLINE, bdCalendar, bdCalc], '工具'],
   ['https://bytedance.feishu.cn/messenger/', '消息'],
   // ['https://www.icloud.com.cn/notes/0deBZsLWnGR2EUJAXjUVDtoqA', 'icloud'],
   [urlsMap.docx + 'doxcnSCX57RMgHoglsT8S3bM4xe', ''],

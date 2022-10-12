@@ -2,13 +2,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>我的Tab</title>
-  <link rel="stylesheet" href="lib/bootstrap.css">
-  <link rel="stylesheet" href="lib/jquery-ui.min.css">
-  <link rel="stylesheet" href="lib/toastui-editor.min.css">
+  <link rel="stylesheet" href="assets/bootstrap.css">
+  <link rel="stylesheet" href="assets/jquery-ui.min.css">
   <link rel="stylesheet" href="main.css">
-  <!-- <link rel="stylesheet/less" type="text/css" href="main.less" /> -->
-  <!-- Less - Leaner CSS v2.7.1 必须要先引入 less 文件 -->
-  <!-- <script src="https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js"></script> -->
 </head>
 <body>
   <img class="pageBgImg" src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
@@ -20,23 +16,10 @@
     </div>
   </div>
   <div class="main">
-    <div class="core">
-      <div class="tabs">
-        <ul class="nav nav-tabs" id="eTabs" role="tablist"></ul>
-        <div class="tab-content" id="eTabContent"></div>
-        <div id="tuiEditor"></div>
-        <span class="extend" id="closeSide">↗</span>
-      </div>
-      <div class="notes clearfix">
-        <a id="notesLoad">load</a>
-        <a id="changeNote">换一个</a>
-        <div id="notesContent">notesContent</div>
-        <div id="notesImg" class="small">
-          <img src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
-        </div>
-        <a id="ip" data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"></a>
-        <div id="qrcode" style="display: none;"></div>
-      </div>
+    <div class="tabs">
+      <ul class="nav nav-tabs" id="eTabs" role="tablist"></ul>
+      <div class="tab-content" id="eTabContent"></div>
+      <span class="extend" id="closeSide">↗</span>
     </div>
     <div class="iframe-wrap" id="sideIframe">
       <a class="iframe-title" href=""></a>
@@ -45,22 +28,16 @@
       >
       </iframe>
     </div>
-</div>
+  </div>
 
-  <script src="lib/jquery.min.js"></script>
-  <script src="lib/jquery-ui.min.js"></script>
-  <script src="lib/bootstrap.js"></script>
-  <script src="lib/idb-keyval@5.0.2.js"></script>
-  <script src="lib/toastui-editor-all.js"></script>
-  <script src="lib/qrcode.js"></script>
-  <!-- <script src="lib/toastui-editor-all.min.js"></script> -->
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/jquery-ui.min.js"></script>
+  <script src="assets/bootstrap.js"></script>
 
   <script src="constants.js"></script>
   <script src="regestry.js"></script>
   <script src="js/bookmarks.js"></script>
-  <script src="js/notes.js"></script>
   <script src="js/tabs.js"></script>
-  <script src="js/editor.js"></script>
   <!-- <script src="study.js"></script> -->
  </body>
 </html>

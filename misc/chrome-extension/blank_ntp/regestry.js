@@ -14,7 +14,7 @@ console.log('new tab page', chrome);
       matches: Object.values(urlsMap).map(item => `${item}*`),
       runAt: 'document_start',
       // world: 'MAIN', // 默认是 ISOLATED 改变设置会影响 chrome.runtime.sendMessage
-      js: ['lib/cls.js', 'constants.js', 'inject.js'],
+      js: ['js/cls.js', 'constants.js', 'inject.js'],
     }]);
     // console.log('register success');
   }
