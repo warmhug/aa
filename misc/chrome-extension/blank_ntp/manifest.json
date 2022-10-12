@@ -9,9 +9,9 @@
   },
   "omnibox": { "keyword" : "hl" },
   "icons": {
-    "16": "favicon.png",
-    "32": "favicon.png",
-    "128": "favicon.png"
+    "16": "assets/favicon.png",
+    "32": "assets/favicon.png",
+    "128": "assets/favicon.png"
   },
   "action": {
     "default_title": "点击打开 new tab 页面"

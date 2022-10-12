@@ -20,9 +20,8 @@ console.log('new tab page', chrome);
   }
 
   // https://bytedance.feishu.cn/drive/me/ 页面的部分请求 403 错误，导致在 iframe 里显示不正常。
-  // 因为代码里 window.parent 判断如果是在 iframe 里，会让 request headers 里的 x-csrftoken 设置失败。
-  const url = `${urlsMap.drive}me`;
-  const cookieStores = await chrome.cookies.get({ name: '_csrf_token', url });
+  // 因为飞书代码里 window.parent 判断如果是在 iframe 里，会让 request headers 里的 x-csrftoken 设置失败。
+  const cookieStores = await chrome.cookies.get({ name: '_csrf_token', url: driveMeUrl });
   // console.log('cookieStores', cookieStores.value);
   const res = await chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: [10],
@@ -33,7 +32,6 @@ console.log('new tab page', chrome);
         "action": {
           "type": "modifyHeaders",
           "requestHeaders": [
-            // { "header": "aatest", "operation": "set", "value": cookieStores.value },
             { "header": "x-csrftoken", "operation": "set", "value": cookieStores?.value || '' }
           ]
         },
@@ -42,6 +40,6 @@ console.log('new tab page', chrome);
     ]
   });
   // console.log('dnres', res);
-  $('#sideIframe').attr('src', url);
-
+  $('#sideIframe').find('iframe').attr('src', driveMeUrl);
+  $('#sideIframe').find('a').attr('href', driveMeUrl).html(driveMeUrl);
 })();

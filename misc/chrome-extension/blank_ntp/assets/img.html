@@ -9,7 +9,7 @@
 <body>
   <h3>
     图片<a href="https://gw.alipayobjects.com/zos/rmsportal/PnjNniBkexOKzoehotzl.jpg@100h.src">缩放</a>、
-    <a href="https://dummyimage.com/">dummyimage 生成</a> (<a href="https://dummyimage.com/750x300/eee/f0f">示例</a>) 
+    <a href="https://dummyimage.com/">dummyimage 生成</a> (<a href="https://dummyimage.com/750x300/eee/f0f">示例</a>)
     <a href="https://img.alicdn.com/bao/uploaded/i1/32785103/TB2UQQOsFXXXXaDXXXXXXXXXXXX_!!32785103.jpg_300x300q90.jpg">淘宝图片</a>
   </h3>
   <form>
@@ -20,7 +20,7 @@
     <a href="https://github.com/hustcc/placeholder.js" style="font-size: 12px">源码</a>
     <br /><img id="img" src="" />
   </form>
-  
+
   <script src="http://cdn.bootcss.com/placeholder.js/3.1.0/placeholder.js"></script>
   <script>
   var opts = {
@@ -128,6 +128,15 @@
       imgurl.value = _url;
       img.src = _url;
     }
+  </script>
+
+  <script>
+    window.addEventListener('load', () => {
+      chrome?.runtime?.sendMessage({
+        _ext: true,
+        windowSize: { height: document.body.scrollHeight },
+      }, (response) => {});
+    });
   </script>
 
 </body>

@@ -2,7 +2,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>我的Tab</title>
-  <link rel="icon" type="image/x-icon" href="favicon.png">
   <link rel="stylesheet" href="lib/bootstrap.css">
   <link rel="stylesheet" href="lib/jquery-ui.min.css">
   <link rel="stylesheet" href="lib/toastui-editor.min.css">
@@ -35,18 +34,18 @@
         <div id="notesImg" class="small">
           <img src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
         </div>
-        <a id="imgTool">img 处理</a>
         <a id="ip" data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true"></a>
         <div id="qrcode" style="display: none;"></div>
       </div>
     </div>
-    <iframe
-      class="side-iframe"
-      id="sideIframe"
-      sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
-    >
-    </iframe>
-  </div>
+    <div class="iframe-wrap" id="sideIframe">
+      <a class="iframe-title" href=""></a>
+      <iframe
+        sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
+      >
+      </iframe>
+    </div>
+</div>
 
   <script src="lib/jquery.min.js"></script>
   <script src="lib/jquery-ui.min.js"></script>

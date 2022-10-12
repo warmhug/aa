@@ -104,8 +104,4 @@ $(function () {
     });
   });
 
-  $('#imgTool').click(() => {
-    location.href = chrome.runtime.getURL('./img.html');
-  });
-
 });
