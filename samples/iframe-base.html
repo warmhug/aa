@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <pre>
+  iFrame 那些事 https://afantasy.ninja/2018/07/15/dive-into-iframe/
+
+  存在的问题：
+  - 移动端页面、打开(全屏)嵌入的 iframe 页面，点浏览器返回、返回不到业务页面、需要销毁 iframe。
+  - 浏览器刷新 iframe url 状态丢失、后退前进按钮无法使用。
+  - 里边 弹出框 的位置、难居中，浏览器 resize 时自动居中 更难处理。
+  - 主文档和 iframe 文档如果不同域、免登录处理麻烦，涉及 cookie 透传。
+  - 需要完全重新加载，比较慢。
+  </pre>
+  <script>
+    // 判断当前页面是否在 iframe 里
+    if (self != top) {
+      alert('在iframe中');
+    }
+    // 禁止别人以 iframe 加载你的页面
+    if (window.location != window.parent.location) {
+      window.parent.location = window.location;
+    }
+  </script>
+
+<h1>自适应高度</h1>
+<h3>iframe 基本设置：给定高度、内部滚动</h3>
+<iframe
+  class="basic"
+  sandbox="allow-forms allow-scripts allow-same-origin"
+  src="http://www.w3school.com.cn/tags/tag_iframe.asp" width="100%" height="400">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+
+<h4>同域下</h4>
+<!-- <iframe id="iFrame2" onload="setIframeHeight(this)" src="iframe-autoheight.html"></iframe> -->
+<script>
+function setIframeHeight(ifr) {
+  var iframeWin = ifr.contentWindow || ifr.contentDocument.parentWindow;
+  var ifrDoc = iframeWin.document.body || iframeWin.document.documentElement;
+  ifr.height = ifrDoc.scrollHeight;
+}
+// setIframeHeight(document.getElementById('iFrame2'))
+</script>
+
+<h4>跨域自适应高度</h4>
+<pre style="white-space: pre-wrap;">
+需求: A 页面使用 iframe 标签跨域包含B页面
+问题: A/B 页面不同域，A 页面无法获取并自适应 B 页面高度
+
+方案一: 增加 C 页面，A/C 页面同域，A 包含 B，B 包含 C，B 通知 C 高度，C 调整 A 页面 iframe 高度~
+方案二: 通过设置 iframe 页面的 window.name
+</pre>
+<!-- 在新端口起 server 模拟跨域 -->
+<iframe id="ifr" src="http://localhost:3435/iframe-other-domain.html"></iframe>
+
+<iframe id="demoIfa" frameborder="0"></iframe>
+  <script>
+    var finalHtml = `
+    <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <p>文档片段</p>
+    <script>
+      alert('iframe script');
+    </script>
+  </body>
+  </html>
+    `;
+    var demoIfa = document.getElementById('demoIfa');
+    // 向 iframe 里写入 html 的 正确方法！
+    function writeIra(finalHtml) {
+      var ifaDom = demoIfa.contentDocument || demoIfa.contentWindow.document;
+      ifaDom.open();
+      ifaDom.write(finalHtml);
+      ifaDom.close();
+    }
+    writeIra(finalHtml);
+  </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>proxy iframe</title>
+</head>
+<body onload="parentIframeResize()">
+  <script>
+    // Tell the parent iframe what height the iframe needs to be
+    function parentIframeResize() {
+      // This works as our parent's parent is on our domain..
+      parent.parent.resizeIframe(getParam('height'));
+    }
+
+    // Helper function, parse param from request string
+    function getParam( name ) {
+      name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(window.location.href);
+      if (results == null)
+        return '';
+      else
+        return results[1];
+    }
+  </script>
+  </body>
+</html>
