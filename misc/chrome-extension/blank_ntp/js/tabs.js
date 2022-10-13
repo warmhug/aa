@@ -49,16 +49,6 @@ $(function () {
     } else if (cts && typeof cts === 'string') {
       $(`#tabContent${idx}`).html(createIfr(cts));
     }
-    // iframe.off().on('load', () => {
-    //   // 不能直接访问跨域页面
-    //   console.log('tt', iframe[0].contentWindow.document.title);
-    // });
-    // 给 iframe 大一点空间
-    if (idx === 0) {
-      $('.tabs').siblings().show();
-    } else {
-      $('.tabs').siblings().hide();
-    }
   }).eq(curTabIdx).trigger("click");
   chrome.runtime.onMessage.addListener((request, sender, res) => {
     // 注意 这里可能会多次收到不同来源的消息

@@ -9,6 +9,9 @@ console.log('inject page, ISOLATED window object', chrome, urlsMap);
 // https://developer.mozilla.org/en-US/docs/Web/API/Window
 // window 对象的 parent top 属性都是 只读 的。
 
+// 不能直接访问 top 里对象  window.top.document.querySelector(`a`)
+// console.log('wt', window.top.name);
+
 var iScript = document.createElement('script');
 // csp 限制不能 eval 代码
 // iScript.textContent = 'console.log(window);';
@@ -18,11 +21,6 @@ iScript.src = chrome.runtime.getURL('inject-sub.js');
 iScript.onload = function() {
   iScript.remove();
 };
-
-
-if (location.href.indexOf(urlsMap.icloud) === 0) {
-  console.log('window?.filterMainJs', window?.filterMainJs, window.top === window);
-}
 
 if (window !== top) {
 
@@ -48,7 +46,6 @@ if (window !== top) {
 
   if (location.href.indexOf(urlsMap.docx) === 0) {
     cls(() => {
-      // extensions cannot send messages to content scripts using this method.
       chrome.runtime.sendMessage({
         _ext: true,
         title: document.querySelector('.note-title__input')?.innerHTML || document.title,
@@ -80,8 +77,6 @@ if (window !== top) {
   if (location.href.indexOf(urlsMap.googleTranslate) === 0) {
     cls(() => {
       // console.log('sss', document.body.clientHeight, document.body.scrollHeight);
-      // 不能直接访问 top 里对象
-      // console.log('wt', window.top.document.querySelector(`[href="${location.href}"]`));
       chrome.runtime.sendMessage({
         _ext: true,
         windowSize: { height: document.body.scrollHeight },
