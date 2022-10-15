@@ -4,7 +4,7 @@ const getSetStorage = {
   getIframes: async () => {
     // return JSON.parse(localStorage.getItem('iframesInfo')) || [];
     const { tabIframes } = await getStorage();
-    return JSON.parse(tabIframes) || [];
+    return tabIframes ? JSON.parse(tabIframes) : [];
   },
   setIframes: (data) => {
     // localStorage.setItem('iframesInfo', JSON.stringify(data));
@@ -33,7 +33,7 @@ $(async function () {
   $('#eTabs').html(navs);
   const createIfr = (src, extra) => `
   <div class="iframe-wrap ${extra?.[src]?.min ? 'min' : ''}">
-    <b>-</b>
+    <b>—</b>
     <a class="iframe-title text-nowrap" href="${src}" target="_blank">${src}</a>
     <iframe src="${src}" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"></iframe>
   </div>
@@ -62,7 +62,7 @@ $(async function () {
     const heightMap = dataCopy?.[idx]?.[2];
     if (e.target.tagName === 'B' && heightMap) {
       const curUrl = $(e.target).siblings('a').attr('href');
-      const { scrollHeight, min } = heightMap[curUrl];
+      const { scrollHeight, min } = heightMap[curUrl] || {};
       const iframeWrap = $(e.target).parent('.iframe-wrap');
       if (!min) {
         heightMap[curUrl].min = 1;

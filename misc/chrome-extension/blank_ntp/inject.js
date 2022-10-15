@@ -27,6 +27,35 @@ const hl_extension_util = {
       }
     }).observe({type: 'layout-shift', buffered: true});
   },
+  observeEle: (selector, cb = () => {}) => {
+    const targetNode = document.querySelector(selector);
+    const config = { attributes: true, childList: true, subtree: true };
+    const observer = new MutationObserver((mutationList, observer) => {
+      for (const mutation of mutationList) {
+        if (mutation.type === 'childList') {
+          console.log('observeEle: A child node has been added or removed.');
+        } else if (mutation.type === 'attributes') {
+          console.log(`observeEle: The ${mutation.attributeName} attribute was modified.`);
+        }
+      }
+    });
+    observer.observe(targetNode, config);
+    // Later, you can stop observing
+    // observer.disconnect();
+  },
+  checkEle: (selector, cb = () => {}) => {
+    let ele, timeout = 8000, startTime = Date.now();
+    const check = () => {
+      // console.log('check times', Date.now() - startTime);
+      ele = document.querySelector(selector);
+      if (!ele && Date.now() - startTime < timeout) {
+        setTimeout(check, 200);
+      } else if (ele) {
+        cb(ele);
+      }
+    };
+    check();
+  },
   insertCss: content => {
     const style = document.createElement("style")
     style.textContent = content;
@@ -68,13 +97,18 @@ window.addEventListener('load', async () => {
   });
 
   if (window !== top && window.hl_extension_data?.tabId) {
-    hl_extension_util.cls(() => {
-      // console.log('sss', document.body.clientHeight, document.body.scrollHeight);
+    // hl_extension_util.observeEle('#mainBox');
+    // console.log('sss', location.href, document.body.clientHeight, document.body.scrollHeight);
+    hl_extension_util.checkEle('.note-title__input', (ele) => {
       chrome.runtime.sendMessage({
         _ext: true,
-        title: document.querySelector('.note-title__input')?.innerHTML,
-        scrollHeight: document.body.scrollHeight ,
+        title: ele.innerHTML,
+        scrollHeight: document.body.scrollHeight,
       }, (response) => {});
     });
+    chrome.runtime.sendMessage({
+      _ext: true,
+      scrollHeight: document.body.scrollHeight ,
+    }, (response) => {});
   }
 });

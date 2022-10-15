@@ -58,7 +58,7 @@
       "matches": ["*://*/*", "<all_urls>"],
       "js": ["common.js", "inject.js"],
       "all_frames": true,
-      "match_origin_as_fallback": true,
+      "match_origin_as_fallback": false,
       "run_at": "document_start"
     }
   ],

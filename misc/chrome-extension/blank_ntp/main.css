@@ -25,13 +25,15 @@ body {
 .main .iframe-wrap b,
 .main .iframe-wrap .iframe-title {
   position: absolute;
-  top: 2px;
-  left: 12px;
+  top: -1px;
+  left: 20px;
   opacity: .2;
 }
 .main .iframe-wrap b {
+  width: 20px;
   left: 2px;
-  opacity: 1;
+  opacity: 0.4;
+  cursor: pointer;
 }
 .main .iframe-wrap iframe {
   border: none;
@@ -74,7 +76,6 @@ body {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
-  padding-bottom: 30px;
 }
 .main .tabs .tab-pane .tp-row .iframe-wrap {
   flex: 1;
@@ -86,7 +87,7 @@ body {
   overflow: hidden;
 }
 .main .tabs .tab-pane .tp-row .iframe-wrap.min {
-  height: 20px !important;
+  height: 22px !important;
 }
 
 #bookmarks {
