@@ -113,12 +113,10 @@ $(function () {
     $('#ip').attr('href', localIP).html(localIP);
   });
 
-  console.log('ll', location.pathname, window.parent.document);
-  const ifr = window.parent?.document.querySelector(`iframe[src*="${location.pathname}"]`);
-  if (ifr) {
-    ifr.parentNode.style.height = document.body.scrollHeight + 'px';
-  }
-  // window.addEventListener('load', () => {
-  // })
+  // console.log('ll', location.pathname, window.parent.document);
+  chrome?.runtime?.sendMessage({
+    _ext: true,
+    scrollHeight: document.body.scrollHeight ,
+  }, (response) => {});
 
 });

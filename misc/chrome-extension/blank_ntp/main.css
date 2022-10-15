@@ -22,11 +22,16 @@ body {
   position: relative;
   background-color: #fff;
 }
+.main .iframe-wrap b,
 .main .iframe-wrap .iframe-title {
   position: absolute;
   top: 2px;
-  left: 2px;
+  left: 12px;
   opacity: .2;
+}
+.main .iframe-wrap b {
+  left: 2px;
+  opacity: 1;
 }
 .main .iframe-wrap iframe {
   border: none;
@@ -79,6 +84,9 @@ body {
   margin: 8px;
   border: 1px solid gray;
   overflow: hidden;
+}
+.main .tabs .tab-pane .tp-row .iframe-wrap.min {
+  height: 20px !important;
 }
 
 #bookmarks {

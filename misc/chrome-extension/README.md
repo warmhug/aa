@@ -11,24 +11,27 @@
 1. manifest -> background -> scripts 打开 `chrome://extensions/` 相应的插件名、点“背景页”。
 2. manifest -> content_scripts 设置的 js 位置：“控制台 -> Sources -> Content scripts”
 
-## 其他
-
 [开发教程](https://developer.chrome.com/extensions/getstarted)
 
-- in background pages (v3 变为 service works): onMessage
-- in content script: sendMessage
+
+## 其他
+
+`chrome://newtab` 页面、其他标签页打开的 xxx.com 页面，与其内嵌的 iframe 通信限制方面完全一样、不能跨域访问。包括他们被注入的 content_scripts 在访问跨域iframe时、也一样受到限制。
 
 
 rules.json 里的 modifyHeaders 修改 responseHeaders 会生效，但是不显示在 Chrome DevTools 里。ref [issue](https://bugs.chromium.org/p/chromium/issues/detail?id=258064)
+
 
 ### 2022-09-17
 
 梳理清楚各个 js 执行的先后顺序。注意 chrome.webRequest 和 chrome.webNavigation 生命周期顺序。
 
-`chrome://newtab` 页面 以 iframe 方式嵌入 feishu.cn 页面、并且 注入 content_script 如果在 content_script 里访问 `chrome://newtab` 页面的 `window.xx` (即 `top.xxx`) 则会报错: Uncaught SecurityError: Blocked a frame with origin "https://bytedance.feishu.cn" from accessing a frame with origin "chrome-extension://pbcjojjclbiihmponegploiehianebdk". The frame requesting access has a protocol of "https". 同样 `chrome://newtab` 页面、因为跨域 也不能访问 iframe 里的 feishu.cn 页面 window 对象。
 
-override [newtab](https://developer.chrome.com/docs/extensions/mv3/override/) 后的页面是 chrome-extension://pbcjojjclbiihmponegploiehianebdk/blank.html
-不能在此页面运行 `chrome.scripting.executeScript` why? https://bugs.chromium.org/p/chromium/issues/detail?id=1191971
+`chrome://newtab` 页面 以 iframe 方式嵌入 xxx.com 页面、并且 注入 content_script 如果在 content_script 里访问 `chrome://newtab` 页面的 `window.xx` (即 `top.xxx`) 则会报错: Uncaught SecurityError: Blocked a frame with origin "https://xxx.com" from accessing a frame with origin "chrome-extension://pbcjojjclbiihmponegploiehianebdk". The frame requesting access has a protocol of "https". 同样 `chrome://newtab` 页面、因为跨域 也不能访问 iframe 里的 xxx.com 页面 window 对象。
+
+
+override [newtab](https://developer.chrome.com/docs/extensions/mv3/override/) 后的页面是 chrome-extension://pbcjojjclbiihmponegploiehianebdk/blank.html 不能在此页面运行 `chrome.scripting.executeScript` why? https://bugs.chromium.org/p/chromium/issues/detail?id=1191971
+
 
 chrome.webRequest 和 chrome.webNavigation 都不能获取到 HTTP [Response Body](https://stackoverflow.com/questions/18534771/chrome-extension-how-to-get-http-response-body)
 

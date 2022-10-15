@@ -16,6 +16,10 @@
   "action": {
     "default_title": "点击打开 new tab 页面"
   },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
   "permissions": [
     "activeTab",
     "bookmarks",
@@ -26,6 +30,7 @@
     "history",
     "management",
     "scripting",
+    "storage",
     "tabs",
     "topSites",
     "webNavigation",
@@ -51,13 +56,18 @@
   "content_scripts": [
     {
       "matches": ["*://*/*", "<all_urls>"],
-      "js": ["inject-all.js"],
-      "all_frames": false,
+      "js": ["common.js", "inject.js"],
+      "all_frames": true,
       "match_origin_as_fallback": true,
-      "run_at": "document_end"
+      "run_at": "document_start"
     }
   ],
+  "sandbox": {
+    "pages": [
+    ]
+  },
   "content_security_policy": {
+    "sandbox": "sandbox allow-scripts;",
     "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }

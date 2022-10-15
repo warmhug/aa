@@ -18,7 +18,7 @@
 在函数式编程中，函数实际上即是描述了一种集合到集合的映射关系。即这个函数在入参与结果之间建立了映射关系。在任意时间任意状态调用一个函数，都能获得同样的结果，也就是说它不会被任何可变状态影响、不会产生副作用。如 Redux 中的 compose，常见的函数柯里化，ImmutableJS 等等，都可以视为对于函数式编程范式的一种实现。
 柯里化 foo(1, 2, 3) curried(1)(2)(3)
 var curry = fn => judge = (...args) => args.length === fn.length ? fn(...args) : (...arg) => judge(...args, ...arg)
-函数链式调用 sum(1)(2,3)(4,5,6)... val.f1().f2().f3() 嵌套调用 f3(f2(f1(val)))  管道符 
+函数链式调用 sum(1)(2,3)(4,5,6)... val.f1().f2().f3() 嵌套调用 f3(f2(f1(val)))  管道符
 TC39 数据流编程 Pipe/Flow Pipeline Operator
 const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)));
 */
@@ -64,7 +64,7 @@ const task1 = new Promise(resolve => resolve(1));
 const task2 = new Promise(resolve => setTimeout(() => resolve(2), 2000));
 promiseAll([task1, task2]).then(results => {
   // 2秒后执行
-  // results === [1, 2] 
+  // results === [1, 2]
 })
 
 
@@ -282,6 +282,8 @@ var genArr = Array(10).fill(0).map((e, i) => i + 1);
 // 生成随机字符
 var randomChar = Math.floor(Math.random() * 36).toString(36);
 
+// https://stackoverflow.com/questions/11800873/javascript-split-an-array-into-subarrays-by-a-given-seperator
+
 
 // [function currying](http://en.wikipedia.org/wiki/Currying)
 // 参考对比：
@@ -382,7 +384,7 @@ function addEventListener(target, eventType, callback) {
   }
 }
 
-/* 
+/*
   prototype arrow function this
 */
 function Person(name) {
@@ -470,7 +472,7 @@ console.log(Object.getPrototypeOf(MyArrayProto) === Array.prototype);
 
 
 
-/* Object 
+/* Object
 用 var anObject = new aFunction() 形式创建对象的过程实际上可以分为三步：
   1. 建立一个新对象（anObject）；
   2. 将该对象（anObject）的 __proto__ 设置为构造函数（aFunction）prototype 引用的那个原型对象；
@@ -536,7 +538,7 @@ console.log(top.a instanceof Array, top.a instanceof top.Array);
 function t() {};
 t.prototype = Array.prototype;
 var x = new t();
-console.log(x instanceof t, x instanceof Array, x instanceof Object); // true 
+console.log(x instanceof t, x instanceof Array, x instanceof Object); // true
 
 function Person(name) {
   this.name = name;
@@ -570,7 +572,7 @@ http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#question-about-surrou
 // !后边语句也要为表达式
 !function() { console.log('! 符号'); }();
 
-// 常用方法：call / apply / bind 
+// 常用方法：call / apply / bind
 // call 是 Function 的实例方法还是静态方法？
 console.log(Function.call === Function.prototype.call);
 console.log(typeof Function.prototype); // function
@@ -606,7 +608,7 @@ function Person(name) {
 }
 // 严格模式下、没有 new 时、构造函数里 this 值为 undefined，由于不能给 undefined 添加属性，会抛出错误。
 // 非严格模式下，没有 new 时、this 是全局对象。
-var me = new Person("Nicholas"); 
+var me = new Person("Nicholas");
 
 
 /*
@@ -692,7 +694,7 @@ console.log(isNaN(NaN));     // true
 console.log(Number('you'), Number(''), Number('0000011111'), Number(true));  // NaN 0 11111 1
 
 console.log(
-  parseInt('12fuck'), parseInt(''), parseInt('sns'), parseInt('0000011111'), 
+  parseInt('12fuck'), parseInt(''), parseInt('sns'), parseInt('0000011111'),
   parseInt('0xA'), parseInt(22.5), parseInt('70'), parseInt('070'), parseInt('0xf')
 ); // 12 NaN NaN 4681 10 22 70 56 15
 
@@ -741,4 +743,3 @@ console.log(String(null), String(undefined));  // 'null' 'undefined'
 var s = 'test';
 s.len = 4; // 创建包装对象，为包装对象添加属性 len
 console.log(s.len); // 查找其len属性，返回 undefined
-

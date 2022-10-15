@@ -1,86 +1,80 @@
-console.log('inject page, ISOLATED window object', chrome, urlsMap);
+console.log('this is injected to all pages (ISOLATED window object)', window, chrome);
 
-// 以下直接修改 window 对象无效，原因是 content_scripts 是独立环境执行
-// https://developer.chrome.com/docs/extensions/mv3/content_scripts/#isolated_world
-// https://stackoverflow.com/questions/9515704
-// https://stackoverflow.com/questions/12395722
-// window.parent = window;
-// window.top = window;
-// https://developer.mozilla.org/en-US/docs/Web/API/Window
-// window 对象的 parent top 属性都是 只读 的。
-
-// 不能直接访问 top 里对象  window.top.document.querySelector(`a`)
-// console.log('wt', window.top.name);
-
-var iScript = document.createElement('script');
-// csp 限制不能 eval 代码
-// iScript.textContent = 'console.log(window);';
-// 需要在 manifest 里设置 web_accessible_resources 才能把 chrome-extension://*.js 注入到各个页面里
-iScript.src = chrome.runtime.getURL('inject-sub.js');
-(document.head||document.documentElement).appendChild(iScript);
-iScript.onload = function() {
-  iScript.remove();
+const hl_extension_util = {
+  // 使用 Performance https://web.dev/i18n/en/cls/ 方法代替 onload 监测异步 js 延迟渲染的 dom 元素稳定出现时间点。
+  cls: (cb = () => {}) => {
+    let clsValue = 0, clsEntries = [], sessionValue = 0, sessionEntries = [];
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (!entry.hadRecentInput) {
+          const firstSessionEntry = sessionEntries[0];
+          const lastSessionEntry = sessionEntries[sessionEntries.length - 1];
+          if (sessionValue &&
+              entry.startTime - lastSessionEntry.startTime < 1000 &&
+              entry.startTime - firstSessionEntry.startTime < 5000) {
+            sessionValue += entry.value;
+            sessionEntries.push(entry);
+          } else {
+            sessionValue = entry.value;
+            sessionEntries = [entry];
+          }
+          if (sessionValue > clsValue) {
+            clsValue = sessionValue;
+            clsEntries = sessionEntries;
+            cb();
+          }
+        }
+      }
+    }).observe({type: 'layout-shift', buffered: true});
+  },
+  insertCss: content => {
+    const style = document.createElement("style")
+    style.textContent = content;
+    document.head.appendChild(style)
+  },
+  // https://blog.csdn.net/qq_31201781/article/details/125218891
+  injectPageScript: (payload) => {
+    var iScript = document.createElement('script');
+    // csp 限制不能 eval 代码
+    // iScript.textContent = 'console.log(window);';
+    // 需要在 manifest 里设置 web_accessible_resources 才能把 chrome-extension://*.js 注入到各个页面里
+    iScript.src = chrome.runtime.getURL('inject-sub.js');
+    iScript.onload = function() {
+      document.dispatchEvent(new CustomEvent('hl_extension_message', { detail: payload }));
+      // iScript.remove();
+    };
+    document.body.appendChild(iScript);
+  }
 };
+window.hl_extension_util = hl_extension_util;
 
-if (window !== top) {
-
-  if (location.href.indexOf(urlsMap.drive) === 0) {
-    cls(() => {
-      // 隐藏部分内容
-      document.querySelector('.sidebar-mouse-in-out').style.display = 'none';
-      document.querySelector('header.sc-gsDJrp').style.display = 'none';
-      document.querySelector('.sc-fIoroj').style.display = 'none';
-      document.querySelector('.sc-eJwXpk').style.display = 'none';
-      document.querySelector('[data-sel="explorer-v3-folder-list"]').style.display = 'none';
-      // 给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面 [...document.getElementsByTagName('a')]
-      document.querySelectorAll('a').forEach((item) => {
-        item.target = '_parent';
-        item.addEventListener('click', (evt) => {
-          // evt.preventDefault();
-          evt.stopPropagation();
-          evt.stopImmediatePropagation();
+window.addEventListener('load', async () => {
+  const { injectPages } = await getStorage();
+  // console.log('injectPages', window.hl_extension_data, injectPages);
+  const injectCode = JSON.parse(injectPages);
+  Object.keys(injectCode).forEach(url => {
+    if (location.href.indexOf(url) === 0) {
+      if (injectCode[url].blankPageOnly && !window.hl_extension_data?.tabId) {
+        return;
+      }
+      hl_extension_util.cls(() => {
+        hl_extension_util.insertCss(injectCode[url].css);
+        hl_extension_util.injectPageScript({
+          url,
+          jsFn: injectCode[url].js,
         });
       });
-    });
-  }
+    };
+  });
 
-  if (location.href.indexOf(urlsMap.docx) === 0) {
-    cls(() => {
-      chrome.runtime.sendMessage({
-        _ext: true,
-        title: document.querySelector('.note-title__input')?.innerHTML || document.title,
-      }, (response) => {});
-    });
-  }
-
-  if (location.href.indexOf(urlsMap.bd) === 0) {
-    // 修改 百度框计算 结果样式
-    const showSpecialEle = (ele) => {
-      if (!ele) return;
-      // console.log('ccc', ele, document.body.children);
-      ele.parentNode.removeChild(ele);
-      document.body.appendChild(ele);
-      [...document.body.children].forEach(item => {
-        if (item !== ele) {
-          item.style.display = 'none';
-        } else {
-          ele.style.margin = '10px 0 0 30px';
-        }
-      });
-    }
-    cls(() => {
-      showSpecialEle(document.querySelector('[srcid="51044"]'));
-      showSpecialEle(document.querySelector('[srcid="5601"]'));
-    });
-  }
-
-  if (location.href.indexOf(urlsMap.googleTranslate) === 0) {
-    cls(() => {
+  if (window !== top && window.hl_extension_data?.tabId) {
+    hl_extension_util.cls(() => {
       // console.log('sss', document.body.clientHeight, document.body.scrollHeight);
       chrome.runtime.sendMessage({
         _ext: true,
-        windowSize: { height: document.body.scrollHeight },
+        title: document.querySelector('.note-title__input')?.innerHTML,
+        scrollHeight: document.body.scrollHeight ,
       }, (response) => {});
     });
   }
-}
+});
