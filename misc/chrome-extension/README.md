@@ -47,5 +47,7 @@ manifest v3 的 csp 策略更加严格，不允许远程 cdn 资源加载。如�
 ```
 
 需要去掉 jquery 和 alipayobjects 远程地址。
+[mdn csp](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src)
+[edge csp](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/store-policies/csp)
 
 v3 中的 webRequest api 被废弃，改为使用 declarativeNetRequest 来处理请求。声明式 API 使用略微不便。

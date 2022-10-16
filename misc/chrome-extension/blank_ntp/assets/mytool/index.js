@@ -22,7 +22,23 @@ function getLocalIPs(callback) {
   }, function onerror() { });
 }
 
-$(function () {
+const setStorageNote = async (data) => {
+  if (!chrome?.storage?.local) {
+    localStorage.setItem('notesTxt', data);
+  } else {
+    await setStorage({ notesTxt: data });
+  }
+}
+const getStorageNote = async (kv) => {
+  if (!chrome?.storage?.local) {
+    return localStorage.getItem('notesTxt');
+  }
+  const nt = await getStorage();
+  // console.log('nt', nt);
+  return nt.notesTxt;
+}
+
+$(async function () {
   // 压缩地址 https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js
   // api 地址 https://nhn.github.io/tui.editor/latest/  对原 js 有改动
   const el = document.querySelector('#tuiEditor');
@@ -36,13 +52,15 @@ $(function () {
       target: '_blank',
     },
     toolbarItems: [['italic', 'strike', 'hr', 'ol'], ['table', 'image', 'link']],
-    initialValue: localStorage.getItem('notesTxt') || '',
+    initialValue: '',
     events: {
-      change: (aa) => {
-        localStorage.setItem('notesTxt', tuiEditor.getMarkdown());
+      change: async (aa) => {
+        await setStorageNote(tuiEditor.getMarkdown());
       }
     }
   });
+  const newlValue = await getStorageNote();
+  tuiEditor.setMarkdown(newlValue);
   // 点击打开链接
   el.addEventListener('click', (evt) => {
     // 把 .toastui-editor-contents 元素的 contenteditable 设为 false ，内部的 链接 就能自动跳转
@@ -111,6 +129,10 @@ $(function () {
     localIP = 'http://' + ips[0] + '';
     // console.log('localIp', localIP);
     $('#ip').attr('href', localIP).html(localIP);
+  });
+
+  $('#syncInter').click((e) => {
+    chrome.tabs.create({url: e.target.href});
   });
 
   // console.log('ll', location.pathname, window.parent.document);

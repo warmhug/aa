@@ -67,7 +67,7 @@
     ]
   },
   "content_security_policy": {
-    "sandbox": "sandbox allow-scripts;",
+    "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals",
     "extension_pages": "script-src 'self'; object-src 'self'"
   }
 }
