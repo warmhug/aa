@@ -6,24 +6,34 @@ const getSetStorage = {
     const { tabIframes } = await getStorage();
     return tabIframes ? JSON.parse(tabIframes) : [];
   },
-  setIframes: (data) => {
+  setIframes: async (data) => {
     // localStorage.setItem('iframesInfo', JSON.stringify(data));
-    setStorage({ tabIframes: JSON.stringify(data) });
+    await setStorage({ tabIframes: JSON.stringify(data) });
   },
   getTabIdx: async () => {
     // return parseInt(localStorage.getItem('tabIndex') ?? 0);
     const { tabIndex } = await getStorage();
     return parseInt(tabIndex ?? 0);
   },
-  setTabIdx: (idx) => {
+  setTabIdx: async (idx) => {
     // localStorage.setItem('tabIndex', idx);
-    setStorage({ tabIndex: idx });
+    await setStorage({ tabIndex: idx });
+  },
+  getTabWidth: async () => {
+    // return parseInt(localStorage.getItem('tabIndex') ?? 0);
+    const { tabWidth } = await getStorage();
+    return tabWidth ?? '70%';
+  },
+  setTabWidth: async (wd) => {
+    // localStorage.setItem('tabWidth', wd);
+    await setStorage({ tabWidth: wd });
   },
 };
 
 $(async function () {
   let navs = '', contents = '';
-  (await getSetStorage.getIframes()).forEach((item, idx) => {
+  const ifrData = await getSetStorage.getIframes();
+  ifrData.forEach((item, idx) => {
     navs += `<li role="presentation" data-idx="${idx}">
     <a href="#tabContent${idx}" data-toggle="tab">${item[1] || '-'}</a>
     </li>`;
@@ -42,7 +52,7 @@ $(async function () {
     const ele = $(e.currentTarget);
     ele.find('a').tab('show');
     const idx = ele.data('idx');
-    getSetStorage.setTabIdx(idx);
+    await getSetStorage.setTabIdx(idx);
     const dataCopy = (await getSetStorage.getIframes())[idx];
     if (Array.isArray(dataCopy[0])) {
       const rows = dataCopy[0].map(sub => {
@@ -71,44 +81,64 @@ $(async function () {
         heightMap[curUrl].min = 0;
         iframeWrap.removeClass('min').height(scrollHeight);
       }
-      getSetStorage.setIframes(dataCopy);
+      await getSetStorage.setIframes(dataCopy);
     }
   });
-  chrome.runtime.onMessage.addListener(async (request, sender, res) => {
+  chrome.runtime.onMessage.addListener((request, sender, res) => {
     // 注意 这里可能会多次收到不同来源的消息
     // console.log('ssss', request, sender, res);
     if (request._ext) {
-      const dUrl = decodeURIComponent(sender.url);
-      const dataCopy = await getSetStorage.getIframes();
-      dataCopy.forEach((item, idx) => {
-        const isMatch = Array.isArray(item[0]) ? item[0].flat().includes(dUrl) : dUrl === item[0];
-        if (isMatch && request.title) {
-          $('#eTabs li').eq(idx).find('a').html(request.title);
-          item[1] = request.title;
-        }
-        // console.log('onMessage', isMatch, dUrl, request.scrollHeight);
-        if (isMatch && request.scrollHeight != null) {
-          item[2] = {
-            ...(item[2] || {}),
-            [dUrl]: {
-              ...(item[2]?.[dUrl] || {}),
-              scrollHeight: request.scrollHeight,
-            },
-          };
-        }
-      });
-      getSetStorage.setIframes(dataCopy);
+      (async () => {
+        const dUrl = decodeURIComponent(sender.url);
+        const dataCopy = await getSetStorage.getIframes();
+        dataCopy.forEach((item, idx) => {
+          const isMatch = Array.isArray(item[0]) ? item[0].flat().includes(dUrl) : dUrl === item[0];
+          if (isMatch && request.title) {
+            $('#eTabs li').eq(idx).find('a').html(request.title);
+            item[1] = request.title;
+          }
+          // console.log('onMessage', isMatch, dUrl, request.scrollHeight);
+          if (isMatch && request.scrollHeight != null) {
+            item[2] = {
+              ...(item[2] || {}),
+              [dUrl]: {
+                ...(item[2]?.[dUrl] || {}),
+                scrollHeight: request.scrollHeight,
+              },
+            };
+          }
+        });
+        await getSetStorage.setIframes(dataCopy);
 
-      const iframeTitleEle = document.querySelector(`[href="${dUrl}"]`);
-      if (request.scrollHeight != null && iframeTitleEle) {
-        iframeTitleEle.parentNode.style.height = request?.scrollHeight + 'px';
-      }
+        const iframeTitleEle = $('#eTabContent').find(`[href="${dUrl}"]`);
+        // 只给 工具tab 内的 iframe 设置高度
+        const isToolTab = !dataCopy.find(item => item[0] === dUrl);
+        if (isToolTab && request.scrollHeight != null && iframeTitleEle) {
+          iframeTitleEle.parent().height(request.scrollHeight);
+        }
+        // 没有 res 会报错吗 Unchecked runtime.lastError: The message port closed before a response was received.
+        res(dataCopy);
+      })();
     }
-    // 没有 res 会报错吗 Unchecked runtime.lastError: The message port closed before a response was received.
-    res('aaa');
+    return true;
   });
 
-  $('#closeSide').click((e) => {
-    $('#sideIframe').toggle();
+  $('.tabs').resizable({
+    handles: 'e',
+    containment: "parent",
+    start: function(event, ui) {
+      // 解决内部有 iframe 时 拖动卡顿 问题
+      $('iframe').css('pointer-events','none');
+    },
+    stop: function(event, ui) {
+      $('iframe').css('pointer-events','auto');
+      const { width } = ui.size;
+      const saveWidth = `${width / (window.innerWidth - 12) * 100}%`;
+      getSetStorage.setTabWidth(saveWidth);
+    }
   });
+
+  const tabWidth = await getSetStorage.getTabWidth();
+  $('.tabs').width(tabWidth);
+
 });

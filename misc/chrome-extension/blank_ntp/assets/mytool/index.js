@@ -44,7 +44,7 @@ $(async function () {
   const el = document.querySelector('#tuiEditor');
   const tuiEditor = new toastui.Editor({
     el,
-    height: '450px',
+    height: '350px',
     previewStyle: 'tab',
     initialEditType: 'wysiwyg', // markdown
     extendedAutolinks: true,

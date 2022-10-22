@@ -3,6 +3,7 @@ body {
   background-size: cover;
   /* background-color: #EFFACE; */
 }
+
 .pageBgImg {
   position: fixed;
   width: 100%;
@@ -13,14 +14,15 @@ body {
 }
 .main {
   position: relative;
-  display: flex;
-  height: calc(100% - 32px);
+  /* flex 跟  jquery ui resizable 搭配不正常  */
+  display: table;
   margin: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 32px);
 }
 
 .main .iframe-wrap {
   position: relative;
-  background-color: #fff;
 }
 .main .iframe-wrap b,
 .main .iframe-wrap .iframe-title {
@@ -42,35 +44,28 @@ body {
 }
 
 .main > .iframe-wrap {
-  flex: none;
-  width: 490px;
+  display: table-cell;
   height: 100%;
-  margin-left: 4px;
+  padding-left: 4px;
 }
 
 .main .tabs {
-  flex: 1;
-  width: 1px;
-  position: relative;
+  display: table-cell;
+  vertical-align: top;
+  width: 70%;
   background-color: #fff;
-}
-.main .tabs .extend {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
 }
 .main .tabs .nav {
   margin: 5px;
+}
+.main .tabs .tab-content {
+  height: calc(100% - 52px);
 }
 .main .tabs .tab-pane {
   overflow: hidden;
 }
 .main .tabs .tab-pane:first-child {
   overflow: scroll;
-}
-.main .tabs .tab-pane > .iframe-wrap iframe {
-  height: calc(100% - 52px);
 }
 .main .tabs .tab-pane .tp-row {
   display: flex;

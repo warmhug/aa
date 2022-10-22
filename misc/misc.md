@@ -70,7 +70,6 @@ console.log(fm.allFileBookmarks())
 应用
 
 ```js
-
 // 参考自 https://talk.automators.fm/t/reading-contents-of-a-file/8865/2
 // Random number generator
 function getRndInteger(min, max) {
@@ -79,15 +78,17 @@ function getRndInteger(min, max) {
 let fm = FileManager.iCloud()
 let raw = fm.readString(fm.joinPath(fm.documentsDirectory(), '_my_note.txt'))
 // let raw = fm.readString(fm.bookmarkedPath('_my_note'))
-let quotes = raw.split("\n")
-let lines = quotes.length
-let pickQuote = getRndInteger(2, lines);
+let quotes = raw.split("\n").filter(item => item && item != '========');
+//console.log(quotes)
+let lines = quotes.length;
+let idx = getRndInteger(2, lines);
 let widget = new ListWidget()
-let wTxt = widget.addText(quotes[pickQuote])
-Script.setWidget(widget)
-widget.presentMedium()
-Script.complete()
-
+let wTxt = widget.addText(`[${(idx / lines).toFixed(2)}] ${quotes[idx]}`);
+wTxt.minimumScaleFactor = 0.8;
+widget.backgroundColor = new Color('dddddd');
+Script.setWidget(widget);
+widget.presentMedium();
+Script.complete();
 ```
 
 

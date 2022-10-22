@@ -12,12 +12,14 @@
   <div class="main">
     <div id="tuiEditor"></div>
     <div class="notes">
-      <a id="notesLoad">load</a>
-      <a id="changeNote">换一个</a>
-      <a id="ip" target="_blank"></a>
-      <br>
-      <a id="syncInter" href="chrome://sync-internals/">chrome://sync-internals/</a>
-      <small>await chrome.storage.sync.get(null)</small>
+      <small>
+        <a id="notesLoad">load</a>
+        <a id="changeNote">换一个</a>
+        <!-- <br> -->
+        <a id="ip" target="_blank"></a>
+        <a id="syncInter" href="chrome://sync-internals/">chrome://sync</a>
+        await chrome.storage.sync.get(null)
+      </small>
       <div id="notesTxt">notesContent</div>
       <div id="notesImg" class="small">
         <img src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">

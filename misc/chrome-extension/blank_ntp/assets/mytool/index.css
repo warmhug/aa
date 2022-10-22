@@ -22,4 +22,5 @@ body {
 .main .notes .small {
   height: 190px;
   overflow: hidden;
+  display: none;
 }
