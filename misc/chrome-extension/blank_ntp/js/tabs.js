@@ -84,9 +84,9 @@ $(async function () {
       await getSetStorage.setIframes(dataCopy);
     }
   });
-  chrome.runtime.onMessage.addListener((request, sender, res) => {
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // 注意 这里可能会多次收到不同来源的消息
-    // console.log('ssss', request, sender, res);
+    // console.log('ssss', request, sender, sendResponse);
     if (request._ext) {
       (async () => {
         const dUrl = decodeURIComponent(sender.url);
@@ -117,7 +117,7 @@ $(async function () {
           iframeTitleEle.parent().height(request.scrollHeight);
         }
         // 没有 res 会报错吗 Unchecked runtime.lastError: The message port closed before a response was received.
-        res(dataCopy);
+        sendResponse({ success: true, data: dataCopy });
       })();
     }
     return true;

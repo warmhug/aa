@@ -36,7 +36,15 @@ const injectPages = {
   },
   'https://bytedance.feishu.cn/drive/me': {
     blankPageOnly: true,
-    css: `.sidebar-mouse-in-out, header.sc-gsDJrp, .sc-fIoroj, .sc-eJwXpk, div[data-sel="explorer-v3-folder-list"] { display: none!important; }`,
+    css: `
+      .sidebar-mouse-in-out {
+        display: none!important;
+      }
+      .sc-gsDJrp, .sc-iqVVwt {
+        height: 0!important;
+        visibility: hidden;
+      }
+    `,
     js: `;(() => {
       /*
       给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面 [...document.getElementsByTagName('a')]

@@ -62,7 +62,7 @@ const hl_extension_util = {
     document.head.appendChild(style)
   },
   // https://blog.csdn.net/qq_31201781/article/details/125218891
-  injectPageScript: (payload) => {
+  injectPageScript: (payload, cb = () => {}) => {
     var iScript = document.createElement('script');
     // csp 限制不能 eval 代码
     // iScript.textContent = 'console.log(window);';
@@ -71,11 +71,25 @@ const hl_extension_util = {
     iScript.onload = function() {
       document.dispatchEvent(new CustomEvent('hl_extension_message', { detail: payload }));
       // iScript.remove();
+      cb();
     };
     document.body.appendChild(iScript);
   }
 };
 window.hl_extension_util = hl_extension_util;
+
+// async sendMessage
+const sendMessage = (req) => {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(req, (response) => {
+      if (response.success) {
+        resolve(response);
+      } else {
+        reject(response);
+      }
+    });
+  });
+};
 
 window.addEventListener('load', async () => {
   const { injectPages } = await getStorage();
@@ -91,6 +105,12 @@ window.addEventListener('load', async () => {
         hl_extension_util.injectPageScript({
           url,
           jsFn: injectCode[url].js,
+        }, async () => {
+          // console.log('sss cls', location.href, document.body.clientHeight, document.body.scrollHeight);
+          const res = await sendMessage({
+            _ext: true,
+            scrollHeight: document.body.scrollHeight,
+          });
         });
       });
     };
@@ -99,16 +119,26 @@ window.addEventListener('load', async () => {
   if (window !== top && window.hl_extension_data?.tabId) {
     // hl_extension_util.observeEle('#mainBox');
     // console.log('sss', location.href, document.body.clientHeight, document.body.scrollHeight);
-    hl_extension_util.checkEle('.note-title__input', (ele) => {
-      chrome.runtime.sendMessage({
+    // chrome.runtime.sendMessage({
+    //   _ext: true,
+    //   scrollHeight: document.body.scrollHeight,
+    // }, (response) => {});
+    const res = await sendMessage({
+      _ext: true,
+      scrollHeight: document.body.scrollHeight,
+    });
+    hl_extension_util.checkEle('.note-title__input', async (ele) => {
+      // chrome.runtime.sendMessage({
+      //   _ext: true,
+      //   title: ele.innerHTML,
+      //   scrollHeight: document.body.scrollHeight,
+      // }, (response) => {});
+      const resT = await sendMessage({
         _ext: true,
         title: ele.innerHTML,
-        scrollHeight: document.body.scrollHeight,
-      }, (response) => {});
+        scrollHeight: document.body.scrollHeight ,
+      });
+      // console.log('resT', resT);
     });
-    chrome.runtime.sendMessage({
-      _ext: true,
-      scrollHeight: document.body.scrollHeight ,
-    }, (response) => {});
   }
 });
