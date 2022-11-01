@@ -74,6 +74,7 @@ defaults write com.apple.helpviewer DevMode -bool TRUE  # 系统的帮助窗口�
 Command + L  # 光标定位到地址栏，输入搜索词 并按 Alt + Enter 键在 新标签页中
 Command + 1/2/3  # 跳到相应标签
 Command + Alt + →/←  # 选择 上/下 一个标签
+chrome://system
 ```
 
 ---------

@@ -9,3 +9,14 @@ chrome.action.onClicked.addListener(async (tab) => {
   chrome.tabs.create({ index: curTab.index + 1 });
   // console.log('aaat', tab, curTab);
 });
+
+chrome.runtime.onInstalled.addListener(function(details){
+  if(details.reason == "install"){
+    console.log("This is a first install!");
+  } else if(details.reason == "update"){
+    var thisVersion = chrome.runtime.getManifest().version;
+    console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
+  }
+  // servicework 里打开 option.html https://stackoverflow.com/questions/2399389/detect-chrome-extension-first-run-update
+  chrome.tabs.create({url: chrome.runtime.getURL('options.html')});
+});

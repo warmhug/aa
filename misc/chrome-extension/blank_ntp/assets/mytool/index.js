@@ -44,7 +44,7 @@ $(async function () {
   const el = document.querySelector('#tuiEditor');
   const tuiEditor = new toastui.Editor({
     el,
-    height: '350px',
+    height: '450px',
     previewStyle: 'tab',
     initialEditType: 'wysiwyg', // markdown
     extendedAutolinks: true,
@@ -54,7 +54,8 @@ $(async function () {
     toolbarItems: [['italic', 'strike', 'hr', 'ol'], ['table', 'image', 'link']],
     initialValue: '',
     events: {
-      change: async (aa) => {
+      // change: async (aa) => {
+      keydown: async (aa) => {
         await setStorageNote(tuiEditor.getMarkdown());
       }
     }

@@ -80,13 +80,22 @@ const injectPages = {
   },
 };
 
-const driveMeUrl = `https://bytedance.feishu.cn/drive/me`;
-setStorage({ driveMeUrl });
+setStorage({ driveMeUrl: 'https://bytedance.feishu.cn/drive/me' });
 
-document.querySelector('.inject_pages').value = JSON.stringify(injectPages, null, 2).replace(/\\n/g, '\n');
-setStorage({ injectPages: JSON.stringify(injectPages, null, 2) });
-document.querySelector('.inject_pages').addEventListener('input', (e) => setStorage({ injectPages: e.target.value.replace(/\n/g, "") }));
+async function setOpt(ele, key, val, filter1 = inp => inp, filter2 = inp => inp) {
+  const remoteData = await getStorage();
+  if (!remoteData[key]) {
+    setStorage({ [key]: JSON.stringify(val, null, 2) });
+  }
+  ele.value = filter1(remoteData[key] || JSON.stringify(val, null, 2));
+  ele.addEventListener('input', (e) => {
+    setStorage({ [key]: filter2(e.target.value) });
+  });
+}
+setOpt(document.querySelector('.blank_page_iframes'), 'tabIframes', tabIframes);
+setOpt(document.querySelector('.inject_pages'), 'injectPages', injectPages, inp => inp.replace(/\\n/g, '\n'), inp => inp.replace(/\n/g, ""));
 
-document.querySelector('.blank_page_iframes').value = JSON.stringify(tabIframes, null, 2);
-setStorage({ tabIframes: JSON.stringify(tabIframes, null, 2) });
-document.querySelector('.blank_page_iframes').addEventListener('input', (e) => setStorage({ tabIframes: e.target.value }));
+
+// document.querySelector('.inject_pages').value = JSON.stringify(injectPages, null, 2).replace(/\\n/g, '\n');
+// setStorage({ injectPages: JSON.stringify(injectPages, null, 2) });
+// document.querySelector('.inject_pages').addEventListener('input', (e) => setStorage({ injectPages: e.target.value.replace(/\n/g, "") }));
