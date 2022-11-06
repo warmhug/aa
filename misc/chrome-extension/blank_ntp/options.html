@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>My Test Extension Options</title>
   <style>
-    .inject_pages, .blank_page_iframes {
+    .injectSites {
       width: 800px;
       height: 400px;
     }
@@ -12,14 +12,12 @@
 </head>
 <body>
 
-chrome://newtab 页面里的 iframs
+插入到页面的代码
 <br>
-<textarea class="blank_page_iframes"></textarea>
-<br>
+<textarea class="injectSites"></textarea>
 
-插入到所有页面的代码
-<br>
-<textarea class="inject_pages"></textarea>
+<br><br>
+<button id="clearData">清除 sync data</button>
 
 <script src="common.js"></script>
 <script src="options.js"></script>

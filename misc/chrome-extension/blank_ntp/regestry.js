@@ -1,20 +1,26 @@
 console.log('new tab page', chrome);
 
 (async () => {
-  const { driveMeUrl } = await getStorage();
+  const { hl_injectSites } = await hl_extension_util.getStorage();
+  const injectSites = hl_injectSites ? JSON.parse(hl_injectSites) : {};
+  const driveMeUrl = Object.keys(injectSites).find(url => injectSites[url].separate);
+
   const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
 
   // 注意: webNavigation listener 在这里注册，当打开或刷新 浏览器其他 tab 页面时，这里都会执行回调。
-  // 所以 executeScript 需要传入 curTab.id
+  // 所以 executeScript 需要传入 curTab.id 并判断与打开的页面所在 tab 是否一致。
   chrome.webNavigation.onDOMContentLoaded.addListener(async details => {
     // console.log('webNavigation', curTab, details);
+    if (details.url === 'about:blank' || details.tabId !== curTab.id) {
+      return;
+    }
     const injectionResults = await chrome.scripting.executeScript({
       target: {
         tabId: curTab.id,
         frameIds: [details.frameId]
       },
       func: (tabId) => {
-        // alert(2);
+        // alert('inject data');
         window.hl_extension_data = { tabId };
       },
       args: [curTab.id]

@@ -1,85 +1,9 @@
 console.log('this is injected to all pages (ISOLATED window object)', window, chrome);
 
-const hl_extension_util = {
-  // 使用 Performance https://web.dev/i18n/en/cls/ 方法代替 onload 监测异步 js 延迟渲染的 dom 元素稳定出现时间点。
-  cls: (cb = () => {}) => {
-    let clsValue = 0, clsEntries = [], sessionValue = 0, sessionEntries = [];
-    new PerformanceObserver((entryList) => {
-      for (const entry of entryList.getEntries()) {
-        if (!entry.hadRecentInput) {
-          const firstSessionEntry = sessionEntries[0];
-          const lastSessionEntry = sessionEntries[sessionEntries.length - 1];
-          if (sessionValue &&
-              entry.startTime - lastSessionEntry.startTime < 1000 &&
-              entry.startTime - firstSessionEntry.startTime < 5000) {
-            sessionValue += entry.value;
-            sessionEntries.push(entry);
-          } else {
-            sessionValue = entry.value;
-            sessionEntries = [entry];
-          }
-          if (sessionValue > clsValue) {
-            clsValue = sessionValue;
-            clsEntries = sessionEntries;
-            cb();
-          }
-        }
-      }
-    }).observe({type: 'layout-shift', buffered: true});
-  },
-  observeEle: (selector, cb = () => {}) => {
-    const targetNode = document.querySelector(selector);
-    const config = { attributes: true, childList: true, subtree: true };
-    const observer = new MutationObserver((mutationList, observer) => {
-      for (const mutation of mutationList) {
-        if (mutation.type === 'childList') {
-          console.log('observeEle: A child node has been added or removed.');
-        } else if (mutation.type === 'attributes') {
-          console.log(`observeEle: The ${mutation.attributeName} attribute was modified.`);
-        }
-      }
-    });
-    observer.observe(targetNode, config);
-    // Later, you can stop observing
-    // observer.disconnect();
-  },
-  checkEle: (selector, cb = () => {}) => {
-    let ele, timeout = 8000, startTime = Date.now();
-    const check = () => {
-      // console.log('check times', Date.now() - startTime);
-      ele = document.querySelector(selector);
-      if (!ele && Date.now() - startTime < timeout) {
-        setTimeout(check, 200);
-      } else if (ele) {
-        cb(ele);
-      }
-    };
-    check();
-  },
-  insertCss: content => {
-    const style = document.createElement("style")
-    style.textContent = content;
-    document.head.appendChild(style)
-  },
-  // https://blog.csdn.net/qq_31201781/article/details/125218891
-  injectPageScript: (payload, cb = () => {}) => {
-    var iScript = document.createElement('script');
-    // csp 限制不能 eval 代码
-    // iScript.textContent = 'console.log(window);';
-    // 需要在 manifest 里设置 web_accessible_resources 才能把 chrome-extension://*.js 注入到各个页面里
-    iScript.src = chrome.runtime.getURL('inject-sub.js');
-    iScript.onload = function() {
-      document.dispatchEvent(new CustomEvent('hl_extension_message', { detail: payload }));
-      // iScript.remove();
-      cb();
-    };
-    document.body.appendChild(iScript);
-  }
-};
+// for test
 window.hl_extension_util = hl_extension_util;
 
-// async sendMessage
-const sendMessage = (req) => {
+const asyncSendMessage = (req) => {
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage(req, (response) => {
       if (response.success) {
@@ -91,54 +15,56 @@ const sendMessage = (req) => {
   });
 };
 
-window.addEventListener('load', async () => {
-  const { injectPages } = await getStorage();
-  // console.log('injectPages', window.hl_extension_data, injectPages);
-  const injectCode = JSON.parse(injectPages);
-  Object.keys(injectCode).forEach(url => {
-    if (location.href.indexOf(url) === 0) {
-      if (injectCode[url].blankPageOnly && !window.hl_extension_data?.tabId) {
-        return;
-      }
-      hl_extension_util.cls(() => {
-        hl_extension_util.insertCss(injectCode[url].css);
-        hl_extension_util.injectPageScript({
-          url,
-          jsFn: injectCode[url].js,
-        }, async () => {
-          // console.log('sss cls', location.href, document.body.clientHeight, document.body.scrollHeight);
-          const res = await sendMessage({
-            _ext: true,
-            scrollHeight: document.body.scrollHeight,
-          });
-        });
-      });
-    };
-  });
-
-  if (window !== top && window.hl_extension_data?.tabId) {
-    // hl_extension_util.observeEle('#mainBox');
-    // console.log('sss', location.href, document.body.clientHeight, document.body.scrollHeight);
-    // chrome.runtime.sendMessage({
-    //   _ext: true,
-    //   scrollHeight: document.body.scrollHeight,
-    // }, (response) => {});
-    const res = await sendMessage({
-      _ext: true,
-      scrollHeight: document.body.scrollHeight,
-    });
-    hl_extension_util.checkEle('.note-title__input', async (ele) => {
-      // chrome.runtime.sendMessage({
-      //   _ext: true,
-      //   title: ele.innerHTML,
-      //   scrollHeight: document.body.scrollHeight,
-      // }, (response) => {});
-      const resT = await sendMessage({
-        _ext: true,
-        title: ele.innerHTML,
-        scrollHeight: document.body.scrollHeight ,
-      });
-      // console.log('resT', resT);
-    });
+// content_scripts 和插入进 iframe 里边的 inject-sub.js 通信
+window.addEventListener("message", async (event) => {
+  // 注意 这里可能会多次收到不同来源的消息
+  console.log('message from iframe', event);
+  let parsedData;
+  try {
+    parsedData = JSON.parse(event.data);
+  } catch {
+    parsedData = {};
+  }
+  if (parsedData._ext) {
+    await asyncSendMessage(parsedData);
   }
 });
+
+;(async function () {
+  const { hl_injectSites } = await hl_extension_util.getStorage();
+  const injectSites = JSON.parse(hl_injectSites) || {};
+  const dUrl = decodeURIComponent(location.href);
+  const checkUrl = () => {
+    const urls = Object.keys(injectSites);
+    if (urls.includes(dUrl)) return dUrl;
+    return urls.find(url => dUrl.indexOf(url) === 0);
+  };
+
+  if (checkUrl()) {
+    // window.addEventListener('load', mainFn);
+    window.addEventListener('load', () => {
+      requestIdleCallback(myNonEssentialWork, { timeout: 5000 });
+      function myNonEssentialWork (deadline) {
+        // console.log('执行任务 1', deadline.timeRemaining(), location.href);
+        while ((deadline.timeRemaining() > 0 || deadline.didTimeout)) {
+          // console.log('执行任务 while', deadline.timeRemaining());
+        }
+        mainFn(injectSites[checkUrl()]);
+      }
+    });
+  }
+
+  function mainFn(urlProps) {
+    console.log('执行任务 2', location.href, document.scrollingElement.scrollHeight);
+    // 使用 hl_extension_data?.tabId 判断只是在 blankPage 里
+    if (!window.hl_extension_data?.tabId && !urlProps.allPage) {
+      return;
+    }
+    hl_extension_util.insertCss(urlProps.css);
+    hl_extension_util.injectPageScript({
+      js: urlProps.js,
+      hl_extension_data: window.hl_extension_data?.tabId,
+    });
+  }
+
+})();

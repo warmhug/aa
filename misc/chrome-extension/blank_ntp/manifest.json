@@ -1,4 +1,5 @@
 {
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvo8/0syQaGuBLCFOUJeqxIBFYYZBeje9Hx4HiOGUZiN59RL/TvXf6q6pkSJwrYNR/GYP84KsM80x7ydogyX+aV5Byip5m3lFvwoYlcR3K9m94a/+MLMLJsjzCP5Q4RzY+/CVpyxchQlZXOaXsJg6vEo9+gT+Vpan/aICcAyf1ZHiKlsszTZxBJD82PN/peG8bo2E715eEgsoEClFCs+0OqGzIGNHHY9yUfeTgGIe2SmDQED16ewTa5G/17/3I3yatv0UfetjzPJgmbZZx6FWtjpaRip6O+aHPPI074SN3UPSKs+UT95E6qIrAbGeC7Epz0dabAgFXqaL4i7qS8gZJwIDAQAB",
   "name": "Blank new tab page",
   "description": "Override the new tab page with a blank one",
   "version": "1.0",
@@ -59,6 +60,7 @@
       "js": ["common.js", "inject.js"],
       "all_frames": true,
       "match_origin_as_fallback": false,
+      "world": "MAIN",
       "run_at": "document_start"
     }
   ],

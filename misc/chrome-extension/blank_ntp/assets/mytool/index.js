@@ -26,14 +26,14 @@ const setStorageNote = async (data) => {
   if (!chrome?.storage?.local) {
     localStorage.setItem('notesTxt', data);
   } else {
-    await setStorage({ notesTxt: data });
+    await hl_extension_util.setStorage({ notesTxt: data });
   }
 }
 const getStorageNote = async (kv) => {
   if (!chrome?.storage?.local) {
     return localStorage.getItem('notesTxt');
   }
-  const nt = await getStorage();
+  const nt = await hl_extension_util.getStorage();
   // console.log('nt', nt);
   return nt.notesTxt;
 }
@@ -55,7 +55,7 @@ $(async function () {
     initialValue: '',
     events: {
       // change: async (aa) => {
-      keydown: async (aa) => {
+      keyup: async (aa) => {
         await setStorageNote(tuiEditor.getMarkdown());
       }
     }
@@ -137,9 +137,10 @@ $(function () {
   });
 
   // console.log('ll', location.pathname, window.parent.document);
-  chrome?.runtime?.sendMessage({
+  window.postMessage(JSON.stringify({
     _ext: true,
-    scrollHeight: document.body.scrollHeight ,
-  }, (response) => {});
+    _url: location.href,
+    scrollHeight: document.body.scrollHeight,
+  }), '*');
 
 });

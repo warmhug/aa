@@ -87,6 +87,7 @@ if (!rcs.find(item => item.id === id)) {
   // console.log('register success');
 }
 
+// 在 manifest 的 content_scripts 里设置 "world": "MAIN", 不起作用。
 // content_scripts 是独立环境执行，在注入的 inject.js 里修改页面本来的 window 对象无效
 // https://developer.chrome.com/docs/extensions/mv3/content_scripts/#isolated_world
 // https://stackoverflow.com/questions/9515704

@@ -16,6 +16,11 @@
 
 ## 其他
 
+开发时生成固定的 [extension_id](https://stackoverflow.com/questions/21497781)、
+[crxviewer](https://robwu.nl/crxviewer/)，在不同电脑上安装、打开`chrome://sync-internals/`搜 notesTxt 验证结果。
+注意 `chrome.storage.sync` 只存储和同步当前插件的数据，如果卸载插件、则同步的数据立即被删除。
+
+
 `chrome://newtab` 页面、其他标签页打开的 xxx.com 页面，与其内嵌的 iframe 通信限制方面完全一样、不能跨域访问。包括他们被注入的 content_scripts 在访问跨域iframe时、也一样受到限制。
 
 

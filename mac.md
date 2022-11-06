@@ -230,16 +230,21 @@ git push origin xx:xx  # 上传我本地的xx分支到远程仓库中去，仍�
 
 git diff [version1] [version2]   # 查看版本差异
 
-git pull --rebase       # 同 git fetch + git rebase
 git pull -p # remove all your local branches which are remotely deleted.
+git pull --rebase       # 同 git fetch + git rebase
 
 git fetch origin  # 同步远程repos, 更新本地仓库的所有 origin/* 分支信息
 git merge origin/xx    # 远程上有 xx 分支，并且 git fetch  执行此命令，将合并此分支
 git merge --no-ff xx   # 不执行"快进式合并"，始终多产生 merge 信息，便于追踪
 
 # 合并/删除多个 commit 为一个 https://www.jianshu.com/p/4a8f4af4e803
+# 修改已提交的 commit message 修改后，其后续的 commit hash 将全部改变、会影响协作同学 https://stackoverflow.com/questions/5032374/accidentally-pushed-commit-change-git-commit-message/5032614#5032614
 git log   # 找到要删除/合并 commit 之前一个 commit_id
+git log -p fileName
 git rebase -i [commit_id]
+git rebase -i HEAD~2  #
+git rebase -i --root  # rebase 第一个提交
+git rebase origin/master  # 把远程 master 更新作为当前分支基线，达到撤销之前 rebase 的目的
 git push -f  # 强制提交
 
 # 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录
