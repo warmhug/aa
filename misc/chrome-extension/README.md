@@ -17,7 +17,7 @@
 ## 其他
 
 开发时生成固定的 [extension_id](https://stackoverflow.com/questions/21497781)、
-[crxviewer](https://robwu.nl/crxviewer/)，在不同电脑上安装、打开`chrome://sync-internals/`搜 notesTxt 验证结果。
+[crxviewer](https://robwu.nl/crxviewer/)，在不同电脑上安装、打开`chrome://sync-internals/`搜 `hl_` 验证结果。
 注意 `chrome.storage.sync` 只存储和同步当前插件的数据，如果卸载插件、则同步的数据立即被删除。
 
 

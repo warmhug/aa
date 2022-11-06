@@ -24,18 +24,18 @@ function getLocalIPs(callback) {
 
 const setStorageNote = async (data) => {
   if (!chrome?.storage?.local) {
-    localStorage.setItem('notesTxt', data);
+    localStorage.setItem('hl_notesTxt', data);
   } else {
-    await hl_extension_util.setStorage({ notesTxt: data });
+    await hl_extension_util.setStorage({ hl_notesTxt: data });
   }
 }
 const getStorageNote = async (kv) => {
   if (!chrome?.storage?.local) {
-    return localStorage.getItem('notesTxt');
+    return localStorage.getItem('hl_notesTxt');
   }
   const nt = await hl_extension_util.getStorage();
   // console.log('nt', nt);
-  return nt.notesTxt;
+  return nt.hl_notesTxt;
 }
 
 $(async function () {
@@ -108,21 +108,21 @@ $(function () {
 
   $('#notesLoad').click(loadNotes);
 
-  var notesTxt = $('#notesTxt');
+  var notesTxtEle = $('#notesTxt');
   getContents().then(res => {
     if (res) {
       resArray = res.split('\n').filter(item => item && item != '\r');
-      notesTxt.html(resArray[getRndInteger(2, resArray.length)]);
+      notesTxtEle.html(resArray[getRndInteger(2, resArray.length)]);
     }
   });
 
   $('#changeNote').click(function () {
     const txt = resArray[getRndInteger(2, resArray.length)];
-    notesTxt.html(txt);
+    notesTxtEle.html(txt);
   });
-  notesTxt.hide();
+  notesTxtEle.hide();
   $('#notesImg').click(function () {
-    notesTxt.toggle();
+    notesTxtEle.toggle();
     $(this).toggleClass('small');
   });
 
@@ -137,10 +137,17 @@ $(function () {
   });
 
   // console.log('ll', location.pathname, window.parent.document);
-  window.postMessage(JSON.stringify({
+  // chrome-extension 协议的链接，不能插入 content_scripts 可以直接调用 chrome api
+  // chrome-extension://kafpfdegkmheageeldelgnnkegpkbpca/assets/mytool/index.html
+  chrome?.runtime?.sendMessage({
     _ext: true,
     _url: location.href,
     scrollHeight: document.body.scrollHeight,
-  }), '*');
+  }, (response) => {});
+  // window.postMessage(JSON.stringify({
+  //   _ext: true,
+  //   _url: location.href,
+  //   scrollHeight: document.body.scrollHeight,
+  // }), '*');
 
 });

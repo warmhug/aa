@@ -32,7 +32,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 图像: snipaste / lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
 
 - 其他: vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / https://archive.org/web
-- chrome同步: Switchy Omega 添加 `*.google*` proxy 规则到前边，打开 `chrome://sync` 看 Local State - Server Connection 是否成功。参考 [1](https://hellodk.cn/post/185)、[2](https://github.com/FelisCatus/SwitchyOmega/issues/1599)。
+- chrome同步: Switchy Omega 添加 `*.google*` proxy 规则到前边，打开 `chrome://sync` 看 Local State - Server Connection 是否成功。参考 [1](https://hellodk.cn/post/185)、[2](https://github.com/FelisCatus/SwitchyOmega/issues/1599)。 其他方法：代理软件和浏览器都设为“系统代理”。
 - Chrome extensions: 一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) XSwitch Tamper / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity
 
 - zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
@@ -43,9 +43,8 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 欧路: 修改 /Users/hua/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改)：100000000000 重启
 
 - 手机软件: DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/)
-- iPhone 恢复出厂设置后，系统软件版本是 iOS 最新版、不是出厂时的旧版本。
+- iPhone 恢复出厂设置后，系统软件版本是 iOS 最新版、不是出厂时的旧版本。 在最新 beta 版系统软件做备份后、不能恢复到旧稳定版本！ https://apple.stackexchange.com/q/328535/228571
 - iPhone 连接数据线恢复备份的文件后，各个第三方app仍然需要重新下载、发现卡死状态 用手机网络 优先下载重要app 其他的暂停并排队，app内本地的聊天记录还是会丢失 要提前备份并立即恢复！
-- iPhone 在最新 beta 版系统软件做备份后、不能恢复到旧稳定版本！ https://apple.stackexchange.com/q/328535/228571
 
 - U盘格式
   - 支持 Mac + Win 的读写格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。
