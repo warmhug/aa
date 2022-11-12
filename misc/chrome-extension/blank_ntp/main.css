@@ -88,32 +88,36 @@ body {
 #bookmarks {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   background-color: #fff;
   font-size: 12px;
   padding: 0 8px;
 }
-#bmright {
+#bookmarks .left,
+#bookmarks .right {
   display: flex;
   align-items: center;
 }
-#bookmarks > ul li {
-  margin-right: 10px;
+#bookmarks .left > ul li {
+  margin-left: 10px;
 }
-#bookmarks > ul, #bmright > ul {
+#bookmarks .left > ul,
+#bookmarks .right > ul {
   display: flex;
   list-style: none;
   padding: 0;
   margin: 0;
   border: none;
 }
-#bookmarks a {
+#bookmarks .other a {
+  margin-right: 5px;
+}
+#bookmarks ul li a {
   display: flex;
   align-items: flex-start;
   margin: 2px;
   white-space: nowrap;
 }
-#bookmarks img {
+#bookmarks ul li a img {
   max-width: 16px;
   margin-right: 4px;
 }

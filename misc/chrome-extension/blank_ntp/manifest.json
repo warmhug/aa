@@ -60,8 +60,7 @@
       "js": ["common.js", "inject.js"],
       "all_frames": true,
       "match_origin_as_fallback": false,
-      "world": "MAIN",
-      "run_at": "document_start"
+      "run_at": "document_end"
     }
   ],
   "sandbox": {

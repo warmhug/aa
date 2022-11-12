@@ -70,7 +70,7 @@ const injectSites = {
     tabIndex: '0.0',
     css: `
       .navigation-bar-wrapper, .bidirection-link-list, .global-like-wrap, .docx-global-comment,
-      .page-block-header .page-block-content {
+      .page-block-header .page-block-content, .docx-comment__first-comment-btn, .gpf-biz-help-center__button-group {
         display: none;
       }
     `,
@@ -128,8 +128,7 @@ const injectSites = {
     `,
     js: `;(() => {
       /*
-      给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面 [...document.getElementsByTagName('a')]
-      */
+      给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面
       document.querySelectorAll('a').forEach((item) => {
         item.target = '_parent';
         item.addEventListener('click', (evt) => {
@@ -137,6 +136,7 @@ const injectSites = {
           evt.stopImmediatePropagation();
         });
       });
+      */
     })();`
   },
 };

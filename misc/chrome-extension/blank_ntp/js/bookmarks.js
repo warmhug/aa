@@ -46,7 +46,7 @@ function dumpNode(bookmarkNode, query) {
     // https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/api/favicon/content.js
     // console.log('rt', chrome.runtime.getURL('_favicon/?page_url=https://www.google.com&size=64'));
     // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
-    const iconUrl = bookmarkNode.url ? 
+    const iconUrl = bookmarkNode.url ?
       chrome.runtime.getURL(`_favicon/?pageUrl=${bookmarkNode.url}`) : 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
     anchor.prepend(`<img src="${iconUrl}" />`);
   }
@@ -91,17 +91,26 @@ function dumpBookmarks(query) {
     // bms.menu({
     //   // position: { my: "left top", at: "right-5 top+5" }
     // });
-    $('#bookmarks').prepend(dumpTreeNodes(bmLinks, query));
-    $('#bmright').prepend(dumpTreeNodes(bmFolds, query).menu());
+    $('#bookmarks').html(`
+      <div class="left">
+        <div class="other">
+          <a href="chrome://bookmarks">书签</a>
+          <a href="chrome://extensions/">扩展</a>
+          <a href="chrome://newtab" style="color:#FCAC9B">复制</a>
+        </div>
+      </div>
+      <div class="right">
+      </div>
+    `);
+    $('#bookmarks .other a').click(async (e) => {
+      // console.log('ttt', this, e.target.textContent);
+      // chrome.tabs.create({url: e.target.href});
+      const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+      chrome.tabs.create({ index: curTab.index + 1, url: e.target.href });
+    });
+    $('#bookmarks .left').append(dumpTreeNodes(bmLinks, query));
+    $('#bookmarks .right').prepend(dumpTreeNodes(bmFolds, query).menu());
   });
 }
 
-$(function () {
-  dumpBookmarks();
-  $('#bkManager, #setting').click((e) => {
-    // console.log('ttt', this, e.target.textContent);
-    chrome.tabs.create({url: e.target.href});
-  });
-});
-
-
+dumpBookmarks();

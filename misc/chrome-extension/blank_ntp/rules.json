@@ -3,7 +3,7 @@
     "id": 1,
     "priority": 1,
     "action": { "type": "block" },
-    "condition": { "urlFilter": "googleggg.com", "resourceTypes": ["main_frame"] }
+    "condition": { "urlFilter": "aaabbbcccsews.com", "resourceTypes": ["main_frame"] }
   },
   {
     "id": 2,
