@@ -78,7 +78,7 @@ const injectSites = {
       window.postMessage(JSON.stringify({
         _ext: true,
         _url: location.href,
-        scrollHeight: 400,
+        scrollHeight: 500,
       }), '*');
     })();`
   },

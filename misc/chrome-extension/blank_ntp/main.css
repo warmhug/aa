@@ -108,6 +108,9 @@ body {
   margin: 0;
   border: none;
 }
+#bookmarks .other {
+  flex: none;
+}
 #bookmarks .other a {
   margin-right: 5px;
 }

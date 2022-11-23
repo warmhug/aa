@@ -39,7 +39,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
 - 欧路: 修改 /Users/hua/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改)：100000000000 重启
 
-- 手机软件: DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/)
+- 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/)
 - iPhone 恢复出厂设置后，系统软件版本是 iOS 最新版、不是出厂时的旧版本。 在最新 beta 版系统软件做备份后、不能恢复到旧稳定版本！ https://apple.stackexchange.com/q/328535/228571
 - iPhone 连接数据线恢复备份的文件后，各个第三方app仍然需要重新下载、发现卡死状态 用手机网络 优先下载重要app 其他的暂停并排队，app内本地的聊天记录还是会丢失 要提前备份并立即恢复！
 - 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
@@ -163,11 +163,10 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 ```
 
 扩展，安装目录: `~/.vscode/extensions`
+> https://github.com/viatsko/awesome-vscode
 
-Terminal / Live Server / markdownlint / filesize / EditorConfig / GitLens / Settings Sync /
-Indent 4-to-2 / beautify react-beautify Auto Close(Rename) Tag / SVG Viewer /
-pangu / Hungry Delete / javascript console utils
-https://github.com/viatsko/awesome-vscode / Task Explorer / Web Template Studio
+plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / marp / filesize / EditorConfig / GitLens / Indent 4-to-2 / SVG Viewer / pangu / Hungry Delete / javascript console utils
+ / Template String Converter
 
 
 ---------
@@ -242,6 +241,7 @@ git rebase -i [commit_id]
 git rebase -i HEAD~2  #
 git rebase -i --root  # rebase 第一个提交
 git rebase origin/master  # 把远程 master 更新作为当前分支基线，达到撤销之前 rebase 的目的
+git rebase --continue  # 先 git add --all 再 continue、有多个 commit 依次执行。
 git push -f  # 强制提交
 
 # 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录

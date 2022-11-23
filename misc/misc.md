@@ -204,7 +204,7 @@ if (quote.length > 80) {
 # plantuml
 
 
-```text
+```plantuml
 @startuml
 
 header Page Header
@@ -213,60 +213,143 @@ title
 * demo https://www.planttext.com
 * 语法
 https://plantuml.com/color
-https://plantuml.com/zh/creole
+https://plantuml.com/style-evolution
+https://plantuml.com/creole
 https://plantuml.com/preprocessing
 https://plantuml.com/archimate-diagram
 https://plantuml.com/sequence-diagram
 https://plantuml.com/activity-diagram-legacy
 https://plantuml.com/activity-diagram-beta
+https://plantuml.com/link
 end title
 
 '单行注释
 'single comment
 
-start
+!$var = "定义变量"
+rectangle aa as "long name"
 
 note left
-This note is on several lines
-....
-//This line is in italics//
+$var
+多行注释
+**bold** --stroked-- __underlined__
+~~waved~~
+//斜体样式// This line is in italics
 ----
 This one contains som <b>HTML</b>
-====
+<size:18><b>加重 <color:red>颜色
+<back:cadetblue>background color</back>
+<u:#ADD1B2>underlined</u>
+<s:green>stroked</s>
+EmojiTwo <:1f600:> <:innocent:> <#green:sunny:> <#0:sunglasses:>
+[[https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md emoji-cheat-sheet]]
+..Conclusion..
+....
+Example of Tree
+|_ First line
+|_ **Bom (Model)**
+  |_ prop1
+....
 * 这是 list
 * This line contains a bullet
+** sub list
+====
+# num 1
+## num 2
+# num 3
 end note
-
-:Eat Hot Wings
-第二行;
-#red:Drink Homebrew;
-#AAA:结束;
-
-stop
 
 @enduml
 ```
 
 
-```text
+```plantuml
+'基本元素示例
+'skinparam actorStyle awesome
+'skinparam actorStyle Hollow
+
+(*)
+(aa)
+note left : Note
+[bb]
+:User:
+actor Actor
+boundary Boundary
+control Control
+database Database
+
+:User: --> (Use)
+
+User -> (Start)
+User --> (Use the application) : A small label \n new line
+User --> (bar1) #line:red;line.bold;text:red  : red bold
+
+actor a
+actor b #pink;line:red;line.bold;text:red
+usecase c #palegreen;line:green;line.dashed;text:green
+usecase d #aliceblue;line:blue;line.dotted;text:blue
+
+usecase UC1 as "You can use
+several lines to define your usecase."
+```
+
+
+```plantuml
+listsprite
+```
+
+```plantuml
+start
+
+:Eat Hot Wings
+第二行;
+(A)
+
+detach
+
+#green:(A)
+#red:Drink Homebrew;
+#AAA:结束;
+stop
+```
+
+
+```plantuml
 @startuml
 
-rectangle Arrows
-rectangle Up
+skinparam class {
+  ArrowColor red
+}
+skinparam rectangle {
+  BorderColor Blue
+  BorderColor<<s s>> Green
+  RoundCorner<<s s>> 25
+}
+
+!define Junction_Or circle #black
+!define Junction_And circle #whitesmoke
+Junction_And JunctionAnd
+Junction_Or JunctionOr
+
+rectangle rect1<<s s>>
+rectangle Arrows #lightgreen
+rectangle "u u u" as Up #line.dashed
 rectangle Down
 rectangle Left
 rectangle Right
 
-Arrows -u-> Up
-Arrows -d-> Down
+Arrows -u[#green,dashed]-> Up
+Arrows -d[dotted]-> Down
 Arrows -l-> Left
 Arrows -r-> Right
+Arrows -r-> JunctionOr
+Arrows -r-> JunctionAnd
 
 @enduml
 ```
 
 
-```text
+```plantuml
 @startuml
 
 left to right direction
@@ -288,7 +371,7 @@ Arrows --[hidden]> E
 ```
 
 
-```text
+```plantuml
 @startuml
 left to right direction
 'top to bottom direction
@@ -313,7 +396,7 @@ Arrows -u-> F
 ```
 
 
-```text
+```plantuml
 @startuml
 '测试神奇效果：试试不同地方换行
 'A -> B -> C -> D
@@ -330,50 +413,8 @@ a -right-> (b)
 ```
 
 
-```text
 
-@startuml
-'基本元素示例
-'skinparam actorStyle awesome
-'skinparam actorStyle Hollow
-
-(*)
-(aa)
-note left : Note
-[bb]
-:User:
-actor Actor
-boundary Boundary
-control Control
-database Database
-
-:User: --> (Use)
-
-User -> (Start)
-User --> (Use the application) : A small label
-User --> (bar1) #line:red;line.bold;text:red  : red bold
-
-actor a
-actor b #pink;line:red;line.bold;text:red
-usecase c #palegreen;line:green;line.dashed;text:green
-usecase d #aliceblue;line:blue;line.dotted;text:blue
-
-usecase UC1 as "You can use
-several lines to define your usecase.
-You can also use separators.
---
-Several separators are possible.
-==
-And you can add titles:
-..Conclusion..
-This allows large description."
-
-@enduml
-
-```
-
-
-```text
+```plantuml
 @startuml
 '基本形状
 [*] --> active
@@ -386,7 +427,7 @@ closed --> [*]
 ```
 
 
-```text
+```plantuml
 @startuml
 '流程图
 
@@ -407,7 +448,7 @@ F -> S
 ```
 
 
-```text
+```plantuml
 @startuml
 :sss;
 split
@@ -427,7 +468,29 @@ end split
 
 应用
 
-```text
+
+```plantuml
+@startuml
+left to right direction
+
+rectangle ima as "Issues Management" #lightgreen
+rectangle qac as "Quick Access"
+rectangle jse as "JS Overview \n [[https://baidu.com JS Error List]]"
+rectangle req as "Request Overview \n [[https://baidu.com Error Request List]]"
+rectangle res as "Resource Overview \n [[https://baidu.com Error Resource List]]"
+rectangle per as "Performance Overview \n [[https://baidu.com Worst Performing Pages]]"
+
+qac --> ima : direct link to
+jse --> ima : manage issues
+req --> ima : manage issues
+res --> ima : manage issues
+per --> ima : manage issues
+
+@enduml
+```
+
+
+```plantuml
 @startuml
 !$rfcs = "进入 apm_web_rfcs 空间"
 !$coll = "收集需求"
@@ -454,7 +517,7 @@ $new -right-> ($rc) : $des
 ```
 
 
-```text
+```plantuml
 '甘特图
 
 @startgantt
