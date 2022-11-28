@@ -16,7 +16,6 @@ const hl_asyncSendMessage = (req) => {
 };
 
 // content_scripts 和插入进 iframe 里边的 inject-sub.js 内容通信
-
 const hl_handleMsg = async (event) => {
   // 注意 这里可能会多次收到不同来源的消息
   // console.log('message from other', event);
@@ -35,6 +34,15 @@ setTimeout(() => {
   // 初始化完成，不再处理 message 消息、避免对原有页面的性能影响。需要配合 option.js 里的内容
   window.removeEventListener("message", hl_handleMsg);
 }, 8000);
+
+// 处理来自 background.js 里 Google translate 的消息
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  // console.log('msg bg', request, sender, location.href);
+  if (request._bg && request.newUrl && location.href.indexOf(request._url) === 0) {
+    location.href = request.newUrl;
+  }
+  return true;
+});
 
 ;(async function () {
   const { hl_injectSites } = await hl_extension_util.getStorage();

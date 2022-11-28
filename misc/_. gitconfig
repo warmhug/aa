@@ -1,8 +1,0 @@
-[alias]
-	st = status
-	co = checkout
-	ci = commit
-	br = branch
-[user]
-	name = warmhug
-	email = hualei5280@gmail.com

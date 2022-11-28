@@ -308,8 +308,7 @@ var argh = bind(handler, undefined, 5, 10);
 function debounce(fn, delay) {
   var timer = null;
   return function() {
-    var context = this,
-      args = arguments;
+    var context = this, args = arguments;
     clearTimeout(timer);
     timer = setTimeout(function() {
       fn.apply(context, args);

@@ -95,6 +95,49 @@ zsh --version  # Mac 系统自带了 zsh
 - 只在 iTerm2 里修改 shell : `Preferences -> Profiles -> Default -> General -> Command`
 - 安装 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh#manual-installation)、使用 manual install 方式、不需要翻墙，它有很多 Plugins 和 Themes。注意：会在 用户目录 生成新的 `.zshrc`
 
+`.zshrc` 文件
+
+```sh
+# bin 目录加入环境变量
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# 使用 homebrew 安装的 python2 覆盖 “系统默认的” python2
+# export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com  # homebrew 加速
+### brew install autojump 后提示需要添加的内容
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+export EDITOR='vim'
+#export PS1="\u \w$"
+
+# 以下 zshrc 模板去掉了很多没用到的命令和注释
+# 完整模板看这里：https://github.com/robbyrussell/oh-my-zsh/blob/master/templates/zshrc.zsh-template
+#
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
+# Set name of the theme to load. Look in ~/.oh-my-zsh/themes/
+ZSH_THEME="ys"
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
+# 运行 alias 查看所有别名
+alias cz="code ~/.zshrc"
+alias sz="source ~/.zshrc"
+
+## java  参考：http://chessman-126-com.iteye.com/blog/2162466
+#export JAVA_6_HOME=`/usr/libexec/java_home -v 1.6` # Mac默认 JDK 6（Mac默认自带了一个jdk6版本）
+#export JAVA_7_HOME=`/usr/libexec/java_home -v 1.7` # 设置 JDK 7
+# export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8` # 设置 JDK 8
+#alias命令动态切换JDK版本
+#alias jdk6="export JAVA_HOME=$JAVA_6_HOME"
+#alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
+# export JAVA_HOME=$JAVA_8_HOME #默认JDK
+# export CLASSPATH=.:$JAVA_HOME/lib:
+# export PATH=$PATH:$JAVA_HOME/bin
+```
+
 
 ## homebrew & ruby & jekyll
 
@@ -174,6 +217,19 @@ plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / 
 ## Git / Npm
 
 [Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
+
+`.gitconfig` 文件
+
+```sh
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+[user]
+	name = warmhug
+	email = hualei5280@gmail.com
+```
 
 ```sh
 # 生成 ssh key

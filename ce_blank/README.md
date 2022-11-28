@@ -1,15 +1,15 @@
-# chrome 扩展开发
+# chrome 扩展
 
-安装：Chrome输入`chrome://extensions`打开扩展页面，把`blank_ntp`目录拖拽进去，即可安装。
+安装：Chrome输入`chrome://extensions`打开扩展页面，把`ce_blank`目录拖拽进去，即可安装。
 
 查看安装位置：勾选扩展页面右上角的 `开发者模式`，扩展会显示各自的`extension ID`，进入 mac 的
 `~/Library/Application Support/Google/Chrome/Default/Extensions` 目录，根据想要的 id 搜索。
 
 调试方法
 
-0. 打开 `chrome://extensions/` 相应的插件名、点“刷新”按钮，点击 `chrome://newtab` 页面的 后退 按钮。
-1. manifest -> background -> scripts 打开 `chrome://extensions/` 相应的插件名、点“背景页”。
-2. manifest -> content_scripts 设置的 js 位置：“控制台 -> Sources -> Content scripts”
+1. 打开 `chrome://extensions/` 相应的插件名、点“刷新”按钮，点击 `chrome://newtab` 页面的 后退 按钮。
+2. manifest -> background -> scripts 打开 `chrome://extensions/` 相应的插件名、点“背景页”。
+3. manifest -> content_scripts 设置的 js 位置：“控制台 -> Sources -> Content scripts”
 
 [开发教程](https://developer.chrome.com/extensions/getstarted)
 
@@ -56,3 +56,36 @@ manifest v3 的 csp 策略更加严格，不允许远程 cdn 资源加载。如�
 [edge csp](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/store-policies/csp)
 
 v3 中的 webRequest api 被废弃，改为使用 declarativeNetRequest 来处理请求。声明式 API 使用略微不便。
+
+
+### 2021-2020 manifest.json v2
+
+```json
+{
+  "name": "Block",
+  "description": "把特定网络 js 文件指向到本地",
+  "version": "0.2",
+  "manifest_version": 2,
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://img.alicdn.com/tps/*"
+  ],
+  "browser_action": {},
+  "background": {
+    "scripts": ["bg.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*", "https://www.alipay.com/*", "<all_urls>"],
+      "js": ["inj.js"],
+      "css": ["inject.css"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true,
+      "run_at": "document_end"
+    }
+  ]
+}
+```
