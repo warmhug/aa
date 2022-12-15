@@ -50,7 +50,7 @@ const changeDelay = debounce((text, suggest) => {
       const resAry = data?.[0]?.[0];
       if (resAry?.length) {
         suggest([{
-          content: JSON.stringify({ cn: resAry?.[1], en: resAry?.[0] }),
+          content: `${resAry?.[1]} | ${resAry?.[0]}`,
           deletable: true,
           description: `<dim>中文 ${resAry?.[1]} 英文</dim> <match>${resAry?.[0]}</match> <url>chrome://newtab</url>`
         }]);
@@ -59,16 +59,22 @@ const changeDelay = debounce((text, suggest) => {
 }, 500);
 chrome.omnibox.onInputChanged.addListener(changeDelay);
 chrome.omnibox.onInputEntered.addListener(async (text, OnInputEnteredDisposition) => {
-  // console.log('enter', text, OnInputEnteredDisposition, location.href);
-  const cn = text ? JSON.parse(text)?.cn : null;
+  // console.log('enter', text, OnInputEnteredDisposition);
+  const cn = text?.split(' | ')?.[0];
   if (!cn) {
     return;
   }
   const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+  // console.log('enter', curTab.url, location.href);
   // 在 background.js 用 chrome.runtime.sendMessage 发消息、其他地方收不到！！
-  chrome.tabs.sendMessage(curTab.id, {
-    _bg: true,
-    _url: 'https://translate.google',
-    newUrl: `https://translate.google.com/?sl=zh-CN&tl=en&text=${cn}&op=translate`,
-  });
+  const newUrl = `https://translate.google.com/?sl=zh-CN&tl=en&text=${cn}&op=translate`;
+  if (curTab.url === 'chrome://newtab/') {
+    chrome.tabs.sendMessage(curTab.id, {
+      _bg: true,
+      _url: 'https://translate.google',
+      newUrl,
+    });
+  } else {
+    chrome.tabs.create({ url: newUrl });
+  }
 });

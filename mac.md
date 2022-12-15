@@ -80,7 +80,7 @@ chrome://system
 
 安装 git & gcc `xcode-select --install`
 
-## iTerm2 & oh-my-zsh
+## oh-my-zsh & iTerm2(不需要)
 
 ```sh
 # Mac shell 修改方法 https://support.apple.com/zh-cn/HT208050
@@ -88,11 +88,8 @@ chsh -s /bin/zsh  # 修改 shell 为 zsh ，系统默认使用 /bin/bash
 zsh --version  # Mac 系统自带了 zsh
 ```
 
-- iTerm2 的 Preferences > Keys 里 HotKey 设置为 Command + `
-- iTerm2 的 Profiles > Keys 里点 + 弹出输入 ⌥→ / ⌥← Action 设置为 Send Escape sequence , f / b
-- iTerm2 的 Profiles > Window - Transparency 设置透明度 / Style 设置为 `Full-Width Top of Screen`
+- iTerm2 设置 HotKey 和 Profiles > Keys 里点 + 弹出输入 ⌥→ / ⌥← Action 设置为 Send Escape sequence , f / b
 - [cdto](https://github.com/jbtule/cdto) 使用 [2.6 版本](https://github.com/jbtule/cdto/issues/46) 能在 ITerm (不是系统默认 terminal) 里打开当前 Finder 路径.
-- 只在 iTerm2 里修改 shell : `Preferences -> Profiles -> Default -> General -> Command`
 - 安装 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh#manual-installation)、使用 manual install 方式、不需要翻墙，它有很多 Plugins 和 Themes。注意：会在 用户目录 生成新的 `.zshrc`
 
 `.zshrc` 文件

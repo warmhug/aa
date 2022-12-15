@@ -221,10 +221,13 @@ https://plantuml.com/sequence-diagram
 https://plantuml.com/activity-diagram-legacy
 https://plantuml.com/activity-diagram-beta
 https://plantuml.com/link
+https://plantuml.com/stdlib
+https://stackoverflow.com/questions/15448606
 end title
 
-'单行注释
-'single comment
+'单行注释 single comment
+' 只要出现 (xx) 第一个元素就变成了 actor
+' usecase 图里不能使用 if else 语句
 
 !$var = "定义变量"
 rectangle aa as "long name"
@@ -264,189 +267,65 @@ end note
 
 
 ```plantuml
-'基本元素示例
+title 基本元素示例
 'skinparam actorStyle awesome
-'skinparam actorStyle Hollow
+' hide footbox
+' box SBCP
 
-(*)
-(aa)
-note left : Note
 [bb]
-:User:
-actor Actor
+(usecase)
+' participant "First" as F
+' participant "Second" as S
 boundary Boundary
-control Control
-database Database
-
-:User: --> (Use)
-
-User -> (Start)
-User --> (Use the application) : A small label \n new line
-User --> (bar1) #line:red;line.bold;text:red  : red bold
-
-actor a
 actor b #pink;line:red;line.bold;text:red
 usecase c #palegreen;line:green;line.dashed;text:green
-usecase d #aliceblue;line:blue;line.dotted;text:blue
-
 usecase UC1 as "You can use
-several lines to define your usecase."
+several lines."
+
+User --> (Use)
+User --> (UseCase) : A small label \n new line
+User --> (bar1) #line:red;line.bold;text:red  : red bold
+
+' U -> F  : "start"
+' F -> S
+
 ```
 
 
 ```plantuml
-listsprite
-```
+' left to right direction
 
-```plantuml
-start
-
-:Eat Hot Wings
-第二行;
-(A)
-
-detach
-
-#green:(A)
-#red:Drink Homebrew;
-#AAA:结束;
-stop
-```
-
-
-```plantuml
-@startuml
-
+title 综合示例
 skinparam class {
   ArrowColor red
 }
 skinparam rectangle {
   BorderColor Blue
-  BorderColor<<s s>> Green
-  RoundCorner<<s s>> 25
 }
-
-!define Junction_Or circle #black
-!define Junction_And circle #whitesmoke
-Junction_And JunctionAnd
-Junction_Or JunctionOr
-
-rectangle rect1<<s s>>
-rectangle Arrows #lightgreen
+circle jaAlias as ja #red
 rectangle "u u u" as Up #line.dashed
 rectangle Down
-rectangle Left
-rectangle Right
 
-Arrows -u[#green,dashed]-> Up
-Arrows -d[dotted]-> Down
-Arrows -l-> Left
-Arrows -r-> Right
-Arrows -r-> JunctionOr
-Arrows -r-> JunctionAnd
+ja -u[#green,dashed]-> Up
+ja -d[dotted]-> Down
 
-@enduml
-```
+' #green:(A)
+' #red:Drink Homebrew;
+' #AAA:结束;
+' kill
 
+' |#dee4e8|swimlanes|
+' start
+' |#daf0fe|swimlanes1|
+' end
 
-```plantuml
-@startuml
-
-left to right direction
-'top to bottom direction
-
-rectangle Arrows
-rectangle C
-rectangle D
-rectangle E
-rectangle F
-
-Arrows --> C
-Arrows --> D
-Arrows --> E
-Arrows --> F
-Arrows --[hidden]> E
-
-@enduml
-```
-
-
-```plantuml
-@startuml
-left to right direction
-'top to bottom direction
-
-rectangle Arrows
-note top : aaa\nbbb
-rectangle A
-rectangle B
-rectangle C
-rectangle D
-rectangle E
-rectangle F
-
-Arrows --> A
-A --> B
-A --> C
-Arrows -u-> D
-Arrows -u-> E
-Arrows -u-> F
-
-@enduml
-```
-
-
-```plantuml
-@startuml
-'测试神奇效果：试试不同地方换行
-'A -> B -> C -> D
-
-'当是小人时、不能有其他图形和语法？
-actor Woman3
-usecase 新建 as U
-
-Woman3 --> U
-U -right-> (a) : 箭头名称
-a -right-> (b)
-
-@enduml
 ```
 
 
 
-```plantuml
-@startuml
-'基本形状
-[*] --> active
-active -right-> inactive : disable
-inactive -left-> active  : enable
-inactive --> closed  : close
-active --> closed  : close
-closed --> [*]
-@enduml
-```
 
-
-```plantuml
-@startuml
-'流程图
-
-hide footbox
-title Footer removed
-
-FeiShu -> You: Hello
-You --> FeiShu: Fine
-
-actor User as U
-box SBCP
-participant "First" as F
-participant "Second" as S
-U -> F  : "start"
-F -> S
-
-@enduml
-```
-
+---
+应用
 
 ```plantuml
 @startuml
@@ -465,8 +344,61 @@ end split
 ```
 
 
+```plantuml
+@startuml
+title 无分支条件
 
-应用
+[*] --> active
+active -right-> inactive : disable
+inactive -left-> active  : enable
+inactive --> closed  : close
+active --> closed  : close
+closed --> [*]
+@enduml
+```
+
+
+```plantuml
+@startuml
+
+left to right direction
+'top to bottom direction
+
+rectangle Arrows
+rectangle C
+rectangle D
+rectangle E
+
+Arrows --> C
+Arrows --> D
+Arrows --[hidden]> E
+
+@enduml
+```
+
+
+```plantuml
+@startuml
+left to right direction
+'top to bottom direction
+
+rectangle Arrows
+note top : aaa\nbbb
+rectangle A
+rectangle B
+rectangle C
+rectangle D
+rectangle E
+
+Arrows --> A
+A --> B
+A --> C
+Arrows -u-> D
+Arrows -u-> E
+Arrows -u-> F
+
+@enduml
+```
 
 
 ```plantuml
@@ -492,28 +424,40 @@ per --> ima : manage issues
 
 ```plantuml
 @startuml
+
 !$rfcs = "进入 apm_web_rfcs 空间"
 !$coll = "收集需求"
-!$new  = "新建需求"
-!$des  = "基本描述"
-!$rc   = "关联 slardar/apmplus 空间已有需求 \n 选择 slardar/apmplus 空间，同步创建新需求"
+!$new  = "新建需求\n添加基本描述"
+!$rc   = "选择 slardar/apmplus 空间，同步创建新需求 或关联已有需求"
 !$entr = "进入 slardar/apmplus 空间"
-!$main = "在 slardar/apmplus 空间 操作 描述、优先级、排期 状态"
-!$sync = "自动同步状态变更到 rfcs 空间"
-!$fm   = "在 slardar/apmplus 空间完成 线上验收 完成"
+!$main = '在 slardar/apmplus 空间做需求管理 \n 会 <u>自动同步</u> 部分状态变更 到 rfcs 空间的相应需求'
+!$fm   = "在 slardar/apmplus 空间完成 线上验收"
 !$fr   = "rfcs 空间相应需求 手动再确认"
+!$stop = "终止"
 
-actor Actor
 rectangle $coll #A9DCDF
-rectangle frr as "$fm" #lightgreen
+rectangle frr as "$fr" #lightgreen
+rectangle $stop #ddd
 
-Actor -up-> $coll
-$coll -right-> ($new) : $rfcs
-$new -right-> ($rc) : $des
-($rc) -down-> ($main) : $entr
-($main) -down-> ($sync)
-($sync) -left-> frr : $fm
+:Actor: -u-> $coll : bp/oncall
+$coll -r-> ($new) : $rfcs
+($new) -r-> ($rc) : 转为正式需求
+($new) -d-> ($stop) : 伪需求
+($rc) -d-> ($main) : $entr
+($main) -d-> frr : $fm
+
 @enduml
+```
+
+
+```plantuml
+' a 不能变成 :a:
+a -> b
+if "a" then
+  -->[true] "Some Action"
+else
+  ->[false] "Something else"
+endif
 ```
 
 

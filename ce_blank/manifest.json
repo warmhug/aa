@@ -8,7 +8,7 @@
   "chrome_url_overrides": {
     "newtab": "blank.html"
   },
-  "omnibox": { "keyword" : "hl" },
+  "omnibox": { "keyword" : "tt" },
   "icons": {
     "16": "assets/favicon.png",
     "32": "assets/favicon.png",

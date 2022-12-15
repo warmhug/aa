@@ -111,10 +111,6 @@ const injectSites = {
     tabIndex: '2',
     js: feishuDocsJs,
   },
-  'https://bytedance.feishu.cn/docx/doxcnL8nSmUoRzFpuQc9Dwm5Wqe': {
-    tabIndex: '3',
-    js: feishuDocsJs,
-  },
   'https://bytedance.feishu.cn/drive/me/': {
     separate: true,
     css: `
