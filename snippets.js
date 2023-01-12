@@ -2,18 +2,33 @@
 
 // [codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/))
 
-// 从输入URL到页面加载完成 http://fex.baidu.com/blog/2014/05/what-happen/
-// 只在行首字符是 +、-、[、(、/ 这5种情况下，加前置分号即可。
-// 浏览器地址栏可输入 data:text/html,Hello外围标签
-// div/span 都是容器元素， p dt 标签里不能有块(block)标签， button 里面不要嵌套 a 标签。
-// img script 的 src、css 的 href 都不能为空。 DOM 的 attribute 和 property 区别。
-// a 伪类需遵循 css2 规范中的 L-V-H-A (a:link visited hover active) 顺序。
-// 没有 css-parent-selector 。 BEM命名方式。  如何提升 CSS 选择器性能 http://www.jianshu.com/p/268c7f3dd7a6
+/*
+- 从输入URL到页面加载完成 http://fex.baidu.com/blog/2014/05/what-happen/
+- 只在行首字符是 +、-、[、(、/ 这5种情况下，加前置分号即可。
+- 浏览器地址栏可输入 data:text/html,Hello外围标签
+- div/span 都是容器元素， p dt 标签里不能有块(block)标签， button 里面不要嵌套 a 标签。
+- img script 的 src、css 的 href 都不能为空。 DOM 的 attribute 和 property 区别。
+- a 伪类需遵循 css2 规范中的 L-V-H-A (a:link visited hover active) 顺序。
+- 没有 css-parent-selector 。 BEM命名方式。  如何提升 CSS 选择器性能 http://www.jianshu.com/p/268c7f3dd7a6
+*/
+
+/*
+html 规则检测 https://validator.w3.org 、 http://infohound.net/tidy
+head 里能放什么 https://github.com/joshbuchea/HEAD
+js秘密花园 http://bonsaiden.github.io/JavaScript-Garden/zh/
+33-js-concepts https://github.com/leonardomso/33-js-concepts
+
+- css 时间函数 http://www.smashingmagazine.com/2014/04/15/understanding-css-timing-functions
+- css 长度 https://css-tricks.com/the-lengths-of-css
+  - 绝对长度: px inch cm mm。
+  - rem: 相对 root 的 font-size 大小  em: 基于大写字母 M 的尺寸  ex: 基于 x 字母高度  1vh 等于 1/100 的视口高度
+*/
 
 /*
 - [WebAssembly](https://juejin.im/entry/5b20d09d6fb9a01e242490b1) 不是一门编程语言，而是一份字节码标准。 各种复杂的计算：图像处理、3D运算(大型 3D 网页游戏)、语音识别、音视频编码解码。区块链合约。 [madewithwebassembly](https://madewithwebassembly.com/)、eBay 的[条形码扫描](https://www.infoq.cn/article/vc*q7psQqWMaVU8igJeD)、[Google earth web](https://earth.google.com/web/) 版、[autocad](https://web.autocad.com/login) web 版
 - [PWA](https://developers.google.com/web/progressive-web-apps/) Service Worker 需要运行于 HTTPS 或本地 localhost 环境，是继 Web Worker 后又一个新的线程。来实现离线页面功能。 Service Worker 是独立于页面的一个运行环境，它在页面关闭后仍可以运行。Web Worker 在页面关闭后不再运行。
 */
+
 /*
 在函数式编程中，函数实际上即是描述了一种集合到集合的映射关系。即这个函数在入参与结果之间建立了映射关系。在任意时间任意状态调用一个函数，都能获得同样的结果，也就是说它不会被任何可变状态影响、不会产生副作用。如 Redux 中的 compose，常见的函数柯里化，ImmutableJS 等等，都可以视为对于函数式编程范式的一种实现。
 柯里化 foo(1, 2, 3) curried(1)(2)(3)
@@ -31,23 +46,23 @@ const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)))
 - js decorators 的 polyfill 实现 https://www.sitepoint.com/javascript-decorators-what-they-are/
 */
 
-// 笔试套路：写出所有可能解法，也写出最经典解法。
-// 聊聊微软面试 https://mp.weixin.qq.com/s/-NESGyGBbF3WakPFieAT0w
-
-// https://github.com/hzfe/awesome-interview
-// https://github.com/yifeikong/reverse-interview-zh
-// https://github.com/lydiahallie/javascript-questions
-// https://h5bp.org/Front-end-Developer-Interview-Questions/translations/chinese/
-// https://github.com/MaximAbramchuck/awesome-interview-questions
-// 2020 https://github.com/CavsZhouyou/Front-End-Interview-Notebook
-// 2019
-// https://mp.weixin.qq.com/s/e-IC588SZPJK2QRBm3KuHA
-// https://segmentfault.com/a/1190000019496107
-// 2018
-// https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2651011223&idx=2&sn=54acfe1d565f650c52fcea5481ad1195
-// https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers
-// 2017 https://github.com/jawil/blog/issues/22
-
+/*
+- 笔试套路：写出所有可能解法，也写出最经典解法。
+- 聊聊微软面试 https://mp.weixin.qq.com/s/-NESGyGBbF3WakPFieAT0w
+- https://github.com/hzfe/awesome-interview
+- https://github.com/yifeikong/reverse-interview-zh
+- https://github.com/lydiahallie/javascript-questions
+- https://h5bp.org/Front-end-Developer-Interview-Questions/translations/chinese/
+- https://github.com/MaximAbramchuck/awesome-interview-questions
+- 2020 https://github.com/CavsZhouyou/Front-End-Interview-Notebook
+- 2019
+- https://mp.weixin.qq.com/s/e-IC588SZPJK2QRBm3KuHA
+- https://segmentfault.com/a/1190000019496107
+- 2018
+- https://mp.weixin.qq.com/s?__biz=MjM5MDE0Mjc4MA==&mid=2651011223&idx=2&sn=54acfe1d565f650c52fcea5481ad1195
+- https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers
+- 2017 https://github.com/jawil/blog/issues/22
+*/
 
 // react关键点
 // 防抖 debounce 截流 throttle

@@ -78,7 +78,7 @@ const injectSites = {
       window.postMessage(JSON.stringify({
         _ext: true,
         _url: location.href,
-        scrollHeight: 500,
+        scrollHeight: 900,
       }), '*');
     })();`
   },
@@ -88,7 +88,7 @@ const injectSites = {
       window.postMessage(JSON.stringify({
         _ext: true,
         _url: location.href,
-        scrollHeight: document.body.scrollHeight,
+        scrollHeight: document.body.scrollHeight * 0.6,
       }), '*');
     })();`
   },
@@ -103,12 +103,8 @@ const injectSites = {
     tabIndex: '0.3.1',
     js: bdJs,
   },
-  'https://bytedance.feishu.cn/docx/doxcnSCX57RMgHoglsT8S3bM4xe': {
-    tabIndex: '1',
-    js: feishuDocsJs,
-  },
   'https://bytedance.feishu.cn/docx/doxcn2EDJtEmqNmb6uVnJ5MTUbc': {
-    tabIndex: '2',
+    tabIndex: '1',
     js: feishuDocsJs,
   },
   'https://bytedance.feishu.cn/drive/me/': {
@@ -152,8 +148,9 @@ setOpt(document.querySelector('.injectSites'), 'hl_injectSites', injectSites);
 document.querySelector('#clearData').addEventListener('click', async () => {
   const remoteData = await hl_extension_util.getStorage();
   console.log('remoteData', JSON.stringify(remoteData, null, 2).replace(/\\n/g, '\n'));
-  if (window.confirm('先点击 取消, 检查文本框或打开 console 确认要删除的数据')) {
+  if (window.confirm('检查文本框或打开 console 确认要删除的数据')) {
     const removeRes = await hl_extension_util.removeStorage();
     console.log('removeRes', removeRes);
+    location.reload();
   }
 });

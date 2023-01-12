@@ -96,7 +96,6 @@ function dumpBookmarks(query) {
         <div class="other">
           <a href="chrome://bookmarks">书签</a>
           <a href="chrome://extensions/">扩展</a>
-          <a href="chrome://newtab" style="color:#FCAC9B">复制</a>
         </div>
       </div>
       <div class="right">

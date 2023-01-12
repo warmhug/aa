@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code</title>
+</head>
+<body>
+  <pre>
+bootstrap.css v3.3.7 https://gw.alipayobjects.com/os/rmsportal/SaEqgaEyUazqSndgTxGj.css
+bootstrap.js v3.3.7 https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js
+
+jQuery v1.12.4 https://gw.alipayobjects.com/os/rmsportal/YbGjMuYEbXdIGJRsqOSA.js
+https://gw.alipayobjects.com/os/lib/jquery/3.6.0/dist/jquery.min.js
+https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js
+https://code.jquery.com/ui/1.13.0/jquery-ui.js
+https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css
+qrcode.js https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js
+less.js https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js
+  </pre>
+
+  <script>
+    // umi.js config
+    export default {
+      // appType 标记为 h5, 就会官方植入 hd, fastclick 等移动研发相关解决方案;
+      appType: 'h5 | console',
+      // deployMode: 'assets | custom',
+      deployMode: {
+        mode: 'online',
+      },
+      favicon: false,
+      title: '标题',
+      targets: {
+        ios: 8,
+        android: 4,
+        chrome: 33,
+      },
+      // 是否关掉 cssModule;
+      disableCSSModules: true,
+      deer: {
+        // 埋点位
+        spma: 'a1153',
+      },
+      // 异常搜集
+      clue: { pid: '12345' },
+      dynamicImport: {
+        webpackChunkName: false,
+        loadingComponent: '../src/component/Loading',
+      },
+      theme: {
+        // 'brand-primary': '#108ee9',
+      },
+      locale: {
+        enable: true,
+      }
+      // 去除默认加上的 .html 后缀
+      exportStatic: null,
+      // 解决对于 node_modules 有 es6 会在 build 报错
+      es5ImcompatibleVersions: true,
+      // Android 4 里 Set Promise 未定义错误
+      // 如果是 assets 应用，没有用到 bigfish 构建出来的 HTML, script 配置无效，需手动修改后端 html 文件添加
+      script: [
+        'https://a.alipayobjects.com/g/component/??es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js',
+      ],
+      proxy: {
+        dev: {
+          'eworkcard/api/': {
+            target: 'http://xx.alipay.net',
+          },
+        },
+        test: {},
+        pre: {},
+      }
+      routes: [{
+        path: '/',
+        indexRoute: {
+          title: 'ww',
+          spmb: 'b9903',
+          component: 'index',
+        },
+        component: '../layout',
+        routes: [
+          {
+            path: 'index',
+            spmb: 'b9903',
+            component: 'index',
+          },
+          {
+            path: 'guide',
+            spmb: 'b9901',
+            title: 'xx',
+            component: 'guide',
+          },
+        ],
+      }],
+    }
+
+    // umi.js / bigfish.js model
+    // from 2018-2019 云游 @pofeng
+    import axios from 'axios';
+    import { Action } from 'redux';
+    type ModelState = {
+      params: object;
+    };
+    type SetStateAction = Action & { payload: Partial<ModelState> };
+
+    function setState(payload: Partial<ModelState>) {
+      const action: SetStateAction = { type: 'setState', payload };
+      return action;
+    }
+    const getInitialState = (): ModelState => {
+      return {
+        architecture: [],
+      };
+    };
+    const namespace = 'xxx';
+    export default {
+      namespace,
+      state: getInitialState(),
+      reducers: {
+        setState(state: ModelState, { payload }) {
+          return { ...state, ...payload };
+        },
+      },
+      effects: {
+        *fetchData(_, effectMap: EffectsCommandMap) {
+          const { call, put, fork, select } = effectMap;
+          yield fork(() => fetch_deploymentUnitWhiteList(_, effectMap));
+          try {
+            const modelState: ModelState = yield select(state => state[namespace]);
+            const rsp: IServiceResponse = yield call(() => axios.get(`/api/envs/${envId}`));
+            yield put(setState({ architecture: rsp.data.data }));
+          } catch (e) {
+            yield put(setState({ architecture: getInitialState().architecture }));
+          }
+        },
+      },
+    };
+
+    // umi.js / bigfish.js  page
+    import React, { PureComponent } from '@alipay/bigfish/react';
+    import { Divider, Icon, Layout, Menu } from '@alipay/bigfish/antd';
+    import { List, WingBlank, Button, Flex } from '@alipay/bigfish/antd-mobile';
+    import { connect } from '@alipay/bigfish/sdk';
+    import history from '@alipay/bigfish/sdk/history';
+    import { Link } from '@alipay/bigfish/sdk/router';
+    import { formatMessage } from '@alipay/bigfish/locale';
+    import { replace, map, indexOf } from "@alipay/bigfish/util/lodash";
+    import qs from '@alipay/bigfish/util/query-string';
+    '@alipay/bigfish/eslint'
+    '@alipay/bigfish/stylelint'
+    @connect(({ page, guide }) => ({ page, guide }))
+    @NavWrapper
+    export default class App extends PureComponent {
+      componentDidMount() {
+      }
+      goBack = (ev) => {}
+      render() {}
+    }
+  </script>
+  <script></script>
+</body>
+</html>

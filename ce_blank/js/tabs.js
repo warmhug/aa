@@ -118,6 +118,6 @@ $(async function () {
   });
 
   const { hl_tabWidth } = await hl_extension_util.getStorage();
-  $('.tabs').width(hl_tabWidth ?? '70%');
+  $('.tabs').width(hl_tabWidth ?? '80%');
 
 });
