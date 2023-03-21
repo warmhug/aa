@@ -78,3 +78,13 @@ chrome.omnibox.onInputEntered.addListener(async (text, OnInputEnteredDisposition
     chrome.tabs.create({ url: newUrl });
   }
 });
+
+// mac chrome address bar search shortcuts CMD+Enter open new background tab
+// 在 地址栏搜索 并按住 CMD+Enter 后打开的 tab 移动到在当前 tab 右边
+chrome.tabs.onCreated.addListener(async (tabInfo) => {
+  const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+  console.log('onCreated', tabInfo, curTab);
+  if (!tabInfo.active && tabInfo.pendingUrl.indexOf('https://www.google.') === 0) {
+    await chrome.tabs.move(tabInfo.id, { index: curTab.index + 1 });
+  }
+});

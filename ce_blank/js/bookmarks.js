@@ -32,6 +32,7 @@ function dumpNode(bookmarkNode, query) {
     var anchor = $('<a>');
     anchor.attr('href', bookmarkNode.url);
     anchor.attr('title', bookmarkNode.title);
+    anchor.attr('target', '_blank');
     anchor.text(formatTitle);
     /*
      * When clicking on a bookmark in the extension, a new tab is fired with
@@ -94,8 +95,8 @@ function dumpBookmarks(query) {
     $('#bookmarks').html(`
       <div class="left">
         <div class="other">
-          <a href="chrome://bookmarks">书签</a>
           <a href="chrome://extensions/">扩展</a>
+          <a href="chrome://bookmarks">书签</a>
         </div>
       </div>
       <div class="right">

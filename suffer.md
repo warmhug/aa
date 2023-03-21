@@ -1,8 +1,12 @@
 
 
-## 2022
+## 2022~2023
 
 
+### 2023-03
+
+vscode 里某个 tsx 文件的 IntelliSense 报错 `which is not compatible with the one in 'tslib'`
+- 参考 [VSCode to use locally installed TypeScript](https://stackoverflow.com/questions/54810894/how-to-force-vscode-to-use-locally-installed-typescript)。 使用 `.vscode/settings.json` 本地文件配置 `"typescript.tsdk": "node_modules/typescript/lib"` （打开 vscode 设置，搜索 `tsdk` 参考）。 点击 vscode 底部状态栏右下角 `TypeScript JSX` 前的图标，找到 TypeScript Version 选择 Select Version 切换使用本地的 tsx 编译器。
 
 ### 2022-04
 
@@ -36,7 +40,7 @@ dashboard 数据边界细节很多。
 复制文字+多个图片、分别上传多个图片。
 保存过期、前端存。大表格崩溃、大小极限。 编辑页 id 输错、结果处理。
 一次性复制进去、还是会弹出事项选择框。导入上一篇 事项匹配错误。
-断网再连上、报标题不能为空。新版日志编辑器：选中报错、任务样式问题。 
+断网再连上、报标题不能为空。新版日志编辑器：选中报错、任务样式问题。
 
 
 - beforeunload 事件里有 ajax 等不到返回、页面就会关闭，怎么解决？
@@ -62,7 +66,7 @@ dashboard 数据边界细节很多。
    - 无尽列表翻页 [issues/12406](https://github.com/ant-design/ant-design/issues/12406)
    - 搜索框和单选选择框合并 [0.12 效果](https://012x.ant.design/components/select/#demo-search)、[1.x修改](https://github.com/ant-design/ant-design/issues/1390)、1.0 [changelog](https://github.com/ant-design/ant-design/issues/1050)
    - 数据项有重复时 会乱跳，如视频：[mp4](https://gw.alipayobjects.com/os/rmsportal/GxGqYTHnIXRioQTbtkok.mp4)
-- Upload 组件 
+- Upload 组件
    - 多文件合并到一个 xhr 里上传 [issues/8579](https://github.com/ant-design/ant-design/issues/8579)
    - 使用内部的 UploadList 来[自定义进度条显示位置](https://github.com/ant-design/ant-design/issues/8387)
    - umi-request 基于 fetch 实现、不支持显示上传文件的进度，而 axios 可以支持。
@@ -137,8 +141,8 @@ dashboard 数据边界细节很多。
 
 
 ## 2013-08 兼容性问题
-- IE8及以下，ajax请求地址和参数相同时，会在一段事件内，读取浏览器缓存的ajax返回文件数据，而不去重新请求。-- 解决：请求参数加时间戳  
-- JSON.stringify 只支持IE8\9\10标准文档模式，考虑到文档设置有兼容性视图模式（IE67模式）需要对此方法做兼容（参考json2.js）  
+- IE8及以下，ajax请求地址和参数相同时，会在一段事件内，读取浏览器缓存的ajax返回文件数据，而不去重新请求。-- 解决：请求参数加时间戳
+- JSON.stringify 只支持IE8\9\10标准文档模式，考虑到文档设置有兼容性视图模式（IE67模式）需要对此方法做兼容（参考json2.js）
 - input、textarea的blur事件中删改页面元素，会影响作用区域周围的元素事件处理。例如：点提交btn，先触发了blur事件，改变btn周围的元素，使得btn位置变动，此时btn的事件处理函数不会触发，再点才可触发。
 - IE8里在某个元素上设置`background: transparent;`，给此元素添加事件，并不会触发事件，像click mousedown事件
 - IE9什么原因能导致input file框点击没反应？

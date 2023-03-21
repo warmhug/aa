@@ -29,9 +29,11 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 图像: snipaste / lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
 
 - 其他: vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / https://archive.org/web
-- Chrome 快捷键: https://superuser.com/a/1260437  chrome://system
 - chrome 同步: Switchy Omega 添加 `*.google*` proxy 规则到前边，打开 `chrome://sync` 看 Local State - Server Connection 是否成功。参考 [1](https://hellodk.cn/post/185)、[2](https://github.com/FelisCatus/SwitchyOmega/issues/1599)。 其他方法：代理软件和浏览器都设为“系统代理”。
-- Chrome extensions: 一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) XSwitch Tamper / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity / ChatGPT for Google
+- Chrome cmd+t在右侧标签打开 https://superuser.com/a/1260437
+- Chrome tab卡死: 菜单 - 窗口 - 任务管理器 - 找到相应tab名 查看内存占用空间排序为空 - 结束进程。
+- Chrome 地址栏搜索 无法在新标签页打开结果 https://www.runningcheese.com/tabs
+- Chrome extensions: 一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) XSwitch Tamper / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity / ChatGPT for Google / Language Reactor
 
 - zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
 - rar[工具](https://www.rarlab.com/download.htm): `rar a test.rar test/` 压缩 test 目录内容生成 test.rar 文件。
@@ -184,7 +186,6 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 
 ## vs code
 
-- 配置文件路径: `~/Library/Application\ Support/Code/User`
 - 安装 code 命令：`cmd + shift + p` Shell Command: Install 'code' command in PATH
 - 在查找(替换)框里按 ctrl + enter 支持多行
 - 设置 [tab group](https://github.com/microsoft/vscode/issues/100335#issuecomment-964358943)
@@ -198,11 +199,33 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 ]
 ```
 
-扩展，安装目录: `~/.vscode/extensions`
-> https://github.com/viatsko/awesome-vscode
+配置 multiple root 方便一次性编辑多个项目：创建 `xx.code-workspace` 文件，内容为
+> 注意避免多个项目不同编译配置的互相干扰
+```js
+{
+  "folders": [
+    { "name": "ROOT", "path": "./" },
+    { "name": "slardar", "path": "./slardar" },
+  ],
+  // 不使用公共的，而使用 某个项目 本地配置的 typescript 编译器
+  "settings": {
+    "typescript.tsdk": "slardar/node_modules/typescript/lib"
+  }
+}
+```
 
-plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / marp / filesize / EditorConfig / GitLens / Indent 4-to-2 / SVG Viewer / pangu / Hungry Delete / javascript console utils
- / Template String Converter
+项目做单独的设置、比如 `xxProj/.vscode/settings.json` 内容
+```json
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+}
+```
+
+[推荐](https://github.com/viatsko/awesome-vscode) 的扩展:
+plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / marp / filesize / EditorConfig / GitLens / Indent 4-to-2 / SVG Viewer / pangu / Hungry Delete / javascript console utils / Template String Converter
 
 
 ---------
