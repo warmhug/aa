@@ -1,7 +1,31 @@
 // alert('每次打开都会执行');
 // why console not show?
 console.log('when exec?');
-(async function () {
-  const localData = await chrome.storage.local.get();
-  $('#clipTxt').val(localData.hl_clipTxt || '');
-})();
+
+// 防止休眠或屏幕关闭
+// https://chrome.google.com/webstore/detail/keep-computer-awake-for-a/imbpigcghoambmanjekibelfjemnnool
+$(async function() {
+  const localData = await chrome?.storage?.local.get();
+  $('#clipTxt').val(localData?.hl_clipTxt || '');
+
+  const powerMode = localData?.hl_power || 'default';
+  $('#powerOps input[type="radio"]').filter('[value="' + powerMode + '"]').attr('checked', true);
+  $('#powerOps input[type="radio"]').change(async function(e) {
+    console.log('ee', e.target);
+    switch (e.target.value) {
+      case 'display':
+      case 'system':
+        chrome?.power?.requestKeepAwake(e.target.value);
+        await chrome?.storage?.local.set({ hl_power: e.target.value });
+        break;
+      default:
+        chrome?.power?.releaseKeepAwake();
+        await chrome?.storage?.local.set({ hl_power: '' });
+        break;
+    }
+  });
+
+  // chrome.power.reportActivity(() => {
+  //   console.log('reportActivity');
+  // });
+});
