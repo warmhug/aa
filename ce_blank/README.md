@@ -16,6 +16,10 @@
 
 ## 其他
 
+在 background.js 用 `chrome.runtime.sendMessage` 发消息、所有页面里的 content_scripts 都收不到，改为 `chrome.tabs.sendMessage` 发送、比如 `https://www.xxx` 外部正常域名的页面“可以收到”、但位于插件内部的页面比如 `chrome-extension://extension-id/xx.html` 收不到。
+位于插件内部的页面的 js 文件里，可以直接调用 `chrome.action/storage/commands/..` 等 chrome api，如果插件内部的页面处于打开运行状态、其上注册的 chrome 扩展功能 就能运行，如果关掉页面、扩展功能将不能运行。
+
+
 开发时生成固定的 [extension_id](https://stackoverflow.com/questions/21497781)、
 [crxviewer](https://robwu.nl/crxviewer/)，在不同电脑上安装、打开`chrome://sync-internals/`搜 `hl_` 验证结果。
 注意 `chrome.storage.sync` 只存储和同步当前插件的数据，如果卸载插件、则同步的数据立即被删除。

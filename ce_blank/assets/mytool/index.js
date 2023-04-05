@@ -54,6 +54,7 @@ $(async function () {
     toolbarItems: [['italic', 'strike', 'hr', 'ol'], ['table', 'image', 'link']],
     initialValue: '',
     events: {
+      // change keyup 区别
       // change: async (aa) => {
       keyup: async (aa) => {
         await setStorageNote(tuiEditor.getMarkdown());

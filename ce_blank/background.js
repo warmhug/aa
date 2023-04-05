@@ -1,3 +1,4 @@
+// ignore_security_alert_file SSRF
 // https://developer.chrome.com/docs/extensions/mv3/service_workers/
 console.log('bg page, 注意其执行时机', chrome);
 // console.log('bg page init no window', window?.document?.title);
@@ -5,11 +6,14 @@ console.log('bg page, 注意其执行时机', chrome);
 // 点击扩展图标 触发以下事件
 chrome.action.onClicked.addListener(async (tab) => {
   // 在当前 tab 右边打开新 tab
-  const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-  chrome.tabs.create({ index: curTab.index + 1 });
+  // const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+  // chrome.tabs.create({ index: curTab.index + 1 });
   // console.log('aaat', tab, curTab);
 });
 
+chrome.runtime.onStartup.addListener(() => {
+  console.log('when exec onStartup');
+});
 chrome.runtime.onInstalled.addListener(function(details){
   if(details.reason == "install"){
     console.log("This is a first install!");
@@ -38,11 +42,13 @@ function debounce(fn, delay) {
 chrome.omnibox.setDefaultSuggestion({
   description: '输入中文翻译为英语'
 });
+// 在地址栏调用 Google 翻译 API 直接搜索
 const changeDelay = debounce((text, suggest) => {
   if (text.length <= 1) {
     suggest([]);
     return;
   }
+  // console.log('debounce', text, suggest);
   fetch('https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&sl=zh-CN&tl=en&q=' + text)
     .then((response) => response.json())
     .then((data) => {
@@ -56,27 +62,45 @@ const changeDelay = debounce((text, suggest) => {
         }]);
       }
     });
-}, 500);
-chrome.omnibox.onInputChanged.addListener(changeDelay);
-chrome.omnibox.onInputEntered.addListener(async (text, OnInputEnteredDisposition) => {
-  // console.log('enter', text, OnInputEnteredDisposition);
+}, 900);
+// 填入搜索结果到本插件 Google 翻译的 iframe 里，产生搜索记录、方便回顾
+const saveResult = async (text) => {
+  // console.log('enter', text);
   const cn = text?.split(' | ')?.[0];
   if (!cn) {
     return;
   }
   const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
   // console.log('enter', curTab.url, location.href);
-  // 在 background.js 用 chrome.runtime.sendMessage 发消息、其他地方收不到！！
-  const newUrl = `https://translate.google.com/?sl=zh-CN&tl=en&text=${cn}&op=translate`;
+  const newTranslateUrl = `https://translate.google.com/?sl=zh-CN&tl=en&text=${cn}&op=translate`;
   if (curTab.url === 'chrome://newtab/') {
     chrome.tabs.sendMessage(curTab.id, {
       _bg: true,
       _url: 'https://translate.google',
-      newUrl,
+      newTranslateUrl,
     });
   } else {
-    chrome.tabs.create({ url: newUrl });
+    chrome.tabs.create({ url: newTranslateUrl });
   }
+};
+
+let cacheText = '';
+chrome.omnibox.onInputCancelled.addListener(() => {
+  console.log('onInputCancelled', cacheText);
+  if (cacheText.trim().length) {
+    saveResult(cacheText);
+  }
+});
+// chrome.omnibox.onInputChanged.addListener(changeDelay);
+chrome.omnibox.onInputChanged.addListener((text, suggest) => {
+  // console.log('change', text);
+  cacheText = text;
+  return changeDelay(text, suggest);
+});
+chrome.omnibox.onInputEntered.addListener(saveResult);
+chrome.omnibox.onDeleteSuggestion.addListener((text) => {
+  // how to fire
+  // console.log('onDeleteSuggestion', text, cacheText);
 });
 
 // mac chrome address bar search shortcuts CMD+Enter open new background tab
@@ -84,7 +108,7 @@ chrome.omnibox.onInputEntered.addListener(async (text, OnInputEnteredDisposition
 chrome.tabs.onCreated.addListener(async (tabInfo) => {
   const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
   console.log('onCreated', tabInfo, curTab);
-  if (!tabInfo.active && tabInfo.pendingUrl.indexOf('https://www.google.') === 0) {
+  if (!tabInfo.active && tabInfo.pendingUrl?.indexOf('https://www.google.') === 0) {
     await chrome.tabs.move(tabInfo.id, { index: curTab.index + 1 });
   }
 });

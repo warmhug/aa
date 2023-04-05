@@ -132,3 +132,8 @@ body {
   background-color: #e8f0fe;
   color: #333;
 }
+
+#clipDialog #clipTxt {
+  height: 300px;
+  width: 300px;
+}

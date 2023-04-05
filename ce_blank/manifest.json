@@ -14,12 +14,25 @@
     "32": "assets/favicon.png",
     "128": "assets/favicon.png"
   },
-  "action": {
-    "default_title": "点击打开 new tab 页面"
-  },
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
+  },
+  "action": {
+    "default_title": "点击打开 new tab 页面",
+    "default_popup": "popup.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+U",
+        "mac": "Command+U"
+      }
+    },
+    "addNote": {
+      "suggested_key": "Ctrl+B",
+      "description": "向本地笔记插入内容"
+    }
   },
   "permissions": [
     "activeTab",

@@ -221,6 +221,11 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
   "editor.formatOnSave": true,
   "prettier.singleQuote": true,
   "typescript.tsdk": "node_modules/typescript/lib",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "yarn.lock": true
+  }
 }
 ```
 

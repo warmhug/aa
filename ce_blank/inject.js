@@ -35,11 +35,18 @@ setTimeout(() => {
   window.removeEventListener("message", hl_handleMsg);
 }, 8000);
 
-// 处理来自 background.js 里 Google translate 的消息
+// 处理来自 background.js 里的消息
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  // console.log('msg bg', request, sender, location.href);
-  if (request._bg && request.newUrl && location.href.indexOf(request._url) === 0) {
-    location.href = request.newUrl;
+  console.log('msg bg', request, sender, location.href);
+  if (request._bg && location.href.indexOf(request._url) === 0) {
+    // 来自 Google translate 消息
+    if (request.newTranslateUrl) {
+      location.href = request.newTranslateUrl;
+    }
+    // 来自其他标记
+    if (request.clipChanged) {
+      console.log('clipChanged', requet);
+    }
   }
   return true;
 });

@@ -5,6 +5,16 @@
 
 ### 2023-03
 
+
+ts高级用法 Omit Pick
+```ts
+import { INameProps } from './Name';
+type IDashboardNameProps = {
+  className?: string;
+  style: React.CSSProperties;
+} & Pick<INameProps, 'id' | 'onSaved'>;
+```
+
 vscode 里某个 tsx 文件的 IntelliSense 报错 `which is not compatible with the one in 'tslib'`
 - 参考 [VSCode to use locally installed TypeScript](https://stackoverflow.com/questions/54810894/how-to-force-vscode-to-use-locally-installed-typescript)。 使用 `.vscode/settings.json` 本地文件配置 `"typescript.tsdk": "node_modules/typescript/lib"` （打开 vscode 设置，搜索 `tsdk` 参考）。 点击 vscode 底部状态栏右下角 `TypeScript JSX` 前的图标，找到 TypeScript Version 选择 Select Version 切换使用本地的 tsx 编译器。
 
