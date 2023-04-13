@@ -5,13 +5,15 @@
   <title>hl extension popup</title>
   <style>
     #clipTxt {
-      min-height: 300px;
-      min-width: 300px;
+      height: 300px;
+      width: 400px;
+      overflow: scroll;
+      overflow-wrap: break-word;
     }
   </style>
 </head>
 <body>
-  <textarea id="clipTxt"></textarea>
+  <div id="clipTxt"></div>
   <fieldset id="powerOps">
     <legend>电源模式: </legend>
     <input type="radio" id="radio-1" name="power" value="display">
@@ -22,7 +24,6 @@
     <label for="radio-3">操作系统默认</label>
   </fieldset>
   <script src="assets/jquery.min.js"></script>
-  <script src="assets/jquery-ui.min.js"></script>
   <script src="./popup.js"></script>
 </body>
 </html>

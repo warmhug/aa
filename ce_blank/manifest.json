@@ -30,7 +30,7 @@
       }
     },
     "addNote": {
-      "suggested_key": "Ctrl+B",
+      "suggested_key": "Ctrl+Shift+V",
       "description": "向本地笔记插入内容"
     }
   },

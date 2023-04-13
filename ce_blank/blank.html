@@ -23,8 +23,20 @@
       </iframe>
     </div>
   </div>
-  <div id="clipDialog" title="剪贴板">
+  <div id="clipDialog" title="文字剪贴板">
     <textarea id="clipTxt"></textarea>
+  </div>
+
+  <div id="translateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content iframe-wrap">
+        <a class="iframe-title" href="" target="_blank"></a>
+        <iframe
+          sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
+        >
+        </iframe>
+      </div>
+    </div>
   </div>
 
   <script src="assets/jquery.min.js"></script>
@@ -36,6 +48,7 @@
   <script src="js/bookmarks.js"></script>
   <script src="js/tabs.js"></script>
   <script src="js/clip.js"></script>
+  <script src="js/misc.js"></script>
   <!-- <script src="study.js"></script> -->
  </body>
 </html>

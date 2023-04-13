@@ -5,7 +5,7 @@
 - 点击和手势: 触控板。1 勾选 “轻点来点按” 2 启用词典：查询与数据检测器 - 选择三指轻点 3 更多手势 - 应用Expose。
 - 三指拖移窗口: 辅助功能 -> 鼠标与触控板 -> 触控板选项 -> 启用拖移 -> 三指拖移。
 - 触发角: 调度中心 -> 触发角 (左上角:启动台, 左下角:显示器睡眠, 右上角:调度中心, 右下角:桌面)。
-- 快捷键: 键盘 -> 快捷键 -> 输入法 选择 `cmd+空格`，在 “服务” 里勾选或不选。
+- 快捷键: 键盘 -> 快捷键 -> 输入法 选择 `cmd+空格`，在 “服务” 里勾选或不选。另可修改 App 的快捷键。
 - dock: 程序坞 -> 不勾选 “在程序坞中显示最近使用的应用程序”(最后一项) 显示隐藏 `cmd+alt+d`。
 - 通知: 通知中心 -> 勾选 “当显示器进入睡眠状态时/当屏幕锁定时”
 - 系统顶部菜单栏: 按住 `Command` 再拖动图标，改变右边图标顺序。Finder 工具栏: 按 `cmd + alt`，拖动 app 到工具栏。
@@ -26,7 +26,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 
 - 开发: MacDown / Marp / charles / Gas-Mask / whistle / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / porter.io / https://devtool.tech/html-md
 
-- 图像: snipaste / lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
+- 图像: xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
 
 - 其他: vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / https://archive.org/web
 - chrome 同步: Switchy Omega 添加 `*.google*` proxy 规则到前边，打开 `chrome://sync` 看 Local State - Server Connection 是否成功。参考 [1](https://hellodk.cn/post/185)、[2](https://github.com/FelisCatus/SwitchyOmega/issues/1599)。 其他方法：代理软件和浏览器都设为“系统代理”。

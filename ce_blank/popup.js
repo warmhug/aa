@@ -1,12 +1,14 @@
-// alert('每次打开都会执行');
-// why console not show?
+
+// 在 popup 页面右键 查看元素 看控制台
 console.log('when exec?');
+// alert('每次打开都会执行');
 
 // 防止休眠或屏幕关闭
 // https://chrome.google.com/webstore/detail/keep-computer-awake-for-a/imbpigcghoambmanjekibelfjemnnool
 $(async function() {
   const localData = await chrome?.storage?.local.get();
-  $('#clipTxt').val(localData?.hl_clipTxt || '');
+  const html = (localData?.hl_clipTxt || '').replace(/[\n\r]/g, '<br>');
+  $('#clipTxt').html(html);
 
   const powerMode = localData?.hl_power || 'default';
   $('#powerOps input[type="radio"]').filter('[value="' + powerMode + '"]').attr('checked', true);

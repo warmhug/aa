@@ -78,20 +78,25 @@ const injectSites = {
       window.postMessage(JSON.stringify({
         _ext: true,
         _url: location.href,
-        scrollHeight: 1100,
+        scrollHeight: 1300,
       }), '*');
     })();`
   },
-  'https://translate.google.com/?sl=zh-CN&tl=en&op=translate': {
-    tabIndex: '0.1',
-    js: `;(() => {
-      window.postMessage(JSON.stringify({
-        _ext: true,
-        _url: location.href,
-        scrollHeight: document.body.scrollHeight * 0.6,
-      }), '*');
-    })();`
-  },
+  // 'https://translate.google.com/?sl=zh-CN&tl=en&op=translate': {
+  //   tabIndex: '0.1',
+  //   js: `;(() => {
+  //     window.postMessage(JSON.stringify({
+  //       _ext: true,
+  //       _url: location.href,
+  //       scrollHeight: document.body.scrollHeight * 0.6,
+  //     }), '*');
+  //   })();`,
+  //   css: `
+  //     body {
+  //       overflow: hidden!important;
+  //     }
+  //   `,
+  // },
   [chrome.runtime.getURL('assets/mytool/index.html')]: {
     tabIndex: '0.2',
   },
@@ -108,14 +113,10 @@ const injectSites = {
     js: feishuDocsJs,
   },
   'https://bytedance.feishu.cn/drive/me/': {
-    separate: true,
+    rightSideOfPage: true,
     css: `
       .sidebar-mouse-in-out {
         display: none!important;
-      }
-      .sc-gsDJrp, .sc-iqVVwt {
-        height: 0!important;
-        visibility: hidden;
       }
     `,
     js: `;(() => {

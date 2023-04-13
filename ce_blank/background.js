@@ -86,7 +86,7 @@ const saveResult = async (text) => {
 
 let cacheText = '';
 chrome.omnibox.onInputCancelled.addListener(() => {
-  console.log('onInputCancelled', cacheText);
+  // console.log('onInputCancelled', cacheText);
   if (cacheText.trim().length) {
     saveResult(cacheText);
   }

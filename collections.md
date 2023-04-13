@@ -87,6 +87,7 @@ https://superset.apache.org/
 ICBU前端性能度量 https://mp.weixin.qq.com/s/XAdNOovCQxh5xuGVOSEz3w
 
 [Web vitals](https://www.cnblogs.com/constantince/p/15237915.html)、
+[thresholds](https://web.dev/i18n/en/defining-core-web-vitals-thresholds/)、
 [Chrome的First Paint触发的时机探究](https://cloud.tencent.com/developer/article/1124484)
 [window.onload vs document.onload](https://stackoverflow.com/questions/40193553/load-event-on-script-with-async-and-or-defer)
 

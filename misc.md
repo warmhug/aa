@@ -579,6 +579,7 @@ head/tail -n 20 ~/.bashrc  # 显示头二十行
 
 which java  # 查看 java bin 所在的路径，如果是 `/usr/bin/..` 说明是软连接、再运行 ls -l `which java` 即可
 lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
+kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
 kill -9 *pid*  # 强制杀掉进程
 chmod u+x test.sh    # 修改权限，脚本可执行
 chmod +x demo.py    # 修改权限，脚本可执行
