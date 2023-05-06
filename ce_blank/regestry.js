@@ -1,6 +1,6 @@
 console.log('new tab page', chrome);
 
-(async () => {
+void (async () => {
   const { hl_injectSites } = await hl_extension_util.getStorage();
   const injectSites = hl_injectSites ? JSON.parse(hl_injectSites) : {};
   const driveMeUrl = Object.keys(injectSites).find(url => injectSites[url].rightSideOfPage);
@@ -20,7 +20,7 @@ console.log('new tab page', chrome);
         frameIds: [details.frameId]
       },
       func: (tabId) => {
-        // alert('inject data');
+        // alert('injected data');
         window.hl_extension_data = { tabId };
       },
       args: [curTab.id]

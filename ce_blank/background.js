@@ -88,7 +88,7 @@ let cacheText = '';
 chrome.omnibox.onInputCancelled.addListener(() => {
   // console.log('onInputCancelled', cacheText);
   if (cacheText.trim().length) {
-    saveResult(cacheText);
+    void saveResult(cacheText);
   }
 });
 // chrome.omnibox.onInputChanged.addListener(changeDelay);
@@ -101,6 +101,14 @@ chrome.omnibox.onInputEntered.addListener(saveResult);
 chrome.omnibox.onDeleteSuggestion.addListener((text) => {
   // how to fire
   // console.log('onDeleteSuggestion', text, cacheText);
+});
+chrome.omnibox.onInputStarted.addListener((text) => {
+  // how to fire
+  // console.log('onInputStarted', text, cacheText);
+  chrome.runtime.sendMessage({
+    _bg: true,
+    openModal: 1,
+  });
 });
 
 // mac chrome address bar search shortcuts CMD+Enter open new background tab

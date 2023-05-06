@@ -1,5 +1,3 @@
-
-
 const getSetStorage = {
   getInjectSites: async () => {
     const { hl_injectSites } = await hl_extension_util.getStorage();
@@ -19,29 +17,29 @@ const createIfr = (src, min) => `
 `;
 
 $(async function () {
-  Object.entries(await getSetStorage.getInjectSites()).filter(([key, val]) => val.tabIndex).forEach(([url, urlProps]) => {
-    const { tabIndex, tabName, min } = urlProps;
-    const tArr = tabIndex.split('.');
+  Object.entries(await getSetStorage.getInjectSites()).filter(([key, val]) => val.tabIdx).forEach(([url, urlProps]) => {
+    const { tabIdx, tabName, min } = urlProps;
+    const tArr = tabIdx.split('.');
+    // 构造 bootstrap 需要的 tabs html 基本结构
     if (!$('#eTabs').find(`[data-idx="${tArr[0]}"]`).length) {
       $('#eTabs').append(`<li role="presentation" data-idx="${tArr[0]}">
       <a href="#tabContent${tArr[0]}" data-toggle="tab">${tabName || '-'}</a>
       </li>`);
     }
+    // 构造 bootstrap 需要的 tabs html 基本结构
     if (!$('#eTabContent').find(`#tabContent${tArr[0]}`).length) {
       $('#eTabContent').append(`<div class="tab-pane" id="tabContent${tArr[0]}" role="tabpanel"></div>`);
     }
     if (tArr.length === 1) {
       $(`#tabContent${tArr[0]}`).append(createIfr(url, min));
     } else if (tArr.length === 2) {
-      $(`#tabContent${tArr[0]}`).append(`<div class="tp-row">${createIfr(url, min)}</div>`);
+      $(`#tabContent${tArr[0]}`).append(`<div class="tp-row" data-idx="${tabIdx}">${createIfr(url, min)}</div>`);
     } else if (tArr.length === 3) {
-      const childs = () => $(`#tabContent${tArr[0]}`).children();
-      const newChilds = childs();
-      const newIndex = newChilds.length > Number(tArr[1]) ? Number(tArr[1]) : newChilds.length;
-      if (newIndex === -1 || !newChilds[newIndex]) {
-        $(`#tabContent${tArr[0]}`).append(`<div class="tp-row"></div>`);
+      const targetEle = () => $(`#tabContent${tArr[0]}`).find(`[data-idx="${tArr[0]}.${tArr[1]}"]`);
+      if (!targetEle().length) {
+        $(`#tabContent${tArr[0]}`).append(`<div class="tp-row" data-idx="${tArr[0]}.${tArr[1]}"></div>`);
       }
-      $(childs()[childs().length - 1]).append(createIfr(url, min));
+      targetEle().append(createIfr(url, min));
     }
   });
 
@@ -73,13 +71,13 @@ $(async function () {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // console.log('ssss', request, sender, sendResponse);
     if (request._ext) {
-      (async () => {
+      void (async () => {
         const dUrl = decodeURIComponent(request._url);
         const injectSites = await getSetStorage.getInjectSites();
-        const tabIndex = injectSites[dUrl].tabIndex.split('.')[0];
+        const tabIdx = injectSites[dUrl].tabIdx.split('.')[0];
         // 不改变第一个 tab 的名字
-        if (Number(tabIndex) > 0 && request.title) {
-          $('#eTabs li').eq(tabIndex).find('a').html(request.title);
+        if (Number(tabIdx) > 0 && request.title) {
+          $('#eTabs li').eq(tabIdx).find('a').html(request.title);
           injectSites[dUrl].tabName = request.title;
         }
         if (request.scrollHeight != null) {
@@ -92,7 +90,7 @@ $(async function () {
 
         const iframeTitleEle = $('#eTabContent').find(`[href="${dUrl}"]`);
         // 只给 工具tab 内的 iframe 设置高度
-        if (tabIndex === '0' && request.scrollHeight != null && iframeTitleEle) {
+        if (tabIdx === '0' && request.scrollHeight != null && iframeTitleEle) {
           iframeTitleEle.parent().height(request.scrollHeight);
         }
         // 没有 res 会报错吗 Unchecked runtime.lastError: The message port closed before a response was received.

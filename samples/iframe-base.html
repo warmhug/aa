@@ -3,8 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://gw.alipayobjects.com/os/rmsportal/YbGjMuYEbXdIGJRsqOSA.js"></script>
 </head>
 <body>
+  <iframe
+    sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
+    src="https://www.baidu.com/"
+    id="ifrModal"
+  >
+  </iframe>
+  <script>
+    const iframe = $('#ifrModal');
+    iframe.on('load', (ev) => {
+      let head = iframe.contents().find('head');
+      // 尝试跨域修改样式
+      $(head).append('<style>body{color:red!important}</style>')
+      console.log('head', head, ev);
+    })
+  </script>
+
   <pre>
   iFrame 那些事 https://afantasy.ninja/2018/07/15/dive-into-iframe/
 

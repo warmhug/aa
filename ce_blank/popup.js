@@ -6,7 +6,21 @@ console.log('when exec?');
 // 防止休眠或屏幕关闭
 // https://chrome.google.com/webstore/detail/keep-computer-awake-for-a/imbpigcghoambmanjekibelfjemnnool
 $(async function() {
+  const [curTab] = await chrome.tabs.query({ active: true, currentWindow: true });
   const localData = await chrome?.storage?.local.get();
+
+  // 显示插入到当前页面的 js css 内容
+  const injectSites = JSON.parse(localData.hl_injectSites) || {};
+  const matchUrl = hl_extension_util.getMatchUrl(Object.keys(injectSites), decodeURIComponent(curTab.url));
+  if (matchUrl && injectSites[matchUrl].allPage) {
+    $('#injectCode').html(`
+      此页面被插入 css 或 js 如下:
+      <pre>${injectSites[matchUrl].css}</pre>
+      <pre>${injectSites[matchUrl].js || ''}</pre>
+    `);
+  }
+
+  // 显示粘贴板内容
   const html = (localData?.hl_clipTxt || '').replace(/[\n\r]/g, '<br>');
   $('#clipTxt').html(html);
 

@@ -84,7 +84,7 @@ v3 中的 webRequest api 被废弃，改为使用 declarativeNetRequest 来处�
     {
       "matches": ["*://*/*", "https://www.alipay.com/*", "<all_urls>"],
       "js": ["inj.js"],
-      "css": ["inject.css"],
+      "css": ["content.css"],
       "all_frames": true,
       "match_about_blank": true,
       "match_origin_as_fallback": true,

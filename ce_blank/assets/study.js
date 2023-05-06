@@ -1,8 +1,6 @@
 
 // https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/#sunset-deprecated-apis
 
-console.log('getManifest', chrome.runtime.getManifest());
-
 // webRequest 生命周期监听
 
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
@@ -82,13 +80,13 @@ if (!rcs.find(item => item.id === id)) {
     // matches: ['http://localhost/*'],
     runAt: 'document_start',
     // world: 'MAIN', // 默认是 ISOLATED 改变设置会影响 chrome.runtime.sendMessage
-    js: ['constants.js', 'inject.js'],
+    js: ['constants.js', 'content_script.js'],
   }]);
   // console.log('register success');
 }
 
 // 在 manifest 的 content_scripts 里设置 "world": "MAIN", 不起作用。
-// content_scripts 是独立环境执行，在注入的 inject.js 里修改页面本来的 window 对象无效
+// content_scripts 是独立环境执行，在注入的 content_script.js 里修改页面本来的 window 对象无效
 // https://developer.chrome.com/docs/extensions/mv3/content_scripts/#isolated_world
 // https://stackoverflow.com/questions/9515704
 // https://stackoverflow.com/questions/12395722

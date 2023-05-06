@@ -66,8 +66,15 @@ const injectSites = {
       }
     `,
   },
+  'https://translate.google.com/': {
+    css: `
+      body {
+        overflow: hidden!important;
+      }
+    `,
+  },
   'https://bytedance.feishu.cn/docx/PmUMdEzWhovDajxojqDcIQwpn8f': {
-    tabIndex: '0.0',
+    tabIdx: '0.0',
     css: `
       .navigation-bar-wrapper, .bidirection-link-list, .global-like-wrap, .docx-global-comment,
       .page-block-header .page-block-content, .docx-comment__first-comment-btn, .gpf-biz-help-center__button-group {
@@ -83,7 +90,7 @@ const injectSites = {
     })();`
   },
   // 'https://translate.google.com/?sl=zh-CN&tl=en&op=translate': {
-  //   tabIndex: '0.1',
+  //   tabIdx: '0.1',
   //   js: `;(() => {
   //     window.postMessage(JSON.stringify({
   //       _ext: true,
@@ -98,18 +105,18 @@ const injectSites = {
   //   `,
   // },
   [chrome.runtime.getURL('assets/mytool/index.html')]: {
-    tabIndex: '0.2',
+    tabIdx: '0.2',
   },
   [decodeURIComponent(`https://www.baidu.com/s?wd=%E6%97%A5%E5%8E%86`)]: {
-    tabIndex: '0.3.0',
+    tabIdx: '0.3.0',
     js: bdJs,
   },
   [decodeURIComponent(`https://www.baidu.com/s?wd=%E8%AE%A1%E7%AE%97%E5%99%A8`)]: {
-    tabIndex: '0.3.1',
+    tabIdx: '0.3.1',
     js: bdJs,
   },
   'https://bytedance.feishu.cn/docx/doxcn2EDJtEmqNmb6uVnJ5MTUbc': {
-    tabIndex: '1',
+    tabIdx: '1',
     js: feishuDocsJs,
   },
   'https://bytedance.feishu.cn/drive/me/': {

@@ -51,44 +51,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true;
 });
 
-;(async function () {
+void (async function () {
   const { hl_injectSites } = await hl_extension_util.getStorage();
   const injectSites = JSON.parse(hl_injectSites) || {};
-  const dUrl = decodeURIComponent(location.href);
-  const equalUrl = (ua, ub) => {
-    // 判断 ua 是否是 ub 的子集
-    const uaObj = new URL(ua);
-    const ubObj = new URL(ub);
-    let isInclude = true;
-    uaObj.searchParams.forEach((val, key) => {
-      // console.log('vk', val, key);
-      if (ubObj.searchParams.get(key) !== val) {
-        isInclude = false;
-      }
-    });
-    if (uaObj.origin === ubObj.origin && isInclude) {
-      return true;
-    }
-    return false;
-  }
-  const getUrl = () => {
-    const urls = Object.keys(injectSites);
-    // 优先匹配完全一样的 (todo: 如果既有完全一样、又有部分匹配 多种规则，应该合并起来)
-    if (urls.includes(dUrl)) return dUrl;
-    // 再进行部分匹配
-    return urls.find(url => {
-      if (dUrl.indexOf(url) === 0) {
-        return true;
-      }
-      // 比如 Google translate 默认 url 是 https://translate.google.com/?sl=zh-CN&tl=en&op=translate
-      // 搜索时 url 是 https://translate.google.com/?sl=zh-CN&tl=en&text=as&op=translate
-      // 前者是后者的子集
-      return equalUrl(url, dUrl);
-    });
-  };
-
-  // console.log('getUrl()', getUrl(), location.href);
-  if (getUrl()) {
+  const matchUrl = hl_extension_util.getMatchUrl(Object.keys(injectSites), decodeURIComponent(location.href));
+  // console.log('matchUrl', matchUrl, location.href);
+  if (matchUrl) {
     // window.addEventListener('load', mainFn);
     window.addEventListener('load', () => {
       requestIdleCallback(myNonEssentialWork, { timeout: 5000 });
@@ -97,7 +65,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         while ((deadline.timeRemaining() > 0 || deadline.didTimeout)) {
           // console.log('执行任务 while', deadline.timeRemaining());
         }
-        mainFn(injectSites[getUrl()]);
+        mainFn(injectSites[matchUrl]);
       }
     });
   }

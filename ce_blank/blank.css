@@ -44,7 +44,14 @@ body {
 }
 
 #translateModal .iframe-wrap {
-  height: 500px;
+  height: 400px;
+}
+#clipDialog {
+  padding: 10px;
+}
+#clipTxt {
+  width: 100%;
+  height: 200px;
 }
 
 .main > .iframe-wrap {
@@ -135,9 +142,4 @@ body {
   border: none;
   background-color: #e8f0fe;
   color: #333;
-}
-
-#clipDialog #clipTxt {
-  width: 100%;
-  height: 100%;
 }
