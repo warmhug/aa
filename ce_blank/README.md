@@ -14,7 +14,7 @@
 [开发教程](https://developer.chrome.com/extensions/getstarted)
 
 
-## 其他
+## 记录
 
 在 background.js 用 `chrome.runtime.sendMessage` 发消息、所有页面里的 content_scripts 都收不到，改为 `chrome.tabs.sendMessage` 发送、比如 `https://www.xxx` 外部正常域名的页面“可以收到”、但位于插件内部的页面比如 `chrome-extension://extension-id/xx.html` 收不到。
 位于插件内部的页面的 js 文件里，可以直接调用 `chrome.action/storage/commands/..` 等 chrome api，如果插件内部的页面处于打开运行状态、其上注册的 chrome 扩展功能 就能运行，如果关掉页面、扩展功能将不能运行。
@@ -92,4 +92,144 @@ v3 中的 webRequest api 被废弃，改为使用 declarativeNetRequest 来处�
     }
   ]
 }
+```
+
+
+
+## 代码示例
+
+### todos
+
+```js
+
+chrome.topSites.get(data => {
+  console.log('topSites', data);
+});
+
+chrome.tabs.onActivated.addListener(moveToFirstPosition);
+async function moveToFirstPosition(activeInfo) {
+  try {
+    await chrome.tabs.move(activeInfo.tabId, {index: 0});
+    console.log('Success.');
+  } catch (error) {
+    if (error == 'Error: Tabs cannot be edited right now (user may be dragging a tab).') {
+      setTimeout(() => moveToFirstPosition(activeInfo), 50);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+// 2022-09-17 只返回 extensions 不会返回 app
+chrome.management.getAll(data => {
+  console.log('management', data.map(item => item.type));
+});
+
+```
+
+### 记录
+
+```js
+
+// https://developer.chrome.com/docs/extensions/mv3/intro/mv3-migration/#sunset-deprecated-apis
+
+// webRequest 生命周期监听
+
+chrome.webRequest.onBeforeRequest.addListener(function (details) {
+  console.log('onBeforeRequest', details)
+  return { cancel: false };
+}, {urls: ["<all_urls>"]});
+
+chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
+  var headers = details.requestHeaders;
+  console.log('onBeforeSendHeaders', details);
+  // v3 不能再修改 header 因为不能设置 blocking
+  // 设置 iPhone UA
+  // if (headers[i].name == 'User-Agent') {
+  //   headers[i].value = 'iPhone ua';
+  // }
+  return { requestHeaders: headers };
+}, { urls: ["<all_urls>"] }, ['requestHeaders']);
+
+chrome.webRequest.onHeadersReceived.addListener(function(details) {
+  var headers = details.responseHeaders;
+  // remove the X-Frame-Options header to allow inlining pages within an iframe.
+  // var header = headers[i].name.toLowerCase();
+  // if (header == 'x-frame-options' || 'frame-options' || 'content-security-policy') {
+  //   headers.splice(i, 1); // Remove header
+  // }
+  console.log('onHeadersReceived', details)
+  return {responseHeaders: headers};
+},
+{ urls: ['*://*/*'], types: ['sub_frame'] }, ['responseHeaders']);
+
+chrome.webRequest.onCompleted.addListener(details => {
+  console.log('ttt', details);
+}, {urls: ["<all_urls>"]})
+
+chrome.webNavigation.onDOMContentLoaded.addListener(function (details) {
+  // 去广告
+  console.log('onDOMContentLoaded', details)
+}, { url: [{ hostContains: 'google.com' }] });
+
+chrome.webNavigation.onCompleted.addListener(details => {
+  // console.log('ttt', details);
+});
+
+chrome.tabs.captureVisibleTab(function (params) {
+  // 截图
+  // console.log(params)
+});
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  console.log('onUpdated', tabId, changeInfo, tab);
+});
+// chrome.tabs.create({ "url": "http://google.com" });
+
+
+chrome.storage.sync.get(['key'], function(result) {
+  console.log('Value currently is ' + result.key);
+});
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  console.log('onchange Value currently is ', changes, namespace);
+});
+chrome.runtime.onMessage.addListener(function(e, t, s) {
+  console.log('onMessage Value currently is ', e, t, s);
+});
+
+
+// programmatically injected content_scripts
+// 注意：先注册到相应域 后让页面加载 才会执行先注册的 js
+const rcs = await chrome.scripting.getRegisteredContentScripts();
+const id = '1';
+if (!rcs.find(item => item.id === id)) {
+  await chrome.scripting.registerContentScripts([{
+    id,
+    allFrames: true,
+    // content_scripts 虽然设置了 match_about_blank 和 match_origin_as_fallback
+    // 但不能在 data:text/html,<html>Hello, World!</html> 这里起作用
+    matchOriginAsFallback: true,
+    // matches: ["<all_urls>"],
+    // matches: ['http://localhost/*'],
+    runAt: 'document_start',
+    // world: 'MAIN', // 默认是 ISOLATED 改变设置会影响 chrome.runtime.sendMessage
+    js: ['constants.js', 'content_script.js'],
+  }]);
+  // console.log('register success');
+}
+
+// 在 manifest 的 content_scripts 里设置 "world": "MAIN", 不起作用。
+// content_scripts 是独立环境执行，在注入的 content_script.js 里修改页面本来的 window 对象无效
+// https://developer.chrome.com/docs/extensions/mv3/content_scripts/#isolated_world
+// https://stackoverflow.com/questions/9515704
+// https://stackoverflow.com/questions/12395722
+// https://developer.mozilla.org/en-US/docs/Web/API/Window
+// window 对象的 parent top 属性都是 只读 的。如 window.top = window; 修改无效
+// Object.defineProperty(window, 'top', {
+//   get () {
+//     return 100;
+//   }
+// });
+
+// 插件内的 html 文件里不能注入 content_scripts
+
 ```

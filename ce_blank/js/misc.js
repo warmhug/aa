@@ -51,8 +51,9 @@ $(() => {
   });
 
   const setHtml = url => {
-    $('#translateModal').find('iframe').attr('src', url);
-    $('#translateModal').find('a').attr('href', url).html(url);
+    const iframeWrap = $('#translateModal').find('.iframe-wrap.google');
+    iframeWrap.find('iframe').attr('src', url);
+    iframeWrap.find('a').attr('href', url).html(url);
   };
   setHtml('https://translate.google.com/?sl=zh-CN&tl=en&op=translate');
 

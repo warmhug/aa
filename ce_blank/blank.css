@@ -46,12 +46,12 @@ body {
 #translateModal .iframe-wrap {
   height: 400px;
 }
-#clipDialog {
+.block {
   padding: 10px;
 }
 #clipTxt {
   width: 100%;
-  height: 200px;
+  height: 150px;
 }
 
 .main > .iframe-wrap {

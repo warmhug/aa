@@ -104,5 +104,16 @@
       ]
     },
     "condition": { "urlFilter": "feishu.cn/messenger", "resourceTypes": ["sub_frame"] }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        { "header": "X-Frame-Options", "operation": "remove" }
+      ]
+    },
+    "condition": { "urlFilter": "en998.com", "resourceTypes": ["sub_frame"] }
   }
 ]
