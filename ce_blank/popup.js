@@ -24,6 +24,13 @@ $(async function() {
   const html = (localData?.hl_clipTxt || '').replace(/[\n\r]/g, '<br>');
   $('#clipTxt').html(html);
 
+  $('#reloadPage').click(() => {
+    // 销毁页面 再重新加载
+    chrome.tabs.discard(curTab.id);
+    chrome.tabs.reload();
+    // chrome.tabs.update(curTab.id, {url: curTab.url});
+  });
+
   const powerMode = localData?.hl_power || 'default';
   $('#powerOps input[type="radio"]').filter('[value="' + powerMode + '"]').attr('checked', true);
   $('#powerOps input[type="radio"]').change(async function(e) {

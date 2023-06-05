@@ -40,7 +40,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - https://www.keka.io 压缩解压 7z zip 等。mac 选中文件右键 -> 压缩生成zip 或者 服务“使用keka压缩”。
 - [zip、rar、7z文件密码破解](https://github.com/jaredsburrows/rarcrack)、[7zcrack](https://github.com/tp7309/tt7zcrack)
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
-- 欧路: 修改 /Users/hua/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改)：100000000000 重启
+- 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
 
 - 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/)
 - iPhone 恢复出厂设置后，系统软件版本是 iOS 最新版、不是出厂时的旧版本。 在最新 beta 版系统软件做备份后、不能恢复到旧稳定版本！ https://apple.stackexchange.com/q/328535/228571
