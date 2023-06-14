@@ -50,6 +50,26 @@ const feishuDocsJs = `;(() => {
 
 // 如果 URL 中含有多个 中文字符 解码可能会错误。统一用 decodeURIComponent 解码、再对比
 const injectSites = {
+  'https://bytedance.feishu.cn/drive/me/': {
+    sideOfPage: true,
+    css: `
+      .sidebar-mouse-in-out, .file-list-meta {
+        display: none!important;
+      }
+    `,
+    js: `;(() => {
+      /*
+      给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面
+      document.querySelectorAll('a').forEach((item) => {
+        item.target = '_parent';
+        item.addEventListener('click', (evt) => {
+          evt.stopPropagation();
+          evt.stopImmediatePropagation();
+        });
+      });
+      */
+    })();`
+  },
   'https://bytedance.feishu.cn': {
     allPage: true,
     css: `
@@ -118,26 +138,6 @@ const injectSites = {
   'https://bytedance.feishu.cn/docx/doxcn2EDJtEmqNmb6uVnJ5MTUbc': {
     tabIdx: '1',
     js: feishuDocsJs,
-  },
-  'https://bytedance.feishu.cn/drive/me/': {
-    rightSideOfPage: true,
-    css: `
-      .sidebar-mouse-in-out {
-        display: none!important;
-      }
-    `,
-    js: `;(() => {
-      /*
-      给 drive/me 页面里所有 a 标签加 target 使之能替换当前 tab 页面
-      document.querySelectorAll('a').forEach((item) => {
-        item.target = '_parent';
-        item.addEventListener('click', (evt) => {
-          evt.stopPropagation();
-          evt.stopImmediatePropagation();
-        });
-      });
-      */
-    })();`
   },
 };
 

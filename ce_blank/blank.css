@@ -12,7 +12,7 @@ body {
   /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_filter_all */
   filter: opacity(90%);
 }
-.main {
+.ce-wrapper {
   position: relative;
   /* flex 跟  jquery ui resizable 搭配不正常  */
   display: table;
@@ -57,36 +57,35 @@ body {
   height: 100px;
 }
 
-.main > .iframe-wrap {
+.ce-wrapper > .iframe-wrap {
   display: table-cell;
   height: 100%;
-  padding-left: 4px;
+  padding-right: 4px;
 }
 
-.main .tabs {
+.ce-wrapper .major {
   display: table-cell;
   vertical-align: top;
-  width: 70%;
   background-color: #fff;
 }
-.main .tabs .nav {
+.ce-wrapper .major .nav {
   margin: 5px;
 }
-.main .tabs .tab-content {
+.ce-wrapper .major .tab-content {
   height: calc(100% - 52px);
 }
-.main .tabs .tab-pane {
+.ce-wrapper .major .tab-pane {
   overflow: hidden;
 }
-.main .tabs .tab-pane:first-child {
+.ce-wrapper .major .tab-pane:first-child {
   overflow: scroll;
 }
-.main .tabs .tab-pane .tp-row {
+.ce-wrapper .major .tab-pane .tp-row {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
 }
-.main .tabs .tab-pane .tp-row .iframe-wrap {
+.ce-wrapper .major .tab-pane .tp-row .iframe-wrap {
   flex: 1;
   /* flex-shrink: 0; */
   /* width: 630px; */
@@ -95,7 +94,7 @@ body {
   border: 1px solid gray;
   overflow: hidden;
 }
-.main .tabs .tab-pane .tp-row .iframe-wrap.min {
+.ce-wrapper .major .tab-pane .tp-row .iframe-wrap.min {
   height: 22px !important;
 }
 

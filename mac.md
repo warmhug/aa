@@ -42,9 +42,11 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
 - 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
 
-- 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d) / [捷径盒](https://jiejinghe.com/)
+- 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d)
 - iPhone 恢复出厂设置后，系统软件版本是 iOS 最新版、不是出厂时的旧版本。 在最新 beta 版系统软件做备份后、不能恢复到旧稳定版本！ https://apple.stackexchange.com/q/328535/228571
 - iPhone 连接数据线恢复备份的文件后，各个第三方app仍然需要重新下载、发现卡死状态 用手机网络 优先下载重要app 其他的暂停并排队，app内本地的聊天记录还是会丢失 要提前备份并立即恢复！
+- iPhone 查看连接过的所有WiFi：进入设置-“无线局域网” -右上角“编辑”。
+- iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
 - 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
 
 - U盘格式
@@ -500,26 +502,10 @@ https://localhost  # 测试 https
 
 ## 虚拟机
 
-- virtualbox win7 网络设置为 bridged adapter (name: wifi) [如图](https://gw.alipayobjects.com/zos/rmsportal/auNTgeEEHVFfWklRjRsK.png)、在家里网络正常，但很奇怪在公司内网不能连接？？
+- virtualbox win7 [如图](https://gw.alipayobjects.com/zos/rmsportal/auNTgeEEHVFfWklRjRsK.png)、在家里网络正常，但很奇怪在公司内网不能连接？？
 - [虚拟机里的 win 键盘是用的 ctrl 键](https://forums.virtualbox.org/viewtopic.php?f=8&t=63567&hilit=keyboard)
 - 安装后重启，或点击菜单 Devices -> Insert Guest Additions CD image… 使能访问 host 电脑并自动调整分辨率
 - 设置 Shared Folders
 
 > 注意：当 virtualBox 运行时，Android 官方安装的虚拟机、开不起来！
 > 虚拟机里查看 ip 地址可以看到，例如 10.0.2.2 可访问 host 主机的 localhost , Genymotion android emulator 相应ip为 10.0.3.2
-
----------
-
-## 路由器设置
-
-windows下 ipconfig 查出的 “默认网关” 地址一般就是 “路由器ip” 地址；对应 mac 上的 “偏好设置－网络－高级－TCP／ip下的路由器”。
-
-> 路由器不需要链接网线到电脑上。遇到问题，先路由器复位
-
-tplink-WR720N 迷你型无线路由器(跟普通路由器不同)
-默认管理IP: 192.168.1.253 子网掩码: 255.255.255.0 账号密码: admin，默认模式为 AP 模式（其他有 3G / Router 模式）
-
-路由器直接通电，不用插入网线，电脑/手机连接上“路由器名称（不带密码）”，浏览器输入“默认管理IP”、找到“无线设置”-“基本设置”-“SSID号”-“无线网络安全设置” 设置完毕即可。
-
-- AP 模式：一般用于“租房/宾馆”等有网线（电脑能直接连网线上网）但没有无线网的地方。用网线直接连到路由器 LAN 端口，即可直接使用路由器的无线网。
-- Router 模式：需要确保路由器 “LAN 网段” 和 “WAN 网段” 不在一个段内。可以在 AP 模式下，查看 IP和DNS地址，如果此时 IP地址 是 192.168.1.xx ，那么切到 Router 模式下，WAN 口的地址填上刚才的 IP和DNS地址，LAN 口的 IP地址 改为 192.168.2.253(xx) ，这样就不在一个网段了。再用网线直接连到路由器 WAN 端口，DHCP 可以打开，然后可上网。

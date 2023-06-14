@@ -16,8 +16,63 @@ const createIfr = (src, min) => `
 </div>
 `;
 
+console.log('new tab page', chrome);
+
 $(async function () {
-  Object.entries(await getSetStorage.getInjectSites()).filter(([key, val]) => val.tabIdx).forEach(([url, urlProps]) => {
+  const _injectSites = await getSetStorage.getInjectSites();
+  const driveMeUrl = Object.keys(_injectSites).find(url => _injectSites[url].sideOfPage);
+
+  const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+
+  // 注意: webNavigation listener 在这里注册，当打开或刷新 浏览器其他 tab 页面时，这里都会执行回调。
+  // 所以 executeScript 需要传入 curTab.id 并判断与打开的页面所在 tab 是否一致。
+  chrome.webNavigation.onDOMContentLoaded.addListener(async details => {
+    // console.log('webNavigation', curTab, details);
+    if (details.url === 'about:blank' || details.tabId !== curTab.id) {
+      return;
+    }
+    const injectionResults = await chrome.scripting.executeScript({
+      target: {
+        tabId: curTab.id,
+        frameIds: [details.frameId]
+      },
+      func: (tabId) => {
+        // alert('injected data');
+        window.hl_extension_data = { tabId };
+      },
+      args: [curTab.id]
+    });
+    // console.log('injectionResults', injectionResults);
+  });
+
+  if (driveMeUrl) {
+    // https://bytedance.feishu.cn/drive/me/ 页面的部分请求 403 错误，导致在 iframe 里显示不正常。
+    // 因为飞书代码里 window.parent 判断如果是在 iframe 里，会让 request headers 里的 x-csrftoken 设置失败。
+    const cookieStores = await chrome.cookies.get({ name: '_csrf_token', url: driveMeUrl });
+    // console.log('cookieStores', cookieStores.value);
+    const res = await chrome.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds: [10],
+      addRules: [
+        {
+          "id": 10,
+          "priority": 1,
+          "action": {
+            "type": "modifyHeaders",
+            "requestHeaders": [
+              { "header": "x-csrftoken", "operation": "set", "value": cookieStores?.value || '' }
+            ]
+          },
+          "condition": { "urlFilter": 'space/api', "resourceTypes": ["xmlhttprequest"] }
+        }
+      ]
+    });
+    // console.log('dnres', res);
+    $('#sideIframe').find('iframe').attr('src', driveMeUrl);
+    $('#sideIframe').find('a').attr('href', driveMeUrl).html(driveMeUrl);
+  }
+
+
+  Object.entries(_injectSites).filter(([key, val]) => val.tabIdx).forEach(([url, urlProps]) => {
     const { tabIdx, tabName, min } = urlProps;
     const tArr = tabIdx.split('.');
     // 构造 bootstrap 需要的 tabs html 基本结构
@@ -26,7 +81,6 @@ $(async function () {
       <a href="#tabContent${tArr[0]}" data-toggle="tab">${tabName || '-'}</a>
       </li>`);
     }
-    // 构造 bootstrap 需要的 tabs html 基本结构
     if (!$('#eTabContent').find(`#tabContent${tArr[0]}`).length) {
       $('#eTabContent').append(`<div class="tab-pane" id="tabContent${tArr[0]}" role="tabpanel"></div>`);
     }
@@ -100,7 +154,7 @@ $(async function () {
     return true;
   });
 
-  $('.tabs').resizable({
+  $('#sideIframe').resizable({
     handles: 'e',
     containment: "parent",
     start: function(event, ui) {
@@ -111,11 +165,11 @@ $(async function () {
       $('iframe').css('pointer-events','auto');
       const { width } = ui.size;
       const saveWidth = `${width / (window.innerWidth - 12) * 100}%`;
-      await hl_extension_util.setStorage({ hl_tabWidth: saveWidth });
+      await hl_extension_util.setStorage({ hl_sideWidth: saveWidth });
     }
   });
 
-  const { hl_tabWidth } = await hl_extension_util.getStorage();
-  $('.tabs').width(hl_tabWidth ?? '80%');
+  const { hl_sideWidth } = await hl_extension_util.getStorage();
+  $('#sideIframe').width(hl_sideWidth ?? '20%');
 
 });

@@ -19,6 +19,14 @@ Excel 模糊匹配 <http://club.excelhome.net/thread-1048885-1-1.html>
 [reddit 社区](https://www.reddit.com/r/Scriptable/)
 [automators 社区](https://talk.automators.fm/t/file-bookmarks-sync/5729)
 
+iOS<=16 版本，小组件里列表内容 没有click等点击事件、只可以通过url打开Safari或其他app。
+
+[icon_themer & Fancy Icon Maker](https://www.reddit.com/r/shortcuts/comments/p30bnu/icon_themer_alternative/) 新版 iOS 已失效。
+
+iOS内容限制：转到“设置” > “屏幕时间” > “内容和隐私限制” > 选择“内容限制”-”网页内容“。
+
+[appintents](https://developer.apple.com/documentation/appintents/)
+
 学习
 
 ```js
@@ -69,10 +77,66 @@ let raw = fm.readString(fm.bookmarkedPath('test.txt'))
 console.log(wr);
 console.log(raw);
 console.log(fm.allFileBookmarks())
-
 ```
 
 应用
+
+```js
+// 参考 gallery 里的 News Widget 小组件
+// 增加打开 shortcuts 相应指令的功能
+function addItem(container, { date, url, text }) {
+  const item = container.addStack();
+  item.url = url;
+  item.setPadding(4,4,4,4);
+
+  const textObj = item.addText(text);
+  textObj.font = Font.mediumSystemFont(13);
+  textObj.textColor = Color.darkGray();
+  textObj.lineLimit = 1;
+}
+function createUI(container, wData) {
+  const out = container.addStack();
+  wData.forEach(items => {
+    const col = out.addStack();
+    col.layoutVertically();
+    items.forEach(item => {
+      addItem(col, item);
+    });
+    out.addSpacer(10);
+  });
+}
+function cURL(name) {
+  let scUrl = new CallbackURL("shortcuts://x-callback-url/run-shortcut");
+  scUrl.addParameter("name", name);
+  return scUrl.getURL();
+}
+const data = [
+  [
+    { url: 'scriptable://', text: 'scriptable' },
+    { url: cURL('卧室关灯'), text: '卧室关灯' },
+    { url: cURL('开插座'), text: '开插座' },
+    { url: cURL('关插座'), text: '关插座' },
+  ],
+  [
+    { url: 'shortcuts://', text: 'shortcuts' },
+    { url: cURL('获取时间'), text: '获取时间' },
+    { url: cURL('番茄计时'), text: '番茄计时' },
+    { url: cURL('豆瓣实时'), text: '豆瓣实时' },
+  ],
+  [
+    { url: cURL('打开keep'), text: '打开keep' },
+    { url: 'weread://', text: '微信读书' },
+    { url: 'googletranslate://', text: 'Google翻译' },
+    { url: 'googlechrome://www.google.com.hk/#newwindow=1', text: 'Chrome搜索' },
+  ],
+];
+const widget = new ListWidget();
+createUI(widget, data)
+Script.setWidget(widget);
+widget.presentMedium();
+Script.complete();
+```
+
 
 ```js
 // 参考自 https://talk.automators.fm/t/reading-contents-of-a-file/8865/2

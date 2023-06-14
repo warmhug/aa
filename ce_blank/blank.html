@@ -10,17 +10,19 @@
 <body>
   <img class="pageBgImg" src="https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg">
   <div id="bookmarks"></div>
-  <div class="main">
-    <div class="tabs">
-      <ul class="nav nav-tabs" id="eTabs" role="tablist"></ul>
-      <div class="tab-content" id="eTabContent"></div>
-    </div>
+
+  <!-- container / wrapper 等命名与 bootstrap 等框架冲突！ -->
+  <div class="ce-wrapper">
     <div class="iframe-wrap" id="sideIframe">
       <a class="iframe-title" href="" target="_blank"></a>
       <iframe
         sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
       >
       </iframe>
+    </div>
+    <div class="major">
+      <ul class="nav nav-tabs" id="eTabs" role="tablist"></ul>
+      <div class="tab-content" id="eTabContent"></div>
     </div>
   </div>
 
@@ -55,9 +57,8 @@
   <script src="assets/bootstrap.js"></script>
 
   <script src="common.js"></script>
-  <script src="regestry.js"></script>
+  <script src="js/blank.js"></script>
   <script src="js/bookmarks.js"></script>
-  <script src="js/tabs.js"></script>
   <script src="js/misc.js"></script>
  </body>
 </html>
