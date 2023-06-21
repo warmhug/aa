@@ -18,6 +18,11 @@ Excel 模糊匹配 <http://club.excelhome.net/thread-1048885-1-1.html>
 [scriptable docs](https://docs.scriptable.app/)
 [reddit 社区](https://www.reddit.com/r/Scriptable/)
 [automators 社区](https://talk.automators.fm/t/file-bookmarks-sync/5729)
+https://github.com/dersvenhesse/awesome-scriptable
+https://github.com/evilbutcher/Scriptables
+https://routinehub.co/
+
+https://ifttt.com/ 通过获取“智能开关、iOS提醒事项日历”等各类服务的API、再设置 if.then 逻辑、在手机上打开才能运行。注意：没有像“iOS快捷指令”app的系统权限、不能调用其他app。
 
 iOS<=16 版本，小组件里列表内容 没有click等点击事件、只可以通过url打开Safari或其他app。
 
@@ -35,7 +40,6 @@ console.log(config);
 let input = (args.widgetParameter == null) ? 'no' : args.widgetParameter;
 console.log(input);
 
-
 // 桌面 widget 设置
 let widget = new ListWidget()
 let wTxt = widget.addText('显示的文字')
@@ -48,17 +52,14 @@ gradient.locations = [0.5, 1]
 widget.backgroundGradient = gradient
 Script.setWidget(widget)
 
-
 // DocumentPicker 不能在 widget 里运行
 let fileURLs = await DocumentPicker.open(["public.plain-text"])
 let txt = FileManager.local().readString(fileURLs[0])
 console.log(txt);
 
-
 // 在 iCloud Scriptable 目录里创建 _my_note.txt
 let fm = FileManager.iCloud()
 fm.writeString(fm.joinPath(fm.documentsDirectory(), '_my_note.txt'), 'aa');
-
 
 // https://talk.automators.fm/t/read-icloud-file-outside-scriptable-directory/3959
 // 由于沙箱机制，只能读取 scripable 所在目录内的文件，iCloud 内其他目录文件读取不了。
@@ -77,6 +78,20 @@ let raw = fm.readString(fm.bookmarkedPath('test.txt'))
 console.log(wr);
 console.log(raw);
 console.log(fm.allFileBookmarks())
+
+// 读取剪贴板 注意 console log 的参数只能一个
+var clipboardContents = Pasteboard.paste();
+console.log(`Clipboard contents: ${clipboardContents}`);
+
+// widget 里只能配置 url, 不能调用 Safari 等系统APP的API
+if (config.runsInWidget) {
+  let widget = createWidget(items)
+  Script.setWidget(widget)
+  Script.complete()
+} else {
+  //QuickLook.present(createWidget(items));
+  Safari.open(appURL)
+}
 ```
 
 应用

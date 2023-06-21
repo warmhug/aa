@@ -46,6 +46,15 @@ const hl_extension_util = {
     };
     document.body.appendChild(iScript);
   },
+  /**
+    // need to add clipboard/clipboardWrite/clipboardRead to manifest
+    // https://developer.chrome.com/docs/extensions/reference/clipboard/
+    console.log('chrome.clipboard', chrome.clipboard);
+    chrome.clipboard.onClipboardDataChanged.addListener(() => {
+      const success = document.execCommand('paste');
+      console.log('document.execCommand result1: ', success);
+    });
+   */
   readClipboardText: async () => {
     // https://github.com/extend-chrome/clipboard/blob/master/src/index.ts
     const readText = () => new Promise((resolve, reject) => {
@@ -55,7 +64,7 @@ const hl_extension_util = {
       document.body.append(el)
       el.select()
       const success = document.execCommand('paste');
-      console.log('document.execCommand result: ', success);
+      // console.log('document.execCommand result: ', success);
       const text = el.value
       el.remove()
       if (!success) reject(new Error('Unable to read from clipboard'))
@@ -79,9 +88,10 @@ const hl_extension_util = {
       // DOMException: Document is not focused.
       text = await navigator.clipboard.readText();
     } catch (error) {
-      console.log('err', error);
+      // console.log('err', error);
       text = await readText();
     }
+    console.log('readClipboardText', text);
     return text;
   },
   getMatchUrl: (urls, matchUrl) => {
