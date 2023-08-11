@@ -35,6 +35,8 @@ iOS内容限制：转到“设置” > “屏幕时间” > “内容和隐私�
 学习
 
 ```js
+// 通过查看 APP 里的 Gallery 示例代码，能全面了解各种功能和写法。
+
 console.log(config);
 // 输入参数
 let input = (args.widgetParameter == null) ? 'no' : args.widgetParameter;
@@ -657,9 +659,6 @@ head/tail filename  # 只看 头/尾 几行(默认10行)
 head/tail -n 20 ~/.bashrc  # 显示头二十行
 
 which java  # 查看 java bin 所在的路径，如果是 `/usr/bin/..` 说明是软连接、再运行 ls -l `which java` 即可
-lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
-kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
-kill -9 *pid*  # 强制杀掉进程
 chmod u+x test.sh    # 修改权限，脚本可执行
 chmod +x demo.py    # 修改权限，脚本可执行
 
@@ -669,9 +668,6 @@ nslookup [IP地址/域名]  # 查询一台机器的 IP 地址和其对应的域�
 # 以报告模式显示：从我的主机到目标主机经过的路由节点以及到各节点数据包的丢包率和 ping 命令的最短/最长时间和标准偏差。
 # mtr 详细：https://meiriyitie.com/2015/05/26/diagnosing-network-issues-with-mtr/
 mtr -r [IP地址/域名]
-
-top  # 统计进程状态，和 Mac 的 活动监视器 功能类似
-brew install htop  # top 高级版，支持鼠标点击、方向键切换
 
 alias # 查看系统里别名
 w / who # 列出当前登录的所有用户

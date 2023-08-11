@@ -44,6 +44,8 @@ useEffect(() => {
 
 ## 2020~2021
 
+框架的“双向绑定”意思是 view -> state -> view 变化的绑定，而不是 state1 <-> state2 变化的绑定、同样功能的 state 只用定义一个、有多个就会导致 state 变更检测的死循环。
+
 dashboard 数据边界细节很多。
 
 周日报遗留问题：

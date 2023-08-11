@@ -80,7 +80,7 @@ const saveResult = async (text) => {
       newTranslateUrl,
     });
   } else {
-    chrome.tabs.create({ url: newTranslateUrl });
+    chrome.tabs.create({ url: newTranslateUrl, index: curTab.index });
   }
 };
 

@@ -14,6 +14,7 @@
 - 快捷指令: iOS -> Apple ID -> iCloud -> 使用iCloud的APP -> 显示全部 找到 快捷指令 勾选同步。
 - QuickLook: 搜索下载 QLMarkdown / QLStephen / QuickLookJSON 并放到 `~/Library/QuickLook` 或 `/Library/QuickLook` 目录。如果不生效、`killall Finder` 重启 Finder。
 
+- 查看ip地址: 设置 - wifi - 详细信息。查看域名路由 `traceroute developer.chrome.com` 或 `ping xxx`。
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
 - iBook 缓存位置 ~/Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks
 
@@ -291,7 +292,10 @@ npx lerna list  # 免全局安装
 
 node hello.js &  # 后台运行程序
 ps -ef | grep node  # 找到进程对应的ID
+lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
 kill 3747(进程id)  # 杀掉后台进程
+kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
+kill -9 *pid*  # 强制杀掉进程
 ```
 
 head caret tilde 区别 https://scarletsky.github.io/2016/12/29/tilde-and-caret-in-git/

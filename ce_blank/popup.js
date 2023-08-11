@@ -24,6 +24,19 @@ $(async function() {
   const html = (localData?.hl_clipTxt || '').replace(/[\n\r]/g, '<br>');
   $('#clipTxt').html(html);
 
+  $('#resizeWindow').click(() => {
+    chrome.windows.getCurrent(function(wind) {
+      var maxWidth = window.screen.availWidth;
+      var maxHeight = window.screen.availHeight;
+      // alert(wind.id);alert(maxWidth);alert(maxHeight);
+      var updateInfo = {
+          // left: 0, //change those to whatever you like
+          // top: 0,
+          // height: maxHeight
+          width: 1728,
+      };
+      chrome.windows.update(wind.id, updateInfo);});
+  });
   $('#reloadPage').click(() => {
     // 销毁页面 再重新加载
     chrome.tabs.discard(curTab.id);

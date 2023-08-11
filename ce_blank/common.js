@@ -106,7 +106,7 @@ const hl_extension_util = {
           isInclude = false;
         }
       });
-      if (uaObj.origin === ubObj.origin && isInclude) {
+      if (uaObj.origin === ubObj.origin && uaObj.pathname === ubObj.pathname && isInclude) {
         return true;
       }
       return false;
@@ -115,6 +115,7 @@ const hl_extension_util = {
     if (urls.includes(matchUrl)) return matchUrl;
     // 再进行部分匹配
     return urls.find(url => {
+      // 优先匹配同样域名和路径的
       if (matchUrl.indexOf(url) === 0) {
         return true;
       }

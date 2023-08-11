@@ -88,9 +88,10 @@ ICBU前端性能度量 https://mp.weixin.qq.com/s/XAdNOovCQxh5xuGVOSEz3w
 
 [Web vitals](https://www.cnblogs.com/constantince/p/15237915.html)、
 [thresholds](https://web.dev/i18n/en/defining-core-web-vitals-thresholds/)、
-[Chrome的First Paint触发的时机探究](https://cloud.tencent.com/developer/article/1124484)
+[Chrome的First Paint触发的时机探究](https://cloud.tencent.com/developer/article/1124484)、
 [window.onload vs document.onload](https://stackoverflow.com/questions/40193553/load-event-on-script-with-async-and-or-defer)
 
+[JavaScript Errors Handbook](https://github.com/mknichel/javascript-errors/blob/master/README.md)、
 [如何捕获前端错误](https://mp.weixin.qq.com/s/E51lKQOojsvhHvACIyXwhw)、[搞定前端错误捕获和上报](https://juejin.cn/post/7031876097390149645)、[错误监控总结](https://segmentfault.com/a/1190000014672384)
 
 为什么大厂前端监控都在用GIF做埋点？ https://mp.weixin.qq.com/s?__biz=MzAxODE4MTEzMA==&mid=2650099077&idx=1&sn=813d2c96cd940dc95b0f47585b989c2f
@@ -473,6 +474,8 @@ AlipayJSBridge.call('setTitle', { title: 'xxx' });
 
 
 ## react & redux
+
+[useReducer callback](https://github.com/facebook/react/issues/15344)
 
 > antd-mobile 旧 demo 备份
 > - antd_custom_ui move from https://github.com/warmhug/__/tree/master/_react/antd_custom_ui to > https://github.com/ant-design/antd-mobile-samples/tree/master/web-custom-ui
