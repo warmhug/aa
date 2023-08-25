@@ -23,13 +23,11 @@
 macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
 关闭 sip 方法：关机后、按住右上角电源键(非m1按下`Cmd + R`) 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
 
-- 系统: AppCleaner / afloatx (不可用) / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / aria2 / Spectacle / ParagonNTFS / Smoothscroll / OmniDiskSweeper / https://u.tools
+- 系统: AppCleaner / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / ParagonNTFS / Smoothscroll / https://u.tools
 
-- 开发: MacDown / Marp / charles / Gas-Mask / whistle / color-note / meld / ngrok inlets(GitHub) / axure RP(公司) / npkill(删除node_modules) / httptoolkit.tech / porter.io / https://devtool.tech/html-md
+- 图像: xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
 
-- 图像: xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / NeatDownloadManager / extract-video-ppt
-
-- 其他: vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / https://archive.org/web
+- 其他: snapdrop.net / ngrok inlets(GitHub) / vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / https://archive.org/web
 - chrome 同步: Switchy Omega 添加 `*.google*` proxy 规则到前边，打开 `chrome://sync` 看 Local State - Server Connection 是否成功。参考 [1](https://hellodk.cn/post/185)、[2](https://github.com/FelisCatus/SwitchyOmega/issues/1599)。 其他方法：代理软件和浏览器都设为“系统代理”。
 - Chrome cmd+t在右侧标签打开 https://superuser.com/a/1260437
 - Chrome tab卡死: 菜单 - 窗口 - 任务管理器 - 找到相应tab名 查看内存占用空间排序为空 - 结束进程。
@@ -75,7 +73,7 @@ defaults write com.apple.helpviewer DevMode -bool TRUE  # 系统的帮助窗口�
 ```
 
 
----------
+------
 
 > [国外程序员生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
@@ -185,7 +183,7 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 * +direct
 ```
 
----------
+------
 
 ## vs code
 
@@ -236,7 +234,7 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / marp / filesize / EditorConfig / GitLens / Indent 4-to-2 / SVG Viewer / pangu / Hungry Delete / javascript console utils / Template String Converter
 
 
----------
+------
 
 ## Git / Npm
 
@@ -422,7 +420,7 @@ issue
 
 
 
----------
+------
 
 ## Apache
 
@@ -473,7 +471,7 @@ Listen 9999
 
 有些 https 环境下生效，ssl 证书自行生成。结合 nginx https 设置、来全面支持。
 
----------
+------
 
 ## nginx
 
@@ -502,7 +500,7 @@ https://localhost  # 测试 https
 ```
 
 
----------
+------
 
 ## 虚拟机
 
