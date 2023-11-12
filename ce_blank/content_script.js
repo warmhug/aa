@@ -76,6 +76,7 @@ void (async function () {
     if (!window.hl_extension_data?.tabId && !urlProps.allPage) {
       return;
     }
+    console.log('只在 blankpage 里');
     hl_extension_util.insertCss(urlProps.css);
     hl_extension_util.injectPageScript({
       js: urlProps.js,

@@ -50,22 +50,22 @@ $(async function () {
     // 因为飞书代码里 window.parent 判断如果是在 iframe 里，会让 request headers 里的 x-csrftoken 设置失败。
     const cookieStores = await chrome.cookies.get({ name: '_csrf_token', url: driveMeUrl });
     // console.log('cookieStores', cookieStores.value);
-    const res = await chrome.declarativeNetRequest.updateDynamicRules({
-      removeRuleIds: [10],
-      addRules: [
-        {
-          "id": 10,
-          "priority": 1,
-          "action": {
-            "type": "modifyHeaders",
-            "requestHeaders": [
-              { "header": "x-csrftoken", "operation": "set", "value": cookieStores?.value || '' }
-            ]
-          },
-          "condition": { "urlFilter": 'space/api', "resourceTypes": ["xmlhttprequest"] }
-        }
-      ]
-    });
+    // const res = await chrome.declarativeNetRequest.updateDynamicRules({
+    //   removeRuleIds: [10],
+    //   addRules: [
+    //     {
+    //       "id": 10,
+    //       "priority": 1,
+    //       "action": {
+    //         "type": "modifyHeaders",
+    //         "requestHeaders": [
+    //           { "header": "x-csrftoken", "operation": "set", "value": cookieStores?.value || '' }
+    //         ]
+    //       },
+    //       "condition": { "urlFilter": 'space/api', "resourceTypes": ["xmlhttprequest"] }
+    //     }
+    //   ]
+    // });
     // console.log('dnres', res);
     $('#sideIframe').find('iframe').attr('src', driveMeUrl);
     $('#sideIframe').find('a').attr('href', driveMeUrl).html(driveMeUrl);
@@ -73,11 +73,11 @@ $(async function () {
 
 
   Object.entries(_injectSites).filter(([key, val]) => val.tabIdx).forEach(([url, urlProps]) => {
-    const { tabIdx, tabName, min } = urlProps;
+    const { tabIdx, tabName, tabLiStyle, min } = urlProps;
     const tArr = tabIdx.split('.');
     // 构造 bootstrap 需要的 tabs html 基本结构
     if (!$('#eTabs').find(`[data-idx="${tArr[0]}"]`).length) {
-      $('#eTabs').append(`<li role="presentation" data-idx="${tArr[0]}">
+      $('#eTabs').append(`<li role="presentation" data-idx="${tArr[0]}" style="${tabLiStyle}">
       <a href="#tabContent${tArr[0]}" data-toggle="tab">${tabName || '-'}</a>
       </li>`);
     }

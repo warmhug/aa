@@ -516,7 +516,12 @@ js 算法 https://github.com/trekhleb/javascript-algorithms
 看完美国教材只有一个感受：真正好的教育是将复杂的东西简化，强化基础概念和实际应用，弱化具体计算和逻辑证明，最终让普通学生也可掌握相对深奥的理论知识，并迅速转入实际应用。国内的教育正好相反：强化具体计算和逻辑证明，却弱化了基础概念和实际应用，最终生产了许多解题高手，但他们完全不懂这些数学“有什么用？”。
 2017 <无法理解高等数学怎么办> 知乎 https://www.zhihu.com/question/24066773/answer/80124451
 
+
 # AI
+
+基于邻域的算法是推荐系统中最基本的算法，该算法不仅在学术界得到了深入研究，而且在 业界得到了广泛应用。基于邻域的算法分为两大类，一类是基于用户的协同过滤算法，另一类是基于物品的协同过滤算法。
+基于用户的协同过滤算法是推荐系统中最古老的算法。可以不夸张地说，这个算法的诞生标 志了推荐系统的诞生。该算法在1992年被提出，并应用于邮件过滤系统，1994年被 GroupLens用于新闻过滤。在此之后直到2000年，该算法都是推荐系统领域最著名的算法。
+2020-02-15《推荐系统实践》 项亮
 
 推荐系统：[microsoft/recommenders](https://github.com/microsoft/recommenders)、[NicolasHug/Surprise](https://github.com/NicolasHug/Surprise)、[NirantK/awesome-project-ideas](https://github.com/NirantK/awesome-project-ideas)、[guoguibing/librec](https://github.com/guoguibing/librec)、[grahamjenson/list_of_recommender_systems](https://github.com/grahamjenson/list_of_recommender_systems)、[Magic-Bubble/RecommendSystemPractice](https://github.com/Magic-Bubble/RecommendSystemPractice)
 [三步搭建基础分析框架](http://www.woshipm.com/data-analysis/821704.html)、Lookup表(维度表)和数据表(事实表)，一般是Lookup表在上,数据表在下。

@@ -50,7 +50,7 @@ const feishuDocsJs = `;(() => {
 
 // 如果 URL 中含有多个 中文字符 解码可能会错误。统一用 decodeURIComponent 解码、再对比
 const injectSites = {
-  'https://bytedance.feishu.cn/drive/me/': {
+  'https://bytedance.larkoffice.com/drive/me/': {
     sideOfPage: true,
     css: `
       .sidebar-mouse-in-out, .file-list-meta {
@@ -70,7 +70,7 @@ const injectSites = {
       */
     })();`
   },
-  'https://bytedance.feishu.cn': {
+  'https://bytedance.larkoffice.com': {
     allPage: true,
     css: `
       .list-filler {
@@ -93,7 +93,7 @@ const injectSites = {
       }
     `,
   },
-  'https://bytedance.feishu.cn/docx/PmUMdEzWhovDajxojqDcIQwpn8f': {
+  'https://bytedance.larkoffice.com/docx/PmUMdEzWhovDajxojqDcIQwpn8f': {
     tabIdx: '0.0',
     css: `
       .navigation-bar-wrapper, .bidirection-link-list, .global-like-wrap, .docx-global-comment,
@@ -126,19 +126,39 @@ const injectSites = {
   // },
   [chrome.runtime.getURL('assets/mytool/index.html')]: {
     tabIdx: '0.2',
+    min: 1,
   },
   [decodeURIComponent(`https://www.baidu.com/s?wd=%E6%97%A5%E5%8E%86`)]: {
     tabIdx: '0.3.0',
+    min: 1,
     js: bdJs,
   },
   [decodeURIComponent(`https://www.baidu.com/s?wd=%E8%AE%A1%E7%AE%97%E5%99%A8`)]: {
     tabIdx: '0.3.1',
+    min: 1,
     js: bdJs,
   },
-  'https://bytedance.feishu.cn/docx/doxcn2EDJtEmqNmb6uVnJ5MTUbc': {
+  'https://bytedance.larkoffice.com/docx/doxcn2EDJtEmqNmb6uVnJ5MTUbc': {
     tabIdx: '1',
     js: feishuDocsJs,
   },
+  // 'https://i.mi.com/note/h5#/': {
+  //   tabIdx: '2',
+  //   tabName: '笔记',
+  //   tabLiStyle: 'float: right;',
+  //   allPage: true,
+  //   js: `;(() => {
+  //     setTimeout(() => {
+  //       const linkEle = document.getElementById('pm-container')?.querySelectorAll('.ltr-element');
+  //       linkEle?.forEach((item) => {
+  //         // console.log('linkele', linkEle, item.querySelector('.pm-match-url'));
+  //         if (!item.querySelector('.pm-match-url')) {
+  //           return;
+  //         }
+  //       });
+  //     }, 800);
+  //   })();`
+  // },
 };
 
 async function setOpt(ele, key, val) {

@@ -41,10 +41,9 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
 - 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
 
+- 电脑控制手机 https://www.zhihu.com/question/46795475 、 anydesk 体验不错、但不能远程操作iPhone，国产抄袭版 todesk 会卡死，Wormhole虫洞 利用 iPhone 的辅助功能-触控 能被三方控制功能实现远程操作、但体验很差。
+
 - 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d)
-- iPhone 恢复出厂设置后，系统软件版本是 iOS 最新版、不是出厂时的旧版本。 在最新 beta 版系统软件做备份后、不能恢复到旧稳定版本！ https://apple.stackexchange.com/q/328535/228571
-- iPhone 连接数据线恢复备份的文件后，各个第三方app仍然需要重新下载、发现卡死状态 用手机网络 优先下载重要app 其他的暂停并排队，app内本地的聊天记录还是会丢失 要提前备份并立即恢复！
-- iPhone 查看连接过的所有WiFi：进入设置-“无线局域网” -右上角“编辑”。
 - iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
 - 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
 
@@ -319,9 +318,9 @@ git merge --no-ff xx   # 不执行"快进式合并"，始终多产生 merge 信�
 git log   # 找到要删除/合并 commit 之前一个 commit_id
 git log -p fileName
 git rebase -i [commit_id]
-git rebase -i HEAD~2  #
-git rebase -i --root  # rebase 第一个提交
-git rebase origin/master  # 把远程 master 更新作为当前分支基线，达到撤销之前 rebase 的目的
+
+git rebase origin/master  # 把远程 master 更新作为当前分支基线
+git add .  # 先 git status/diff 如果没有 代码变更 但有文件变化、只需 add 不需 commit 再运行下一步的 continue
 git rebase --continue  # 先 git add --all 再 continue、有多个 commit 依次执行。
 git push -f  # 强制提交
 
@@ -341,13 +340,15 @@ git clean -xdf # 删除所有 .gitignore 里指定的文件或目录，包括新
 git reset [file | 057d]    # 回退文件、或回退到某个版本
 git reset HEAD^    # 回退所有内容到上一个版本
 git reset HEAD^ a.py    # 回退 a.py 这个文件的版本到上一个版本
+git reflog  # 撤销 reset 时 找到撤销前的 commit_id 再 git reset 即可
 
 ## commit 之后的回滚
 git reset --[soft | hard] [HEAD^ | 057d]  # --soft 不修改本地文件 --hard 本地的文件修改都被丢弃
 git reset --hard origin/master   # 将本地的状态回退到和远程的一样
 
-## 回滚远程主干代码，并且 不抹掉 提交记录，使用 revert
-git revert -n commit_id..  # (注意 ..) 把从 commit_id 到 head 的所有提交 revert 掉，-n 表示只产生一条记录
+## 回滚远程主干代码，并且 不抹掉 提交记录 产生新纪录
+git revert commit_id
+git revert -n commit_id..  #  把从 commit_id 到 head 的所有提交 revert 掉 -n 表示只产生一条记录
 
 ## 增加某个 commit 方法 cherry-pick
 git cherry-pick 62ecb3 # 一般用于将 bugfix commit pick 到不同版本上
@@ -367,6 +368,8 @@ git tag 0.0.1       # 打轻量标签
 git tag -a 0.0.1 -m 'Release version 0.0.1'
 git push origin v1.5
 git push [origin] --tags    # 推送所有标签到服务器
+git fetch --all --tags    # 拉取远程 tags
+git checkout -b new_branch_name tag_name    # 基于指定的 tag 创建新分支
 ```
 
 ### git 实践

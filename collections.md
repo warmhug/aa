@@ -91,6 +91,7 @@ ICBU前端性能度量 https://mp.weixin.qq.com/s/XAdNOovCQxh5xuGVOSEz3w
 [Chrome的First Paint触发的时机探究](https://cloud.tencent.com/developer/article/1124484)、
 [window.onload vs document.onload](https://stackoverflow.com/questions/40193553/load-event-on-script-with-async-and-or-defer)
 
+[如何根治 Script Error.](https://mp.weixin.qq.com/s/6v_X0vtM5EZThF0odwJmTw)
 [JavaScript Errors Handbook](https://github.com/mknichel/javascript-errors/blob/master/README.md)、
 [如何捕获前端错误](https://mp.weixin.qq.com/s/E51lKQOojsvhHvACIyXwhw)、[搞定前端错误捕获和上报](https://juejin.cn/post/7031876097390149645)、[错误监控总结](https://segmentfault.com/a/1190000014672384)
 
