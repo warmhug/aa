@@ -288,7 +288,8 @@ npm view lerna
 npx lerna list  # 免全局安装
 
 node hello.js &  # 后台运行程序
-ps -ef | grep node  # 找到进程对应的ID
+ps -ef | grep node  # 找到进程对应的ID 在第二列
+ps -ef | grep adb  # 有时候 adb devices 没反应 需要杀掉进程重启
 lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
 kill 3747(进程id)  # 杀掉后台进程
 kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程

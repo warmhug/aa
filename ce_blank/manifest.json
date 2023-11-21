@@ -27,7 +27,8 @@
       "suggested_key": {
         "default": "Ctrl+U",
         "mac": "Command+U"
-      }
+      },
+      "description": "打开此扩展的 popup 页面"
     },
     "addNote": {
       "suggested_key": "Ctrl+Shift+V",

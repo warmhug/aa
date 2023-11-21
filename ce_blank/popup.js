@@ -9,6 +9,10 @@ $(async function() {
   const [curTab] = await chrome.tabs.query({ active: true, currentWindow: true });
   const localData = await chrome?.storage?.local.get();
 
+  const manifest = chrome.runtime.getManifest()
+  // console.log('getManifest', chrome.runtime.getManifest());
+  $('#cmds').html(JSON.stringify(manifest.commands, null, 2).replaceAll('\n', '<br/>'));
+
   // 显示插入到当前页面的 js css 内容
   const injectSites = JSON.parse(localData.hl_injectSites) || {};
   const matchUrl = hl_extension_util.getMatchUrl(Object.keys(injectSites), decodeURIComponent(curTab.url));
@@ -19,10 +23,6 @@ $(async function() {
       <pre>${injectSites[matchUrl].js || ''}</pre>
     `);
   }
-
-  // 显示粘贴板内容
-  const html = (localData?.hl_clipTxt || '').replace(/[\n\r]/g, '<br>');
-  $('#clipTxt').html(html);
 
   $('#resizeWindow').click(() => {
     chrome.windows.getCurrent(function(wind) {
