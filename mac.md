@@ -1,6 +1,6 @@
-# Mac
 
-## 系统设置
+
+## Mac 系统设置 / 软件
 
 - 点击和手势: 触控板。1 勾选 “轻点来点按” 2 启用词典：查询与数据检测器 - 选择三指轻点 3 更多手势 - 应用Expose。
 - 三指拖移窗口: 辅助功能 -> 鼠标与触控板 -> 触控板选项 -> 启用拖移 -> 三指拖移。
@@ -18,21 +18,20 @@
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
 - iBook 缓存位置 ~/Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks
 
-## 软件
+快捷键
+pmset noidle  # 阻止电脑睡眠 同时按住 shift、control、电源键，关闭显示器
+cmd + shift + . # 在 finder 切换显示“隐藏文件”
 
 macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
 关闭 sip 方法：关机后、按住右上角电源键(非m1按下`Cmd + R`) 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
 
+- 安装 git & gcc `xcode-select --install`
 - 系统: AppCleaner / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / ParagonNTFS / Smoothscroll / https://u.tools
 
 - 图像: xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
+- sips -z height width [file]   # 修改图片的宽和高, sips -Z 640 *.jpg 批量修改图片的 宽或高 最大值 保持原来宽高比
 
 - 其他: snapdrop.net / ngrok inlets(GitHub) / vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / https://archive.org/web
-- chrome 同步: Switchy Omega 添加 `*.google*` proxy 规则到前边，打开 `chrome://sync` 看 Local State - Server Connection 是否成功。参考 [1](https://hellodk.cn/post/185)、[2](https://github.com/FelisCatus/SwitchyOmega/issues/1599)。 其他方法：代理软件和浏览器都设为“系统代理”。
-- Chrome cmd+t在右侧标签打开 https://superuser.com/a/1260437
-- Chrome tab卡死: 菜单 - 窗口 - 任务管理器 - 找到相应tab名 查看内存占用空间排序为空 - 结束进程。
-- Chrome 地址栏搜索 无法在新标签页打开结果 https://www.runningcheese.com/tabs
-- Chrome extensions: 一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) XSwitch Tamper / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity / ChatGPT for Google / Language Reactor
 
 - zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
 - rar[工具](https://www.rarlab.com/download.htm): `rar a test.rar test/` 压缩 test 目录内容生成 test.rar 文件。
@@ -43,25 +42,11 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 
 - 电脑控制手机 https://www.zhihu.com/question/46795475 、 anydesk 体验不错、但不能远程操作iPhone，国产抄袭版 todesk 会卡死，Wormhole虫洞 利用 iPhone 的辅助功能-触控 能被三方控制功能实现远程操作、但体验很差。
 
-- 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d)
-- iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
-- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
+- 支持 Mac + Win 读写的U盘格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。
 
-- U盘格式
-  - 支持 Mac + Win 的读写格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。支持大于 4G 的文件: exFAT、NTFS (FAT32不支持)。 在 Win 上格式化时、选择 exFAT 格式即可，并且勾选“快速格式化”(不勾选可能不行)。
-  - 重装 Win 系统用老毛桃制作“U盘启动工具”，另外在此 <http://msdn.itelly.net/> 下载 Win 系列纯净系统 ISO 镜像文件 (可以是不同U盘))。开机(比如按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
-
-快捷键
+- [国外程序员生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
 ```sh
-pmset noidle  # 阻止电脑睡眠。 同时按住 shift、control、电源键，关闭显示器
-单词自动补全：在内置的文本编辑器里，输入几个字母后，点击 Escape 键，OS X 就会提示多个单词。
-
-cmd + shift + . / G / D / F # 在 finder 切换显示“隐藏文件” / 跳转 / 桌面 / 最近使用的全部文件
-cmd + shift + 3/4  # 截图保存成文件，加 control 只是保存在剪贴板
-
-sips -z height width [file]   # 修改图片的宽和高为指定值
-sips -Z 640 *.jpg   # 批量修改图片的 宽或高 为指定值(最大值变为 640)，保持原来宽高比例
 # http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
 # defaults help  /  man defaults
 defaults read com.apple.screencapture  # 查看系统截图设置
@@ -71,12 +56,50 @@ defaults delete com.apple.screencapture name  # 撤销修改截图名
 defaults write com.apple.helpviewer DevMode -bool TRUE  # 系统的帮助窗口设置为不前置
 ```
 
+```sh
+快捷键: ctrl p(开电源) o(关屏幕) h(主屏幕) ↑(音量) nn(通知/设置)   设置无线连接: scrcpy --tcpip
+有线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off --sleect-usb
+无线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off -m1024 -b2M  （scrcpy -b2M  --max-fps 15 --max-size 960）
+# https://github.com/Genymobile/scrcpy/blob/master/doc/shortcuts.md
+```
 
-------
 
-> [国外程序员生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
-安装 git & gcc `xcode-select --install`
+## 手机和Windows
+
+- 安卓自动化: 微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker, easytouch。
+- 第三方充电器都不支持小米私有协议快充。
+
+- 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d)
+- iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
+- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
+
+- 重装 Win 系统用老毛桃制作“U盘启动工具”，开机(按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
+
+
+## chrome
+
+- chrome 同步: Switchy Omega 添加 `*.google*` proxy 规则到前边，打开 `chrome://sync` 看 Local State - Server Connection 是否成功。参考 [1](https://hellodk.cn/post/185)、[2](https://github.com/FelisCatus/SwitchyOmega/issues/1599)。 其他方法：代理软件和浏览器都设为“系统代理”。
+- Chrome cmd+t在右侧标签打开 https://superuser.com/a/1260437
+- Chrome tab卡死: 菜单 - 窗口 - 任务管理器 - 找到相应tab名 查看内存占用空间排序为空 - 结束进程。
+- Chrome 地址栏搜索 无法在新标签页打开结果 https://www.runningcheese.com/tabs
+- Chrome extensions: 一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) XSwitch Tamper / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / Tampermonkey gitpod npmhub / screenity / ChatGPT for Google / Language Reactor
+
+
+## 代理
+
+命令行代理 `brew install proxychains-ng` 修改 /usr/local/etc/proxychains.conf 配置文件“末尾”部分内容 `#socks4  127.0.0.1 9050` 改为 `socks5  127.0.0.1 1080`。使用 `proxychains4 -q curl https://twitter.com` 测试是否成功，不成功则需要关闭 sip。
+
+疑问：有些代理服务器、用 SwitchyOmega 首次加载 需要代理的网页 会失败、然后自动刷新 访问成功，[问题跟踪](https://github.com/FelisCatus/SwitchyOmega/issues/1511#issuecomment-433313269)
+
+```txt
+[SwitchyOmega Conditions]
+@with result
+*.github.com +proxy
+*.icloud.com +direct
+* +direct
+```
+
 
 ## oh-my-zsh & iTerm2(不需要)
 
@@ -166,23 +189,6 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 ```
 
 
-## 代理
-
-命令行代理 `brew install proxychains-ng` 修改 /usr/local/etc/proxychains.conf 配置文件“末尾”部分内容 `#socks4  127.0.0.1 9050` 改为 `socks5  127.0.0.1 1080`。使用 `proxychains4 -q curl https://twitter.com` 测试是否成功，不成功则需要关闭 sip。
-
-疑问：有些代理服务器、用 SwitchyOmega 首次加载 需要代理的网页 会失败、然后自动刷新 访问成功，[问题跟踪](https://github.com/FelisCatus/SwitchyOmega/issues/1511#issuecomment-433313269)
-
-```txt
-[SwitchyOmega Conditions]
-@with result
-
-*.github.com +proxy
-*.icloud.com +direct
-
-* +direct
-```
-
-------
 
 ## vs code
 
@@ -231,196 +237,6 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 
 [推荐](https://github.com/viatsko/awesome-vscode) 的扩展:
 plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / marp / filesize / EditorConfig / GitLens / Indent 4-to-2 / SVG Viewer / pangu / Hungry Delete / javascript console utils / Template String Converter
-
-
-------
-
-## Git / Npm
-
-[Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
-
-`.gitconfig` 文件
-
-```sh
-[alias]
-	st = status
-	co = checkout
-	ci = commit
-	br = branch
-[user]
-	name = warmhug
-	email = hualei5280@gmail.com
-```
-
-```sh
-# 生成 ssh key
-ssh-keygen -t rsa -C "email@example.com"
-# 再把 ~/.ssh/id_rsa.pub 文件内容添加到 github
-
-# 如果报错 Permission denied (publickey,gssapi-with-mic). 使用另一种生成方式
-# https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html
-ssh-keygen -t ed25519 -C hualei.hl@xx.com
-ssh-add ~/.ssh/id_ed25519
-# 再把 ~/.ssh/id_ed25519.pub 文件内容添加到 gitlab
-
-# 内部仓库、设置内部邮箱
-git config user.name "然则"
-git config user.email "hualei.hl@xx-inc.com"
-# github 设置单独的 name email, 在 .gitconfig 里新增以下命令
-[includeIf "gitdir:~/inner/-/"]
-  	path = .gitconfig-github
-# 再新建 - 目录 和 .gitconfig-github 文件
-
-# 全局默认设置 code ~/.gitconfig
-git config --l
-git config --global alias.st status
-
-# 以下对 pnpm yarn 同样生效
-# node-sass 需要单独设置国内源
-npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass
-npm config get registry # 查看源
-npm config list
-npm login --registry=https://registry-cnpm.xx.work  # 命令行登录 registry
-npm install tnpm -g --registry="http://registry.npm.xx.com" # 使用 cnpm 加速
-yarn install --registry https://registry.npm.taobao.org/  #指定源
-yarn config set registry <url-to-your-registry>
-npm view lerna
-npx lerna list  # 免全局安装
-
-node hello.js &  # 后台运行程序
-ps -ef | grep node  # 找到进程对应的ID 在第二列
-ps -ef | grep adb  # 有时候 adb devices 没反应 需要杀掉进程重启
-lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
-kill 3747(进程id)  # 杀掉后台进程
-kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
-kill -9 *pid*  # 强制杀掉进程
-```
-
-head caret tilde 区别 https://scarletsky.github.io/2016/12/29/tilde-and-caret-in-git/
-
-```sh
-# 分支
-git checkout -b xx origin/xx    # 新建xx分支，并跟踪远程xx分支
-git branch -d xx       # 删除分支xx
-git push origin :xx    # 删除远程分支xx
-git push origin xx:xx  # 上传我本地的xx分支到远程仓库中去，仍称它为xx分支
-
-git diff [version1] [version2]   # 查看版本差异
-
-git pull -p # remove all your local branches which are remotely deleted.
-git pull --rebase       # 同 git fetch + git rebase
-
-git fetch origin  # 同步远程repos, 更新本地仓库的所有 origin/* 分支信息
-git merge origin/xx    # 远程上有 xx 分支，并且 git fetch  执行此命令，将合并此分支
-git merge --no-ff xx   # 不执行"快进式合并"，始终多产生 merge 信息，便于追踪
-
-# 合并/删除多个 commit 为一个 https://www.jianshu.com/p/4a8f4af4e803
-# 修改已提交的 commit message 修改后，其后续的 commit hash 将全部改变、会影响协作同学 https://stackoverflow.com/questions/5032374/accidentally-pushed-commit-change-git-commit-message/5032614#5032614
-git log   # 找到要删除/合并 commit 之前一个 commit_id
-git log -p fileName
-git rebase -i [commit_id]
-
-git rebase origin/master  # 把远程 master 更新作为当前分支基线
-git add .  # 先 git status/diff 如果没有 代码变更 但有文件变化、只需 add 不需 commit 再运行下一步的 continue
-git rebase --continue  # 先 git add --all 再 continue、有多个 commit 依次执行。
-git push -f  # 强制提交
-
-# 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录
-# 公共仓库不建议使用 rebase https://www.fossil-scm.org/fossil/doc/trunk/www/rebaseharm.md
-# https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history
-# merge 和 rebase 的问题：
-#- 如果用 rebase ，需要经常 reapply 其他提交的改动， commit 的时间顺序也会乱掉。
-#- 如果用最直接的 merge ，会产生重复无用的比如 Merge pull request pull_id from xx_branch 或者 Merge branch “branch_name” 信息，不利于 review 提交记录。
-
-# 回退恢复：
-## working tree (add之前，原始状态)
-git checkout .
-git clean -xdf # 删除所有 .gitignore 里指定的文件或目录，包括新建文件、node_modules 等
-
-## index 内的回滚 (add后 commit之前，暂存区)
-git reset [file | 057d]    # 回退文件、或回退到某个版本
-git reset HEAD^    # 回退所有内容到上一个版本
-git reset HEAD^ a.py    # 回退 a.py 这个文件的版本到上一个版本
-git reflog  # 撤销 reset 时 找到撤销前的 commit_id 再 git reset 即可
-
-## commit 之后的回滚
-git reset --[soft | hard] [HEAD^ | 057d]  # --soft 不修改本地文件 --hard 本地的文件修改都被丢弃
-git reset --hard origin/master   # 将本地的状态回退到和远程的一样
-
-## 回滚远程主干代码，并且 不抹掉 提交记录 产生新纪录
-git revert commit_id
-git revert -n commit_id..  #  把从 commit_id 到 head 的所有提交 revert 掉 -n 表示只产生一条记录
-
-## 增加某个 commit 方法 cherry-pick
-git cherry-pick 62ecb3 # 一般用于将 bugfix commit pick 到不同版本上
-
-## 修改提交信息 修改注释 https://help.github.com/articles/changing-a-commit-message/
-git commit --amend  # 修改 most recently commit 比如加 --reset-author
-
-git stash [pop | list | drop]   # 暂存未提交的修改
-
-# remote
-git remote add origin git@xxx.git    # 加入服务器
-git remote -v  # 列出现有的远程地址
-git remote set-url origin xxx  # 改变远程地址为 xxx
-
-# 操作tag
-git tag 0.0.1       # 打轻量标签
-git tag -a 0.0.1 -m 'Release version 0.0.1'
-git push origin v1.5
-git push [origin] --tags    # 推送所有标签到服务器
-git fetch --all --tags    # 拉取远程 tags
-git checkout -b new_branch_name tag_name    # 基于指定的 tag 创建新分支
-```
-
-### git 实践
-
-```sh
-# git 三板斧
-# 一板基础斧 add，commit，pull/push，checkout，revert
-# 二板合作斧 merge，rebase，stash，cherry-pick
-# 三板优雅斧 commit --amend，rebase -i
-```
-
-业内成熟的 GIT 分支模型 https://cloud.githubusercontent.com/assets/36899/7315642/015f534c-eaa2-11e4-9882-b7cc7535fb72.png
-
-图中共有五种分支，这五种分支可分为两大类：
-
-- 只读分支：`master` 和 `develop`，不可直接 commit/push，只能 merge，会长久存在远程仓库中；
-- 开发分支：`feature`, `release` 和 `hotfixes`，可以直接 commit/push，不会长久存在远程仓库中。
-
-* master: 线上部署的分支，是最稳定的，只接受来自 `release` 和 `hotfixes` 的 MR。
-* develop: 处于开发状态的最新分支，接受来自 `feature` 和 `release` 的 MR。
-* feature: 分支为功能开发分支，一个功能对应一个 feature。
-
-1. 需要发布一个版本时，基于 develop 分支创建一个 `release-` 前缀的分支；
-2. 在 release 分支上，可以切一些 `bugfix-` 分支修复一些 bug，提 MR 至对应 release 分支；
-3. 当 release 分支稳定没有问题后，发一个 MR 到 master，并且同时发一个 MR 到 develop 分支；
-4. 合并 MR 后，master 可以打一个 tag，标记版本号；删除 release 分支。
-
-1. 基于 master 创建一个 `hotfix-` 前缀的分支；
-2. 开发完成并且测试通过后，提一个 MR 到 master，并且同时发一个 MR 到 develop 分支；
-3. 合并两个 MR 后，master 可以打一个 tag 做标记；删除 hotfix 分支。
-
-commit 规范
-
-1. 每个功能点或 bug 务必创建 issue，并在 commit 信息中加上 issue 信息，比如：`git commit -m "feat: 支持新功能 #210"`，`closes #214, #215`，当合并 MR 时，可以自动关闭关联的 issue。
-
-```sh
-# https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y
-git commit -m "feat(schema): 支持枚举类型 #210"    <- 表明是属于 schema 模块的功能点
-git commit -m "chore(style): 修复文字换行问题 #213" <- 表明是针对样式的修复
-git commit -m "fix: closes #222"                 <- 表明是修复 #222 的一个 bug
-git commit -m "refactor(activity): ..."          <- 表明是针对活动的一些重构
-git commit -m "docs: 说明如何支持枚举类型"           <- 表明是文档相关的 commit
-git commit -m "test: remove only"                <- 表明是修复测试用例的 commit
-```
-
-issue
-
-- 开发任务的 issue ，一般都已经明确目标，格式：`[功能模块]功能描述` 功能模块表明这个 issue 是属于哪个模块。
-- 非开发任务的 issue，比如：需求、讨论、方案、系分。标题应尽量简明，描述中可详细展开说明，可以 `cc @xx`。
-- 每个 issue 看情况加上 labels，labels 类型（[示例](http://024028.oss-cn-hangzhou-zmf.aliyuncs.com/uploads/fengdie/fengdie-web/2483775ac8f9f7f113f3611cabe3ffbc/Snip20151016_29.png)）：`BUG` 缺陷 `IMPROVEMENT` 功能优化点 `TODO` 待排需求 `需求` 待讨论的需求和议题 `文档` 包含使用说明、发布日志，可以移入 wiki。
 
 
 
@@ -475,7 +291,6 @@ Listen 9999
 
 有些 https 环境下生效，ssl 证书自行生成。结合 nginx https 设置、来全面支持。
 
-------
 
 ## nginx
 
@@ -503,8 +318,6 @@ http://localhost:8080  # 重启并测试
 https://localhost  # 测试 https
 ```
 
-
-------
 
 ## 虚拟机
 

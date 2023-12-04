@@ -10,7 +10,199 @@ Excel 模糊匹配 <http://club.excelhome.net/thread-1048885-1-1.html>
   - 搜索“某人”创建的在“body”里包含“某个词”的 issue: [warmhug + xx](https://github.com/search?utf8=%E2%9C%93&q=xx+in%3Abody+author%3Awarmhug&type=Issues)
 
 
----------
+
+
+## Git / Npm
+
+[Git Aliases](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases)、[git-open](https://github.com/paulirish/git-open) 自动打开 git 远程仓库地址
+
+`.gitconfig` 文件
+
+```sh
+[alias]
+	st = status
+	co = checkout
+	ci = commit
+	br = branch
+[user]
+	name = warmhug
+	email = hualei5280@gmail.com
+```
+
+```sh
+# 生成 ssh key
+ssh-keygen -t rsa -C "email@example.com"
+# 再把 ~/.ssh/id_rsa.pub 文件内容添加到 github
+
+# 如果报错 Permission denied (publickey,gssapi-with-mic). 使用另一种生成方式
+# https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html
+ssh-keygen -t ed25519 -C hualei.hl@xx.com
+ssh-add ~/.ssh/id_ed25519
+# 再把 ~/.ssh/id_ed25519.pub 文件内容添加到 gitlab
+
+# 内部仓库、设置内部邮箱
+git config user.name "然则"
+git config user.email "hualei.hl@xx-inc.com"
+# github 设置单独的 name email, 在 .gitconfig 里新增以下命令
+[includeIf "gitdir:~/inner/-/"]
+  	path = .gitconfig-github
+# 再新建 - 目录 和 .gitconfig-github 文件
+
+# 全局默认设置 code ~/.gitconfig
+git config --l
+git config --global alias.st status
+
+# 以下对 pnpm yarn 同样生效
+# node-sass 需要单独设置国内源
+npm config set sass_binary_site=https://npm.taobao.org/mirrors/node-sass
+npm config get registry # 查看源
+npm config list
+npm login --registry=https://registry-cnpm.xx.work  # 命令行登录 registry
+npm install tnpm -g --registry="http://registry.npm.xx.com" # 使用 cnpm 加速
+yarn install --registry https://registry.npm.taobao.org/  #指定源
+yarn config set registry <url-to-your-registry>
+npm view lerna
+npx lerna list  # 免全局安装
+
+node hello.js &  # 后台运行程序
+ps -ef | grep node  # 找到进程对应的ID 在第二列
+ps -ef | grep adb  # 有时候 adb devices 没反应 需要杀掉进程重启
+lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
+kill 3747(进程id)  # 杀掉后台进程
+kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
+kill -9 *pid*  # 强制杀掉进程
+```
+
+head caret tilde 区别 https://scarletsky.github.io/2016/12/29/tilde-and-caret-in-git/
+
+```sh
+# 分支
+git checkout -b xx origin/xx    # 新建xx分支，并跟踪远程xx分支
+git branch -d xx       # 删除分支xx
+git push origin :xx    # 删除远程分支xx
+git push origin xx:xx  # 上传我本地的xx分支到远程仓库中去，仍称它为xx分支
+
+git diff [version1] [version2]   # 查看版本差异
+
+git pull -p # remove all your local branches which are remotely deleted.
+git pull --rebase       # 同 git fetch + git rebase
+
+git fetch origin  # 同步远程repos, 更新本地仓库的所有 origin/* 分支信息
+git merge origin/xx    # 远程上有 xx 分支，并且 git fetch  执行此命令，将合并此分支
+git merge --no-ff xx   # 不执行"快进式合并"，始终多产生 merge 信息，便于追踪
+
+# 合并/删除多个 commit 为一个 https://www.jianshu.com/p/4a8f4af4e803
+# 修改已提交的 commit message 修改后，其后续的 commit hash 将全部改变、会影响协作同学 https://stackoverflow.com/questions/5032374/accidentally-pushed-commit-change-git-commit-message/5032614#5032614
+git log   # 找到要删除/合并 commit 之前一个 commit_id
+git log -p fileName
+git rebase -i [commit_id]
+
+git rebase origin/master  # 把远程 master 更新作为当前分支基线
+git add .  # 先 git status/diff 如果没有 代码变更 但有文件变化、只需 add 不需 commit 再运行下一步的 continue
+git rebase --continue  # 先 git add --all 再 continue、有多个 commit 依次执行。
+git push -f  # 强制提交
+
+# 使用 rebase 代替 merge 避免生成类似 merge branch “branch_name” 历史记录
+# 公共仓库不建议使用 rebase https://www.fossil-scm.org/fossil/doc/trunk/www/rebaseharm.md
+# https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history
+# merge 和 rebase 的问题：
+#- 如果用 rebase ，需要经常 reapply 其他提交的改动， commit 的时间顺序也会乱掉。
+#- 如果用最直接的 merge ，会产生重复无用的比如 Merge pull request pull_id from xx_branch 或者 Merge branch “branch_name” 信息，不利于 review 提交记录。
+
+# 回退恢复：
+## working tree (add之前，原始状态)
+git checkout .
+git clean -xdf # 删除所有 .gitignore 里指定的文件或目录，包括新建文件、node_modules 等
+
+## index 内的回滚 (add后 commit之前，暂存区)
+git reset [file | 057d]    # 回退文件、或回退到某个版本
+git reset HEAD^    # 回退所有内容到上一个版本
+git reset HEAD^ a.py    # 回退 a.py 这个文件的版本到上一个版本
+git reflog  # 撤销 reset 时 找到撤销前的 commit_id 再 git reset 即可
+
+## commit 之后的回滚
+git reset --[soft | hard] [HEAD^ | 057d]  # --soft 不修改本地文件 --hard 本地的文件修改都被丢弃
+git reset --hard origin/master   # 将本地的状态回退到和远程的一样
+
+## 回滚远程主干代码，并且 不抹掉 提交记录 产生新纪录
+git revert commit_id
+git revert -n commit_id..  #  把从 commit_id 到 head 的所有提交 revert 掉 -n 表示只产生一条记录
+
+## 增加某个 commit 方法 cherry-pick
+git cherry-pick 62ecb3 # 一般用于将 bugfix commit pick 到不同版本上
+
+## 修改提交信息 修改注释 https://help.github.com/articles/changing-a-commit-message/
+git commit --amend  # 修改 most recently commit 比如加 --reset-author
+
+git stash [pop | list | drop]   # 暂存未提交的修改
+
+# remote
+git remote add origin git@xxx.git    # 加入服务器
+git remote -v  # 列出现有的远程地址
+git remote set-url origin xxx  # 改变远程地址为 xxx
+
+# 操作tag
+git tag 0.0.1       # 打轻量标签
+git tag -a 0.0.1 -m 'Release version 0.0.1'
+git push origin v1.5
+git push [origin] --tags    # 推送所有标签到服务器
+git fetch --all --tags    # 拉取远程 tags
+git checkout -b new_branch_name tag_name    # 基于指定的 tag 创建新分支
+```
+
+### git 实践
+
+```sh
+# git 三板斧
+# 一板基础斧 add，commit，pull/push，checkout，revert
+# 二板合作斧 merge，rebase，stash，cherry-pick
+# 三板优雅斧 commit --amend，rebase -i
+```
+
+业内成熟的 GIT 分支模型 https://cloud.githubusercontent.com/assets/36899/7315642/015f534c-eaa2-11e4-9882-b7cc7535fb72.png
+
+图中共有五种分支，这五种分支可分为两大类：
+
+- 只读分支：`master` 和 `develop`，不可直接 commit/push，只能 merge，会长久存在远程仓库中；
+- 开发分支：`feature`, `release` 和 `hotfixes`，可以直接 commit/push，不会长久存在远程仓库中。
+
+* master: 线上部署的分支，是最稳定的，只接受来自 `release` 和 `hotfixes` 的 MR。
+* develop: 处于开发状态的最新分支，接受来自 `feature` 和 `release` 的 MR。
+* feature: 分支为功能开发分支，一个功能对应一个 feature。
+
+1. 需要发布一个版本时，基于 develop 分支创建一个 `release-` 前缀的分支；
+2. 在 release 分支上，可以切一些 `bugfix-` 分支修复一些 bug，提 MR 至对应 release 分支；
+3. 当 release 分支稳定没有问题后，发一个 MR 到 master，并且同时发一个 MR 到 develop 分支；
+4. 合并 MR 后，master 可以打一个 tag，标记版本号；删除 release 分支。
+
+1. 基于 master 创建一个 `hotfix-` 前缀的分支；
+2. 开发完成并且测试通过后，提一个 MR 到 master，并且同时发一个 MR 到 develop 分支；
+3. 合并两个 MR 后，master 可以打一个 tag 做标记；删除 hotfix 分支。
+
+commit 规范
+
+1. 每个功能点或 bug 务必创建 issue，并在 commit 信息中加上 issue 信息，比如：`git commit -m "feat: 支持新功能 #210"`，`closes #214, #215`，当合并 MR 时，可以自动关闭关联的 issue。
+
+```sh
+# https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y
+git commit -m "feat(schema): 支持枚举类型 #210"    <- 表明是属于 schema 模块的功能点
+git commit -m "chore(style): 修复文字换行问题 #213" <- 表明是针对样式的修复
+git commit -m "fix: closes #222"                 <- 表明是修复 #222 的一个 bug
+git commit -m "refactor(activity): ..."          <- 表明是针对活动的一些重构
+git commit -m "docs: 说明如何支持枚举类型"           <- 表明是文档相关的 commit
+git commit -m "test: remove only"                <- 表明是修复测试用例的 commit
+```
+
+issue
+
+- 开发任务的 issue ，一般都已经明确目标，格式：`[功能模块]功能描述` 功能模块表明这个 issue 是属于哪个模块。
+- 非开发任务的 issue，比如：需求、讨论、方案、系分。标题应尽量简明，描述中可详细展开说明，可以 `cc @xx`。
+- 每个 issue 看情况加上 labels，labels 类型（[示例](http://024028.oss-cn-hangzhou-zmf.aliyuncs.com/uploads/fengdie/fengdie-web/2483775ac8f9f7f113f3611cabe3ffbc/Snip20151016_29.png)）：`BUG` 缺陷 `IMPROVEMENT` 功能优化点 `TODO` 待排需求 `需求` 待讨论的需求和议题 `文档` 包含使用说明、发布日志，可以移入 wiki。
+
+
+
+
+
 
 # Scriptable
 
@@ -612,7 +804,7 @@ Marp https://devtool.tech/html-md
 任务 `- [] 跑步` 或 `- [x] 吃饭`；普通链接 [test](http://example.net "optional") 。图片 ![img | center | 100x100](https://zos.alipayobjects.com/rmsportal/lcLKYXUWPbqkavfJbMGx.png "optional")。
 
 | Item      |    Value | Qty  |
-| :-------- | --------:| :--: |
+| :---- | ----:| :--: |
 | Computer  | 1600 USD |  5   |
 
 <details>
