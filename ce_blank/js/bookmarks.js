@@ -99,8 +99,7 @@ function dumpBookmarks(query) {
           <a href="chrome://bookmarks">书签</a>
         </div>
       </div>
-      <div class="right">
-      </div>
+      <div class="right"></div>
     `);
     $('#bookmarks .other a').click(async (e) => {
       // console.log('ttt', this, e.target.textContent);

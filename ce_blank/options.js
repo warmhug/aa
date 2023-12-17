@@ -37,7 +37,7 @@ const feishuDocsJs = `;(() => {
     check();
   };
   if (window !== top) {
-    checkEle('.note-title__input', (ele) => {
+    checkEle('.suite-title-input', (ele) => {
       window.postMessage(JSON.stringify({
         _ext: true,
         _url: location.href,

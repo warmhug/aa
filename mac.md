@@ -1,5 +1,4 @@
 
-
 ## Mac 系统设置 / 软件
 
 - 点击和手势: 触控板。1 勾选 “轻点来点按” 2 启用词典：查询与数据检测器 - 选择三指轻点 3 更多手势 - 应用Expose。
@@ -48,12 +47,9 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 
 ```sh
 # http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
-# defaults help  /  man defaults
 defaults read com.apple.screencapture  # 查看系统截图设置
 defaults write com.apple.screencapture type jpg  # 将系统截屏后图片保存为 jpg 格式
 defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图片保存路径
-defaults delete com.apple.screencapture name  # 撤销修改截图名
-defaults write com.apple.helpviewer DevMode -bool TRUE  # 系统的帮助窗口设置为不前置
 ```
 
 ```sh
