@@ -53,10 +53,11 @@ defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图�
 ```
 
 ```sh
-快捷键: ctrl p(开电源) o(关屏幕) h(主屏幕) ↑(音量) nn(通知/设置)   设置无线连接: scrcpy --tcpip
-有线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off --sleect-usb
-无线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off -m1024 -b2M  （scrcpy -b2M  --max-fps 15 --max-size 960）
 # https://github.com/Genymobile/scrcpy/blob/master/doc/shortcuts.md
+快捷键: ctrl p(开电源) o(关屏幕) h(主屏幕) ↑(音量) nn(通知/设置)
+有线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off --select-usb
+无线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off -m1024 -b2M  （scrcpy -b2M  --max-fps 15 --max-size 960）
+设置无线连接: scrcpy --tcpip  # 不想插入usb、手动输入ip也可
 ```
 
 
@@ -64,9 +65,10 @@ defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图�
 ## 手机和Windows
 
 - 安卓自动化: 微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker, easytouch。
+  - automate ：开启无障碍，权限管理 允许后台弹出界面 显示悬浮窗。 复制日期时间：设置变量 dt "{Now;dateFormat;yyyy-MM-dd_HH-mm}" 设置 clipboard 为 dt。  亮度升高：set screen brightness 为 0.4，因为 小米改动了系统默认亮度、这里0.5是最亮的。
 - 第三方充电器都不支持小米私有协议快充。
 
-- 手机软件: zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d)
+- 手机软件: 开发助手, zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d)
 - iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
 - 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
 
