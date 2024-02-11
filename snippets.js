@@ -69,6 +69,13 @@ const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)))
 // 深度遍历 dfs 广度遍历 bfs
 
 
+var urlStr = 'https://cn.bing.com:8999/search/1?query=java+regex&a=b';
+// 匹配问号前
+var matches = urlStr.match(/^(http|https):\/\/([A-Za-z0-9.-]+)(:[0-9]+)?(\/[^?]+).*$/);
+// 匹配问号后 q 参数
+var matches = urlStr.match(/.+(\?|\&)q=([^&.]+)?&/);
+
+
 // 排序 返回一个新的数组对象
 function orderBy(data, fn) {}
 const sortArr = orderBy([{ weight: 10 }, { weight: 3 }, { weight: 2 } ], item => item.weight);

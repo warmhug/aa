@@ -39,11 +39,7 @@ macOS “安全性与隐私”里去掉了允许安装”任何来源“的软�
 - 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
 - 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
 
-- 电脑控制手机 https://www.zhihu.com/question/46795475 、 anydesk 体验不错、但不能远程操作iPhone，国产抄袭版 todesk 会卡死，Wormhole虫洞 利用 iPhone 的辅助功能-触控 能被三方控制功能实现远程操作、但体验很差。
-
 - 支持 Mac + Win 读写的U盘格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。
-
-- [国外程序员生产力装备](https://blog.stephenwolfram.com/2019/02/seeking-the-productive-life-some-details-of-my-personal-infrastructure/)
 
 ```sh
 # http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
@@ -52,26 +48,27 @@ defaults write com.apple.screencapture type jpg  # 将系统截屏后图片保�
 defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图片保存路径
 ```
 
+
+## 手机和Windows
+
 ```sh
 # https://github.com/Genymobile/scrcpy/blob/master/doc/shortcuts.md
 快捷键: ctrl p(开电源) o(关屏幕) h(主屏幕) ↑(音量) nn(通知/设置)
 有线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off --select-usb
 无线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off -m1024 -b2M  （scrcpy -b2M  --max-fps 15 --max-size 960）
-设置无线连接: scrcpy --tcpip  # 不想插入usb、手动输入ip也可
+设置无线连接: scrcpy --tcpip  # 可设置具体ip地址。 链接不成功，需要重新连线
+# 开发者选项: 打开 停用adb授权超时功能(disable ADB authorization timeout), 只要不关闭开发者选项和usb调试、就可以一直无线链接。
 ```
+- 电脑控制手机 https://www.zhihu.com/question/46795475 、 anydesk 体验不错、但不能远程操作iPhone，国产抄袭版 todesk 会卡死，Wormhole虫洞 利用 iPhone 的辅助功能-触控 能被三方控制功能实现远程操作、但体验很差。
 
-
-
-## 手机和Windows
-
-- 安卓自动化: 微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker, easytouch。
-  - automate ：开启无障碍，权限管理 允许后台弹出界面 显示悬浮窗。 复制日期时间：设置变量 dt "{Now;dateFormat;yyyy-MM-dd_HH-mm}" 设置 clipboard 为 dt。  亮度升高：set screen brightness 为 0.4，因为 小米改动了系统默认亮度、这里0.5是最亮的。
+- 安卓自动化: 微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker(收费), easytouch。
 - 第三方充电器都不支持小米私有协议快充。
+- 应用设置，右上角三个点，显示所有应用。搜索应用，搜小米画报，点进去，卸载。 可使用 adb 卸载。
 
-- 手机软件: 开发助手, zfuse, DVR Link, big hunter, brain dots, Scriptable, [捷径汇总](https://www.jianshu.com/p/ec131155c58d)
+- 手机软件: Touch-Helper, MX播放器(VLC不能播放加密文件), 开发助手, DVR Link
 - iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
-- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
 
+- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
 - 重装 Win 系统用老毛桃制作“U盘启动工具”，开机(按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
 
 

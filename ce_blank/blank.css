@@ -124,6 +124,9 @@ body {
 #bookmarks .other {
   flex: none;
 }
+#bookmarks a {
+  cursor: pointer;
+}
 #bookmarks .other a {
   margin-right: 5px;
 }

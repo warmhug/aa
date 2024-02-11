@@ -30,20 +30,15 @@ function dumpNode(bookmarkNode, query) {
       formatTitle = formatTitle.substring(0, 60) + '...';
     }
     var anchor = $('<a>');
-    anchor.attr('href', bookmarkNode.url);
+    anchor.attr('data-href', bookmarkNode.url);
     anchor.attr('title', bookmarkNode.title);
-    anchor.attr('target', '_blank');
+    // anchor.attr('target', '_blank');
     anchor.text(formatTitle);
     /*
      * When clicking on a bookmark in the extension, a new tab is fired with
      * the bookmark url.
      */
     // anchor.on('click', () => { });
-    anchor.click(function() {
-      if (bookmarkNode.url?.indexOf('chrome://') === 0) {
-        chrome.tabs.create({url: bookmarkNode.url});
-      }
-    });
     // https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/api/favicon/content.js
     // console.log('rt', chrome.runtime.getURL('_favicon/?page_url=https://www.google.com&size=64'));
     // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
@@ -95,17 +90,22 @@ function dumpBookmarks(query) {
     $('#bookmarks').html(`
       <div class="left">
         <div class="other">
-          <a href="chrome://extensions/">扩展</a>
-          <a href="chrome://bookmarks">书签</a>
+          <a data-href="chrome://extensions/">扩展</a>
+          <a data-href="chrome://bookmarks">书签</a>
         </div>
       </div>
       <div class="right"></div>
-    `);
-    $('#bookmarks .other a').click(async (e) => {
-      // console.log('ttt', this, e.target.textContent);
-      // chrome.tabs.create({url: e.target.href});
+    `).click(async (e) => {
       const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-      chrome.tabs.create({ index: curTab.index + 1, url: e.target.href });
+      // chrome.tabs.create({ index: curTab.index + 1, url: e.target.href });
+      // alert(`curTab: ${curTab.index}, ${curTab.url}`);
+      console.log('ttt', curTab, e.target, e.target.getAttribute('data-href'));
+      // return;
+      e.preventDefault();
+      const targetUrl = e.target.getAttribute('data-href') || e.target.href;
+      if (e.target?.tagName === 'A' && targetUrl) {
+        curTab.index === 0 ? chrome.tabs.create({ index: curTab.index + 1, url: targetUrl }) : chrome.tabs.update({ url: targetUrl });
+      }
     });
     $('#bookmarks .left').append(dumpTreeNodes(bmLinks, query));
     $('#bookmarks .right').prepend(dumpTreeNodes(bmFolds, query).menu());

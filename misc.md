@@ -204,7 +204,67 @@ issue
 
 
 
-# Scriptable
+# automate (Android)
+https://llamalab.com/automate/
+
+权限设置：开启无障碍 允许后台弹出界面 显示悬浮窗 桌面快捷方式。
+添加桌面图标：在flow beginning里 install home screen shortcut
+
+语法：
+拼接变量 `"my string" ++ myVar` 或 `mystring{myVar}`。
+正则表达式(java版本): `matches(txt, "(?s)\\s*+(?:https?://)?+(?:www\\.)?+(?:m\\.)?+(.+?)/?+\\s*+")[1]`。
+函数: `contains(txt, "https://")` 等。
+Content view 组件的 Content MIME type: `video/mp4` 等类型。
+一些 APP 的 Package 和 Activity class:
+`com.android.chrome` / `com.google.android.apps.chrome.Main`
+
+社区优秀应用：Search Engine 、 Tab Browser 、 Text to Speech 、Web dialogs (inspect layout, better support) 、 Microsoft Rewards Auto-Search
+
+### 通过分享使用 百度/Google 搜索
+
+情况分析：
+- 从普通软件分享的文字是 `你好` 这样的纯文本。
+- 从 edge 浏览器bing网站菜单栏的“分享按钮”直接点击分享的文字是 `https://cn.bing.com/search?q=test&qs=HS` 这种纯粹的url。
+- 从 edge 浏览器bing搜索结果网页内选中文字后、弹出的分享按钮点击是 `"你好" https://cn.bing.com/search?q=test&qs=HS` 这种 纯文本+URL，需要去掉其中的链接。
+
+实现：
+1. 使用 Content shared 组件，设置 Content MIME type 为 Any / Text，Content text 为 txt。
+2. 上一步 txt 值可能是 `纯文本、纯文本+URL、纯URL` 三者中的某一种，使用 Expression true 组件来做 if 判断。
+   1. 先判断是否为http开头的纯URL、if语句为 `#txt < 4 ? 0 : slice(txt, 0, 4) = "http"` 如果值为真、这时只是bing(或者你自己的默认)搜索引擎链接，用表达式 `matches(txt, ".*([?&])q=(.*?)&.*")[1]` 提取 url 后边的 q 参数值。
+   2. 否则再判断是否是 `纯文本+URL`(注意文本和URL之间有换行符)，设置中间变量 txt1 为 `matches(txt, "\"(.*)\"([\\s\\S]*)http.*")[1]` 这个正则能匹配换行符、并提取出了其中的纯文本文字。
+   3. 再使用 Expression true 组件判断 `txt1 != ""` 值为真、则使用 Variable set 组件、设置 txt 为 txt1。不为真、则是 `纯文本` 的情况、直接返回 txt 即可。
+3. 最终打开的链接: `"https://www.google.com/search?q=" ++ txt` 和 `"https://www.baidu.com/s?wd=" ++ txt`
+
+
+### 直接打开 天猫精灵-我的设备 页面
+
+使用 App start 组件，package 选择 `com.alibaba.ailabs.tg` Activity class 选择 `com.alibaba.ailabs.tg.home.MyIotHomeActivity`
+
+
+### 处理 onedriver 里 txt 文件
+使用 Dialog choice 组件，在 Choices 输入框输入
+```json
+{
+  "content://com.microsoft.skydrive.content.external/Drive/ID/1/Item/RID/4B2D0681F143BB23%216901/Stream/1/Property/_life.txt": "life",
+  "content://com.microsoft.skydrive.content.external/Drive/ID/1/Item/RID/4B2D0681F143BB23%216902/Stream/1/Property/_misc.txt": "misc"
+}
+```
+勾选 Show window 选项、才能弹出弹窗。
+> 其中 json 里的 URL 来自 小米默认浏览器 打开 onedriver txt 文件时的路径，使用这个路径、也可以在 automate 这里打开。
+再使用 App start 组件，package 选择 `cn.wps.moffice_eng.xiaomi.lite` Activity class 选择 `cn.wps.moffice.plugin.app.entrance.WriterEntranceActivity`
+
+
+### 亮度升高
+set screen brightness 为 0.4，因为 小米改动了系统默认亮度、这里0.5是最亮的。
+
+
+### 复制日期时间
+设置变量 dt "{Now;dateFormat;yyyy-MM-dd_HH-mm}" 设置 clipboard 为 dt。
+
+
+
+
+# Scriptable (iOS/mac)
 
 [mac scriptable](https://scriptable.app/mac-beta/)
 [scriptable docs](https://docs.scriptable.app/)
@@ -214,6 +274,7 @@ https://github.com/dersvenhesse/awesome-scriptable
 https://github.com/evilbutcher/Scriptables
 https://routinehub.co/
 
+[捷径汇总](https://www.jianshu.com/p/ec131155c58d)
 https://ifttt.com/ 通过获取“智能开关、iOS提醒事项日历”等各类服务的API、再设置 if.then 逻辑、在手机上打开才能运行。注意：没有像“iOS快捷指令”app的系统权限、不能调用其他app。
 
 iOS<=16 版本，小组件里列表内容 没有click等点击事件、只可以通过url打开Safari或其他app。
