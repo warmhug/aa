@@ -17,36 +17,30 @@
 - 在启动系统登录后、添加自动打开的程序：System Preferences(系统偏好设置) > Users & Groups(用户与群组) > Login items(登录项) 点击"+"、找到自己写的可执行 bash 文件，加入即可。
 - iBook 缓存位置 ~/Library/Containers/com.apple.BKAgentService/Data/Documents/iBooks
 
-快捷键
-pmset noidle  # 阻止电脑睡眠 同时按住 shift、control、电源键，关闭显示器
-cmd + shift + . # 在 finder 切换显示“隐藏文件”
-
-macOS “安全性与隐私”里去掉了允许安装”任何来源“的软件设置，可以在终端里运行`sudo spctl --master-disable`打开，解决「xxx.app已损坏,打不开.你应该将它移到废纸篓」问题。
-关闭 sip 方法：关机后、按住右上角电源键(非m1按下`Cmd + R`) 选择实用工具->终端，输入 `csrutil disable` 关闭 sip, 输入`csrutil status`查看状态。
-
-- 安装 git & gcc `xcode-select --install`
-- 系统: AppCleaner / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / ParagonNTFS / Smoothscroll / https://u.tools
-
-- 图像: xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
-- sips -z height width [file]   # 修改图片的宽和高, sips -Z 640 *.jpg 批量修改图片的 宽或高 最大值 保持原来宽高比
-
-- 其他: snapdrop.net / ngrok inlets(GitHub) / vivaldi / webtorrent-desktop / Kotobee Author / Remote Mouse / https://archive.org/web
-
-- zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
-- rar[工具](https://www.rarlab.com/download.htm): `rar a test.rar test/` 压缩 test 目录内容生成 test.rar 文件。
-- https://www.keka.io 压缩解压 7z zip 等。mac 选中文件右键 -> 压缩生成zip 或者 服务“使用keka压缩”。
-- [zip、rar、7z文件密码破解](https://github.com/jaredsburrows/rarcrack)、[7zcrack](https://github.com/tp7309/tt7zcrack)
-- 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
-- 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
-
-- 支持 Mac + Win 读写的U盘格式: exFAT、FAT32、NTFS(在Mac上读写需要额外装支持软件)。
-
 ```sh
 # http://apple.stackexchange.com/questions/102452/can-i-undo-changes-made-via-defaults-write
 defaults read com.apple.screencapture  # 查看系统截图设置
 defaults write com.apple.screencapture type jpg  # 将系统截屏后图片保存为 jpg 格式
 defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图片保存路径
+
+sudo spctl --master-disable  # 允许安装”任何来源“的软件，解决「xxx.app已损坏」问题
+xcode-select --install  # 安装 git & gcc
+
+csrutil disable  # 关闭sip。 关机、按住电源键(非m1按下`Cmd R`) 选择实用工具->终端
+csrutil status  # 查看状态。
+
+pmset noidle  # 阻止电脑睡眠 同时按住 shift、control、电源键，关闭显示器
+cmd + shift + . # 在 finder 切换显示“隐藏文件”
 ```
+
+- AppCleaner / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / Smoothscroll / ngrok inlets(GitHub) / webtorrent-desktop / https://snapdrop.net / https://archive.org/web
+
+- zip加密: `zip -e output.zip ~/xx.txt` / [zip解密](https://www.jianshu.com/p/bf4a6244180f)
+- rar[工具](https://www.rarlab.com/download.htm): `rar a test.rar test/` 压缩 test 目录内容生成 test.rar 文件。
+- https://www.keka.io 压缩解压 7z zip 等。mac 选中文件右键 -> 压缩生成zip 或者 服务“使用keka压缩”。
+- [zip、rar、7z文件密码破解](https://github.com/jaredsburrows/rarcrack)、[7zcrack](https://github.com/tp7309/tt7zcrack)
+
+- 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
 
 
 ## 手机和Windows
@@ -70,6 +64,7 @@ defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图�
 
 - 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
 - 重装 Win 系统用老毛桃制作“U盘启动工具”，开机(按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
+- 支持 Mac + Win 读写的U盘格式: exFAT、FAT32、NTFS(ParagonNTFS)。
 
 
 ## chrome
@@ -94,6 +89,24 @@ defaults write com.apple.screencapture location ~/Downloads/  # 修改截屏图�
 *.icloud.com +direct
 * +direct
 ```
+
+
+## 图像视频
+
+xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
+
+- sips -z height width [file]   # 修改图片的宽和高, sips -Z 640 *.jpg 批量修改图片的 宽或高 最大值 保持原来宽高比
+- 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
+- 自己搭建 ftp 服务器共享文件。
+
+Mac smb 文件共享(速度约1M/s较慢)
+在需要共享文件的 Mac 上打开「系统偏好设置-共享-文件共享」会显示类似 smb://192.168.1.9 的共享地址。在另一台 Mac 上打开访达，点左侧的「位置-网络」图标 或者在访达菜单栏选择「前往-连接服务器」。在 iPhone 或 iPad 打开「文件」App，点击右上角选项图标，选择「连接服务器」，连过一次的共享 下次可以直接在「文件」App 的「已共享」里看到。在Windows PC访问 Mac 的共享文件，需要先做一些设置。
+这样把一台 Mac 作为「共享盘」，有点 NAS 的意思。
+
+视频字幕类型有三种：内嵌字幕、外挂字幕、封装软字幕。可以视频转为音频、再提取字幕。
+字幕下载 https://subhd.tv
+剪映 / 钉钉闪记 / B站必剪 / 迅捷文字转语音(1G内免费)。
+Subtitle Edit / Aegisub / Subtitle Workshop / HandBrake / FFmpeg / adobe PR
 
 
 ## oh-my-zsh & iTerm2(不需要)
