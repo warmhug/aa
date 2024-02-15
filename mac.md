@@ -47,24 +47,45 @@ cmd + shift + . # 在 finder 切换显示“隐藏文件”
 
 ```sh
 # https://github.com/Genymobile/scrcpy/blob/master/doc/shortcuts.md
-快捷键: ctrl p(开电源) o(关屏幕) h(主屏幕) ↑(音量) nn(通知/设置)
-有线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off --select-usb
-无线: scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off -m1024 -b2M  （scrcpy -b2M  --max-fps 15 --max-size 960）
-设置无线连接: scrcpy --tcpip  # 可设置具体ip地址。 链接不成功，需要重新连线
-# 开发者选项: 打开 停用adb授权超时功能(disable ADB authorization timeout), 只要不关闭开发者选项和usb调试、就可以一直无线链接。
+# 第一次电脑和手机需要usb线链接，手机打开“开发者选项和usb调试”。
+# 手机开发者选项: 建议打开 停用adb授权超时功能(disable ADB authorization timeout)。
+# scrcpy --tcpip  # 插入usb线时、设置无线连接。
+# scrcpy --tcpip=10.94.62.181  # 通过具体ip地址链接、不用插入usb线。如果ip正确但也连不上 删掉ip 插上线。
+# 如下添加更多其他选项。
+scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off -m1024 -b2M --tcpip=10.94.62.181
+
+# 其他选项 --select-usb  --max-fps 15 --max-size 960
+# 快捷键: ctrl p(开电源) o(关屏幕) h(主屏幕) ↑(音量) nn(通知/设置)
 ```
+
+- 手机软件: Touch-Helper, MX播放器(VLC不能播放加密文件), 开发助手, IP Widget(能看到VPN的地址)。
+- 安卓自动化: 微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker(收费), easytouch, anywhere。
+
 - 电脑控制手机 https://www.zhihu.com/question/46795475 、 anydesk 体验不错、但不能远程操作iPhone，国产抄袭版 todesk 会卡死，Wormhole虫洞 利用 iPhone 的辅助功能-触控 能被三方控制功能实现远程操作、但体验很差。
-
-- 安卓自动化: 微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker(收费), easytouch。
-- 第三方充电器都不支持小米私有协议快充。
-- 应用设置，右上角三个点，显示所有应用。搜索应用，搜小米画报，点进去，卸载。 可使用 adb 卸载。
-
-- 手机软件: Touch-Helper, MX播放器(VLC不能播放加密文件), 开发助手, DVR Link
 - iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
 
+- 小米应用设置，右上角三个点，显示所有应用。搜索应用，搜小米画报，点进去，卸载。 可使用 adb 卸载。 第三方充电器都不支持小米私有协议快充。
 - 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
 - 重装 Win 系统用老毛桃制作“U盘启动工具”，开机(按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
 - 支持 Mac + Win 读写的U盘格式: exFAT、FAT32、NTFS(ParagonNTFS)。
+
+
+## 图像视频
+
+xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
+
+- sips -z height width [file]   # 修改图片的宽和高, sips -Z 640 *.jpg 批量修改图片的 宽或高 最大值 保持原来宽高比
+- 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
+- 自己搭建 ftp 服务器共享文件。
+
+Mac smb 文件共享(速度约1M/s较慢)
+在需要共享文件的 Mac 上打开「系统偏好设置-共享-文件共享」会显示类似 smb://192.168.1.9 的共享地址。在另一台 Mac 上打开访达，点左侧的「位置-网络」图标 或者在访达菜单栏选择「前往-连接服务器」。在 iPhone 或 iPad 打开「文件」App，点击右上角选项图标，选择「连接服务器」，连过一次的共享 下次可以直接在「文件」App 的「已共享」里看到。在Windows PC访问 Mac 的共享文件，需要先做一些设置。
+这样把一台 Mac 作为「共享盘」，有点 NAS 的意思。
+
+视频字幕类型有三种：内嵌字幕、外挂字幕、封装软字幕。可以视频转为音频、再提取字幕。
+字幕下载 https://subhd.tv
+剪映 / 钉钉闪记 / B站必剪 / 迅捷文字转语音(1G内免费)。
+Subtitle Edit / Aegisub / Subtitle Workshop / HandBrake / FFmpeg / adobe PR
 
 
 ## chrome
@@ -90,23 +111,10 @@ cmd + shift + . # 在 finder 切换显示“隐藏文件”
 * +direct
 ```
 
-
-## 图像视频
-
-xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF / Readiris-ocr / any-video-converter (在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
-
-- sips -z height width [file]   # 修改图片的宽和高, sips -Z 640 *.jpg 批量修改图片的 宽或高 最大值 保持原来宽高比
-- 如何下载HLS视频到本地？https://www.zhihu.com/question/35564371/answer/694240638 / https://www.downloadhelper.net
-- 自己搭建 ftp 服务器共享文件。
-
-Mac smb 文件共享(速度约1M/s较慢)
-在需要共享文件的 Mac 上打开「系统偏好设置-共享-文件共享」会显示类似 smb://192.168.1.9 的共享地址。在另一台 Mac 上打开访达，点左侧的「位置-网络」图标 或者在访达菜单栏选择「前往-连接服务器」。在 iPhone 或 iPad 打开「文件」App，点击右上角选项图标，选择「连接服务器」，连过一次的共享 下次可以直接在「文件」App 的「已共享」里看到。在Windows PC访问 Mac 的共享文件，需要先做一些设置。
-这样把一台 Mac 作为「共享盘」，有点 NAS 的意思。
-
-视频字幕类型有三种：内嵌字幕、外挂字幕、封装软字幕。可以视频转为音频、再提取字幕。
-字幕下载 https://subhd.tv
-剪映 / 钉钉闪记 / B站必剪 / 迅捷文字转语音(1G内免费)。
-Subtitle Edit / Aegisub / Subtitle Workshop / HandBrake / FFmpeg / adobe PR
+多设备共享vpn网络：
+- 代理模式 https://www.youtube.com/watch?v=xTzubV8-PwM
+- 手机当网关路由 https://www.youtube.com/watch?v=H4g1y3ZMWaw
+https://www.youtube.com/watch?v=r6nXCgYkXTQ
 
 
 ## oh-my-zsh & iTerm2(不需要)
