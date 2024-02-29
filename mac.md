@@ -252,8 +252,17 @@ gem install jekyll-feed / jekyll-paginate  # 安装 jekyll plugins
 ```
 
 [推荐](https://github.com/viatsko/awesome-vscode) 的扩展:
-plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / marp / filesize / EditorConfig / GitLens / Indent 4-to-2 / SVG Viewer / pangu / Hungry Delete / javascript console utils / Template String Converter
+plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / markdown-pdf / marp / filesize / EditorConfig / GitLens / Indent 4-to-2 / SVG Viewer / pangu / Hungry Delete / javascript console utils / Template String Converter
 
+```json
+{
+  "markdown-pdf.displayHeaderFooter": false,
+  "markdown-pdf.margin.bottom": "0.01cm",
+  "markdown-pdf.margin.top": "0.01cm",
+  "markdown-pdf.margin.left": "0.5cm",
+  "markdown-pdf.margin.right": "0.5cm"
+}
+```
 
 
 ------

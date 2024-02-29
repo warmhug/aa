@@ -15,6 +15,10 @@
 
 ! 是 typescript 非空断言符，解决 ts 类型空提示问题。
 
+void promise 函数返回值类型 `() => Promise<void>`。
+
+tailwindcss 的 text-danger 等 className 使用。
+
 ### 2023-03
 
 ts高级用法 Omit Pick

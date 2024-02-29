@@ -542,6 +542,7 @@ if (quote.length > 80) {
 
 # plantuml
 
+2022-08 Uml 图问题：不能给文字加链接。https://draw.io
 
 ```plantuml
 @startuml
