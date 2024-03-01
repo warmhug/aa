@@ -482,17 +482,17 @@ console.log(tree);
 /*
 
 # 算法
-递归、尾递归，构造多叉树、二叉树(中序遍历)，排序算法。
 
-算法入门 https://leetcode.cn/study-plan/algorithms/?progress=uw39h4i
-几种常见的JS递归算法 https://juejin.cn/post/6844904014207795214
+算法入门 https://leetcode.cn/study-plan/algorithms  (https://leetcode.com/ .cn 都是 GitHub 登录)
+[LeetCode 刷题攻略](https://github.com/youngyangyang04/leetcode-master)
 js 算法 https://github.com/trekhleb/javascript-algorithms
-
-[leetcode-master](https://github.com/youngyangyang04/leetcode-master)、[leetcode-cn](https://leetcode-cn.com/)、[LeetCode](https://leetcode.com/)、[Google笔试面试](http://ask.julyedu.com/question/447)。
 计算机科学中有哪些重要的算法？https://www.applysquare.com/topic-cn/RT1ia720O/
-2009 POJ推荐50题 —— ACM暑假集训 列表中大约有70个题目 选做其中的50道，且每类题目有最低数量限制。北京大学ACM在线评测系统 http://acm.pku.edu.cn/JudgeOnline
+2009 POJ推荐50题 — ACM暑假集训 列表中大约有70个题目 选做其中的50道。北京大学ACM在线评测 http://poj.org
 
-常用算法方法：查找(二分法)、双指针(快慢指针)、动态规划、滑动窗口、
+递归、尾递归，构造多叉树、二叉树(中序遍历)，排序。
+常用算法：查找(二分法)、双指针(快慢指针)、动态规划、滑动窗口。
+几种常见的JS递归算法 https://juejin.cn/post/6844904014207795214
+二分法查找和遍历 https://blog.csdn.net/HUST_zxs/article/details/130478382
 
 数据结构 逻辑结构 线性的：数组、链表、栈、队列(优先队列)、串  非线性的：堆、树、图、广义表。 存储结构:
 
@@ -506,6 +506,11 @@ js 算法 https://github.com/trekhleb/javascript-algorithms
 
 迭代与递归：迭代用重复结构，而递归用选择结构。递归重复函数调用的开销很大，将占用很长的处理器时间和大量的内存空间。迭代通常发生在函数内，因此没有重复调用函数和多余内存赋值的开销。
 尾递归算法和单向递归算法可用迭代算法来代替。斐波那契数列计算的递归改循环迭代所带来的速度大幅提升。汉诺塔问题的递归算法中有两处递归调用，并且其中一处递归调用语句后还有其他语句，因此该递归算法不是尾递归或单向递归。要把这样的递归算法转化为非递归算法，并没有提高程序运行的速度，反而会使程序变得复杂难懂，这是不可取的。
+
+- 深度优先搜索(DFS)、广度优先搜索(BFS)，二叉树的遍历 前序遍历，如何将递归用循环表示，排序算法、逆波兰式，人工智能算法？
+- slam 算法；杨辉三角的输出、两个有序链表合并成一个有序的链表；从 n 个数中取出 m 个不同的数，要求时间复杂度低。MySQL为什么用 b+ 树？
+2018~2021
+
 
 # 数学
 
@@ -527,7 +532,6 @@ js 算法 https://github.com/trekhleb/javascript-algorithms
 [三步搭建基础分析框架](http://www.woshipm.com/data-analysis/821704.html)、Lookup表(维度表)和数据表(事实表)，一般是Lookup表在上,数据表在下。
 
 学习路线：
-https://blog.csdn.net/baimafujinji/article/details/49891221
 https://blog.csdn.net/han_xiaoyang/article/details/50759472
 https://developers.google.com/machine-learning/crash-course/
 https://academy.microsoft.com/en-us/professional-program/tracks/artificial-intelligence/

@@ -23,6 +23,7 @@
 - js decorators 的 polyfill 实现 https://www.sitepoint.com/javascript-decorators-what-they-are/
 
 笔试套路：写出所有可能解法，也写出最经典解法。
+- Google笔试面试
 - 聊聊微软面试 https://mp.weixin.qq.com/s/-NESGyGBbF3WakPFieAT0w
 - https://github.com/hzfe/awesome-interview
 - https://github.com/yifeikong/reverse-interview-zh
@@ -87,14 +88,12 @@
 - HTTP 协议，http2.0，http 301 / 302 / 304 的区别。 设计模式：工厂模式、观察者模式、MVC。
 - 基础性能：压缩资源、异步加载、预加载、缓存、使用gzip、减少cookie、减少重定向、减少请求数。
 
-### 架构 & 算法
+### 架构
 - 组件设计经验？ 弹窗的 visible 应该在哪儿维护？
 - 代码可维护性提升方法？ 与优秀代码的差距？ 重复代码。 编程范式？(函数式与OO) S.O.L.I.D 原则：S：单一职责 O：开闭 L：里氏替换 I：接口隔离 D：依赖倒置。
 
 - 哪些后端 API 设计方法？github twitter 的 RESTful api 优点？GraphQL 解决了 rest 的什么问题？(https://github.com/warmhug/web-api)
 - BFF: 多端适配/聚合裁剪数据，额外的部署资源及运维成本，集合 GraphQL https://insights.thoughtworks.cn/use-graphql-build-bff-in-microservices
-- 深度优先搜索(DFS)、广度优先搜索(BFS)，二叉树的遍历 前序遍历，如何将递归用循环表示，排序算法、逆波兰式，人工智能算法？
-- slam 算法；杨辉三角的输出、两个有序链表合并成一个有序的链表；从 n 个数中取出 m 个不同的数，要求时间复杂度低。MySQL为什么用 b+ 树？
 
 ### 开放问题
 - 在项目中的角色？是否“独立”负责/0-1的项目、还是维护修改项目？
