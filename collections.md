@@ -14,12 +14,13 @@ gmtc https://gmtc.infoq.cn/2022/beijing/schedule
 https://coolshell.cn/
 [前端领域的 “干净架构”](https://zhuanlan.zhihu.com/p/458410158)
 徐飞 - [业务中的前端组件化体系](https://zhuanlan.zhihu.com/p/383129585)
+2022 近几年新技术：微前端、bundless vite 构建、低代码、IDE、serverless。
 
 
 ## 分类
 
 html/css/browser
-[chromestatus](https://www.chromestatus.com/features)、
+https://httparchive.org/reports/page-weight [chromestatus](https://www.chromestatus.com/features)、
 [webkit](https://webkit.org/)、[chrome-experiments](https://experiments.withgoogle.com/collection/chrome)
 [stateofjs](https://stateofjs.com/)、[stateofcss](https://stateofcss.com/)
 html 规则检测 https://validator.w3.org 、 http://infohound.net/tidy
@@ -101,6 +102,7 @@ IDE
 
 ## 监控 & 体验 & 质量 & 测试
 
+Headless BI https://cube.dev/
 https://github.com/GoogleChromeLabs/quicklink
 https://superset.apache.org/
 
@@ -118,6 +120,7 @@ ICBU前端性能度量 https://mp.weixin.qq.com/s/XAdNOovCQxh5xuGVOSEz3w
 为什么大厂前端监控都在用GIF做埋点？ https://mp.weixin.qq.com/s?__biz=MzAxODE4MTEzMA==&mid=2650099077&idx=1&sn=813d2c96cd940dc95b0f47585b989c2f
 
 AEM [表单分析](https://img.alicdn.com/imgextra/i3/O1CN01x1xSNj26XMy1xUikf_!!6000000007671-0-tps-2934-1678.jpg)
+AEM: 稳定性(脚本/接口/资源异常)、流畅性(加载/卡顿/动画掉帧)、用户流量(pv uv 活跃用户 新用户/点击率 点击热点 / 停留黏性/来源去向/设备)、行为分析(页面流/操作流/留存跳失率/访问链路/表单分析)、满意度(问卷/反馈/录屏/主观分析)。告警/多维指标(用户纬度年龄性别籍贯)/自定义看板/乐高搭建报表页。
 
 Google [lighthouse](https://developers.google.com/web/tools/lighthouse/)、类似服务 [web.dev/measure](https://web.dev/measure)、[webpagetest](https://www.webpagetest.org/)、[pagespeed insights](https://developers.google.com/speed/pagespeed/insights/)
 
@@ -240,7 +243,8 @@ AlipayJSBridge.call('setTitle', { title: 'xxx' });
 小程序采用的是混合架构，可通过 html 里的 a 标签启动新的 webview 窗口、调用 popWindow 关闭窗口。基本页面元素是 html 渲染，弹窗类 loading toast ActionSheet 和 本地存储、系统或用户信息，使用客户端原生实现。
 
 而 react-native 只是采用 js/html 写法，背后完全是 客户端原生 渲染。
-
+微信小程序和 RN 的区别：双线程架构，渲染层一个主要是 webview 一个完全 native。
+微信的支付 小程序云等开放API、小程序安全管控。
 
 ### 小程序框架
 
@@ -256,35 +260,49 @@ React component -> React Reconciler(调和器、实现了 Diff/Fiber 算法) -> 
 
 
 ## react & redux
-> antd-mobile 旧 demo 备份
-> - antd_custom_ui move from https://github.com/warmhug/__/tree/master/_react/antd_custom_ui to > https://github.com/ant-design/antd-mobile-samples/tree/master/web-custom-ui
-> - antd-mobile + TypeScript move from https://github.com/warmhug/__/tree/master/_react/antd-ts > to https://github.com/ant-design/antd-mobile-samples/tree/master/web-typescript
-
-- React Hooks 使用误区 https://zhuanlan.zhihu.com/p/450513902
-- 不优雅的 React Hooks https://zhuanlan.zhihu.com/p/455317250
-- 陷阱 https://mp.weixin.qq.com/s?__biz=MzIzMjcxNzE5MA==&mid=2247488097&idx=1&sn=e8a6d71d1c05c8be04c25b32af43fb09
-- useLayoutEffect和useEffect的区别 https://zhuanlan.zhihu.com/p/348701319
 
 https://beta.reactjs.org/
-https://github.com/mithi/react-philosophies
-https://react.iamkasong.com/
-https://xueshiming.cn/2021/05/08/React%20%E4%B9%8B%20Fiber%20%E6%9E%B6%E6%9E%84/
-
+react 使用注意事项 https://github.com/mithi/react-philosophies
+React 技术揭秘 https://react.iamkasong.com/
+React Fiber 架构 https://xueshiming.cn/2021/05/08/React%20%E4%B9%8B%20Fiber%20%E6%9E%B6%E6%9E%84/
 react 渲染器了解一下？ https://juejin.cn/post/6844903753242378248
-[useReducer callback](https://github.com/facebook/react/issues/15344)
+React16、17、18版本新特性 https://blog.csdn.net/momei1942/article/details/129699873
+React18: 并发控制的更好更灵活，定时器等异步函数setState批处理、Suspense 流式 html SSR、useTransition 延迟/过渡更新。
 
-react 需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，而不要用`Array.isArray(children) / children.forEach`等方法。
+React Hooks
+- 不优雅的 React Hooks https://zhuanlan.zhihu.com/p/455317250
+- React Hooks 使用误区 https://zhuanlan.zhihu.com/p/450513902
+- React Hooks 陷阱 https://mp.weixin.qq.com/s?__biz=MzIzMjcxNzE5MA==&mid=2247488097&idx=1&sn=e8a6d71d1c05c8be04c25b32af43fb09
+- useLayoutEffect 和 useEffect 的区别 https://zhuanlan.zhihu.com/p/348701319
+- [useReducer callback](https://github.com/facebook/react/issues/15344)
 
-不可变的数据更新模式 [官方文档](https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns) ([翻译](https://cn.redux.js.org/docs/recipes/reducers/ImmutableUpdatePatterns.html))
+[PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
+- 父组件是 pure component，子组件也需要是 pure component。因为父组件的 state 和 props 保持不变时是不会重新渲染的，子组件也就不会重新渲染了。
+- 除非碰到了性能问题，不然不要用 PureComponent。遇到性能问题，也可以通过自己定制 shouldComponentUpdate 来控制。
+- 如果预期到某个组件的 props 或是 state 会「频繁变动」会导致多次对比，不用使用 PureComponent，因为这样反而会变慢。示例：
+<!--
+render() {
+  // 每次传入的 style 都是一个新对象，Post 组件每次都需要 rerender
+  return <Post item={item} style={{ 'width': 120 }} />;
+} -->
 
-[解读 redux 的设计思路与用法](http://div.io/topic/1309)、[UI state应该放到哪里？](https://github.com/rackt/redux/issues/595)
-[Smart and Dumb Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)、[Reactive programming vs Passive programming](https://vaibhavgupta.me/2017/12/31/reactive-programming-vs-passive-programming/)
+- react 需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，而不要用`Array.isArray(children) / children.forEach`等方法。
+- setState 是异步的 [示例](https://stackoverflow.com/a/45249445/2190503) 会引起不必要的 render。
+- [3 Reasons why I stopped using React.setState](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#.o2lwoysxh) 
+
+
+- [虚拟DOM Diff算法解析](http://www.infoq.com/cn/articles/react-dom-diff)
+- [Dynamic Children - Why the Keys are Important](http://blog.arkency.com/2014/10/react-dot-js-and-dynamic-children-why-the-keys-are-important/)
+- [真实 DOM 和 react 虚 dom 讨论](http://www.zhihu.com/question/31809713)
+dom 对象是很庞大的（上边有很多属性），其创建的开销比较大，已有的 dom 对象上做更新开销并不大，众多框架都在围绕此做优化，比如用`key`是否变化来判断对 dom 的操作是 “更新” 还是 “销毁重建”。
+dom批量更新：dom操作如，1.删除一个元素，2.增加一个元素，3.在增加的元素上改变一个属性。如果用 dom-api，会有多次 repaints reflows 比较耗性能。 如果放到「虚拟 dom」上操作，会把这三个过程最终的结果，一次更新到实际 dom 树上，只用操作一次实际 dom。 virtual-dom 里一次 digest 中的 diff 只需一次，但是会随着 ui 的规模复杂度，性能损耗严重。
+
+
+### redux
 
 - reactive :: Action -> Model -> Model（Model, Side Effects(异步消息)）[elm-architecture](https://github.com/evancz/elm-architecture-tutorial/)
 - React.js 本质：`(state, props) => state` (render :: Model -> UI)
 - flux 本质：`(state, action) => state` (redux 的 reducer)。 不同的 component 维护许多各自不同 state，导致数据碎片化，flux 模式利用顶层 store 能解决这个问题。
-
-### redux 概念
 
 - actions 其实就是 mutations，即 ui 或者 server 的 response。
 - action creator 调用 dispatcher (passive)，传递 mutations。
@@ -293,41 +311,14 @@ react 需要遍历或修改 children，要使用`React.Children.forEach / React.
     - Only Store gets to decide how to update the data。
 - component 监听 store。Views subscribe to the stores that contain the data that it needs。
 
-### redux & redux-saga 典型流程
+[概念和数据流](https://cn.redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow/)
+[不可变的数据更新模式](https://redux.js.org/recipes/structuring-reducers/immutable-update-patterns)
+
+[UI state应该放到哪里？](https://github.com/rackt/redux/issues/595)
+[Smart and Dumb Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)、[Reactive programming vs Passive programming](https://vaibhavgupta.me/2017/12/31/reactive-programming-vs-passive-programming/)
+
+redux & redux-saga 典型流程:
 form 表单提交，触发 FORM_POST action，saga 里 `yield put` POST_SUCCESS 触发 action，改变页面状态或拉取新数据，触发 UI CHANGE 的 action，过程中用 `yield select` 从 state 里选取需要的参数。
-
-### [PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)
-
-- 父组件是 pure component，子组件也需要是 pure component。因为父组件的 state 和 props 保持不变时是不会重新渲染的，子组件也就不会重新渲染了。
-- 除非碰到了性能问题，不然不要用 PureComponent。遇到性能问题，也可以通过自己定制 shouldComponentUpdate 来控制。
-- 如果预期到某个组件的 props 或是 state 会「频繁变动」，那就不用使用 PureComponent，因为这样反而会变慢。示例：
-<!--
-render() {
-  // 每次传入的 style 都是一个新对象，Post 组件每次都需要 rerender，
-  // 不需要使用 PureComponent 会再多一次 props 和 state 的对比。
-  return <Post item={item} style={{ 'width': 120 }} />;
-} -->
-
-### setState
-[3 Reasons why I stopped using React.setState](https://medium.com/@mweststrate/3-reasons-why-i-stopped-using-react-setstate-ab73fc67a42e#.o2lwoysxh) 
-
-- setState 是异步的 [state-updates-may-be-asynchronous](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous) / [示例](https://stackoverflow.com/a/45249445/2190503)
-- setState 引起不必要的 render。
-- setState 不能覆盖所有的组件状态（像生命周期的钩子、timers、events）。
-
-### diff & key
-
-- [虚拟DOM Diff算法解析](http://www.infoq.com/cn/articles/react-dom-diff)
-- [Dynamic Children - Why the Keys are Important](http://blog.arkency.com/2014/10/react-dot-js-and-dynamic-children-why-the-keys-are-important/)
-
-dom 对象是很庞大的（上边有很多属性），其创建的开销比较大，已有的 dom 对象上做更新开销并不大，众多框架都在围绕此做优化，比如用`key`是否变化来判断对 dom 的操作是 “更新” 还是 “销毁重建”。
-dom批量更新：dom操作如，1.删除一个元素，2.增加一个元素，3.在增加的元素上改变一个属性。
-如果用 dom-api 一步步操作，会导致中间多次的 repaints 和 reflows，这是比较低效耗性能的。
-如果放到「虚拟 dom」上操作，会把这三个过程最终的结果，一次更新到实际 dom 树上，只用操作一次实际 dom。
-react virtual-dom 里一次 digest 中的 diff 只需一次，但是会随着 ui 的复杂度，性能损耗严重，virtual-dom 与原 dom 的对应也更难 (如果 angular 的脏检查的性能取决与 watcher 的数量，那 react 则是取决与 ui 规模)。 virtual-dom 的内部结构变化是不可预知的
-
-- [真实 DOM 和 react 虚 dom 讨论](http://www.zhihu.com/question/31809713)
-- [React Virtual DOM vs Incremental DOM vs Ember’s Glimmer: Fight](https://auth0.com/blog/2015/11/20/face-off-virtual-dom-vs-incremental-dom-vs-glimmer/)
 
 
 
@@ -421,7 +412,169 @@ IFAA 生物认证 https://tech.antfin.com/products/IFAA
 
 
 -------
-# specs
+# specs & 其他
+
+> antd-mobile 旧 demo 备份
+> - antd_custom_ui move from https://github.com/warmhug/__/tree/master/_react/antd_custom_ui to > https://github.com/ant-design/antd-mobile-samples/tree/master/web-custom-ui
+> - antd-mobile + TypeScript move from https://github.com/warmhug/__/tree/master/_react/antd-ts > to https://github.com/ant-design/antd-mobile-samples/tree/master/web-typescript
+
+
+bootstrap.css v3.3.7 https://gw.alipayobjects.com/os/rmsportal/SaEqgaEyUazqSndgTxGj.css
+bootstrap.js v3.3.7 https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js
+
+jQuery v1.12.4 https://gw.alipayobjects.com/os/rmsportal/YbGjMuYEbXdIGJRsqOSA.js
+https://gw.alipayobjects.com/os/lib/jquery/3.6.0/dist/jquery.min.js
+https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js
+https://code.jquery.com/ui/1.13.0/jquery-ui.js
+https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css
+qrcode.js https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js
+less.js https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js
+
+
+# umi.js
+
+```js
+// umi.js config
+export default {
+  // appType 标记为 h5, 就会官方植入 hd, fastclick 等移动研发相关解决方案;
+  appType: 'h5 | console',
+  // deployMode: 'assets | custom',
+  deployMode: {
+    mode: 'online',
+  },
+  favicon: false,
+  title: '标题',
+  targets: {
+    ios: 8,
+    android: 4,
+    chrome: 33,
+  },
+  // 是否关掉 cssModule;
+  disableCSSModules: true,
+  deer: {
+    // 埋点位
+    spma: 'a1153',
+  },
+  // 异常搜集
+  clue: { pid: '12345' },
+  dynamicImport: {
+    webpackChunkName: false,
+    loadingComponent: '../src/component/Loading',
+  },
+  theme: {
+    // 'brand-primary': '#108ee9',
+  },
+  locale: {
+    enable: true,
+  }
+  // 去除默认加上的 .html 后缀
+  exportStatic: null,
+  // 解决对于 node_modules 有 es6 会在 build 报错
+  es5ImcompatibleVersions: true,
+  // Android 4 里 Set Promise 未定义错误
+  // 如果是 assets 应用，没有用到 bigfish 构建出来的 HTML, script 配置无效，需手动修改后端 html 文件添加
+  script: [
+    'https://a.alipayobjects.com/g/component/??es6-shim/0.35.1/es6-sham.min.js,es6-shim/0.35.1/es6-shim.min.js',
+  ],
+  proxy: {
+    dev: {
+      'eworkcard/api/': {
+        target: 'http://xx.alipay.net',
+      },
+    },
+    test: {},
+    pre: {},
+  }
+  routes: [{
+    path: '/',
+    indexRoute: {
+      title: 'ww',
+      spmb: 'b9903',
+      component: 'index',
+    },
+    component: '../layout',
+    routes: [
+      {
+        path: 'index',
+        spmb: 'b9903',
+        component: 'index',
+      },
+      {
+        path: 'guide',
+        spmb: 'b9901',
+        title: 'xx',
+        component: 'guide',
+      },
+    ],
+  }],
+}
+
+// umi.js / bigfish.js model
+// from 2018-2019 云游 @pofeng
+import axios from 'axios';
+import { Action } from 'redux';
+type ModelState = {
+  params: object;
+};
+type SetStateAction = Action & { payload: Partial<ModelState> };
+
+function setState(payload: Partial<ModelState>) {
+  const action: SetStateAction = { type: 'setState', payload };
+  return action;
+}
+const getInitialState = (): ModelState => {
+  return {
+    architecture: [],
+  };
+};
+const namespace = 'xxx';
+export default {
+  namespace,
+  state: getInitialState(),
+  reducers: {
+    setState(state: ModelState, { payload }) {
+      return { ...state, ...payload };
+    },
+  },
+  effects: {
+    *fetchData(_, effectMap: EffectsCommandMap) {
+      const { call, put, fork, select } = effectMap;
+      yield fork(() => fetch_deploymentUnitWhiteList(_, effectMap));
+      try {
+        const modelState: ModelState = yield select(state => state[namespace]);
+        const rsp: IServiceResponse = yield call(() => axios.get(`/api/envs/${envId}`));
+        yield put(setState({ architecture: rsp.data.data }));
+      } catch (e) {
+        yield put(setState({ architecture: getInitialState().architecture }));
+      }
+    },
+  },
+};
+
+// umi.js / bigfish.js  page
+import React, { PureComponent } from '@alipay/bigfish/react';
+import { Divider, Icon, Layout, Menu } from '@alipay/bigfish/antd';
+import { List, WingBlank, Button, Flex } from '@alipay/bigfish/antd-mobile';
+import { connect } from '@alipay/bigfish/sdk';
+import history from '@alipay/bigfish/sdk/history';
+import { Link } from '@alipay/bigfish/sdk/router';
+import { formatMessage } from '@alipay/bigfish/locale';
+import { replace, map, indexOf } from "@alipay/bigfish/util/lodash";
+import qs from '@alipay/bigfish/util/query-string';
+'@alipay/bigfish/eslint'
+'@alipay/bigfish/stylelint'
+@connect(({ page, guide }) => ({ page, guide }))
+@NavWrapper
+export default class App extends PureComponent {
+  componentDidMount() {
+  }
+  goBack = (ev) => {}
+  render() {}
+}
+```
 
 
 # 低代码 schema 基础协议规范

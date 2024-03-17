@@ -11,13 +11,16 @@
 - [日期和时间字符串](https://docs.microsoft.com/en-us/scripting/javascript/date-and-time-strings-javascript)
 - [计算日期和时间](https://docs.microsoft.com/en-us/scripting/javascript/calculating-dates-and-times-javascript)
 - [safari 对时间格式支持的差异](http://stackoverflow.com/questions/4310953/invalid-date-in-safari)
+
+https://github.com/date-fns/date-fns
+已废弃 https://momentjs.com/
 </pre>
 
 <script>
   // JS 先按 ISO Date Format 标准格式解析时间字符串，再按其他支持的格式解析 (Chrome / IE9+)
   // 时间戳 最小是 微妙？
   // mysql 在存储时对 毫秒 四舍五入。
-  
+
   // ISO 格式: YYYY-MM-DDTHH:mm:ss.sssZ  最后的 sss 是毫秒数
   console.log(new Date().toUTCString()); // 标准 ISO 格式
   console.log(new Date().toISOString()); // 标准 ISO 格式
@@ -32,9 +35,9 @@
   console.log(new Date('2010-01')); // 标准 ISO 格式
   console.log(new Date('2010-01-29')); // 标准 ISO 格式
   console.log(new Date('14:30:05Z')); // 或者 143005Z 标准 ISO 格式 UTC 时间后边加 Z
-  console.log(new Date('22:30:05+08:00')); // 或者 223005+0800 北京时间 
+  console.log(new Date('22:30:05+08:00')); // 或者 223005+0800 北京时间
   // 日期和时间的组合表示法，要在时间前面加一大写字母T
-  console.log(new Date('2022-01-23T16:00:00.000+00:00')); // 标准 ISO 格式 
+  console.log(new Date('2022-01-23T16:00:00.000+00:00')); // 标准 ISO 格式
   console.log(new Date('2016-06-08T12:18:00+08:00')); // 标准 ISO 格式 北京时间
   console.log(new Date('2022-01-21T03:10:54.233Z')); // 标准 ISO 格式
   console.log(new Date('20160608T121800+08')); // 标准 ISO 格式 北京时间 Invalid Date

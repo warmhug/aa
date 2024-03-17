@@ -57,18 +57,14 @@
 
 - 看过 框架或库 源码？ vue angular 实现 双向绑定 的原理？单双向数据流区别？https://pomb.us/build-your-own-react
 - redux 基本流程？为什么用单一的 store? 子组件 connect 后可使用 store 了？ context。 immutable-js ？ immerjs
-- dva 的 model 里能否访问 window.location.pathname 等 ui 对象？ initialState 怎么设置？什么时候调用？
 - react diff 原理？生命周期？受控组件和非受控组件？父组件和子组件的通信方式？render-props 高阶组件 (代替mixin及ref问题)？
 - react 应用性能优化？列表 key / shouldComponentUpdate / PureComponent (props state 不变时不render) / memoization
-  - getDerivedStateFromProps https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
-- react setState 是同步的还是异步的? 子组件和父组件 componentDidMount 哪一个先执行？
+- react setState 是同步的还是异步的? 异步。 子组件和父组件 componentDidMount 哪一个先执行？子组件先。
 - react hooks 怎么把 props 里复杂对象（数据请求结果）的实时变化、”完全同步/只是初始化“ 更新到 state 中？
 - react hooks useRef 用途？和“函数组件”外定义的变量区别？(类全局变量) 分别的执行时机？
-- react hooks useMemo useCallback useReducer/redux 应用场景？ https://blog.logrocket.com/frustrations-with-react-hooks
+- react hooks useMemo useCallback useReducer/redux 应用场景？
 - react hooks useEffect 及其 return 函数的执行时机？子组件先执行？多个时执行顺序？怎么确保 dom 先增加成功 (setTimeout)？
-- react Call child method from parent
 - React-Fiber 并发模式、区分任务优先级、调度协调 中断/恢复任务，浏览器60fps渲染 10毫秒自己执行 5毫秒空闲时间。
-- Web Components https://www.polymer-project.org
 
 - 内存泄漏的情况？ html head 里的 js css 如何放置？
 - iframe 带来哪些问题？高度改变麻烦、弹框、iframe 里再嵌套 ifr。
@@ -102,34 +98,15 @@
 - 看哪些技术网站？国外网站？最近有学什么新技术（学习能力和专业热情）
 */
 
-
-// react关键点
-// 防抖 debounce 截流 throttle
-// 深度遍历 dfs 广度遍历 bfs
-
-
 /*
 在函数式编程中，函数实际上即是描述了一种集合到集合的映射关系。即这个函数在入参与结果之间建立了映射关系。在任意时间任意状态调用一个函数，都能获得同样的结果，也就是说它不会被任何可变状态影响、不会产生副作用。如 Redux 中的 compose，常见的函数柯里化，ImmutableJS 等等，都可以视为对于函数式编程范式的一种实现。
 */
 // 柯里化 foo(1, 2, 3) curried(1)(2)(3)
 // 函数链式调用 sum(1)(2,3)(4,5,6)... val.f1().f2().f3() 嵌套调用 f3(f2(f1(val)))  管道符
+// https://zhuanlan.zhihu.com/p/498208169
 var curry = fn => judge = (...args) => args.length === fn.length ? fn(...args) : (...arg) => judge(...args, ...arg)
 // TC39 数据流编程 Pipe/Flow Pipeline Operator
 const compose = (...funcs) => funcs.reduce((a, b) => (...args) => a(b(...args)));
-
-
-// 写一个 repeat 方法，实现执行下面代码后每隔 35 输出 123，总共执行 4 次
-const test = repeat((a) => console.log(a), 4, 3000);
-test(123);
-function repeat(func, times, delay) {
-  return function (...args) {
-    for (let i = 0; i < times; i++) {
-      setTimeout(() => {
-        func.apply(null, args);
-      }, delay * i);
-    }
-  }
-}
 
 /*
 // 2022-08 lodash get实现
@@ -146,20 +123,37 @@ const obj = {
 }
 */
 
-
-var urlStr = 'https://cn.bing.com:8999/search/1?query=java+regex&a=b';
-// 匹配问号前
-var matches = urlStr.match(/^(http|https):\/\/([A-Za-z0-9.-]+)(:[0-9]+)?(\/[^?]+).*$/);
-// 匹配问号后 q 参数
-var matches = urlStr.match(/.+(\?|\&)q=([^&.]+)?&/);
-
+// 写一个 repeat 方法，实现执行下面代码后每隔 35 输出 123，总共执行 4 次
+const test = repeat((a) => console.log(a), 4, 3000);
+test(123);
+function repeat(func, times, delay) {
+  return function (...args) {
+    for (let i = 0; i < times; i++) {
+      setTimeout(() => {
+        func.apply(null, args);
+      }, delay * i);
+    }
+  }
+}
 
 // 排序 返回一个新的数组对象
 function orderBy(data, fn) {}
 const sortArr = orderBy([{ weight: 10 }, { weight: 3 }, { weight: 2 } ], item => item.weight);
 
 // 实现 Promise.all 或 Promise.race 方法
-function promiseAll(tasks) {}
+const PromiseAll = function(promises) {
+  let results = [];
+  return new Promise((resolve, reject) => {
+    promises.forEach((p, index) => {
+      p.then((result) => {
+        results.push(result);
+        if (index === promises.length - 1) {
+          resolve(results);
+        }
+      }).catch((err) => reject(err));
+    });
+  });
+};
 const task1 = new Promise(resolve => resolve(1));
 const task2 = new Promise(resolve => setTimeout(() => resolve(2), 2000));
 promiseAll([task1, task2]).then(results => {
@@ -167,89 +161,104 @@ promiseAll([task1, task2]).then(results => {
   // results === [1, 2]
 })
 
-
-// 变量提升 https://www.jianshu.com/p/0f49c88cf169
-var v='Hello World';
-(function(){
-  var v;
-  alert(v);
-  v='I love you';
-})();
-
-const add = () => window.addEventListener('click', () => console.log(aa))
-add();
-const aa = 'sss';
-
-// 局部变量和全局变量
-(function(){
-  var x = y = 1;
-})();
-console.log(y);
-console.log(x);
-
-// var 与 let 区别
-const Greeters = []
-for (let i = 0 ; i < 10 ; i++) {
-  Greeters.push(function () { return console.log(i) })
+// 实现一个串行请求队列 https://github.com/BetaSu/fe-hunter/issues/6
+// 控制并发请求数量
+// https://juejin.cn/post/6850418108160147464
+// https://juejin.cn/post/6976028030770610213
+// https://zhuanlan.zhihu.com/p/349666099
+async function asyncPool(poolLimit, array, iteratorFn) {
+  const res = [];
+  const exec = [];
+  for (const item of array) {
+    const p = Promise.resolve().then(() => iteratorFn(item, array));
+    res.push(p);
+    console.log('p1', res, res.length);
+    if (poolLimit <= array.length) {
+      const e = p.then(() => {
+        exec.splice(exec.indexOf(e), 1);
+      });
+      exec.push(e);
+      console.log('e1', exec);
+      if (poolLimit <= exec.length) {
+        console.log('p2', exec);
+        await Promise.race(exec);
+      }
+    }
+  }
+  return Promise.all(res);
 }
-Greeters[0]() // 0
-Greeters[1]() // 1
+const timeout = t => new Promise(resolve => {
+  setTimeout(() => {
+    console.log('ttt', t);
+    resolve(t);
+  }, t);
+});
+asyncPool(2, [3000, 4000, 5000, 6000], timeout);
 
-// 闭包：利用的是 “高阶函数” 的特性：函数可以作为参数或者返回值。
-var fn = function(i) {
-  // 局部变量 i 由于被 fun 引用，即便 fn 执行完毕，但也不会被 垃圾回收。
+
+// https://github.com/mqyqingfeng/Blog/issues/12
+var bind = function(fn, context) {
+  var slice = Array.prototype.slice,
+    args = slice.call(arguments, 2);
   return function() {
-    console.log(i++);
+    return fn.apply(context, args.concat(slice.call(arguments)));
   };
 };
-var fun = fn(2);
-fun();
-fun();
+var handler = function(x, y) {
+  console.log(x, y);
+};
+var argh = bind(handler, undefined, 5, 10);
 
-// https://www.jb51.net/article/211414.htm
-for (var j = 0; j < 3; j++) {
-  setTimeout(() => console.log(j), 1000);
-  (function(j) {
-    setTimeout(() => console.log(j), 3000);
-  })(j);
+
+// debounce 和 throttle 区别 https://github.com/lishengzxc/bblog/issues/7
+// debounce 请求时序问题  https://juejin.cn/post/6943877239612276744
+
+// https://remysharp.com/2010/07/21/throttling-function-calls
+function debounce(fn, delay) {
+  var timer = null;
+  return function() {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+      fn.apply(context, args);
+    }, delay);
+  };
 }
-for (let j = 0; j < 3; j++) {
-  setTimeout(() => console.log(j), 1000);
+
+// https://remysharp.com/2010/07/21/throttling-function-calls
+function throttle(fn, threshold) {
+  threshold = threshold || 200;
+  var last, timeout;
+
+  return function() {
+    var now = +new Date();
+    var args = arguments;
+    var trigger = function() {
+      last = now;
+      fn.apply(this, args);
+    }.bind(this);
+    if (last && now < last + threshold) {
+      // hold on to it
+      clearTimeout(timeout);
+      timeout = setTimeout(trigger, threshold);
+    } else {
+      trigger();
+    }
+  };
 }
 
-
-// 正则表达式验证 6 位数字密码？6~15位数字、字母？
-// /^\d{6}$/  /^[a-zA-Z0-9]{6,15}$/
-
-// 不声明中间变量的值交换
-// https://medium.com/@frontman/how-swap-two-values-without-temporary-variables-using-javascript-8bb28f96b5f6
-var a = 1, b = 2;
-a = [b, (b = a)][0];
-
-// 如何判断一个变量是对象还是数组？
-// 给出判断 数组 类型的两种以上方法
-var ins = [];
-var ins = {};
-console.log(Object.prototype.toString.call(ins));
-console.log(Array.isArray(ins)); // es5 Array.isArray()
-console.log(ins instanceof Array); // IE 兼容性
-console.log(typeof ins); // 不能使用 typeof 来判断对象和数组
-
-/**
- 实现一个方法，用于验证给定字符串是否为数字，
-// 注意充分考虑各种符合数字定义的字符串
-示例：
-  isNumber('0') => true
-  isNumber(' 0.1 ') => true
-  isNumber('abc') => false
-  isNumber('1 a') => false
-  isNumber('2e10') => true
-  isNumber('Infinity') => true
-*/
-function isNumber(str) {
-  /* 代码实现 */
-  return !isNaN(str * 1);
-}
+// 检测 滚动停止
+var delayedExec = function(after, fn) {
+  var timer;
+  return function() {
+    timer && clearTimeout(timer);
+    timer = setTimeout(fn, after);
+  };
+};
+var scrollStopper = delayedExec(500, function() {
+  console.log("stopped it");
+});
+// document.getElementById('box').addEventListener('scroll', scrollStopper);
 
 // 检验对象是否循环引用
 var obj = { foo: { bar: {} } };
@@ -260,21 +269,6 @@ try {
   console.log(e.message);
 }
 
-// 考察 this 指向
-var user = {
-  count: 1,
-  getCount: function() {
-    return this.count;
-  }
-};
-// console.log(user.getCount()); // what?
-var func = user.getCount;
-// console.log(func()); // what?
-// 怎么能访问到 user 的 count
-var func = user.getCount.bind(user);
-// console.log(func()); // what?
-
-
 // if的条件为空的判断：`null、undefined、\t\n\f、字符串空值`等几种情形
 function isBlank(str) {
   if (str == null) str = "";
@@ -282,10 +276,146 @@ function isBlank(str) {
 }
 
 // 获取一个数字数组中的最大值或最小值
+// Math.max(...array)
 // Math.max.apply(Math, numbersArr);
 
+
+
+
+
+
+
+// ====================== DOM BOM
+// DOM和BOM的解释分析 https://juejin.cn/post/6844903939008102413
+
+// dom 节点包含 https://segmentfault.com/q/1010000007159611
+
+
+// 改变 url 而不刷新页面的方法：location.hash(hashchange 事件)，history api。
+// history 模式需要后端的配合，不然刷新页面会 404 https://developer.mozilla.org/en-US/docs/Web/API/History_API
+// 浏览器在被点击“后退”或者“前进"按钮时，会触发 popstate 事件，代码调用 history.pushState/replaceState 不会触发。
+// 用处：将 参数 更新到 URL 里，在 刷新页面 的时候会保留搜索结果
+window.addEventListener('hashchange', (e) => console.log(e)); // 如果有 hash 时、触发
+window.addEventListener('popstate', function (e) {
+  console.log('popstate event: ', JSON.stringify(e.state), e);
+  if (e.state !== null) {
+    //load content with ajax
+  }
+});
+history.pushState({page: 1}, "title 1", "?page=1");
+// 浏览器不会下载或检查 bar.html 是否存在，刷新页面 404
+history.pushState({page: 2}, "title 2", "bar.html");
+// 不能跨域，baidu 跟本页面是不同域
+history.pushState({page: 2}, "baidu", "https://www.baidu.com/");
+history.replaceState({page: 3}, "title 3", "?page=3");
+history.back(); history.forward(); history.go(2); // 跟 浏览器回退 按钮功能一样，触发 popstate 事件
+
+
+// localStorage / sessionStorage 本地存储问题：
+// 1、浏览器“清空缓存或数据”仍不能清除本地存储的内容，尤其移动平台。
+// 2、用removeItem()或clear()方法清除数据，但受到“同源策略”限制。
+if ('localStorage' in window && window['localStorage'] !== null) {
+  window.addEventListener("storage", (e) => {
+    var storage = window.localStorage;
+    for (var i = 0; i < storage.length; i++) {
+      alert(storage.key(i) + " : " + storage.getItem(storage.key(i)));
+    }
+  }, false);
+  // 数据操作方法  推荐使用 getItem() 和 setItem()
+  localStorage.setItem("b", "isaac"); // localStorage.a = 3;
+  var b = localStorage.getItem("b"); // localStorage.b;
+  localStorage.removeItem("b");
+  localStorage.clear(); // 清除所有
+}
+
+
+// resize 事件只在 window 变化时触发，内部元素变化不会触发
+// 注册在 元素上 不起作用 ele.addEventListener('resize'); 换用 ResizeObserver 监听元素尺寸变化
+window.addEventListener('resize', () => {
+  console.log('resize event');
+}, true);
+
+const unloadHandler = (e) => {
+  e.preventDefault(); // required in some browsers
+  e.returnValue = ""; // required in some browsers
+  return "Custom message to show to the user"; // only works in old browsers
+}
+window.addEventListener('beforeunload', unloadHandler, true);
+
+window.addEventListener('keydown', function showKeyCode(e) {
+  var keyCode = e.keyCode || e.which;
+  console.log('keyCode', keyCode);
+}, false);
+
+
+// 注意：fetch-api 是流式操作，在处理「非utf-8」的编码（如 gbk ）的数据时会出错，可改用 xhr 代替。
+fetch('./users', {
+  mode: 'no-cors', // 会把设置的 application/json 改变为 content-type:text/plain;charset=UTF-8
+  credentials: 'same-origin', // 设置后才能发送 cookies
+  method: 'post',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Hubot',
+    login: 'hubot',
+  })
+}).then(function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  } else {
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
+  }
+}).then((response) => response.json())
+  .then(function(data) {
+    console.log('request succeeded with JSON response', data)
+  }).catch(function(error) {
+    console.log('request failed', error)
+  });
+
+
+function ajax(url, success, fail) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    if (xhr.status >= 200 && xhr.status < 400) {
+      success(xhr.responseText);
+    } else {
+      fail(xhr);
+    }
+  };
+  xhr.open("GET", url, true);
+  xhr.send();
+}
+
+// 跨浏览器的 addEventListener 实现
+function addEventListener(target, eventType, callback) {
+  if (target.addEventListener) {
+    target.addEventListener(eventType, callback, false);
+    return {
+      remove: function() {
+        target.removeEventListener(eventType, callback, false);
+      }
+    };
+  } else if (target.attachEvent) {
+    target.attachEvent("on" + eventType, callback);
+    return {
+      remove: function() {
+        target.detachEvent("on" + eventType, callback);
+      }
+    };
+  }
+}
+
+
+
+
+// ====================== 数组
+
+
 // 数组去重
-// 性能最好
 var uniqueArray = function(arr) {
   for (var i = 0; i < arr.length - 1; i++) {
     var item = arr[i];
@@ -295,7 +425,6 @@ var uniqueArray = function(arr) {
   }
   return arr;
 };
-// 性能次之
 function unique(arr) {
   var a = {}, b = {}, c = [];
   for (var i = 0; i < arr.length; i++) {
@@ -307,9 +436,7 @@ function unique(arr) {
   return c;
 }
 //字符串数组去除重复的项，即[‘1’,‘2’,‘1’,‘3’]——>[‘1’,‘2’,‘3’]
-function uniq(array) {
-  return Array.from(new Set(array));
-}
+Array.from(new Set(array));
 
 // 删除 done 为 true 的数组元素
 var arr = [
@@ -367,6 +494,73 @@ arr.sort(function() {
 });
 
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+// 数组和
+[0,1,2,3,4].reduce((previousValue, currentValue) => previousValue + currentValue, 10);
+// 数组到对象
+[1, 2, 3, 4].reduce((previousValue, currentValue) => {
+  previousValue[currentValue] = `val-${currentValue}`;
+  return previousValue;
+}, {});
+// 对象解构 George, Sam, Pear
+[{ name: 'George' }, { name: 'Sam' }, { name: 'Pear' }].reduce(function (partial, value) {
+  if (partial) {
+    partial += ', '
+  }
+  return partial + value.name
+}, '');
+
+
+var arr2 = ['a', 'b', 'c', 'e'];
+var arr_final = ['d', 'f', 'e', 'a', 'c', 'b'].sort((a, b) => {
+  console.log(a, b)
+  return arr2.indexOf(a) - arr2.indexOf(b)
+});
+console.log(arr_final);
+
+
+// react state slice
+function todos(state, action) {
+  return [
+    ...state.slice(0, action.index),
+    Object.assign({}, state[action.index], {
+      completed: true
+    }),
+    ...state.slice(action.index + 1)
+  ]
+}
+var newSt = todos([{completed: false}, {completed: false}], {index: 0})
+console.log(newSt);
+
+
+// js 数组深入 https://segmentfault.com/a/1190000037627661
+
+// 元素翻转 https://stackoverflow.com/questions/872310/javascript-swap-array-elements
+var list = [{ a: 1 }, { b: 2 }];
+var b = list[1];
+list[1] = list[0];
+console.log(list, b);
+list[0] = b;
+console.log(list);
+
+// 模拟 repeat 效果
+console.log(Array(20).fill([1, 2, 3]).flat());
+
+// array from 第二个参数 map 函数 不会跳过值为 undefined 的数值项
+const length = 3;
+const init   = 0;
+const resultA = Array.from({ length }, (_, index) => ({}));
+const resultB = Array(length).fill({});
+console.log(resultA[0] === resultA[1], resultB[0] === resultB[1]);
+
+const result = Array.from({ length }, () => init);
+const result1 = Array(length).fill(init);
+const result2 = Array(length).map(() => init);
+console.log(result, result1, result2);
+
+
+// https://stackoverflow.com/questions/11800873/javascript-split-an-array-into-subarrays-by-a-given-seperator
+
 // 生成数组
 var numbers = [];
 for (var i = 1; numbers.push(i++) < 100; );
@@ -379,116 +573,159 @@ var genArr = Array.from({ length: 10 }, (v, i) => i);
 var genArr = [...Array(10).keys()];
 var genArr = Array(7).join(0).split(0).map(Number.call, Number);
 var genArr = Array(10).fill(0).map((e, i) => i + 1);
+
+
+
+
+
+
+// ====================== 基本数据类型、对象、函数、原型、正则
+
+
+
+// 中间变量 值交换 https://juejin.cn/post/6844903492608327688
+var a = 1, b = 2;
+a = [b, (b = a)][0];
+
+// Destructured assignment
+var { repeat, rules: { custom }} = { repeat: true, rules: { custom: 10 } };
+console.log('Destructured assignment:', custom);
+
+
 // 生成随机字符
 var randomChar = Math.floor(Math.random() * 36).toString(36);
 
-// https://stackoverflow.com/questions/11800873/javascript-split-an-array-into-subarrays-by-a-given-seperator
 
+// 变量提升 https://www.jianshu.com/p/0f49c88cf169
+var v='Hello World';
+(function(){
+  var v;
+  alert(v); // undefined
+  v='I love you';
+})();
 
-// [function currying](http://en.wikipedia.org/wiki/Currying)
-// 参考对比：
-// Function.prototype.bind
-var bind = function(fn, context) {
-  var slice = Array.prototype.slice,
-    args = slice.call(arguments, 2);
-  return function() {
-    return fn.apply(context, args.concat(slice.call(arguments)));
-  };
-};
-var handler = function(x, y) {
-  console.log(x, y);
-};
-var argh = bind(handler, undefined, 5, 10);
+const add = () => window.addEventListener('click', () => console.log(aa))
+add();
+const aa = 'sss';
 
+// 局部变量和全局变量
+(function(){
+  var x = y = 1;
+})();
+console.log(y); // 1 在 window 上
+console.log(x); // 报错
 
-// debounce 和 throttle 区别 https://github.com/lishengzxc/bblog/issues/7
-// debounce 请求时序问题  https://juejin.cn/post/6943877239612276744
+// var 与 let 区别
+const Greeters = []
+for (let i = 0 ; i < 10 ; i++) {
+  Greeters.push(function () { return console.log(i) })
+}
+Greeters[0]() // 0
+Greeters[1]() // 1
 
-// https://remysharp.com/2010/07/21/throttling-function-calls
-function debounce(fn, delay) {
-  var timer = null;
-  return function() {
-    var context = this, args = arguments;
-    clearTimeout(timer);
-    timer = setTimeout(function() {
-      fn.apply(context, args);
-    }, delay);
-  };
+// https://www.jb51.net/article/211414.htm
+for (var j = 0; j < 3; j++) {
+  setTimeout(() => console.log(j), 1000);
+  (function(j) {
+    setTimeout(() => console.log(j), 3000);
+  })(j);
+}
+for (let j = 0; j < 3; j++) {
+  setTimeout(() => console.log(j), 1000);
 }
 
-// https://remysharp.com/2010/07/21/throttling-function-calls
-function throttle(fn, threshold) {
-  threshold = threshold || 200;
-  var last, timeout;
 
-  return function() {
-    var now = +new Date();
-    var args = arguments;
-    var trigger = function() {
-      last = now;
-      fn.apply(this, args);
-    }.bind(this);
-    if (last && now < last + threshold) {
-      // hold on to it
-      clearTimeout(timeout);
-      timeout = setTimeout(trigger, threshold);
-    } else {
-      trigger();
-    }
+/*
+  shim、sham 和 polyfill 之间的区别？
+  - es5-shim 完美模拟了所有 ES5 中可以被完美模拟的方法。就是说 ES5 中有些方法，是可以在旧 JS 引擎中完美模拟了，那么 shim 就完美模拟了它们。shim 不局限与浏览器环境，只要 JavaScript 引擎支持，代码即可运行。
+  - es5-sham 只承诺你用的时候代码不会崩溃，至于对应的方法是不是起作用它就不保证了。如果你要用的方法在 shim 中都包含了，那么就不需要 sham。sham 能不引用就不引用。sham 依赖 shim。
+  IE8：只支持 ES3。
+  // https://github.com/es-shims/es5-shim
+  es6 modules 父子 module 的代码执行顺序、class 内外代码执行顺序。
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+  // Iterables & for … of loops
+*/
+
+// Block–scoped variables
+var es = [];
+for (var i = 0; i < 10; i++) {
+  let c = i;
+  es[i] = function () {
+    console.log("ES" + c);
   };
 }
+es[6]();
 
-function ajax(url, success, fail) {
-  var xhr = new XMLHttpRequest();
-  xhr.onload = function() {
-    if (xhr.status >= 200 && xhr.status < 400) {
-      success(xhr.responseText);
-    } else {
-      fail(xhr);
-    }
-  };
-  xhr.open("GET", url, true);
-  xhr.send();
-}
-
-// 检测 滚动停止
-var delayedExec = function(after, fn) {
-  var timer;
-  return function() {
-    timer && clearTimeout(timer);
-    timer = setTimeout(fn, after);
-  };
+// Computed property keys
+var pre = 'p_';
+var obj = {
+  foo1() { return 1; },
+  ['foo' + 2]() { return 2; },
 };
-var scrollStopper = delayedExec(500, function() {
-  console.log("stopped it");
-});
-// document.getElementById('box').addEventListener('scroll', scrollStopper);
+console.log(obj);
 
-// 跨浏览器的 addEventListener 实现
-function addEventListener(target, eventType, callback) {
-  if (target.addEventListener) {
-    target.addEventListener(eventType, callback, false);
-    return {
-      remove: function() {
-        target.removeEventListener(eventType, callback, false);
-      }
-    };
-  } else if (target.attachEvent) {
-    target.attachEvent("on" + eventType, callback);
-    return {
-      remove: function() {
-        target.detachEvent("on" + eventType, callback);
-      }
-    };
+// 在 es class 中的 箭头函数 比较慢，而且不在 原型链 上。  https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1
+class A {
+  static color = "red";
+  counter = 0;
+  handleClick = () => {
+    console.log("A.handleClick");
+    this.counter++;
+  }
+  handleLongClick() {
+    console.log("A.handleLongClick");
+    this.counter++;
   }
 }
+// A.prototype.handleClick is undefined
+console.log(A.prototype, A.prototype.handleClick, A.prototype.handleLongClick);
+new A().handleClick();
+class C extends A {
+  handleClick() {
+    super.handleClick();
+    console.log("C.handleClick");
+  }
+}
+console.log(C.prototype.__proto__); // {constructor: ƒ, handleLongClick: ƒ}
+new C().handleClick();
 
 
+// 闭包：利用的是 “高阶函数” 的特性：函数可以作为参数或者返回值。
+var fn = function(i) {
+  // 局部变量 i 由于被 fun 引用，即便 fn 执行完毕，但也不会被 垃圾回收。
+  return function() {
+    console.log(i++);
+  };
+};
+var fun = fn(2);
+fun();
+fun();
 
+// 考察 this 指向
+var user = {
+  count: 1,
+  getCount: function() {
+    return this.count;
+  }
+};
+console.log(user.getCount()); // 1
+var func = user.getCount;
+console.log(func()); // undefined
+// 怎么能访问到 user 的 count
+var func = user.getCount.bind(user);
+console.log(func()); // 1
 
-
-
-// ======================  基础 ======================
+var o = {
+  x: 8,
+  valueOf: function() {
+    return this.x + 2;
+  },
+  toString: function() {
+    return this.x;
+  }
+};
+console.log(o + '1', o + 1); // "101" 11
 
 
 /*
@@ -641,19 +878,18 @@ o = Object.create(Object.prototype);
 o.foo = 2;
 console.log(o);
 
-var o = {
-  x: 8,
-  valueOf: function() {
-    return this.x + 2;
-  },
-  toString: function() {
-    return this.x;
-  }
-};
-console.log(o + '1', o + 1); // "101" 11
+
+// 如何判断一个变量是对象还是数组？
+// 给出判断 数组 类型的两种以上方法
+var ins = [];
+var ins = {};
+console.log(Object.prototype.toString.call(ins));
+console.log(Array.isArray(ins)); // es5 Array.isArray()
+console.log(ins instanceof Array); // IE 兼容性
+console.log(typeof ins); // 不能使用 typeof 来判断对象和数组
 
 
-/* instanceof，判断对象是否是某个类的实例
+/* instanceof 判断对象是否是某个类的实例
   如果 obj instanceof Class 返回 true，那么 Class 的原型与 obj 原型链上的某个原型是同一个对象，
   但这并不意味着 obj 拥有 Class 的所有实例属性 (但肯定拥有 Class 的所有原型属性)。
 */
@@ -802,7 +1038,25 @@ var undefined = 6;
 
   parseInt() 方法有基模式，可以把 二进制、八进制、十六进制 或其他任何进制的字符串转换成整数，基是由方法的第二个参数指定。
   parseFloat() 原理和 parseInt() 解析方式相同，区别是只能解析 十进制 的值
-  */
+*/
+
+
+/**
+ 实现一个方法，用于验证给定字符串是否为数字，
+// 注意充分考虑各种符合数字定义的字符串
+示例：
+  isNumber('0') => true
+  isNumber(' 0.1 ') => true
+  isNumber('abc') => false
+  isNumber('1 a') => false
+  isNumber('2e10') => true
+  isNumber('Infinity') => true
+*/
+function isNumber(str) {
+  /* 代码实现 */
+  return !isNaN(str * 1);
+}
+
 console.log("10" * 5); // * - / 转换为整型，+ 转换为字符串
 console.log(5 / 0);  // Infinity
 console.log(-5 / 0);  // -Infinity
@@ -870,6 +1124,19 @@ var s = 'test';
 s.len = 4; // 创建包装对象，为包装对象添加属性 len
 console.log(s.len); // 查找其len属性，返回 undefined
 
+
+
+/*
+  正则
+*/
+var urlStr = 'https://cn.bing.com:8999/search/1?query=java+regex&a=b';
+// 匹配问号前
+var matches = urlStr.match(/^(http|https):\/\/([A-Za-z0-9.-]+)(:[0-9]+)?(\/[^?]+).*$/);
+// 匹配问号后 q 参数
+var matches = urlStr.match(/.+(\?|\&)q=([^&.]+)?&/);
+
+// 正则表达式验证 6 位数字密码？6~15位数字、字母？
+// /^\d{6}$/  /^[a-zA-Z0-9]{6,15}$/
 
 
 

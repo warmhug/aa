@@ -6,6 +6,8 @@
 </head>
 <body>
   <script>
+    // https://zh.javascript.info/promise-error-handling
+
     var getA = cb => cb('a');
     var getB = cb => cb('b');
     var getC = cb => cb('c');
@@ -53,6 +55,31 @@
     }).catch(err => {
       console.log('final catch', err)
     });
+
+
+    Promise.all([
+      new Promise(function (resolve, reject) {
+        console.log('reject 先执行，后边 promise 内容是否会执行了？');
+        window.addEventListener('DOMContentLoaded', () => resolve('dom ready'));
+        // window.addEventListener('DOMContentLoaded', () => reject('dom ready'));
+        // return reject('reject immediately');
+      }),
+      new Promise(function (resolve) {
+        window.addEventListener('DOMContentLoaded', () => resolve('dom ready'));
+        // return reject('reject again');
+      }),
+      new Promise(function (resolve) {
+        console.log('p1');
+        window.addEventListener('DOMContentLoaded', () => resolve('dom ready'));
+      }),
+      new Promise(function (resolve) {
+        console.log('fake promise');
+        resolve('fake promise');
+      })
+    ]).then(res => console.log('res: ', res), rej => console.log(rej));
+
+    // 不管成功失败，都返回所有结果，不退出
+    Promise.almost = r => Promise.all(r.map(p => p.catch ? p.catch(e => e) : p));
   </script>
 </body>
 </html>

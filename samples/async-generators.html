@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>generators</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
 </head>
 <body>
+  <p>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*">Generators</a>
+    are special functions which produce
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/The_Iterator_protocol">iterators</a>
+    when constructed. The <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield">yield</a></code> statement within a generator suspends execution and returns control back
+    to the calling function, and normally also returns a value. Subsequent
+    iterations will reuse the previous state and continue execution of the
+    generator code where it last left off.
+  </p>
+
   <script>
     const fetchSomething = () => new Promise(function(resolve, reject) {
       setTimeout(() => resolve('foo'), 3000);
@@ -26,7 +35,76 @@
     console.log('ge next: ', ge.next());
 
     // todos: return promise value
+  </script>
 
-  </script>  
+  <script>
+    "use strict";
+
+    function timeout() {
+      setTimeout(function() {
+        alert("1");
+      }, 1000);
+      return "xx";
+    }
+
+    function* foo(input) {
+      //var res = yield input;
+      yield timeout();
+
+      var x = yield 2;
+      yield x * x;
+
+      alert("now exec");
+      var res = yield ++input;
+      console.log("res is ", res);
+    }
+    var g = foo(10);
+    console.log(Object.prototype.toString.call(g));
+    console.log(g.next()); //
+    console.log(g.next()); //
+    console.log(g.next()); //
+    console.log(g.next()); //
+    console.log(g.next(20)); //
+
+    // for of
+    function* foo1() {
+      yield 1;
+      yield 2;
+      yield 3;
+      yield 4;
+      yield 5;
+      // return 6;
+    }
+    for (let v of foo1()) {
+      console.log(v);
+    }
+
+    // 斐波那契
+    function* fibonacci() {
+      let [prev, curr] = [0, 1];
+      for (;;) {
+        [prev, curr] = [curr, prev + curr];
+        yield curr;
+      }
+    }
+    for (let n of fibonacci()) {
+      if (n > 1000) break;
+      console.log(n);
+    }
+
+    function* iterTree(tree) {
+      if (Array.isArray(tree)) {
+        for (let i = 0; i < tree.length; i++) {
+          yield* iterTree(tree[i]);
+        }
+      } else {
+        yield tree;
+      }
+    }
+    const tree = ["a", ["b", "c"], ["d", "e"]];
+    for (let x of iterTree(tree)) {
+      console.log(x);
+    }
+  </script>
 </body>
 </html>

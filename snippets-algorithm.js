@@ -1,22 +1,5 @@
 
-/**
-  base
-*/
 // 冒泡排序 时间复杂度 O(n²)
-function bubbleSort(arr) {
-  let _count = 1;
-  for (let i = arr.length - 1; i > 0; i--) {
-    for (let j = 0; j < i; j++) {
-      console.log('for _count', _count++);
-      if (arr[j] > arr[j + 1]) {
-        // 交换次数 最多 n(n-1)/2
-        // swap(arr, j, j + 1);
-        [arr[j + 1], arr[j]] = [arr[j], arr[j + 1]];
-      }
-    }
-  }
-  return arr;
-}
 // 冒泡排序优化 对已排序的做标记、只排序未排的部分
 function bubbleSort1(arr) {
   let _count = 1;
@@ -37,6 +20,7 @@ var arr = [91, 60, 96, 7, 35, 65, 10];
 console.log(bubbleSort(arr));
 
 // 快排 https://juejin.cn/post/6844903938290876430
+// 时间复杂度为O(nlogn) 空间复杂度为O(n)
 function quickSort(rawArr = []) {
   if (rawArr.length <= 1) { return rawArr; }
   // 排除掉分界点元素
@@ -44,23 +28,46 @@ function quickSort(rawArr = []) {
   const rightArray = rawArr.filter(item => item < rawArr[0]);
   console.log('exec', leftArray, rightArray);
   return [...quickSort(leftArray), rawArr[0], ...quickSort(rightArray)];
+
+  const left = [];
+  const right = [];
+  for (let index = 1; index < rawArr.length; index++) {
+    if (rawArr[0] >= rawArr[index]) {
+      left.push(rawArr[index]);
+    } else {
+      right.push(rawArr[index]);
+    }
+  }
+  return [...quickSort(left), arr[0], ...quickSort(right)];
 }
+var arr = [91, 60, 96, 7, 35, 65, 10];
 var arr = [2,3,1,5,0];
 console.log(quickSort(arr));
 
+// 二分法查找示例 https://juejin.cn/post/6860318443711938574
+// 二分法查找和遍历复杂度 https://blog.csdn.net/HUST_zxs/article/details/130478382
+
 
 // 爬楼梯 f(x)=f(x−1)+f(x−2)
-// 斐波那契数列：前面相邻两项之和，构成了后一项。
-// [0, 1, 1, 2, 3, 5, 8, 13]
+// 斐波那契数列：前面相邻两项之和，构成了后一项。 [0, 1, 1, 2, 3, 5, 8, 13]
 function fibArr(n) {
-  const fibs = [];
-  let [pre, cur] = [0, 1];
+  if (n <= 1) return 1;
+  let [pre, cur] = [1, 2];
   // 空间复杂度 O(1) 滚动数组法？ 动态规划法？
-  for (let index = 1; index < n; index++) {
+  for (let index = 2; index < n; index++) {
     [pre, cur] = [cur, pre + cur];
-    fibs.push(cur);
   }
-  return fibs;
+  return cur;
+
+  // 临时变量法 https://blog.csdn.net/yangxinxiang84/article/details/121278068
+  let cur = 2, pre = 1, sum;
+  for (let index = 2; index < n; index++) {
+    sum = cur + pre;
+    pre = cur;
+    cur = sum;
+    console.log('cur', cur, index);
+  }
+  return cur;
 }
 console.log(fibArr(10));
 // 爬楼梯
@@ -75,13 +82,44 @@ function climbStairs(n) {
 
 function fibonacci(n) {
   if (n <= 2) {
-    return 1;
-  } else {
-    const num = fibonacci(n - 1) + fibonacci(n - 2);
-    return num;
+    return n;
   }
+  // 递归法 会超时
+  return fibonacci(n - 1) + fibonacci(n - 2);
 }
 console.log(fibonacci(10));
+
+// 阶乘 递归法和迭代法 时间复杂度都为O(n)，但是递归算法要进行n次函数调用 迭代法只有一次函数调用。
+function factorial(num){
+  if (num<1) {
+    return 1
+  } else {
+    return num * factorial(num-1)
+  }
+}
+function factorial(num){
+  if (num < 1) {
+    return 1
+  }
+  let res = 1;
+  for (let i = 1; i <= num; i++) {
+    res *= i;
+  }
+  return res;
+}
+
+// 172. 阶乘后的零
+var trailingZeroes = function(n) {
+  let ans = 0;
+  while (n !== 0) {
+      n = Math.floor(n / 5);
+      ans += n;
+  }
+  return ans;
+};
+console.log(trailingZeroes(26));
+
+// 求次方 快速幂算法 https://zhuanlan.zhihu.com/p/95902286
 
 // leetcode 1. 两数之和  暴力破解法、hash 表法
 var twoSum = function(nums, target) {
@@ -90,7 +128,7 @@ var twoSum = function(nums, target) {
   for (let index = 0; index < nums.length; index++) {
     const num = nums[index];
     const hasVal = hashObj[target - num];
-    if (hasVal) {
+    if (hasVal != undefined) {
       return [hasVal, index];
     }
     hashObj[num] = index;
@@ -98,25 +136,67 @@ var twoSum = function(nums, target) {
 };
 console.log('twoSum', twoSum([1,2,3,7,11,15], 9));
 
-// 876. 链表的中间结点
-
 // 136. 只出现一次的数字  位运算异或 时间复杂度：O(n)，空间复杂度：O(1)
-
-// 172. 阶乘后的零
-
-// leetcode 209. 长度最小的子数组
-// https://github.com/azl397985856/leetcode/blob/master/problems/209.minimum-size-subarray-sum.md
-
-// 汉诺塔问题 https://blog.csdn.net/lizhengxv/article/details/80043809
+var singleNumber = function(nums) {
+  let ans = 0;
+  for(const num of nums) {
+      ans ^= num;
+  }
+  return ans;
+};
+console.log(singleNumber([2,1,2]));
 
 // 20. 有效的括号 https://leetcode-cn.com/problems/valid-parentheses/
+var isValid = function(s) {
+  let map = { "{":"}", "[":"]", "(":")" }
+  let leftArr = [];
+  for(let ch of s){
+      if(ch in map){
+          leftArr.push(ch)
+      }else{
+          if(ch!=map[leftArr.pop()]){
+              return false
+          }
+      }
+  }
+   return !leftArr.length
+};
+console.log(isValid("{([])}"));
 
-// 53. 最大子序和
+// 53. 最大子数组和
+// 具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+var maxSubArray = function(nums) {
+  let pre = 0, maxAns = nums[0];
+  nums.forEach((x) => {
+      pre = Math.max(pre + x, x);
+      maxAns = Math.max(maxAns, pre);
+  });
+  return maxAns;
+};
+console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]));
 
+// 300. 最长递增子序列
+// https://leetcode.cn/problems/longest-increasing-subsequence/solutions/1033432/dong-tai-gui-hua-he-er-fen-cha-zhao-lian-x7dh/
+var lengthOfLIS = function (nums) {
+  const dp = new Array(nums.length).fill(1);
+  for (let i = 0; i < nums.length; i++) {
+    // i与i前面的元素比较
+    for (let j = 0; j < i; j++) {
+      // 找比i小的元素，找到一个，就让当前序列的最长子序列长度加1
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1);
+      }
+    }
+  }
+  // 找出最大的子序列
+  return Math.max(...dp);
+};
+
+// 873. 最长的斐波那契子序列的长度
 // https://leetcode-cn.com/problems/length-of-longest-fibonacci-subsequence/
 // 动态规划 https://juejin.cn/post/6951922898638471181
 // 状态转移方程: 新加入一个元素nums[i], 最长递增子序列要么是以nums[i]结尾的递增子序列，要么就是nums[i-1]的最长递增子序列。
-// 最长斐波那契子序列
+// 最长斐波那契式子序列的长度 (结果不一定是斐波那契数)
 var lenLongestFibSubseq = function (arr) {
   const len = arr.length;
   let ans = 0;
@@ -137,10 +217,58 @@ var lenLongestFibSubseq = function (arr) {
       }
   }
   return ans > 2 ? ans : 0;
+  /*
+  let ans = 0, n = arr.length;
+  for (let i = 0; i < n - 2; i++) {
+    for (let j = i + 1; j < n - 1; j++) {
+      let a = arr[i], b = arr[j], len = 2;
+      for (let k = j + 1; k < n; k++) {
+        let c = arr[k];
+        if (a + b === c) {
+          a = b;
+          b = c;
+          ans = Math.max(ans, ++len);
+        } else if (a + b < c) {
+          break;
+        }
+      }
+    }
+  }
+  return ans;
+  */
 };
-const arr1 = [1,3,7,11,12,14,18]
-// const arr1 = [1,2,3,4,5,6,7,8];
-console.log(lenLongestFibSubseq(arr1));
+console.log(lenLongestFibSubseq([1,3,7,11,12,14,18]));
+console.log(lenLongestFibSubseq([1,2,3,4,5,6,7,8]));
+
+
+// leetcode 209. 长度最小的子数组
+// https://github.com/azl397985856/leetcode/blob/master/problems/209.minimum-size-subarray-sum.md
+var minSubArrayLen = function (target, nums) {
+  if (nums.length === 0) return 0;
+  const slideWindow = [];
+  let acc = 0;
+  let min = null;
+  for (let i = 0; i < nums.length + 1; i++) {
+    const num = nums[i];
+    while (acc >= target) {
+      if (min === null || slideWindow.length < min) {
+        min = slideWindow.length;
+      }
+      acc = acc - slideWindow.shift();
+      console.log('acc', slideWindow)
+    }
+    slideWindow.push(num);
+    acc = slideWindow.reduce((a, b) => a + b, 0);
+  }
+  return min || 0;
+};
+console.log(minSubArrayLen(7, [2,3,3,2,4,3]));
+
+
+// 汉诺塔问题 https://blog.csdn.net/lizhengxv/article/details/80043809
+
+// 876. 链表的中间结点
+
 
 
 
@@ -292,14 +420,13 @@ function generateTree(
 ) {
   const treeData = [];
   function _loop(level, preKey = "0", nodes = treeData) {
-    const _level = level - 1;
     if (level < 0) {
       return nodes;
     }
     for (let i = 0; i < x; i++) {
       const key = `${preKey}-${i}`;
       if (i < y) {
-        nodes.push({ id: key, children: _loop(_level, key, []) });
+        nodes.push({ id: key, children: _loop(level - 1, key, []) });
       } else {
         nodes.push({ id: key });
       }
@@ -358,7 +485,45 @@ function getLeafCount(data) {
 console.log(getLeafCount({ id: 0, children: tree }));
 
 
-
+// tree 数据结构扁平化 https://juejin.cn/post/6983904373508145189
+function arrayToTree(items) {
+  const result = [];   // 存放结果集
+  const itemMap = {};  //
+  for (const item of items) {
+    const id = item.id;
+    const pid = item.pid;
+    if (!itemMap[id]) {
+      itemMap[id] = {
+        children: [],
+      }
+    }
+    itemMap[id] = {
+      ...item,
+      children: itemMap[id]['children']
+    }
+    const treeItem = itemMap[id];
+    if (pid === 0) {
+      result.push(treeItem);
+    } else {
+      if (!itemMap[pid]) {
+        itemMap[pid] = {
+          children: [],
+        }
+      }
+      itemMap[pid].children.push(treeItem)
+    }
+  }
+  console.log('itemMap', itemMap);
+  return result;
+}
+var arr = [
+  {id: 1, name: '1', pid: 0},
+  {id: 2, name: '2', pid: 1},
+  {id: 3, name: '3', pid: 1},
+  {id: 4, name: '4', pid: 3},
+  {id: 5, name: '5', pid: 3},
+]
+console.log(arrayToTree(arr))
 
 
 
@@ -492,7 +657,6 @@ js 算法 https://github.com/trekhleb/javascript-algorithms
 递归、尾递归，构造多叉树、二叉树(中序遍历)，排序。
 常用算法：查找(二分法)、双指针(快慢指针)、动态规划、滑动窗口。
 几种常见的JS递归算法 https://juejin.cn/post/6844904014207795214
-二分法查找和遍历 https://blog.csdn.net/HUST_zxs/article/details/130478382
 
 数据结构 逻辑结构 线性的：数组、链表、栈、队列(优先队列)、串  非线性的：堆、树、图、广义表。 存储结构:
 
