@@ -95,7 +95,7 @@ IDE
 [top10-javascript-file-managers](https://hackernoon.com/top-10-javascript-file-managers-8o2p34vw)、[file-browser](https://reactjsexample.com/tag/file-browser/)、[file-manager](https://js.plus/products/file-manager)、[OpusCapita](https://demo.core.dev.opuscapita.com/filemanager/master/?currentComponentName=FileManager&maxContainerWidth=100%25&showSidebar=false)、[dxFileManager](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxFileManager/)、[dhtmlxFileManager](https://dhtmlx.com/docs/products/dhtmlxFileManager/)、[syncfusion/file-manager](https://www.syncfusion.com/blogs/post/introducing-new-javascript-file-manager-control.aspx)、[webix/filemanager](https://webix.com/filemanager/)。
 
 其他
-[react-sketchapp](https://github.com/airbnb/react-sketchapp)、[fabricjs](http://fabricjs.com/)(canvas)、[ua 检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)、[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)、[code-inspector](https://www.code-inspector.com/)、[自动 polyfill](https://polyfill.io/v3/url-builder/)、[jsfuck 代码混淆](http://www.jsfuck.com/)、[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)、[franc](https://github.com/wooorm/franc)、[togetherjs](https://togetherjs.com/)、[docz](https://www.docz.site/)、[wiki.js](https://wiki.js.org/)、[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)、/ oneshot / web-Excel / 机器人工厂。
+[react-sketchapp](https://github.com/airbnb/react-sketchapp)、[fabricjs](http://fabricjs.com/)(canvas)、[ua 检测](https://github.com/ded/bowser)、[特性检测](https://github.com/barisaydinoglu/Detectizr)、[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)、[code-inspector](https://www.code-inspector.com/)、[自动 polyfill](https://polyfill.io/v3/url-builder/)、[jsfuck 代码混淆](http://www.jsfuck.com/)、[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)、[franc](https://github.com/wooorm/franc)、[togetherjs](https://togetherjs.com/)、[docz](https://www.docz.site/)、[wiki.js](https://wiki.js.org/)、[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)、/ oneshot / web-Excel / 机器人工厂。 docusaurus
 
 营销/游戏/大屏: 魔石 / 魔切 / 喵动 / 犸良 / sherry / 幻鹦-大屏。
 
@@ -108,6 +108,7 @@ https://superset.apache.org/
 
 ICBU前端性能度量 https://mp.weixin.qq.com/s/XAdNOovCQxh5xuGVOSEz3w
 
+https://web.dev/articles/vitals?hl=zh-cn
 [Web vitals](https://www.cnblogs.com/constantince/p/15237915.html)、
 [thresholds](https://web.dev/i18n/en/defining-core-web-vitals-thresholds/)、
 [Chrome的First Paint触发的时机探究](https://cloud.tencent.com/developer/article/1124484)、

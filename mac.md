@@ -132,6 +132,8 @@ zsh --version  # Mac 系统自带了 zsh
 `.zshrc` 文件
 
 ```sh
+# 安装 java 参考：http://chessman-126-com.iteye.com/blog/2162466
+
 # bin 目录加入环境变量
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -159,17 +161,6 @@ source $ZSH/oh-my-zsh.sh
 # 运行 alias 查看所有别名
 alias cz="code ~/.zshrc"
 alias sz="source ~/.zshrc"
-
-## java  参考：http://chessman-126-com.iteye.com/blog/2162466
-#export JAVA_6_HOME=`/usr/libexec/java_home -v 1.6` # Mac默认 JDK 6（Mac默认自带了一个jdk6版本）
-#export JAVA_7_HOME=`/usr/libexec/java_home -v 1.7` # 设置 JDK 7
-# export JAVA_8_HOME=`/usr/libexec/java_home -v 1.8` # 设置 JDK 8
-#alias命令动态切换JDK版本
-#alias jdk6="export JAVA_HOME=$JAVA_6_HOME"
-#alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
-# export JAVA_HOME=$JAVA_8_HOME #默认JDK
-# export CLASSPATH=.:$JAVA_HOME/lib:
-# export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 
@@ -182,6 +173,7 @@ cd "$(brew --repo)"
 cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
 git remote -v
 brew update / list
+brew info ruby
 ```
 
 ```sh
