@@ -66,8 +66,8 @@ scrcpy --shortcut-mod=lctrl --stay-awake --turn-screen-off -m1024 -b2M --tcpip=1
 
 - 小米应用设置，右上角三个点，显示所有应用。搜索应用，搜小米画报，点进去，卸载。 可使用 adb 卸载。 第三方充电器都不支持小米私有协议快充。
 - 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
-- 重装 Win 系统用老毛桃制作“U盘启动工具”，开机(按F12)设置U盘优先启动、重启会自动进入PE模式，再点击“老毛桃PE装机工具”，选择U盘中的系统镜像、选择分区C、确定后，勾选“格式化分区[NTFS自动]”和“添加引导[C]”，勾选“完成后重启”、点击确定。
-- 支持 Mac + Win 读写的U盘格式: exFAT、FAT32、NTFS(ParagonNTFS)。
+- 支持 Mac + Win 读写的U盘格式: exFAT FAT32 NTFS(软件 ntfstool / ParagonNTFS )。
+- 2024-04 [Win系统安装盘](https://zhuanlan.zhihu.com/p/273305963)、系统[下载地址](https://hellowindows.cn/)，电脑开机(按F12)设置U盘优先启动。
 
 
 ## 图像视频
@@ -83,8 +83,7 @@ Mac smb 文件共享(速度约1M/s较慢)
 这样把一台 Mac 作为「共享盘」，有点 NAS 的意思。
 
 视频字幕类型有三种：内嵌字幕、外挂字幕、封装软字幕。可以视频转为音频、再提取字幕。
-字幕下载 https://subhd.tv
-剪映 / 钉钉闪记 / B站必剪 / 迅捷文字转语音(1G内免费)。
+字幕下载 https://subhd.tv  剪映 / 钉钉闪记 / B站必剪 / 迅捷文字转语音(1G内免费)。
 Subtitle Edit / Aegisub / Subtitle Workshop / HandBrake / FFmpeg / adobe PR
 
 

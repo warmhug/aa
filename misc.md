@@ -30,11 +30,7 @@ Excel 模糊匹配 <http://club.excelhome.net/thread-1048885-1-1.html>
 ```
 
 ```sh
-# 生成 ssh key
-ssh-keygen -t rsa -C "email@example.com"
-# 再把 ~/.ssh/id_rsa.pub 文件内容添加到 github
-
-# 如果报错 Permission denied (publickey,gssapi-with-mic). 使用另一种生成方式
+# 生成 ssh key rsa证书已经被废弃 使用另一种生成方式
 # https://confluence.atlassian.com/bitbucketserverkb/ssh-rsa-key-rejected-with-message-no-mutual-signature-algorithm-1026057701.html
 ssh-keygen -t ed25519 -C hualei.hl@xx.com
 ssh-add ~/.ssh/id_ed25519
@@ -43,10 +39,9 @@ ssh-add ~/.ssh/id_ed25519
 # 内部仓库、设置内部邮箱
 git config user.name "然则"
 git config user.email "hualei.hl@xx-inc.com"
-# github 设置单独的 name email, 在 .gitconfig 里新增以下命令
+# github 给特定目录 设置单独的 name email, 新建 .gitconfig-github 文件, 在 .gitconfig 里新增以下命令
 [includeIf "gitdir:~/inner/-/"]
   	path = .gitconfig-github
-# 再新建 - 目录 和 .gitconfig-github 文件
 
 # 全局默认设置 code ~/.gitconfig
 git config --l
