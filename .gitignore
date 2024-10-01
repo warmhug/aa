@@ -24,19 +24,7 @@ dist
 *.pem
 yarn.lock
 package-lock.json
+pnpm-lock.yaml
+.vscode
 
-# c / c++
-*.out
-
-# https://github.com/github/gitignore/blob/master/CMake.gitignore
-CMakeCache.txt
-CMakeFiles
-cmake-build-debug
-
-# Eclipse for c++
-.metadata
-.settings
-.cproject
-.project
-Debug
-RemoteSystemsTempFiles
+z_log.txt

@@ -1,6 +1,8 @@
 /* eslint no-unused-vars: 0, no-mixed-operators: 0, no-redeclare: 0  */
 
-// [codesandbox.io](https://codesandbox.io/s/zpjo211yp) ([codepen.io](https://codepen.io/))
+// GitHub 登录
+// https://codesandbox.io/s/zpjo211yp
+// https://codepen.io/
 
 /*
 - 从输入URL到页面加载完成 http://fex.baidu.com/blog/2014/05/what-happen/
@@ -11,8 +13,25 @@
 - a 伪类需遵循 css2 规范中的 L-V-H-A (a:link visited hover active) 顺序。
 - 没有 css-parent-selector 。 BEM命名方式。  如何提升 CSS 选择器性能 http://www.jianshu.com/p/268c7f3dd7a6
 
-- [WebAssembly](https://juejin.im/entry/5b20d09d6fb9a01e242490b1) 不是一门编程语言，而是一份字节码标准。 各种复杂的计算：图像处理、3D运算(大型 3D 网页游戏)、语音识别、音视频编码解码。区块链合约。 [madewithwebassembly](https://madewithwebassembly.com/)、eBay 的[条形码扫描](https://www.infoq.cn/article/vc*q7psQqWMaVU8igJeD)、[Google earth web](https://earth.google.com/web/) 版、[autocad](https://web.autocad.com/login) web 版
-- [PWA](https://developers.google.com/web/progressive-web-apps/) Service Worker 需要运行于 HTTPS 或本地 localhost 环境，是继 Web Worker 后又一个新的线程。来实现离线页面功能。 Service Worker 是独立于页面的一个运行环境，它在页面关闭后仍可以运行。Web Worker 在页面关闭后不再运行。
+- js处理本地文件
+https://stackoverflow.com/questions/14446447/how-to-read-a-local-text-file-in-the-browser
+https://developer.chrome.com/docs/capabilities/web-apis/file-system-access
+
+- [WebAssembly](https://juejin.im/entry/5b20d09d6fb9a01e242490b1)
+不是一门编程语言，而是一份字节码标准。 各种复杂的计算：图像处理、3D运算(大型 3D 网页游戏)、语音识别、音视频编码解码。区块链合约。
+[madewithwebassembly](https://madewithwebassembly.com/)、
+eBay 的[条形码扫描](https://www.infoq.cn/article/vc*q7psQqWMaVU8igJeD)、
+[Google earth web](https://earth.google.com/web/) 版、
+[autocad](https://web.autocad.com/login) web 版
+
+- [PWA](https://developers.google.com/web/progressive-web-apps/)
+Service Worker 需要运行于 HTTPS 或本地 localhost 环境，是继 Web Worker 后又一个新的线程。来实现离线页面功能。 Service Worker 是独立于页面的一个运行环境，它在页面关闭后仍可以运行。Web Worker 在页面关闭后不再运行。
+
+gulp 手册
+http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C1.pdf
+http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C2.pdf
+Webpack 5 module federationtion 联邦模块 https://juejin.cn/post/6844904187147321352
+qiankun 子应用嵌套 https://github.com/umijs/qiankun/issues/960
 */
 
 /*
@@ -66,7 +85,9 @@
 - react hooks useEffect 及其 return 函数的执行时机？子组件先执行？多个时执行顺序？怎么确保 dom 先增加成功 (setTimeout)？
 - React-Fiber 并发模式、区分任务优先级、调度协调 中断/恢复任务，浏览器60fps渲染 10毫秒自己执行 5毫秒空闲时间。
 
-- 内存泄漏的情况？ html head 里的 js css 如何放置？
+- 内存泄漏的几种情况？ https://blog.logrocket.com/escape-memory-leaks-javascript/
+- WeakRef 的用处 https://www.reddit.com/r/Frontend/comments/1ato11w/will_the_event_listeners_be_removed_automatically/
+- html head 里的 js css 如何放置？
 - iframe 带来哪些问题？高度改变麻烦、弹框、iframe 里再嵌套 ifr。
 - JSONP 的原理以及 cors 怎么设置？跨域的方法有哪些？jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面。
 - xss/csrf 原理和防御方法。CORS 的 POST 跨域如何带cookie？ https://www.jianshu.com/p/13d53acc124f
@@ -285,11 +306,62 @@ function isBlank(str) {
 
 
 
-// ====================== DOM BOM
+// ====== DOM BOM
 // DOM和BOM的解释分析 https://juejin.cn/post/6844903939008102413
 
 // dom 节点包含 https://segmentfault.com/q/1010000007159611
 
+/*
+iframe 那些事 https://afantasy.ninja/2018/07/15/dive-into-iframe/
+存在的问题：
+- 移动端页面、打开(全屏)嵌入的 iframe 页面，点浏览器返回、返回不到业务页面、需要销毁 iframe。
+- 浏览器刷新 iframe url 状态丢失、后退前进按钮无法使用。
+- 里边 弹出框 的位置、难居中，浏览器 resize 时自动居中 更难处理。
+- 主文档和 iframe 文档如果不同域、免登录处理麻烦，涉及 cookie 透传。
+- 需要完全重新加载，比较慢。
+- iframe 自适应高度：给定高度、内部滚动
+*/
+
+// 判断当前页面是否在 iframe 里
+if (self != top) {
+  alert('在iframe中');
+}
+// 禁止别人以 iframe 加载你的页面
+if (window.location != window.parent.location) {
+  window.parent.location = window.location;
+}
+
+// 向 iframe 元素里写入 html
+var finalHtml = `<!DOCTYPE html><html>
+<head><meta charset="utf-8" /></head>
+<body><p>文档片段</p><script>alert('iframe script');</script></body>
+</html>`;
+function writeIra(finalHtml) {
+  var ifaDom = ifrElement.contentDocument || ifrElement.contentWindow.document;
+  ifaDom.open();
+  ifaDom.write(finalHtml);
+  ifaDom.close();
+}
+writeIra(finalHtml);
+
+// 跨浏览器的 addEventListener 实现
+function addEventListener(target, eventType, callback) {
+  if (target.addEventListener) {
+    target.addEventListener(eventType, callback, false);
+    return {
+      remove: function() {
+        target.removeEventListener(eventType, callback, false);
+      }
+    };
+  } else if (target.attachEvent) {
+    target.attachEvent("on" + eventType, callback);
+    return {
+      remove: function() {
+        target.detachEvent("on" + eventType, callback);
+      }
+    };
+  }
+}
 
 // 改变 url 而不刷新页面的方法：location.hash(hashchange 事件)，history api。
 // history 模式需要后端的配合，不然刷新页面会 404 https://developer.mozilla.org/en-US/docs/Web/API/History_API
@@ -347,7 +419,6 @@ window.addEventListener('keydown', function showKeyCode(e) {
   console.log('keyCode', keyCode);
 }, false);
 
-
 // 注意：fetch-api 是流式操作，在处理「非utf-8」的编码（如 gbk ）的数据时会出错，可改用 xhr 代替。
 fetch('./users', {
   mode: 'no-cors', // 会把设置的 application/json 改变为 content-type:text/plain;charset=UTF-8
@@ -376,7 +447,6 @@ fetch('./users', {
     console.log('request failed', error)
   });
 
-
 function ajax(url, success, fail) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -390,29 +460,194 @@ function ajax(url, success, fail) {
   xhr.send();
 }
 
-// 跨浏览器的 addEventListener 实现
-function addEventListener(target, eventType, callback) {
-  if (target.addEventListener) {
-    target.addEventListener(eventType, callback, false);
-    return {
-      remove: function() {
-        target.removeEventListener(eventType, callback, false);
+function ajaxUploadWithProgress(url, options) {
+  const { method, headers, credentials, body } = options;
+  return new Promise((resolve, reject) => {
+    const result = {};
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = credentials;
+    Object.keys(headers).forEach(item => {
+      xhr.setRequestHeader(item, headers[item]);
+    });
+    xhr.upload.onprogress = function(event) {
+      console.log(`Uploaded ${event.loaded} of ${event.total} bytes`);
+    };
+    xhr.upload.onload = function() {
+      console.log(`Upload finished successfully.`);
+    };
+    xhr.upload.onerror = function() {
+      console.log(`Error during the upload: ${xhr.status}`);
+    };
+    xhr.onloadend = function() {
+      console.log(`Error during the upload: ${xhr.status}`);
+    };
+    xhr.onload = function() {
+      // success: xhr.status >= 200 && xhr.status < 400
+      resolve(xhr);
+    };
+    xhr.open(method, url, true);
+    xhr.send(body);
+  });
+}
+
+const loadImage = async (imgSrc) => {
+  const imgObj = await new Promise((resolve) => {
+    const image = document.createElement('img');
+    image.onload = () => {
+      resolve(image);
+    };
+    image.src = imgSrc;
+  });
+  console.log('img', imgObj);
+}
+
+// base64 图片自动下载
+// https://stackoverflow.com/questions/14011021/how-to-download-a-base64-encoded-image
+function downloadBase64File(base64String, fileName) {
+  // const linkSource = `data:${contentType};base64,${base64Data}`;
+  const now = new Date();
+  const formatNow = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}_${now.getHours()}-${now.getMinutes()}`;
+
+  const downloadLink = document.createElement("a");
+  downloadLink.href = base64String;
+  downloadLink.download = fileName || formatNow + '.jpeg';
+  downloadLink.click();
+}
+
+// 读取 json 文件内容
+const readJsonFile = (file) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (event) => {
+      resolve(JSON.parse(event.target.result));
+    };
+  });
+};
+
+// 异步确认
+const asyncConfirm = (content) => {
+  return new Promise((resolve, reject) => {
+    Modal.confirm({
+      title: '以下模块的文案未填写',
+      content,
+      onOk: () => {
+        resolve();
+      },
+      onCancel: () => {
+        reject();
+      },
+    });
+  });
+};
+
+// 下载字符串为 json 文件
+import fileSaver from 'file-saver';
+const downloadJson = (jsonData, { filename }) => {
+  if (!jsonData) {
+    return;
+  }
+  try {
+    fileSaver.saveAs(
+      new Blob([JSON.stringify(jsonData, null, 4)], { type: 'application/json;charset=utf-8' }),
+      `${filename}.json`
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+function loger() {
+  if (typeof console !== "undefined" && console.log) {
+    try {
+      console.log.apply(null, arguments);
+    } catch (error) {
+      // on Mobile maybe throw "TypeError: Illegal invocation"
+    }
+  }
+  var args = Array.prototype.slice.call(arguments);
+  var ele = document.getElementById("loger");
+  ele.style.cssText =
+    "position:fixed;z-index:99999;left:0;top:0;background:rgba(0,0,0,.5);color:#fff;padding:5px";
+  ele.innerHTML += "<br /><br />" + args.join(" ");
+}
+
+// 用于 Chrome 浏览器插件里，检测并等待飞书文档的标题出现
+const feishuDocsJs = () => {
+  const checkEle = (selector, cb = () => {}) => {
+    let ele, timeout = 8000, startTime = Date.now();
+    const check = () => {
+      ele = document.querySelector(selector);
+      if (!ele && Date.now() - startTime < timeout) {
+        setTimeout(check, 200);
+      } else if (ele) {
+        cb(ele);
       }
     };
-  } else if (target.attachEvent) {
-    target.attachEvent("on" + eventType, callback);
-    return {
-      remove: function() {
-        target.detachEvent("on" + eventType, callback);
-      }
-    };
+    check();
+  };
+  if (window !== top) {
+    checkEle('.suite-title-input', (ele) => {
+      window.postMessage(JSON.stringify({
+        _url: location.href,
+        title: ele.innerHTML,
+      }), '*');
+    });
+  }
+};
+// 用于 Chrome 浏览器插件里，给飞书 drive/me 页面里所有 a 标签加 target 使之能在当前 tab 里打开页面
+const openInCurrentTab = () => {
+  document.querySelectorAll('a').forEach((item) => {
+    item.target = '_parent';
+    item.addEventListener('click', (evt) => {
+      evt.stopPropagation();
+      evt.stopImmediatePropagation();
+    });
+  });
+}
+
+// WebComponents Shadow DOM
+
+/*
+当用户没有与网页进行任何交互 并且也没有动画 requestIdleCallback 执行的时间最长可达到50ms。
+屏幕是 60hz 有渲染时、每帧执行时间16ms（1000ms / 16），剩余空闲时间小于它。
+requestAnimationFrame 的回调会在每一帧确定执行，属于高优先级任务，而 requestIdleCallback 的回调则不一定，属于低优先级任务。
+不能在 requestIdleCallback 里再操作 DOM，因为它发生在一帧的最后，这样会导致页面再次重绘。DOM 操作建议在 rAF 中进行。
+Promise的resolve(reject)操作也不建议放在里面，会拉长当前帧的耗时。
+能做 数据的分析和上报 预加载资源 检测卡顿 拆分耗时任务(React 中的调度器 Scheduler)
+*/
+requestIdleCallback(myNonEssentialWork, { timeout: 2000 });
+// 任务队列
+const tasks = ['1', '2', '3'];
+function myNonEssentialWork (deadline) {
+  console.log('dl', deadline.timeRemaining());
+  // 如果帧内有富余的时间，或者超时
+  while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && tasks.length > 0) {
+    console.log('dl1', deadline.timeRemaining(), deadline.didTimeout);
+    console.log('执行任务', tasks.shift());
+  }
+  console.log('dl2', deadline.timeRemaining());
+  if (tasks.length > 0) {
+    console.log('dl3', deadline.timeRemaining());
+    requestIdleCallback(myNonEssentialWork);
   }
 }
 
+window.addEventListener('load', () => {
+  requestIdleCallback(myNonEssentialWork, { timeout: 5000 });
+  function myNonEssentialWork (deadline) {
+    // console.log('执行任务 1', deadline.timeRemaining(), location.href);
+    while ((deadline.timeRemaining() > 0 || deadline.didTimeout)) {
+      // console.log('执行任务 while', deadline.timeRemaining());
+    }
+  }
+});
 
 
 
-// ====================== 数组
+
+
+// ====== 数组
 
 
 // 数组去重
@@ -579,9 +814,21 @@ var genArr = Array(10).fill(0).map((e, i) => i + 1);
 
 
 
-// ====================== 基本数据类型、对象、函数、原型、正则
+// ====== 基本数据类型、对象、函数、原型、正则
 
-
+// switch 取巧写法
+switch (true) {
+  case location.hostname == "www.amazon.com" && !true:
+  case location.hostname == "www.reddit.com":
+  case /hbogo\./.test(location.hostname):
+    console.log('do sth');
+    break;
+  case location.hostname == "www.facebook.com":
+    console.log('do sth');
+    break;
+  default:
+    console.log('do sth default');
+}
 
 // 中间变量 值交换 https://juejin.cn/post/6844903492608327688
 var a = 1, b = 2;
@@ -1128,6 +1375,7 @@ console.log(s.len); // 查找其len属性，返回 undefined
 
 /*
   正则
+  https://regex101.com/
 */
 var urlStr = 'https://cn.bing.com:8999/search/1?query=java+regex&a=b';
 // 匹配问号前
@@ -1138,6 +1386,141 @@ var matches = urlStr.match(/.+(\?|\&)q=([^&.]+)?&/);
 // 正则表达式验证 6 位数字密码？6~15位数字、字母？
 // /^\d{6}$/  /^[a-zA-Z0-9]{6,15}$/
 
+// trim 空格
+' aab'.replace(/(^\s*)|(\s*$)/g , "");
+
+// 元字符  ( [ { / ^ $ | ) ? * + .  预定义字符  \t \n \r . \d \D \w   要进行转义
+/index(\.web)?\.tsx$/.test('index.web.tsx');
+'S89(KKK,L)'.test(/S\d+[\(]\w+,\w+\)/g);
+/\bend\b/.test('weekend , endFor , end');
+'bb=2.blueidea.com'.replace(/(bb=)\d/, "\$1" + "3");
+// contain 子字符串
+/(my|you)/i.test('it is my name and you...')
+console.log( /^a|bc$/.exec("add") ); //匹配开始位置的a或结束位置的bc
+console.log( /^(a|bc)$/.exec("bc") ); //匹配a或bc
+console.log( /(abc){2}/.exec("abcabc ###") );
+console.log( /(?:abc){2}/.exec("abcabc ###") ); // 非捕获分组 ?:
+
+// 反向引用被存储在RegExp对象的静态属性$1―$9中
+console.log( /(A?(B?(C?)))/.exec("ABC") );
+console.log( RegExp.$1 + "\n" + RegExp.$2 + "\n" + RegExp.$3 );
+console.log( "1234 5678".replace(/(\d)\s(\d)/, "$2 $1") );
+// \1 \2 形式
+console.log( /\d+(\D)\d+\1\d+/.exec("2008-1-1") );
+console.log( /(\w)(\w)\2\1/.exec("woow") );
+console.log( /(\w)\1{4,}/.exec("aa bbbb ccccc 999999999") );
+
+// 多行匹配
+console.log( "ab\ncdef".replace(/[a-z]$/g, '#') );
+console.log( "ab\ncdef".replace(/[a-z]$/gm, '#') );
+
+// 正向前瞻(?=)
+console.log( /([a-z]+(?=\d))/i.test("abc every1 abc") ); //true
+console.log( RegExp.$1 ); //every，不返回数字
+//负向前瞻
+console.log( /([a-z](?!\d))/i.test("abc1 one") );
+console.log( RegExp.$1 ); //one
+
+// search方法，无需在search时用g标识
+console.log( 'my age is 180 year old'.search(/\d+/) );
+
+//手机号码验证（国内、国际号码）
+var chinaMobile = /^0*1[3,4,5,8]\d{9}$/.test(123);
+/^(886){1}0{0,1}[6,7,9](?:\d{7}|\d{8}|\d{10})$/.test(88);
+
+//email验证
+/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(value);
+
+//验证邮编（国内、国际） 国际邮编：只能由数字、字母、空格、横杆组成
+/^\d{6}|0{6}$/.test(val);
+/^[a-zA-Z0-9\s\-]{6,10}$/.test(val);
+/^\d{3}|0{3}$/.test(val);
+
+```html
+<script type="tpl" id="tpl">
+  <html><head></head>
+  <body>
+    <div></div>
+  </body>
+  </html>
+</script>
+```
+// 多行匹配 html
+var html = document.getElementById('tpl').innerHTML;
+var match = html.match(/^([\s\S]*<body.*>)([\s\S]*)(<\/body>[\s\S]*)$/m);
+
+// stripTags 检测html的tag
+'<aa>xx</a>'.replace(/<\/?[^>]+>/g , "");
+'<aa>xx</a>'.replace(/<[^>]*>|<\/[^>]*>/g, "");
+
+// 调换位置
+"Doe, John".replace(/(\w+)\s*,\s*(\w+)/, "$2 $1");
+
+// 将所有双引号包含的字符替换成中括号包含的字符
+'"JavaScript" 非常强大！'.replace(/"([^"]*)"/g, "[$1]");
+
+//转化成camelize命名方式： background-color → backgroundColor
+s.replace(/-([a-z])/ig, function(letter){ return letter.toUpperCase(); });
+
+// 日期格式  替换
+'12/05/2008'.replace(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/g, '$3-$1-$2');
+
+
+
+/*
+2012 阿拉蕾 arale
+Widget , UI 组件的抽象类，进行生命周期管理。
+jQuery 时代的 UI 管理，做的不够好，一定程度上不能称之为 component 组件管理。
+*/
+// Widget 抽象类
+function Widget () {
+  this.ele = null
+}
+Widget.prototype = {
+  on: function (type, handler) {
+    if (this.handlers[type] == undefined) {
+      this.handlers[type] = []
+    }
+    this.handlers[type].push(handler)
+    return this
+  },
+  fire: function (type, data) {
+    if (Array.isArray(this.handlers[type])) {
+      this.handlers[type].forEach(function (handler) {
+        handler(data)
+      })
+    }
+  },
+  off: function (type) {
+    if (type) {
+    }
+  },
+  init: function (config) {
+    var def = {};
+    this.options = Object.assign(config, def);
+  },
+  render: function (container) {
+    this.renderUI()
+    this.handlers = {}
+    this.bindUI()
+    this.syncUI()
+    $(container || document.body).append(this.ele)
+  },
+  //由子类具体实现 画ui界面
+  renderUI: function () {},
+  //由子类具体实现 为UI绑定dom事件，及组件的自定义事件
+  bindUI: function () {},
+  //由子类具体实现 根据config设置ui动态变化的部分，如宽、高、样式名等
+  syncUI: function () {},
+  destroy: function () {
+    this.destructor()
+    this.ele.off()
+    this.ele.remove()
+  },
+  //由子类具体实现
+  destructor: function () {}
+}
+Widget.prototype.constructor = Widget
 
 
 /*

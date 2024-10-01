@@ -1,0 +1,430 @@
+# chrome 扩展
+
+调试方法
+
+1. 打开 `chrome://extensions/` 相应的插件名、点“刷新”按钮，点击 `chrome://newtab` 页面的 后退 按钮。
+2. manifest -> background -> scripts 打开 `chrome://extensions/` 相应的插件名、点“背景页”。
+3. manifest -> content_scripts 设置的 js 位置：“控制台 -> Sources -> Content scripts”
+
+获取 Chrome 本地存储 `await chrome.storage.sync.get(null)`
+
+
+## 记录
+
+
+点击注入代码、已经 ready 的可以直接注入，另外一部分要 reload 并等 tab status complete 才能注入。
+
+[消息通信](https://developer.chrome.com/docs/extensions/develop/concepts/messaging?hl=zh-cn)
+
+在 background.js 用 `chrome.runtime.sendMessage` 发消息、所有页面里的 content_scripts 都收不到，改为 `chrome.tabs.sendMessage` 发送、比如 `https://www.xxx` 外部正常域名的页面“可以收到”、但位于插件内部的页面比如 `chrome-extension://extension-id/xx.html` 收不到。
+位于插件内部的页面的 js 文件里，可以直接调用 `chrome.action/storage/commands/..` 等 chrome api，如果插件内部的页面处于打开运行状态、其上注册的 chrome 扩展功能 就能运行，如果关掉页面、扩展功能将不能运行。
+
+
+开发时生成固定的 [extension_id](https://stackoverflow.com/questions/21497781)、
+[crxviewer](https://robwu.nl/crxviewer/)，在不同电脑上安装、打开`chrome://sync-internals/`搜 `hl_` 验证结果。
+注意 `chrome.storage.sync` 只存储和同步当前插件的数据，如果卸载插件、则同步的数据立即被删除。
+
+
+`chrome://newtab` 页面、其他标签页打开的 xxx.com 页面，与其内嵌的 iframe 通信限制方面完全一样、不能跨域访问。包括他们被注入的 content_scripts 在访问跨域iframe时、也一样受到限制。
+
+
+rules.json 里的 modifyHeaders 修改 responseHeaders 会生效，但是不显示在 Chrome DevTools 里。ref [issue](https://bugs.chromium.org/p/chromium/issues/detail?id=258064)
+
+
+### 2024-06~07 Native messaging
+
+https://developer.chrome.com/docs/extensions/develop/concepts/native-messaging?hl=zh-cn
+https://github.com/guest271314/NativeMessagingHosts
+https://github.com/simov/native-messaging
+使用shell https://stackoverflow.com/a/24777120/2190503
+
+配置文件模版（HOST_PATH 会被 安装脚本 替换为 执行文件所在地址）
+
+```json
+{
+  "name": "nm_sh",
+  "description": "Chrome Native Messaging API Example Host",
+  "path": "HOST_PATH",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://kafpfdegkmheageeldelgnnkegpkbpca/"]
+}
+```
+> 实际路径 '/Users/hua/Library/Application Support/Google/Chrome/NativeMessagingHosts/nm_sh.json'
+
+安装脚本 install_host.sh
+
+```sh
+#!/bin/sh
+# 改动自 https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/api-samples/nativeMessaging/host/install_host.sh
+set -e
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+if [ $(uname -s) == 'Darwin' ]; then
+  if [ "$(whoami)" == "root" ]; then
+    # Due to macOS permission changes we need to put the host in /Applications
+    HOST_PATH="/Applications/nm_sh"
+    cp "$DIR/nm_sh" $HOST_PATH
+    TARGET_DIR="/Library/Google/Chrome/NativeMessagingHosts"
+  else
+    # nm_sh 不需要放到 ~/Applications 目录里，改为自己的目录
+    # HOST_PATH="/Users/$USER/Applications/nm_sh"
+    HOST_PATH="/Users/hua/inner/nm_sh"
+    cp "$DIR/nm_sh" $HOST_PATH
+    TARGET_DIR="$HOME/Library/Application Support/Google/Chrome/NativeMessagingHosts"
+  fi
+else
+  HOST_PATH="$DIR/nm_sh"
+  if [ "$(whoami)" == "root" ]; then
+    TARGET_DIR="/etc/opt/chrome/native-messaging-hosts"
+  else
+    TARGET_DIR="$HOME/.config/google-chrome/NativeMessagingHosts"
+  fi
+fi
+chmod a+x "$DIR/nm_sh"
+HOST_NAME=nm_sh
+mkdir -p "$TARGET_DIR"
+cp "$DIR/$HOST_NAME.json" "$TARGET_DIR"
+ESCAPED_HOST_PATH=${HOST_PATH////\\/}
+sed -i -e "s/HOST_PATH/$ESCAPED_HOST_PATH/" "$TARGET_DIR/$HOST_NAME.json"
+chmod o+r "$TARGET_DIR/$HOST_NAME.json"
+
+echo Native messaging host $HOST_NAME has been installed.
+```
+
+
+### 2022-09-17
+
+梳理清楚各个 js 执行的先后顺序。注意 chrome.webRequest 和 chrome.webNavigation 生命周期顺序。
+
+`chrome://newtab` 页面 以 iframe 方式嵌入 xxx.com 页面、并且 注入 content_script 如果在 content_script 里访问 `chrome://newtab` 页面的 `window.xx` (即 `top.xxx`) 则会报错: Uncaught SecurityError: Blocked a frame with origin "https://xxx.com" from accessing a frame with origin "chrome-extension://pbcjojjclbiihmponegploiehianebdk". The frame requesting access has a protocol of "https". 同样 `chrome://newtab` 页面、因为跨域 也不能访问 iframe 里的 xxx.com 页面 window 对象。
+
+override [newtab](https://developer.chrome.com/docs/extensions/mv3/override/) 后的页面是 chrome-extension://pbcjojjclbiihmponegploiehianebdk/blank.html 不能在此页面运行 `chrome.scripting.executeScript` why? https://bugs.chromium.org/p/chromium/issues/detail?id=1191971
+
+chrome.webRequest 和 chrome.webNavigation 都不能获取到 HTTP [Response Body](https://stackoverflow.com/questions/18534771/chrome-extension-how-to-get-http-response-body)
+
+chrome-extension 协议的链接，不能插入 content_scripts 可以直接调用 chrome api
+
+
+### 2022-09-08
+
+[Overview of Manifest V3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/)
+
+manifest v3 的 csp 策略更加严格，不允许远程 cdn 资源加载。如下 v2 设置
+
+```json
+"content_security_policy": "script-src 'self' 'unsafe-eval' https://code.xx.com https://yy.com; object-src 'self'",
+```
+
+[mdn csp](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src)
+[edge csp](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/store-policies/csp)
+
+v3 中的 webRequest api 被废弃，改为使用 declarativeNetRequest 来处理请求。声明式 API 使用略微不便。
+
+
+### 2021-2020 manifest.json v2
+
+```json
+{
+  "name": "Block",
+  "description": "把特定网络 js 文件指向到本地",
+  "version": "0.2",
+  "manifest_version": 2,
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://img.alicdn.com/tps/*"
+  ],
+  "browser_action": {},
+  "background": {
+    "scripts": ["bg.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*", "https://www.alipay.com/*", "<all_urls>"],
+      "js": ["inj.js"],
+      "css": ["content.css"],
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true,
+      "run_at": "document_end"
+    }
+  ]
+}
+```
+
+
+
+## 代码示例
+
+
+```js
+
+// 有时因为 登录状态检测 等循环调用、导致页面假死状态，
+// 这时使用 discard 不起作用，调用 reload 也不执行。
+// chrome.tabs.discard(tab.id);
+// chrome.tabs.reload(tab.id);
+
+const queryTab = await chrome.tabs.query({
+  // title: 'Kimi.ai ', // 不匹配
+  // title: 'Kimi.ai *', // 通配符 匹配
+  // title: 'Kimi.ai - 帮你看更大的世界', // 严格匹配
+  url: 'https://kimi.moonshot.cn/*', // 通配符 匹配
+  // url: 'https://kimi.moonshot.cn/chat/cquokobdf0j055ekrqvg', // 严格匹配
+  // url: '*://*.google.*/*q=*',
+  // favIconUrl: 'https://statics.moonshot.cn/kimi-chat/favicon.ico',
+  // active: false,
+  // discarded: false,
+  // highlighted: false,
+  // status: 'complete', // loading unloaded
+});
+// console.log('queryTab: ', queryTab);
+
+async function unregisterAllDynamicContentScripts() {
+  try {
+    const scripts = await chrome.scripting.getRegisteredContentScripts();
+    const scriptIds = scripts.map(script => script.id);
+    console.log('scriptIds: ', scriptIds);
+    return chrome.scripting.unregisterContentScripts(scriptIds);
+  } catch (error) {
+    throw new Error('unregisterContentScripts 出错', {cause : error});
+  }
+}
+// await unregisterAllDynamicContentScripts();
+
+// 2024-06~07
+
+// 卡死页面的代码
+javascript:[...Array(2**32-1)].map(_=>Math.ceil(Math.random()*111))
+
+
+const bg = chrome.extension.getBackgroundPage();
+const views = chrome.extension.getViews();
+// chrome.tabs.update({ url: 'chrome://on-device-internals' });
+// chrome.tabs.update({ url: 'about:blank#blocked' });
+// chrome.tabs.create({ url: 'chrome://about/', index: curTab.index + 1 });
+// console.log('views', bg, views);
+
+
+// chrome.processes 开发者版浏览器可用 https://groups.google.com/a/chromium.org/g/chromium-extensions/c/pyAzuN4neHc
+// https://developer.chrome.com/docs/extensions/reference/api/processes?hl=zh-cn
+console.log('chrome.processes: ', chrome.processes);
+console.log('chrome.processes: ', chrome?.experimental, chrome?.experimental?.processes);
+
+
+// servicework 里打开 option.html https://stackoverflow.com/questions/2399389/detect-chrome-extension-first-run-update
+chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+
+
+// 2023
+
+// 参考 https://blog.shahednasser.com/register-a-keyword-in-chrome-omnibox-in-your-extension/
+// omnibox 相关操作  https://developer.chrome.com/docs/extensions/reference/omnibox/
+// 翻译 https://blog.csdn.net/u012419303/article/details/106263338
+
+
+// 2022-10
+// https://bytedance.feishu.cn/drive/me/ 页面的部分请求 403 错误，导致在 iframe 里显示不正常。
+// 因为飞书代码里 window.parent 判断如果是在 iframe 里，会让 request headers 里的 x-csrftoken 设置失败。
+const cookieStores = await chrome.cookies.get({ name: '_csrf_token', url: driveMeUrl });
+console.log('cookieStores', cookieStores.value);
+const res = await chrome.declarativeNetRequest.updateDynamicRules({
+  removeRuleIds: [10],
+  addRules: [
+    {
+      "id": 10,
+      "priority": 1,
+      "action": {
+        "type": "modifyHeaders",
+        "requestHeaders": [
+          { "header": "x-csrftoken", "operation": "set", "value": cookieStores?.value || '' }
+        ]
+      },
+      "condition": { "urlFilter": 'space/api', "resourceTypes": ["xmlhttprequest"] }
+    }
+  ]
+});
+console.log('dnres', res);
+
+chrome.tabs.onActivated.addListener(moveToFirstPosition);
+async function moveToFirstPosition(activeInfo) {
+  try {
+    await chrome.tabs.move(activeInfo.tabId, {index: 0});
+    console.log('Success.');
+  } catch (error) {
+    if (error == 'Error: Tabs cannot be edited right now (user may be dragging a tab).') {
+      setTimeout(() => moveToFirstPosition(activeInfo), 50);
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+// 2022-09-17 只返回 extensions 不会返回 app
+chrome.management.getAll(data => {
+  console.log('management', data.map(item => item.type));
+});
+
+
+// webRequest 生命周期监听
+chrome.webRequest.onBeforeRequest.addListener(function (details) {
+  console.log('onBeforeRequest', details)
+  return { cancel: false };
+}, {urls: ["<all_urls>"]});
+
+chrome.webRequest.onBeforeSendHeaders.addListener(function (details) {
+  var headers = details.requestHeaders;
+  console.log('onBeforeSendHeaders', details);
+  // v3 不能再修改 header 因为不能设置 blocking
+  // 设置 iPhone UA
+  // if (headers[i].name == 'User-Agent') {
+  //   headers[i].value = 'iPhone ua';
+  // }
+  return { requestHeaders: headers };
+}, { urls: ["<all_urls>"] }, ['requestHeaders']);
+
+chrome.webRequest.onHeadersReceived.addListener(function(details) {
+  var headers = details.responseHeaders;
+  // remove the X-Frame-Options header to allow inlining pages within an iframe.
+  // var header = headers[i].name.toLowerCase();
+  // if (header == 'x-frame-options' || 'frame-options' || 'content-security-policy') {
+  //   headers.splice(i, 1); // Remove header
+  // }
+  console.log('onHeadersReceived', details)
+  return {responseHeaders: headers};
+},
+{ urls: ['*://*/*'], types: ['sub_frame'] }, ['responseHeaders']);
+
+chrome.webRequest.onCompleted.addListener(details => {
+  console.log('ttt', details);
+}, {urls: ["<all_urls>"]})
+
+chrome.webNavigation.onDOMContentLoaded.addListener(function (details) {
+  // 去广告
+  console.log('onDOMContentLoaded', details)
+}, { url: [{ hostContains: 'google.com' }] });
+
+chrome.webNavigation.onCompleted.addListener(details => {
+  // console.log('ttt', details);
+});
+
+chrome.tabs.captureVisibleTab(function (params) {
+  // 截图
+  // console.log(params)
+});
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  console.log('onUpdated', tabId, changeInfo, tab);
+});
+// chrome.tabs.create({ "url": "http://google.com" });
+
+
+chrome.storage.sync.get(['key'], function(result) {
+  console.log('Value currently is ' + result.key);
+});
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  console.log('onchange Value currently is ', changes, namespace);
+});
+chrome.runtime.onMessage.addListener(function(e, t, s) {
+  console.log('onMessage Value currently is ', e, t, s);
+});
+
+// 点击扩展图标 触发以下事件
+// https://developer.chrome.com/docs/extensions/reference/api/action?hl=zh-cn
+chrome.action.onClicked.addListener(async (tab) => {
+});
+
+chrome.runtime.onStartup.addListener(() => {
+  console.log('when exec onStartup');
+});
+
+chrome.runtime.onInstalled.addListener(function(details){
+  // chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
+  // return;
+  console.log('details', details);
+  if(details.reason == "install"){
+    console.log("This is a first install!");
+  } else if(details.reason == "update"){
+    var thisVersion = chrome.runtime.getManifest().version;
+    console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
+  }
+});
+
+
+// programmatically injected content_scripts
+// 注意：先注册到相应域 后让页面加载 才会执行先注册的 js
+const rcs = await chrome.scripting.getRegisteredContentScripts();
+const id = '1';
+if (!rcs.find(item => item.id === id)) {
+  await chrome.scripting.registerContentScripts([{
+    id,
+    allFrames: true,
+    // content_scripts 虽然设置了 match_about_blank 和 match_origin_as_fallback
+    // 但不能在 data:text/html,<html>Hello, World!</html> 这里起作用
+    matchOriginAsFallback: true,
+    // matches: ["<all_urls>"],
+    // matches: ['http://localhost/*'],
+    runAt: 'document_start',
+    // world: 'MAIN', // 默认是 ISOLATED 改变设置会影响 chrome.runtime.sendMessage
+    js: ['constants.js', 'content_script.js'],
+  }]);
+  // console.log('register success');
+}
+
+// 在 manifest 的 content_scripts 里设置 "world": "MAIN", 不起作用。
+// content_scripts 是独立环境执行，在注入的 content_script.js 里修改页面本来的 window 对象无效
+// https://developer.chrome.com/docs/extensions/mv3/content_scripts/#isolated_world
+// https://stackoverflow.com/questions/9515704
+// https://stackoverflow.com/questions/12395722
+// https://developer.mozilla.org/en-US/docs/Web/API/Window
+// window 对象的 parent top 属性都是 只读 的。如 window.top = window; 修改无效
+// Object.defineProperty(window, 'top', {
+//   get () {
+//     return 100;
+//   }
+// });
+
+// 插件内的 html 文件里不能注入 content_scripts
+
+```
+
+在 about:blank 定制页面的 iframe 里插入可执行代码
+
+```js
+// https://blog.csdn.net/qq_31201781/article/details/125218891
+injectPageScript: (payload, cb = () => {}) => {
+  if (!payload?.js) {
+    return;
+  }
+  var iScript = document.createElement('script');
+  // csp 限制不能 eval 代码
+  // iScript.textContent = 'console.log(window);';
+  // 需要在 manifest 里设置 web_accessible_resources 才能把 chrome-extension://*.js 注入到各个页面里
+  iScript.setAttribute('data-type', 'hl_extension');
+  iScript.src = chrome.runtime.getURL('injected.js');
+  iScript.onload = function() {
+    document.dispatchEvent(new CustomEvent('hl_extension_message', { detail: payload }));
+    // iScript.remove();
+    cb();
+  };
+  document.body.appendChild(iScript);
+},
+
+// injected.js
+document.addEventListener('hl_extension_message', (event) => {
+  // console.log('eddd', event.detail, event.path);
+
+  // 这里的 window 和 content_script.js 里的 window 不是同一个。
+  // console.log('hl_utils', window.hl_extension_data?.tabId, window.hl_utils);
+
+  // console.log('pass obj', event.detail);
+  window.hl_extension_data = event.detail?.hl_extension_data;
+
+  eval(event.detail?.js || '');
+
+  // eval 的函数字符串里 有 async 会报错。
+  // eval(";(async () => {" + (event.detail?.js || '') + "})();");
+  // ;(async () => {
+  //   await eval(event.detail?.js || '');
+  // })();
+});
+
+```

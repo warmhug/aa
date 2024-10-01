@@ -1,0 +1,344 @@
+#!/bin/zsh
+
+function hl() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: $0 xx"
+    return 1
+  fi
+}
+
+function nodePro() {
+  # https://docs.npmjs.com/cli/v10/commands/npm  (version publish query)
+  # https://pnpm.io/cli/add  (workspaces patch )
+  # pnpm v7 文档 https://github.com/pnpm/pnpm.io/blob/v7/docs/workspaces.md
+
+  # --loglevel silly --yes --no-commit-hooks
+  # --include-merged-tags --no-push --no-git-tag-version
+  npx lerna diff
+  npx lerna changed
+  npx lerna changed --include-merged-tags
+  npx lerna version patch --exact
+  npx lerna version patch --exact --message '🎨 chore(release): Publish' --conventional-commits
+  npx lerna version prerelease --preid beta
+  npx lerna publish prerelease --preid rc --dist-tag rc
+  npx lerna publish from-git --preid rc --dist-tag rc
+  npx lerna publish from-package
+
+  npx lerna ls --since="master"
+  npx lerna ls --include-merged-tags
+  npx lerna ls --since --include-merged-tags
+  npx lerna exec --since --include-merged-tags -- ls -la
+  npx lerna exec --include-merged-tags --concurrency 1 -- "pwd && ls -la"
+  npx lerna exec --scope @afe/pro-form -- pnpm version 0.1.5-alpha.0 --no-git-tag-version
+
+  # 使用 lerna version 前必读 https://docs.npmjs.com/cli/v10/commands/npm-version
+  # 根目录是 monorepo 在根目录运行
+  npm version 0.1.5 --workspaces --no-git-tag-version --allow-same-version=true
+  npm version patch --workspace=packages/button --workspace=packages/card --no-git-tag-version --allow-same-version=true -f
+  # 如果只改某个子包版本号，进入到子包 设置 --workspaces=false
+  npm version patch --workspaces=false --no-git-tag-version
+  npm version prerelease --preid rc --no-git-tag-version
+
+  # pnpm 处理 workspaces ( pnpm>9.0 link-workspace-packages 默认为 false )
+  pnpm run script-name --filter workspace-name
+  pnpm add package-name --filter workspace-name --link-workspace-packages=true
+
+  # 注意 pnpm outdated 是检测 lock文件(不是package.json) 里的依赖版本号 是否过时
+  pnpm outdated -r
+  pnpm outdated "@afe/pro-*" --filter "@afe/pro-form" --json
+  # pnpm up package-name --filter workspace-name
+  pnpm up "@afe/pro-*" --filter "@afe/pro-form" --latest
+
+  pnpm up -r @afe/pro-form@0.2.0  # 更新不存在的版本号会报错
+  # 更新 包的版本号为 "@afe/pro-form": "workspace:0.1.3"
+  pnpm up -r "@afe/pro-*"  # 加 --workspace 作用一样
+  # 升级到 npm latest 指定的版本
+  # 如果 workspace 内部包 版本号大于npm最新版 则使用内部包版本号
+  pnpm up -r "@afe/pro-*" --latest
+  pnpm up -r "@afe/pro-*@beta"  # 升级到 beta rc
+
+  pnpm install --ignore-engines --ignore-platform
+  pnpm view @afe/pro-card --json --registry http://comm
+
+  pnpm ls -r --json # 等效 npx lerna ls --graph
+  pnpm ls -r --depth -1 --json  # 等效 npx lerna ls --long 换成 npm 不行
+  npm ls pkg_name
+  npm ls --all --json --loglevel silent
+  npm ls --all -g
+  npm ls -g
+  npm update package1 package2 --save
+  npm root -g
+  which npm/node  # 查看本地安装的模块
+
+  # npx 用法
+  npx ls  # 等同于 ls
+  npx mocha --version
+  npx http-server
+  # 忽略本地的同名模块 --no-install 强制使用本地模块
+  npx --ignore-existing http-server
+  # https://code.visualstudio.com/api/get-started/your-first-extension
+  npx --package yo --package generator-code -- yo code
+
+  # 搜索组织下的包 https://www.npmjs.com/org/ant-design
+  npm --searchlimit=100 search @ant-design
+  npm config ls
+  npm config set registry https://registry.npmmirror.com -g
+  npm i --registry https://registry.npmmirror.com
+  npm i --registry https://registry.npmjs.org
+}
+function gitPro() {
+  git config -l  # --list
+
+  code ~/.zsh_history
+  code ~/.gitconfig
+  code ~/.gitconfig-github
+  open https://github.com/paulirish/git-open
+  open https://gitlab.com/warmhug/test
+
+  # 对比 feat 分支和 master 的差异
+  git cherry -v master feat-xx
+  git log master..feat-xx --oneline
+  git diff master..feat-xx
+
+  # 创建一个临时目录用于存储 other-branch 的文件
+  mkdir /tmp/other
+  # 切换到 other-branch，并将其内容导出到临时目录
+  git --work-tree=/tmp/other checkout other-branch -- .
+  diff -r . /tmp/other
+  diff -rq . /tmp/other  # -q 只报告哪些文件不同
+  diff -r --exclude=".git" . /tmp/other
+  # 使用 --exclude="{.git,.svn}" 好像不正确
+  diff -r --exclude=".git" --exclude=".svn" dir1 dir2
+  diff -r --exclude=".git" dir1 dir2 dir3 > diff_output.txt
+
+  # 创建和 apply 补丁
+  # 当前为 branch-a 分支，想应用 branch-b 相对于 branch-a 的更改
+  git diff branch-a..branch-b > changes.patch
+  git diff branch-a..branch-b -- path/to/file > changes.patch
+  git apply changes.patch
+
+  git log -n 10
+  git log --graph
+  git log --oneline --decorate
+  git log --oneline --first-parent --reverse | tail -1
+  git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all
+  git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"
+
+  git diff --name-only version1/branch1 version2/branch2
+  # 比较当前分支和 master 分支的实际不同的内容
+  git diff --name-only master..HEAD
+  git diff master..HEAD -b -w --ignore-blank-lines --ignore-space-change --ignore-all-space -p --stat [file/dir]
+  git diff master..HEAD -b -w --ignore-blank-lines --ignore-space-change --ignore-all-space --name-only
+  git diff @{upstream}
+  git commit --amend  # 修改提交信息
+
+  # 压缩 commit
+  git merge --squash feature-branch
+  # 保留压缩前的所有commit信息 其中的 hash 修改记录 也会被保留
+  git add .
+  git commit --no-verify
+
+  # git merge 会产生重复无用的 Merge pull request pull_id from xx_branch 或者 Merge branch “branch_name” 信息，不利于 review 提交记录。
+  # git rebase 需要经常 reapply 其他提交的改动，commit 的时间顺序也会乱掉。只对自己的分支 commit 做 rebase，公共的分支不要 rebase. 其后续的 commit hash 将全部改变
+  git rebase -i [commit_id] # hash 换成 master
+  git rebase -i --root # 删除第一个提交
+  git rebase origin/master
+  git push --force-with-lease  # 强制提交 比 -f 安全
+
+  git reset [file | 057d]    # 回退文件、或回退到某个版本
+  git reset HEAD^ [file]   # 回退 所有内容或某个文件 到上一个版本
+  git revert commit_id # 回滚代码 不抹掉 提交记录 产生新纪录
+  # --soft 不修改本地文件 --hard 本地的文件修改都被丢弃
+  git reset --[soft | hard] [HEAD^ | 057d]
+  git reset --hard origin/master   # 将本地的状态回退到和远程的一样
+  git reflog  # 撤销 reset 时 找到撤销前的 commit_id 再 git reset 即可
+
+  # 解决冲突
+  # Git 合并出现冲突的原因在于 两个分支版本对一个文件的同一区域 做了修改。如果是不同区域，Git 会尝试自动合并（auto-merge，默认策略）解决冲突。 https://www.freecodecamp.org/news/resolve-merge-conflicts-in-git-a-practical-guide/
+  # 操作 https://stackoverflow.com/a/930495/2190503
+  git stash push lock.yaml  # 暂存 lock 文件，使用当前 lock 文件
+  git checkout --ours "*lock*" # 使用 当前或目标(--theirs) 的 lock 文件
+  # 在 .gitattributes 文件里配置 当 pnpm-lock.yaml 出现冲突时，将以当前分支为准
+  pnpm-lock.yaml merge=ours
+
+  # pristine
+  git reset --hard && git clean --force -dfx
+  # wipe
+  git reset --hard && git clean --force -df
+  #
+  git pull --rebase       # 同 git fetch + git rebase
+
+  # 打 annotated tags
+  git tag -v @afe/pro-components@0.1.9-beta.0
+  git tag -a 0.0.1 -m 'Release version 0.0.1'
+  git fetch --all --tags
+  git push [origin] --tags    # 推送所有标签到服务器
+  git push origin --delete tag_name
+  # tag 只附在一个 commit 上、如果这个 commit 被 squash，但 tag 仍然存在。
+  # https://stackoverflow.com/questions/54281360/what-happens-to-tags-of-squashed-commits
+
+  # 从另一个仓库的分支 pick 先 git fetch <other-repo-url> <other-branch>
+  git cherry-pick commit-hash # commit-hash 可以是其他仓库的hash
+
+  git stash show --patch
+  git worktree list
+  cd "$(git rev-parse --show-toplevel || echo .)"
+  # push_beta="branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD) && echo ${branch}"
+
+  git remote [-v add | set-url] origin git@xxx.git
+
+  # GitHub stars topics/javascript
+  # https://github.com/search?q=stars:%3E1&s=stars&type=Repositories
+  # https://github.com/topics/javascript
+
+  # 搜索 issues
+  # https://help.github.com/articles/searching-issues/
+  # https://github.com/search?type=Issues&q=xx+in:body+author:warmhug
+  # https://github.com/search?type=Issues&q=xx+commenter:warmhug+user:ant-design
+  # https://github.com/search?type=Issues&q=xx+commenter:warmhug+repo:ant-design/ant-design-mobile
+
+  # GitHub commit 或合并 MR 时，可以自动修改 issue 状态、关闭关联的 issue。
+  # 业内成熟的 GIT 分支模型 https://cloud.githubusercontent.com/assets/36899/7315642/015f534c-eaa2-11e4-9882-b7cc7535fb72.png
+  # GitHub Issues blog https://gitblog.io/
+}
+
+function file_opt() {
+  return 1
+  more filename # 一页一页的显示档案内容.
+  head/tail -n 20 ~/.zsh_history  # 只看 头/尾 几行(默认10行)
+  history 10 # 列出10条
+  mv fname rename / cat -n fname / say hello / type -a node(pwd) / ln -s source_file dist
+  env / w / who / whoami / tty / last / nettop / nslookup / mtr -r
+  date # 显示系统的当前日期和时间 date "+%Y-%m-%d_%H:%M:%S"
+
+  curl https://www.baidu.com -o xx.html  # 下载页面到 xx.html 里
+
+  mkdir -p ~/inner/aa && touch $_/file.txt  # 创建目录并能生成文件
+
+  echo ttt > ./file.txt  # 覆盖文件原内容并重新输入内容，若文件不存在则创建文件
+  echo `which node` >> ./file.txt  # 向文件追加内容，原内容将保存
+
+  grep -rn 'grep' *  # 以 字符串 grep 来搜索 当前目录及子目录 的所有文件内容
+  grep grep$ she*.md  # 以 正则表达式 grep$ 来搜索 当前目录下 文件名匹配 she*.md 的内容
+  grep -r --include=\*.{cpp,h} pattern ./
+  grep -r --exclude-dir=node_modules pattern ~/
+
+  # ls 命令默认只显示文件名
+  ls -d $PWD/*
+  ls -la
+  find . -name '*bash*'
+  find . -name "*.js" -not -path "*node_modules*" -not -path "*js-css-html*"
+  find . -name '*.DS_Store' -type f -delete   # 删除某目录及子目录下的 .DS_Store 文件
+  # find / -mmin -5   # 查找在系统中最后5分钟里修改过的文件(modify time)
+}
+
+function mac() {
+  return 1
+
+  printenv HOME  # 打印环境变量
+  echo "system: $HOME $PATH $SHELL"
+  ls /usr/bin  # 有 env
+  ls /usr/local/bin  # 有 node npm npx
+  ls $HOME/bin  # 一般不存在
+
+  open -a Activity\ Monitor # 打开活动监视器 或者 "Activity Monitor"
+  top # 或 top -o cpu 按 q 退出.  man top
+  ps -ax
+  ps -ef | grep adb  # 有时候 adb devices 没反应 需要杀掉进程重启
+  lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
+  kill 3747(进程id)  # 杀掉后台进程
+  kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
+  kill -9 *pid*  # 强制杀掉进程
+
+  zsh_stats  # 命令使用状态
+
+  # brew 国内源 https://www.jianshu.com/p/bea984d27cd2
+  cd/ls/tree "$(brew --repo)"
+  brew config
+  # 更换 home-bottles
+  export HOMEBREW_BOTTLE_DOMAIN=http://mirrors.aliyun.com/homebrew/homebrew-bottles
+  brew install tree
+
+  xcode-select --install  # 安装 git gcc
+  # 阻止电脑睡眠 同时按住 shift、control、电源键，关闭显示器
+  # pmset noidle
+
+  # defaults read com.apple.screencapture  # 查看系统截图设置
+  # 将系统截屏后图片保存为 jpg 格式，体积比原 png 格式显著缩小
+  defaults write com.apple.screencapture type jpg
+  # 修改截屏图片保存路径
+  defaults write com.apple.screencapture location ~/Downloads/
+
+  sips -z height width [file]
+  # 批量修改 宽或高 最大值 保持宽高比
+  sips -Z 640 *.jpg
+
+  # zip加解密 https://www.jianshu.com/p/bf4a6244180f
+  zip -e output.zip ~/xx.txt
+
+  # 查看状态
+  csrutil status
+  # 关闭 sip 关机、按住电源键(非m1按下`Cmd R`) 选择实用工具->终端
+  # csrutil disable
+
+  # 允许安装”任何来源“的软件，解决 Movist.app已损坏 问题
+  sudo spctl --master-disable
+  # macOS 14.4 以上版本，需要运行此命令后 再右键打开
+  xattr -cr /Applications/Movist.app
+
+  # 查看本机内网IP
+  ifconfig
+  # 查看本机公网IP
+  curl ipinfo.io/json  # curl ifconfig.me
+
+  # 查看域名路由 或 `ping baidu.com`
+  traceroute baidu.com
+}
+
+function commit() {
+  # printf "\n"
+  echo "\033[32m git op (y/n)?  \033[0m"
+  read git_op
+  [[ $git_op = "n" ]] && exit
+  BASEDIR=$(dirname $0)
+  ## echo $BASEDIR
+  cd $BASEDIR
+  echo "\033[32m git status \033[0m"
+  git st
+  echo "\033[32m git add -A \033[0m"
+  git add -A
+  echo "\033[32m git ci \033[0m"
+  git ci -a -m 'autocommit'
+  echo "\033[32m git push \033[0m"
+  git push
+  read -p "Press Return to Close..."
+}
+
+function note() {
+  code /Users/hua/Library/CloudStorage/OneDrive-Personal/_misc.txt
+  code /Users/hua/Library/CloudStorage/OneDrive-Personal/_life.txt
+  code /Users/hua/Library/CloudStorage/OneDrive-Personal/_work.txt
+}
+
+function setAlias() {
+  #
+  alias proxy='export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890'
+  alias py='python3 -m http.server 3000'
+
+  # pnpm i 如果安装报错，比如 node pnpm 版本有切换、尝试清空重装
+  alias re='rm pnpm-lock.yaml && git clean -xdf && pnpm store prune && pnpm i'
+
+  alias gaa='git add --all'
+  alias gb='git branch'
+  alias gba='git branch --all'
+  # 删除本地除 当前和master 分支外的其他分支
+  alias gbd='git branch | grep -v "master" | xargs git branch -D'
+  alias gc='git checkout'
+  alias gd='git diff'
+  alias gl='git log'
+  alias glp='git log -p'
+  alias gp='git pull -p'
+  alias gps='git push'
+  alias gs='git status'
+}
+setAlias
