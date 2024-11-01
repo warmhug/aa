@@ -2,38 +2,59 @@ import * as vscode from 'vscode';
 import { languages } from 'vscode';
 import type { ExtensionContext } from 'vscode';
 
-// 参考 https://stackoverflow.com/a/59132169/2190503
-// 给 txt 文档以 === 开头的文字，设置 outline
 class MyConfigDocumentSymbolProvider implements vscode.DocumentSymbolProvider {
   public provideDocumentSymbols(
     document: vscode.TextDocument,
     token: vscode.CancellationToken
   ): Promise<vscode.DocumentSymbol[]> {
     return new Promise((resolve, reject) => {
-      let symbols: vscode.DocumentSymbol[] = [];
-      for (var i = 0; i < document.lineCount; i++) {
-        var line = document.lineAt(i);
-        if (line.text.startsWith("===")) {
-          // vscode.window.showInformationMessage(`line.text: ${line.text}`);
-          let symbol = new vscode.DocumentSymbol(
-            line.text.replaceAll('=', ''),
+      const symbols: vscode.DocumentSymbol[] = [];
+      let parentSymbol: vscode.DocumentSymbol | null = null;
+
+      for (let i = 0; i < document.lineCount; i++) {
+        const line = document.lineAt(i);
+
+        if (line.text.startsWith('===')) {
+          // 创建一个新的父 symbol
+          parentSymbol = new vscode.DocumentSymbol(
+            line.text.replaceAll('=', '').trim(),
             '',
             vscode.SymbolKind.Module,
             line.range,
             line.range
           );
-          symbols.push(symbol);
+          symbols.push(parentSymbol);
+        } else if (line.text.startsWith('----')) {
+          // 检查 parentSymbol 是否存在，以及行是否仅包含 "---"
+          if (parentSymbol) {
+            const childText = line.text.replaceAll('-', '').trim();
+            if (childText) {  // 确保生成的 symbol 名称不为空
+              const childSymbol = new vscode.DocumentSymbol(
+                childText,
+                '',
+                vscode.SymbolKind.Namespace,
+                line.range,
+                line.range
+              );
+              // 在父 symbol 下添加子 symbol
+              parentSymbol.children.push(childSymbol);
+            }
+          }
         }
       }
+
       resolve(symbols);
     });
   }
 }
 
 export function activate(context: ExtensionContext) {
-  context.subscriptions.push(languages.registerDocumentSymbolProvider(
-    { scheme: "file", language: "plaintext"},
-    new MyConfigDocumentSymbolProvider())
+  console.log('warmhug txt file outline');
+  context.subscriptions.push(
+    languages.registerDocumentSymbolProvider(
+      { scheme: "file", language: "plaintext" },
+      new MyConfigDocumentSymbolProvider()
+    )
   );
 }
 

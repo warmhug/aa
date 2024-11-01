@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 # #!/bin/bash
+# /bin/zsh
 
-# 配置文件路径 code '/Users/hua/Library/Application Support/Google/Chrome/NativeMessagingHosts/nm_sh.json'
-
-# 问 chatgpt
-# Chrome Native Messaging 使用 bash 文件的 shebang 地址有问题，怎么让 /usr/local/bin 和 /usr/bin 都能互相调用
 export PATH="/usr/local/bin:/usr/bin:$PATH"
 
 # 自动设置全局代理
@@ -25,42 +22,29 @@ export PATH="/usr/local/bin:/usr/bin:$PATH"
 # alias upsystem='networksetup -setwebproxystate Wi-Fi off && networksetup -setsecurewebproxystate Wi-Fi off && networksetup -setsocksfirewallproxystate Wi-Fi off'
 
 current_path=$(/bin/pwd)
-get_parent_dir() {
-  local current_dir=$(basename "$current_path")
-  local parent_dir="${current_path%$current_dir}"
-  echo $parent_dir
-}
-parent_dir=$(get_parent_dir)
-logFile="$parent_dir"z_log.txt
+logFile="$current_path/z_log.txt"
 
 log_command() {
   local command="$1"
   local log_file="$logFile"
   local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-  echo "
-  [$timestamp] 执行命令: $command
-  " >> "$log_file"
-  # eval "$command" 2>&1 | tee -a "$log_file"
+  echo -e "\n[$timestamp] 执行命令: $command\n" >> "$log_file"
   if eval "$command" 2>&1 | tee -a "$log_file"; then
-    echo "[$timestamp] 执行成功" >> "$log_file"
+    echo -e "\n[$timestamp] 执行成功\n" >> "$log_file"
   else
-    echo "[$timestamp] 执行失败" >> "$log_file"
+    echo -e "\n[$timestamp] 执行失败\n" >> "$log_file"
   fi
   # 添加空白
-  echo "
-  "
+  printf '\n%.0s' {1..10} >> $log_file
 }
 # log_command "ls -l"
 # log_command "echo 'Hello'"
 
 hl_input=""
-hl_output='{"message": "OK"}'
-
-# run_fn() {
-# }
+hl_output='{"code": "200"}'
 
 dealMsg() {
-  local noteFile="$HOME/Library/CloudStorage/OneDrive-个人/__note.txt"
+  local noteFile="$HOME/inner/__note.txt"
   local clashFile="$HOME/.config/clash/ss.yaml"
   local osa="$current_path/nm_ss.scpt"
   local bypassdomains="127.0.0.1,localhost,gateway.icloud.com,gateway.icloud.com.cn,\
@@ -87,7 +71,6 @@ dealMsg() {
   # https://stackoverflow.com/a/51551525/2190503
 
   if [[ "$msg_command" == "top" ]]; then
-    # 需要先运行 nohup ttyd -p 9999 -W top &
     open -a "Google Chrome" "http://localhost:9999?disableLeaveAlert=true"
     log_command "echo '进程信息:' && ps -ef | grep ttyd"
   elif [[ "$msg_command" == "top-kill" ]]; then
@@ -97,9 +80,7 @@ dealMsg() {
     echo "$msg_content" > $noteFile
   elif [[ "$msg_command" == "getNote" ]]; then
     noteFile_cont=$(cat $noteFile)
-    hl_output1='{"message": "OK", "content": '$noteFile_cont'}'
-    echo "$hl_output1" >> $logFile
-    hl_output="$hl_output1"
+    hl_output='{"code": "200", "content": '$noteFile_cont'}'
   elif [[ "$msg_command" == "addRule" ]]; then
     if [[ $msg_content =~ ^www\. ]]; then
       msg_content=${msg_content#www.}
@@ -147,6 +128,7 @@ dealMsg() {
   elif [[ "$msg_command" == "openMacConfig" ]]; then
   open "x-apple.systempreferences:com.apple.Network-Settings.extension?Proxies"
   fi
+  echo $hl_output
 }
 
 # 来自 https://stackoverflow.com/a/24777120/2190503

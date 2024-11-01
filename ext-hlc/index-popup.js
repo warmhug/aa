@@ -22,8 +22,8 @@ async function renderText(container = document.body) {
       ${resArray[randomIndex + 1] || ''}
     `;
   };
-  const { hl_importTxt = '' } = await hl_utils.getStorage(undefined, false);
-  var resArray = hl_importTxt.split('\n').filter(item => item && item != '\r');
+  const { hl_text_import = '' } = await hl_utils.getStorage(undefined, false);
+  var resArray = hl_text_import.split('\n').filter(item => item && item != '\r');
   renderItem();
   document.querySelector('#importBtn').addEventListener('click', async () => {
     if (resArray?.length && window.confirm('使用缓存的内容？')) {
@@ -39,7 +39,7 @@ async function renderText(container = document.body) {
       // console.log('ccc', contents);
       return contents;
     }));
-    await hl_utils.setStorage({ hl_importTxt: fileContents.join() }, false);
+    await hl_utils.setStorage({ hl_text_import: fileContents.join() }, false);
     alert('写入本地存储成功');
   });
   document.querySelector('#changeTxt').addEventListener('click', (evt) => {
@@ -51,55 +51,55 @@ async function renderText(container = document.body) {
 
 popup();
 async function popup () {
+
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     // console.log(`Command "${command}" triggered`, window, location.href);
     const clipText = await hl_utils.readClipboardText();
     if (request.action === 'shortcuts' && request.message === 'openGoogTl') {
       chrome.tabs.create({ url: `https://translate.google.com/?sl=zh-CN&tl=en&text=${clipText}&op=translate` });
     }
+    if (request.action === 'openPopup' && request.message) {
+      setTimeout(() => {
+        window.close();
+      }, request.message);
+    }
     sendResponse({ action: request.action, clipText });
     return true;
   });
 
-  const proxyConfig = await chrome.proxy.settings.get({'incognito': false});
-  // SwitchyOmega https://github.com/gfwlist/gfwlist
-  console.log('chrome.proxy proxyConfig', proxyConfig);
-  console.log('chrome.proxy: ', chrome.proxy);
+  const dealResponse = (response) => {
+    if (response) {
+      hl_utils.confirm(JSON.stringify(response, null, 2));
+    }
+  };
+
   // 注意 proxy 设置，以最后一个扩展的设置生效
   // https://developer.chrome.com/docs/extensions/reference/api/types#type-ChromeSetting
   chrome.proxy.settings.onChange.addListener(evt => {
     console.log('chrome.proxy.settings.onChange: ', evt);
   });
 
-  // const localStorage = await hl_utils.getStorage(['hl_savedTabs'], false);
-  const localStorage = await hl_utils.getStorage(null, false);
-  const syncStorage = await hl_utils.getStorage(null);
-  console.log('localStorage: ', localStorage);
-  console.log('syncStorage: ', syncStorage);
+  const proxyListPrefix = 'hl_ctrl_proxy';
+  const proxyList = ['whistle', 'comp', 'no', 'clash'];
 
-  const [curTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  let proxyOn = false;
-  const renderMsg = (ctrl, field, extra) => {
+  const activeSelect = async (ctrlEle, isInit = false, btnEle) => {
     const tips = {
-      saveTabs: () => extra || '',
-      reloadPage: () => `先 discard 再 reload`,
-      whistle: () => `
-    代理服务已启动 (浏览器插件局部代理即可) &nbsp;
-    <a href="http://127.0.0.1:8899" target="_blank">规则配置</a> &nbsp;
-    <a href="https://wproxy.org/whistle/install.html" target="_blank">文档</a>`,
-      stopProxy: () => {
-        // chrome.tabs.create({ url: 'chrome://settings/system' });
+      switchChromeProxy: () => {
         return `
-        复制 chrome://settings/system 确认代理
-        点击 ${proxyOn ? '关闭' : '打开'} 当前插件设置的 Chrome 代理
+        进入下方 chrome-proxy 链接、确认 chrome 代理设置是否正确
         `;
       },
-      clash: () => {
+      hl_ctrl_proxy_whistle: () => `
+        代理服务已启动 (浏览器插件局部代理即可) &nbsp;
+        <a href="http://127.0.0.1:8899" target="_blank">规则配置</a> &nbsp;
+        <a href="https://wproxy.org/whistle/install.html" target="_blank">文档</a>
+      `,
+      hl_ctrl_proxy_clash: () => {
         const btn = document.createElement('button');
         btn.innerHTML = 'addRule';
         btn.addEventListener('click', async () => {
-          await hl_utils.sendNativeMessage('addRule', new URL(curTab.url).host);
+          const [curTab] = await chrome.tabs.query({ active: true });
+          dealResponse(await hl_utils.sendNativeMessage('addRule', new URL(curTab.url).host));
         });
         setTimeout(() => {
           btn.insertAdjacentHTML('afterend',
@@ -107,77 +107,105 @@ async function popup () {
         }, 100);
         return btn;
       },
-      kill: () => {
+      top: () => {
         const btn = document.createElement('button');
         btn.innerHTML = 'top-kill';
         btn.addEventListener('click', async () => {
-          await hl_utils.sendNativeMessage('top-kill');
+          dealResponse(await hl_utils.sendNativeMessage('top-kill'));
+        });
+        setTimeout(() => {
+          btn.insertAdjacentHTML('beforebegin',
+          `重启电脑先运行 nohup ttyd -p 9999 -W top &`);
+        }, 100);
+        return btn;
+      },
+      reloadTabs: () => {
+        const btn = document.createElement('button');
+        btn.innerHTML = '刷新所有tabs';
+        btn.addEventListener('click', async () => {
+          dealResponse(await chrome.runtime.sendMessage({ action: 'reloadTabs', reloadTabsAll: true }));
         });
         return btn;
       },
     };
-    // console.log('nextElementSibling: ', ctrl.nextElementSibling, ctrl.nextElementSibling.classList.contains('msg'));
-    const result = tips[field]?.();
-    if (ctrl.nextElementSibling.classList.contains('msg')) {
-      ctrl.nextElementSibling.innerHTML = '';
-      if (typeof result === 'string') {
-        ctrl.nextElementSibling.innerHTML = result;
-      } else if (result) {
-        ctrl.nextElementSibling.appendChild(result);
+    const setTips = (key) => {
+      const result = tips[key]?.();
+      if (ctrlEle.nextElementSibling.classList.contains('msg')) {
+        ctrlEle.nextElementSibling.innerHTML = '';
+        if (typeof result === 'string') {
+          ctrlEle.nextElementSibling.innerHTML = result;
+        } else if (result) {
+          ctrlEle.nextElementSibling.appendChild(result);
+        }
+      }
+    };
+    // console.log('nextElementSibling: ', ctrlEle.nextElementSibling, ctrlEle.nextElementSibling.classList.contains('msg'));
+    const storage = await hl_utils.getStorage(null);
+    const storageField = ctrlEle.getAttribute('data-field');
+    if (isInit) {
+      if (storage[storageField]) {
+        // 设置 active 初始态、显示相应 msg
+        const btn = ctrlEle.querySelector(`#${storage[storageField]}`);
+        btn?.classList.add('active');
+        setTips(btn?.id);
+      }
+      ctrlEle.querySelectorAll('button').forEach(item => {
+        if (item.id === 'switchChromeProxy') {
+          item.innerHTML = `${Boolean(storage[`hl_ctrl_${item.id}`]) ? '关闭': '打开'}Chrome代理`;
+        }
+      });
+    } else if (btnEle) {
+      ctrlEle.querySelectorAll('button').forEach(item => item.classList.remove('active'));
+      btnEle.classList.add('active');
+      setTips(btnEle?.id);
+      if (
+        storageField === proxyListPrefix
+        && btnEle.id?.startsWith(proxyListPrefix)
+        || storageField !== proxyListPrefix
+        && storageField
+      ) {
+        // 在 proxyList 所在行、只记忆 proxyList 的按钮
+        await hl_utils.setStorage({ [storageField]: btnEle?.id });
       }
     }
   };
 
-  let storageField;
-  const proxyList = ['whistle', 'no', 'comp', 'clash'];
-  const ctrls = document.querySelectorAll('.controls');
-  ctrls.forEach(ctrl => {
-    storageField = ctrl.getAttribute('data-field');
-    if (storageField === 'hl_proxy') {
-      ctrl.innerHTML =
-        proxyList.map(item => `<button id="${item}">${item}</button>`).join('');
+  document.querySelectorAll('.controls').forEach(ctrl => {
+    const storageField = ctrl.getAttribute('data-field');
+    if (storageField === proxyListPrefix) {
+      // 生成 proxy 控制按钮
+      const htmlStr = proxyList.map(item => `<button id="${proxyListPrefix}_${item}">${item}</button>`).join('');
+      ctrl.insertAdjacentHTML('beforeend', htmlStr);
     }
-    const initValue = syncStorage[storageField];
-    // 设置初始状态
-    if (initValue) {
-      ctrl.querySelector(`#${initValue}`).classList.add('active');
-      renderMsg(ctrl, initValue);
-    }
-    ctrl.addEventListener('click', (evt) => hander(evt, ctrl));
+    activeSelect(ctrl, true);
+    ctrl.addEventListener('click', (evt) => {
+      clickHandle(evt, ctrl);
+    });
   });
-  async function hander(evt, ctrlEle) {
-    storageField = ctrlEle.getAttribute('data-field');
-    // console.log('evt: ', evt, ctrlEle, storageField);
-    const field = evt.target.tagName === 'BUTTON' ? evt.target.id : '';
-    if (field && evt.target.tagName === 'BUTTON') {
-      ctrlEle.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
-      evt.target.classList.add('active');
-      if (storageField) {
-        await hl_utils.setStorage({ [storageField]: field });
-      }
-    }
+  async function clickHandle(evt, ctrlEle) {
+    const btn = evt.target.tagName === 'BUTTON' ? evt.target : '';
+    activeSelect(ctrlEle, false, btn);
+    const field = btn?.id?.replace(`${proxyListPrefix}_`, '');
     if (proxyList.includes(field)) {
-      await hl_utils.sendNativeMessage(field);
-      renderMsg(ctrlEle, field);
+      // proxy 控制直接调用 native 命令
+      dealResponse(await hl_utils.sendNativeMessage(field));
       return;
     }
+    const storage = await hl_utils.getStorage(null);
+    let response;
+    // response = await chrome.runtime.sendMessage({ action: 'test' });
+    // console.log('Receive res in popup', response);
     switch (field) {
       case 'ai':
         const clipText = await hl_utils.readClipboardText();
-        chrome.runtime.sendMessage({ action: 'aiChat', clipText }, (response) => {
-          console.log('Receive response in popup', response);
-        });
+        response = await chrome.runtime.sendMessage({ action: 'aiChat', clipText });
         break;
       case 'top':
       case 'openMacConfig':
-        await hl_utils.sendNativeMessage(field);
+        response = await hl_utils.sendNativeMessage(field);
         break;
-      case 'reloadMy':
-        // 定时销毁和刷新页面 (解决 内网循环登录、被墙网站 问题)
-        break;
-      case 'reloadPage':
-        chrome.tabs.discard(curTab.id);
-        chrome.tabs.reload();
+      case 'reloadTabs':
+        response = await chrome.runtime.sendMessage({ action: field });
         break;
       case 'snapshot':
         chrome.tabs.captureVisibleTab((dataUrl) => {
@@ -190,7 +218,7 @@ async function popup () {
           chrome.windows.update(wind.id, { width: 1728 });
         });
         break;
-      case 'stopProxy':
+      case 'switchChromeProxy':
         const fixConfig = {
           mode: 'fixed_servers',
           rules: {
@@ -202,57 +230,91 @@ async function popup () {
             }
           }
         };
-        proxyOn = !proxyOn;
+        const proxyConfig = await chrome.proxy.settings.get({'incognito': false});
+        console.log('chrome.proxy proxyConfig', proxyConfig);
+        const proxyOn = proxyConfig.value.mode === 'system';
         if (proxyOn) {
-          const pacConfig = {
-            mode: 'pac_script',
-            pacScript: syncStorage.hl_pacScript,
+          const pacScript = storage.hl_other_pacScript || {
+            "url": "http://localhost/a/aa/z_pacRule.pac",
+            // "data": ""
           };
-          await chrome.proxy.settings.set({ value: pacConfig, scope: 'regular' });
+          await chrome.proxy.settings.set({
+            value: { mode: 'pac_script', pacScript },
+            scope: 'regular',
+          });
         } else {
           await chrome.proxy.settings.clear({});
         }
-        renderMsg(ctrlEle, field);
-    }
-    // 帮我写 Chrome 插件代码，实现这样的功能：选中一些标签页、把他们的 URL以有序数组形式 存储到 chrome storage 里、同时关闭这些标签页，通过 popup  页面的一个按钮、从数组里恢复打开标签页，并把这些标签页移动到其他已存在标签页的后边。
-    switch (field) {
+        await hl_utils.setStorage({ [`hl_ctrl_${field}`]: proxyOn });
+        break;
+      case 'reCreateTabs':
+        response = await chrome.runtime.sendMessage({ action: field });
+        break;
+      case 'dedupTabs':
+        var tabsAll = await chrome.tabs.query({});
+        const dupTabs = tabsAll.filter((tab, index) => {
+          const idx = tabsAll.findIndex(item => tab.url === item.url);
+          if (idx !== index) {
+            return tab;
+          }
+        });
+        console.log('dupTabs: ', dupTabs);
+        if (window.confirm(`tab总数 ${tabsAll.length} 重复数量 ${dupTabs.length}`)) {
+          await chrome.tabs.remove(dupTabs.map(tab => tab.id));
+        }
+        break;
+      case 'delTabs':
+        // 如果 url 里含有 #xxx 则 匹配不到
+        // const savedTabs = await chrome.tabs.query({ url: storage.hl_tabs_saved });
+        var tabsAll = await chrome.tabs.query({});
+        console.log('tabsAll: ', tabsAll);
+        const dTabs = tabsAll.filter(tab => tab.groupId == -1 && !tab.pinned);
+        await chrome.tabs.remove(dTabs.map(tab => tab.id));
+        break;
+      case 'restoreTabs':
+        var tabsAll = async () => await chrome.tabs.query({});
+        // 情况: url 相同或只是 origin-pathname 相同，相同 tab 有多个
+        // 粗暴处理: 删掉已存在的 origin-pathname 相同的 tab (多个)
+        const fileterTabs = [];
+        (await tabsAll()).forEach(tab => {
+          storage.hl_tabs_saved.forEach((url) => {
+            if (tab.url === url || hl_utils.compareUrl(tab.url, url, { matchOriginPathname: true })) {
+              fileterTabs.push(tab);
+            }
+          });
+        });
+        await chrome.tabs.remove(fileterTabs.map(tab => tab.id));
+        const tabsLength = (await tabsAll()).length;
+        storage.hl_tabs_saved.forEach(async (url, idx) => {
+          await chrome.tabs.create({ url, index: tabsLength + idx });
+        });
+        // await hl_utils.removeStorage('hl_tabs_saved');
+        break;
       case 'saveTabs':
-        // await hl_utils.removeStorage(['hl_savedTabs']);
-        const tabs = await chrome.tabs.query({highlighted: true, currentWindow: true});
+        // await hl_utils.removeStorage(['hl_tabs_saved']);
+        const tabs = await chrome.tabs.query({ highlighted: true });
         const saveVal = tabs.map(tab => tab.url);
         const extra = `
-        选中的 ${JSON.stringify(saveVal)}
-        上次存储的 ${JSON.stringify(syncStorage.hl_savedTabs)}
+        已存储的 tab 信息会有丢失
+        选中的 ${JSON.stringify(saveVal, null, 2)}
+        上次存储的 ${JSON.stringify(storage.hl_tabs_saved, null, 2)}
         `;
         let loseInfo = false;
-        syncStorage.hl_savedTabs?.forEach(item => {
+        storage.hl_tabs_saved?.forEach(item => {
           if (!saveVal.includes(item)) {
             loseInfo = true;
           }
         });
-        renderMsg(ctrlEle, field, extra);
-        if (!loseInfo || window.confirm('已存储的 tab 信息会有丢失')) {
-          await hl_utils.setStorage({ hl_savedTabs: saveVal });
-          await chrome.tabs.remove(tabs.map(tab => tab.id));
+        const confirmResult = await hl_utils.confirm(extra);
+        console.log('confirmResult: ', confirmResult);
+        const confirm = !loseInfo || confirmResult;
+        // const confirm = !loseInfo || window.confirm('已存储的 tab 信息会有丢失');
+        if (confirm) {
+          await hl_utils.setStorage({ hl_tabs_saved: saveVal });
         }
         break;
-      case 'restoreTabs':
-        const tabsAll = await chrome.tabs.query({currentWindow: true});
-        const lastTabIndex = tabsAll.length - 1;
-        syncStorage.hl_savedTabs.forEach(url => {
-          const { host, pathname } = new URL(url);
-          const exists = tabsAll.find(tab => tab.url.host === host && tab.url.pathname === pathname);
-          if (exists?.length) {
-            exists.forEach(async tab => {
-              await chrome.tabs.move(tab.id, { index: lastTabIndex + 1 });
-            });
-          } else {
-            chrome.tabs.create({url: url, index: lastTabIndex + 1});
-          }
-        });
-        // await hl_utils.removeStorage('hl_savedTabs');
-        break;
     }
+    dealResponse(response);
   };
 
   await renderText(document.querySelector('#renderText'));
@@ -264,22 +326,34 @@ async function popup () {
     ipEle.innerHTML = localIP;
   });
 
-  document.querySelector('#chromeUrls a').addEventListener('click', (e) => {
-    const targetEle = e.target;
-    const url = targetEle.getAttribute('data-href');
-    chrome.tabs.create({ url: `chrome://${url}` });
+  document.querySelector('#chromeUrls').addEventListener('click', (e) => {
+    e.preventDefault();
+    const url = e.target.getAttribute('href');
+    if (url) {
+      chrome.tabs.create({ url: `chrome://${url}` });
+    }
   });
+
+  const localStorage = await hl_utils.getStorage(null, false);
+  const syncStorage = await hl_utils.getStorage(null);
+  console.log('localStorage: ', localStorage);
+  console.log('syncStorage: ', syncStorage);
 
   // .replaceAll('\n', '<br/>')
   const storageText = document.querySelector('#storage textarea');
+  const removeInput = document.querySelector('#storage input');
   storageText.value = JSON.stringify(syncStorage, null, 2);
   storageText.addEventListener('input', async (evt) => {
     console.log('evt: ', evt);
-    try {
-      const tv = JSON.parse(evt.target.value);
+    const tv = hl_utils.jsonParse(evt.target.value);
+    if (tv) {
       await hl_utils.setStorage(tv);
-    } catch (error) {
-      console.log('JSON.parse error: ', error);
+    }
+  });
+  removeInput.addEventListener('input', async (evt) => {
+    const tv = hl_utils.jsonParse(evt.target.value);
+    if (tv) {
+      await hl_utils.removeStorage(tv);
     }
   });
 

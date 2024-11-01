@@ -4,7 +4,7 @@ const hl_inject_ai_params = [
   {
     func: (clipText) => {
       if (!clipText) return;
-      console.log('chatgpt');
+      console.log('gpt');
       // alert(4);
       const input = document.querySelector('#prompt-textarea');
       console.log('input: ', input);
@@ -13,7 +13,6 @@ const hl_inject_ai_params = [
         document.querySelector('[data-testid="send-button"]').dispatchEvent(new MouseEvent('click', { bubbles: true }));
       });
     },
-    // args: ,
   },
   // https://www.doubao.com/chat/
   {
@@ -31,7 +30,6 @@ const hl_inject_ai_params = [
         document.querySelector('.send-btn-wrapper button').dispatchEvent(new MouseEvent('click', { bubbles: true }));
       });
     },
-    // args: ,
   },
   // https://kimi.moonshot.cn/
   {
@@ -66,7 +64,6 @@ const hl_inject_ai_params = [
       document.querySelector('#send-button')
         .dispatchEvent(new MouseEvent('click', { bubbles: true }));
     },
-    // args: ,
   },
   // comp ai
   {
@@ -81,7 +78,6 @@ const hl_inject_ai_params = [
       input.dispatchEvent(new Event('input', { bubbles: true }));
       document.querySelector('.mx-auto [data-state] .rounded-lg.cursor-pointer').dispatchEvent(new MouseEvent('click', { bubbles: true }));
     },
-    // args: ,
   },
 ];
 

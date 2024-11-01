@@ -1,10 +1,7 @@
 // 2022-01-16 from https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/mv2-archive/api/bookmarks/basic/popup.js
 
-// console.log('cb', chrome.bookmarks);
-
-const folderIcon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
-
 function dumpNode(bookmarkNode, query) {
+  // console.log('cb', chrome.bookmarks);
   if (bookmarkNode.title) {
     if (query && !bookmarkNode.children) {
       if (String(bookmarkNode.title).indexOf(query) == -1) {
@@ -31,7 +28,7 @@ function dumpNode(bookmarkNode, query) {
       formatTitle = formatTitle.substring(0, 60) + '...';
     }
     var anchor = document.createElement('a');
-    let iconUrl = folderIcon;
+    let iconUrl = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
     if (bookmarkNode.url) {
       anchor.setAttribute('data-href', bookmarkNode.url);
       // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
@@ -106,16 +103,6 @@ function dumpBookmarks(query) {
   });
 }
 
-dumpBookmarks();
-
-chrome.topSites.get(data => {
-  console.log('topSites', data);
-  document.querySelector('#topSites').innerHTML = data.map(item => (
-    `<a title="${item.title}" href="${item.url}">${new URL(item.url).host}</a>`
-  )).join('');
-});
-
-
 // https://stackoverflow.com/a/58965134/2190503
 // https://stackoverflow.com/a/33523184/2190503
 function resizer() {
@@ -150,53 +137,11 @@ function resizer() {
       item.style.pointerEvents = 'auto';
     });
     const saveWidth = `${sideIframe.offsetWidth / (window.innerWidth - 12) * 100}%`;
-    await hl_utils.setStorage({ hl_sideWidth: saveWidth });
+    await hl_utils.setStorage({ hl_other_sideWidth: saveWidth });
   }
 }
 
-const createIfr = (src) => `
-  <a class="iframe-title" href="${src}" target="_blank">${src ?? ''}</a>
-  <iframe
-    ${src ? `src="${src}"` : ''}
-    sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
-  ></iframe>
-  ${src ? '' : '<div class="tip">点击选择网址</div>'}
-`;
-
-// console.log('new tab page', chrome);
-init();
-async function init () {
-  const sideIframe = document.querySelector('#sideIframe');
-  sideIframe.innerHTML = `
-  <div class="iframe-wrap">
-    ${createIfr('https://warmhug.github.io/aa')}
-  </div>
-  `;
-  resizer();
-  const { hl_sideWidth, hl_inject_blankpage = [] } = await hl_utils.getStorage();
-  sideIframe.style.width = hl_sideWidth ?? '40%';
-
-  const majorContent = document.querySelector('.major');
-  majorContent.insertAdjacentHTML('beforeend', `
-    <div class="urls-wrap" style="margin-bottom:4px">
-    ${hl_inject_blankpage.map(src => `<a class="urls" style="margin:4px 8px;" href="${src}">${src}</a>`).join('')}
-    </div>
-    <div class="iframe-wrap">
-      ${createIfr()}
-    </div>
-  `);
-  document.querySelectorAll('.major .urls-wrap a').forEach(item => {
-    item.addEventListener('click', evt => {
-      evt.preventDefault();
-      // const iframeWrap = evt.target.closest('.urls-wrap');
-      // const curA = evt.target.closest('.urls-wrap > a');
-      // const curA = evt.target.nextElementSibling;
-      const curUrl = item.getAttribute('href');
-      const majorIframe = document.querySelector('.major .iframe-wrap');
-      majorIframe.innerHTML = createIfr(curUrl);
-    });
-  });
-
+async function googleTranslate() {
   const setUrl = (modal, url) => {
     const iframeWrap = modal.querySelector('.iframe-wrap.google');
     iframeWrap.querySelector('iframe').setAttribute('src', url);
@@ -227,3 +172,60 @@ async function init () {
     return true;
   });
 }
+
+async function content() {
+  const createIfr = (src) => `
+  <a class="iframe-title" href="${src}" target="_blank">${src ?? ''}</a>
+  <iframe
+    ${src ? `src="${src}"` : ''}
+    sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-modals allow-top-navigation allow-top-navigation-by-user-activation"
+  ></iframe>
+  ${src ? '' : '<div class="tip">选择上方网址</div>'}
+  `;
+
+  const sideIframe = document.querySelector('#sideIframe');
+  sideIframe.innerHTML = `
+  <div class="iframe-wrap">
+    ${createIfr('https://warmhug.github.io/aa')}
+  </div>
+  `;
+  resizer();
+  const { hl_other_sideWidth, hl_inject_blankpage = [] } = await hl_utils.getStorage();
+  sideIframe.style.width = hl_other_sideWidth ?? '40%';
+
+  const majorContent = document.querySelector('.major');
+  majorContent.insertAdjacentHTML('beforeend', `
+    <div class="urls-wrap" style="margin-bottom:4px">
+    ${hl_inject_blankpage.map(item => {
+      return `<a class="urls" style="margin:4px 8px;" href="${item[0]}">${item[1]}</a>`;
+    }).join('')}
+    </div>
+    <div class="iframe-wrap">
+      ${createIfr()}
+    </div>
+  `);
+  document.querySelectorAll('.major .urls-wrap a').forEach(item => {
+    item.addEventListener('click', evt => {
+      evt.preventDefault();
+      // const iframeWrap = evt.target.closest('.urls-wrap');
+      // const curA = evt.target.closest('.urls-wrap > a');
+      // const curA = evt.target.nextElementSibling;
+      const curUrl = item.getAttribute('href');
+      const majorIframe = document.querySelector('.major .iframe-wrap');
+      majorIframe.innerHTML = createIfr(curUrl);
+    });
+  });
+}
+
+async function init() {
+  const topSites = await chrome.topSites.get();
+  console.log('topSites', topSites);
+  document.querySelector('#topSites').innerHTML = topSites.map(item => (
+    `<a title="${item.title}" href="${item.url}">${new URL(item.url).host}</a>`
+  )).join('');
+
+  dumpBookmarks();
+  await googleTranslate();
+  await content();
+}
+init();

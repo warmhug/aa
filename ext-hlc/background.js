@@ -32,7 +32,7 @@ const saveResult = async (text) => {
   if (!cn) {
     return;
   }
-  const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+  const [curTab] = await chrome.tabs.query({ active: true });
   const newTranslateUrl = `https://translate.google.com/?sl=zh-CN&tl=en&text=${cn}&op=translate`;
   if (curTab.url === 'chrome://newtab/') {
     // 如果打开了 newtab 页面
@@ -72,18 +72,18 @@ chrome.tabs.onCreated.addListener(async (tabInfo) => {
   console.log('onCreated tabInfo: ', tabInfo);
   // 在 地址栏搜索 并按住 CMD+Enter 后打开的 tab 移动到在当前 tab 右边
   const searchEngines = ['google.com', 'bing.com', 'baidu.com'];
-  const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+  const [curTab] = await chrome.tabs.query({ active: true });
   if (!tabInfo.active && searchEngines.some(item => tabInfo.pendingUrl?.indexOf(item) > -1)) {
     await chrome.tabs.move(tabInfo.id, { index: curTab.index + 1 });
   }
 });
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  console.log('onUpdated tabs: ', tabId, changeInfo, tab.url);
+  // console.log('onUpdated tabs: ', tabId, changeInfo, tab.url);
   const { hl_inject_auto = [] } = await hl_utils.getStorage();
   // 自动注入代码
   hl_inject_auto.forEach(async (url, idx) => {
     const queryTabs = await chrome.tabs.query({ url: url });
-    console.log('queryTabs: ', queryTabs);
+    // console.log('queryTabs: ', queryTabs);
     queryTabs.forEach(async (qTab) => {
       if (qTab.id = tabId) {
         const { css = '', ...rest } = hl_inject_auto_params[idx];
@@ -92,7 +92,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
           target: { tabId },
           ...rest,
         });
-        console.log('auto injectionResults: ', injectionResults);
+        // console.log('auto injectionResults: ', injectionResults);
       }
     });
   });
@@ -106,7 +106,7 @@ async function aiChat() {
   hl_inject_ai.forEach(async (url, idx) => {
     const targetTab = await hl_utils.createOrUpdateTab(url, aiChatNew);
     const tabId = targetTab.id;
-    if (targetTab.index > 6) {
+    if (targetTab.index > 7) {
       await chrome.tabs.move(tabId, { index: 0 });
     }
     try {
@@ -121,48 +121,79 @@ async function aiChat() {
     }
   });
   aiChatNew = false;
-};
+}
 
 // 开启定时任务
-hl_utils.cron(null, () => {
+const interval = null;
+// const interval = 20 * 1000;
+hl_utils.cron(interval, async () => {
+  await openPopup('cron');
+  const syncStorage = await hl_utils.getStorage(null);
+  await hl_utils.reCreateTabs(syncStorage.hl_tabs_rebuild);
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === 'aiChat') {
+async function onMessageCb(request) {
+  if (request?.action === 'reCreateTabs') {
+    const syncStorage = await hl_utils.getStorage(null);
+    await hl_utils.reCreateTabs(syncStorage.hl_tabs_rebuild);
+  }
+  if (request?.action === 'reloadTabs') {
+    const [curTab] = await chrome.tabs.query({ active: true });
+    await hl_utils.reloadTabs(request?.reloadTabsAll ? undefined : curTab);
+  }
+  if (request?.action === 'aiChat') {
     clipText = request.clipText;
     aiChat();
-    sendResponse({ action: request.action, result: '调用 aiChat 成功' });
   }
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  onMessageCb(request);
+  // 返回消息 不能异步发送
+  sendResponse({ action: request?.action, result: 'background 成功接收消息' });
   return true;
 });
 
-function openPopup (text = 'popup', cb = () => {}) {
+async function openPopup(text = 'popup', cb = () => {}) {
+  // 用于延时关闭 popup
+  const delay = 1000;
+  const response = await chrome.runtime.sendMessage({
+    _bg: true, action: 'openPopup', message: delay,
+  });
+  console.log("Receive response in background", response);
   chrome.action.openPopup();
   chrome.action.setBadgeText({ text });
   setTimeout(() => {
     cb();
     chrome.action.setBadgeText({ text: '' });
-  }, 1000);
+  }, delay);
 }
 
 // 注册和使用快捷键 https://developer.chrome.com/docs/extensions/reference/commands
 // chrome://extensions/shortcuts
 chrome.commands.onCommand.addListener((command) => {
-  openPopup(command, () => {
+  openPopup(command, async () => {
     if (command === 'aiChatNew') {
       aiChatNew = true;
     }
     if (command === 'aiChat') {
-      chrome.runtime.sendMessage({
-        _bg: true, action: command,
-      }, (response) => {
-        // 需要等 popup 页面获取到内容，这里才能收到消息
-        console.log("Receive response in background", response);
-        if (response?.action === command && response?.clipText) {
-          clipText = response.clipText;
-          aiChat();
-        }
-      });
+      response = await chrome.runtime.sendMessage(
+        { _bg: true, action: command },
+        // (response) => {
+        //   // 需要等 popup 页面获取到内容，这里才能收到消息
+        //   console.log("Receive response in background", response);
+        //   if (response?.action === command && response?.clipText) {
+        //     clipText = response.clipText;
+        //     aiChat();
+        //   }
+        // }
+      );
+      // 需要等 popup 页面获取到内容，这里才能收到消息
+      console.log("Receive response in background", response);
+      if (response?.action === command && response?.clipText) {
+        clipText = response.clipText;
+        aiChat();
+      }
     }
   });
 });

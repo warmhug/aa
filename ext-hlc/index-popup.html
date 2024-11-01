@@ -12,6 +12,10 @@
     align-items: center;
     justify-content: right;
     margin: 5px 0;
+    button {
+      border: 1px solid #eee;
+      cursor: pointer;
+    }
   }
   .controls button {
     margin-left: 10px;
@@ -20,54 +24,60 @@
   .msg button {
     transform: scale(0.8);
   }
-  [data-field="hl_proxy"] .active {
+  [data-field="hl_ctrl_proxy"] .active {
     background-color: #cddf8e;
   }
-  [data-field="hl_miscFn"] .active {
+  [data-field="hl_ctrl_misc"] .active {
     border-bottom: 1px solid red;
+  }
+  .links a {
+    margin-right: 10px;
   }
 </style>
 <link rel="stylesheet" href="./assets/toastui-editor.min.css">
 </head>
 <body>
 <div id="fns">
-  <div class="controls" data-field="hl_proxy"></div>
-  <div class="msg"></div>
-  <div class="controls" data-field="hl_miscFn">
-    <button id="openMacConfig">系统代理控制</button>
-    <button id="stopProxy">开关代理</button>
-    <button id="snapshot">截图</button>
-    <!-- <button id="resizeWindow">resize</button> -->
-    <!-- <button id="reloadMy">刷新指定</button> -->
-    <button id="reloadPage">重载当前</button>
-    <button id="top">top</button>
-    <button id="ai">AI</button>
+  <div class="controls" data-field="hl_ctrl_proxy">
+    <button id="openMacConfig">查看系统设置</button>
+    <button id="switchChromeProxy"></button>
   </div>
   <div class="msg"></div>
-  <div class="controls">
-    <button id="saveTabs">保存tab</button>
-    <button id="restoreTabs">恢复tab</button>
+  <div class="controls" data-field="hl_ctrl_misc">
+    <!-- <button id="snapshot">截图</button>
+    <button id="resizeWindow">resize</button> -->
+    <button id="ai">AI</button>
+    <button id="reloadTabs">重载tab</button>
+    <button id="saveTabs">选中保存tab</button>
+    <button id="reCreateTabs">重建pin-tab</button>
+    <button id="dedupTabs">去重tab</button>
+    <button id="delTabs">del-ungroup-tab</button>
+    <button id="restoreTabs">restore-tab</button>
+    <button id="top">top</button>
   </div>
   <div class="msg"></div>
 </div>
 <div id="tuiEditor"></div>
 <div id="renderText" style="margin: 10px 0;"></div>
-<div>
-  <a id="ipEle" target="_blank"></a> &nbsp;
+<di class="links">
+  <a id="ipEle" target="_blank"></a>
   <a
-    href="https://developer.chrome.com/docs/extensions/reference/api"
+    href="https://developer.chrome.com/docs/extensions/reference/api/tabs"
     target="_blank"
   >
-    extensions/api
-  </a> &nbsp;
+    extensions/api/tabs
+  </a>
+  <!-- 普通链接打不开 chrome 内部页面 -->
+  <!-- <a href="chrome://settings/system" target="_blank">chrome-proxy</a> -->
   <span id="chromeUrls">
-    <a data-href="chrome-urls">chrome-urls</a>
-    <!-- <a data-href="settings/system">chrome-proxy</a> -->
+    <a href="chrome-urls">chrome-urls</a>
+    <a href="settings/system">chrome-proxy</a>
   </span>
-</div>
-<details id="storage" style="margin: 10px 0;">
+</di>
+<details open id="storage" style="margin: 10px 0;">
   <summary>sync storage</summary>
   <textarea style="height: 200px; width: 100%;"></textarea>
+  remove <input style="width: 100%;" value="[]" />
 </details>
 <details>
   <summary>其他</summary>

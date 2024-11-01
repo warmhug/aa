@@ -41,6 +41,6 @@ export function activate(context: ExtensionContext) {
 }
 
 export function deactivate() {
-  console.log('extension 卸载');
-  vscode.window.showInformationMessage('extension 卸载');
+  console.log('warmhug extension 卸载');
+  vscode.window.showInformationMessage('warmhug extension 卸载');
 }

@@ -26,17 +26,17 @@ async function tuiEditor() {
         }
         // await hl_utils.sendNativeMessage('setNote', JSON.stringify(content));
         // 硬盘内容可能失效，在 localestorage 做备份
-        await hl_utils.setStorage({ hl_notesTxt: content }, false);
+        await hl_utils.setStorage({ hl_text_note: content }, false);
       }
     }
   });
-  let hl_notesTxt;
+  let hl_text_note;
   // const response = await hl_utils.sendNativeMessage('getNote');
-  // hl_notesTxt = response.content;
-  if (!hl_notesTxt || hl_notesTxt.length < 3) {
-    hl_notesTxt = (await hl_utils.getStorage(undefined, false)).hl_notesTxt;
+  // hl_text_note = response.content;
+  if (!hl_text_note || hl_text_note.length < 3) {
+    hl_text_note = (await hl_utils.getStorage(undefined, false)).hl_text_note;
   }
-  tuiEditor.setMarkdown(hl_notesTxt);
+  tuiEditor.setMarkdown(hl_text_note);
   // 点击打开链接
   el.addEventListener('dblclick', (evt) => {
     // 把 .toastui-editor-contents 元素的 contenteditable 设为 false ，内部的 链接 就能自动跳转
@@ -45,7 +45,7 @@ async function tuiEditor() {
       // 因为 evt?.target?.href 里的 & 号被转义、导致跳转不对，所以用 innerText
       // window.open(evt?.target?.innerText);
       // window.location.href = evt?.target?.innerText;
-      chrome.tabs.query({ active: true, currentWindow: true }, ([curTab]) => {
+      chrome.tabs.query({ active: true }, ([curTab]) => {
         chrome.tabs.create({
           url: evt?.target?.innerText,
           index: curTab.index + 1

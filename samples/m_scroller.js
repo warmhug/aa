@@ -1,56 +1,58 @@
-const container = document.querySelector('.scroller-container');
-const scroller = document.querySelector('.scroller');
-
-const arr = len => Array.from(new Array(len), (x, i) => i);
-const html = (c, ci) => `<div style="border:1px dotted rgb(${Math.round(Math.random() * ci)},10,20)">${c}</div>`;
-document.querySelector('#main').innerHTML = arr(10).
-  reduce((previousValue, currentValue, index) => `${html(
-    arr(20).reduce((pv, cv, ii) => html(`${index}-${ii} ${pv}`, 50), ''),
-    255
-  )}${previousValue}`, '');
-const logEle = document.querySelector('#log');
-function log(c) {
-  logEle.innerHTML = c;
-}
 
 /**
  *  SimulatedScroller start
+ 模拟滚动 实现原理：
+- scroller-container 设置 css `overflow: hidden;` 以及固定的高度来禁止浏览器原生滚动, scroller 是内容区。
+- scroller-container 设置 touchstart 事件和 touchmove/touchend 事件(后两者也可以在 document 绑定)。
+- 在 touchstart 事件里记录一次滚动初始的 e.pageY 位置值
+    - 同时在遇到 /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ 这些元素时，return 掉 不需要处理。
+- 在 touchmove 事件里获取 e.pageY 减去在 touchstart 事件里获取到 e.pageY ，以此值设置 scroller 的“卷积高度值”
+    - 如果 scroller 设置 css `position: absolute;` 则“卷积高度值”设在 style.top 上（不建议）；
+    - 如果 scroller 设置 css `transform: translate3d(x, y, z);` 则“卷积高度值”设在 y 上。
+- 在 touchend 事件里设置 momentum(动量) 值，并用“缓动公式”产生物理运动的“动画效果”
+    - 如果 touchmove 的事件执行事件比较长(即用户在上下“拖拽着”页面)，则不需要设置 momentum ，
+    - 否则设置 momentum 并产生动画效果，达到模拟浏览器原生滚动的目的
+- 体验增强：生成模拟的滚动条
  */
-const rException = /^(INPUT|TEXTAREA|BUTTON|SELECT)$/;
-const rAF = window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function (callback) {
-      window.setTimeout(callback, 1000 / 60);
+function simulatedScroller(container, scroller) {
+  const logEle = document.querySelector('#log');
+  function log(c) {
+    logEle.innerHTML = c;
+  }
+
+  const rException = /^(INPUT|TEXTAREA|BUTTON|SELECT)$/;
+  const rAF = window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
+        window.setTimeout(callback, 1000 / 60);
+      };
+
+  function _event(e) {
+    if (e.touches && e.touches.length) {
+      return e.touches[0];
+    }
+    if (e.changedTouches && e.changedTouches.length) {
+      return e.changedTouches[0];
+    }
+    return e;
+  }
+
+  function momentum(current, start, time, deceleration) {
+    const distance = current - start;
+    const speed = Math.abs(distance) / time;
+    const d = deceleration === undefined ? 0.0006 : deceleration;
+
+    const destination = current + (speed * speed) / (2 * d) * (distance < 0 ? -1 : 1);
+    const duration = speed / d;
+
+    return {
+      destination: Math.round(destination),
+      duration,
     };
-
-function _event(e) {
-  if (e.touches && e.touches.length) {
-    return e.touches[0];
   }
-  if (e.changedTouches && e.changedTouches.length) {
-    return e.changedTouches[0];
-  }
-  return e;
-}
-
-function momentum(current, start, time, deceleration) {
-  const distance = current - start;
-  const speed = Math.abs(distance) / time;
-  const d = deceleration === undefined ? 0.0006 : deceleration;
-
-  const destination = current + (speed * speed) / (2 * d) * (distance < 0 ? -1 : 1);
-  const duration = speed / d;
-
-  return {
-    destination: Math.round(destination),
-    duration,
-  };
-}
-
-(function SimulatedScroller() {
 
   container.addEventListener('touchstart', start);
   container.addEventListener('touchmove', move);
@@ -86,7 +88,7 @@ function momentum(current, start, time, deceleration) {
       _isAnimating = false;
       _translate(_startY);
     }
-    
+
     // can not preventDefault, because the body maybe scroll
     // e.preventDefault();
   }
@@ -101,10 +103,10 @@ function momentum(current, start, time, deceleration) {
     _pageY = _e.pageY;
     _distY += _diff;
     _lastY += _diff;
-    
+
     // log(`${_e.pageY} ${_pageY} ${_lastY} ${_diff}`);
     _translate(_lastY);
-    
+
     // 滚动到 顶部/底部 后再继续滚动，不应该再 preventDefault
     if (!(reachTop && _diff > 0 || reachBottom && _diff < 0)) {
       console.log('not reach top/bottom');
@@ -145,7 +147,7 @@ function momentum(current, start, time, deceleration) {
     } else {
       reachBottom = false;
     }
-    
+
     if (_y > 0) {
       log('scroll to top');
       _y = 0;
@@ -153,7 +155,7 @@ function momentum(current, start, time, deceleration) {
     } else {
       reachTop = false;
     }
-    
+
     _lastY = Math.round(_y);
     scroller.style.transform = `translate3d(0, ${_lastY}px, 0) scale(1)`;
   }
@@ -191,5 +193,4 @@ function momentum(current, start, time, deceleration) {
     let kk = k;
     return Math.sqrt(1 - (--kk * kk));
   }
-
-})();
+}

@@ -4,6 +4,7 @@
   "description": "Override the new tab page with a blank one",
   "version": "1.0",
   "manifest_version": 3,
+  "incognito": "split",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
@@ -92,7 +93,6 @@
   "host_permissions": [
     "<all_urls>"
   ],
-  "incognito": "split",
   "web_accessible_resources": [{
     "resources": ["*.js"],
     "matches": ["<all_urls>"]

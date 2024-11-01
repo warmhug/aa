@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "",
+    "bash": "bash -c '. test.sh && myFunction'",
+    "bash1": "bash test.sh myFunction",
     "electron": "electron .",
     "prepublish": "node ./prebuild.js"
   },

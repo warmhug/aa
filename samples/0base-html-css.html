@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet/less" type="text/css" href="./0base.less" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
 <title>css html 基础</title>
 <style>
   input::-webkit-calendar-picker-indicator {
@@ -193,5 +195,140 @@
     // document.getElementById("form").submit()
   }
 </script>
+
+
+<div>
+  <div class="media s0">max 320 width</div>
+  <div class="media s1">iphone 320 width</div>
+  <div class="media s2">ipad 768 width</div>
+  <div class="media s3">portrait screen</div>
+  <div class="media s4">landscape screen</div>
+</div>
+
+<div class="holygrail">
+  <!-- 圣杯布局 http://www.alistapart.com/articles/holygrail -->
+  <div class="center column">
+    <h1>This is the main content.</h1>
+  </div>
+  <div class="left column">
+    <h2>This is the left sidebar.</h2>
+  </div>
+  <div class="right column">
+    <h2>This is the right sidebar.</h2>
+  </div>
+</div>
+
+<section class="flex-container" >
+  <header class="header">This is a header</header>
+  <article class="content" >
+    This is the content that can scroll!
+    必须设置 html 的 height: 100%;
+    <br />2<br />3<br />4<br />5<br />6<br />2<br />3<br />4<br />5<br />6<br />2<br />3<br />4
+    <br />5<br />6<br />2<br />3<br />4<br />5<br />6<br />2<br />3<br />4<br />5<br />6
+    <br />5<br />6<br />2<br />3<br />4<br />5<br />6<br />2<br />3<br />4<br />5<br />6
+    <br />5<br />6<br />2<br />3<br />4<br />5<br />6<br />2<br />3<br />4<br />5<br />6
+    <br />5<br />6<br />2<br />3<br />4<br />5<br />6<br />2<br />3<br />4<br />5<br />6
+  </article>
+  <footer class="footer" >This is a footer</footer>
+</section>
+
+<div class="aspect-container">
+  <div class="aspect">
+    <div>我的宽高比为750:210，不管屏幕有多宽</div>
+  </div>
+  <div class="aspect1">
+    <div class="text">Aspect ratio 使用 vw calc 计算结果精确</div>
+  </div>
+  <div class="aspect2">
+    <div class="text">Aspect ratio 计算结果不太精确</div>
+  </div>
+</div>
+
+<div class="steps-horizontal">
+  <div class="steps-item step1">
+    <div class="steps-item-line"></div>
+    <div class="steps-item-icon">
+      <img src="https://zos.alipayobjects.com/rmsportal/dWPGltvdjaanrRd.png" alt="">
+    </div>
+  </div>
+  <div class="steps-item step2">
+    <div class="steps-item-line"></div>
+    <div class="steps-item-icon">
+      <img src="https://zos.alipayobjects.com/rmsportal/dWPGltvdjaanrRd.png" alt="">
+    </div>
+  </div>
+  <div class="steps-item step3">
+    <div class="steps-item-line"></div>
+    <div class="steps-item-icon">
+      <img src="https://zos.alipayobjects.com/rmsportal/KkwxfwZGLDeWrWN.png" alt="">
+    </div>
+  </div>
+</div>
+<div class="steps-vertical">
+  <div class="steps-item step1">
+    <div class="steps-item-line"></div>
+    <div class="steps-item-icon">
+      <img src="https://zos.alipayobjects.com/rmsportal/dWPGltvdjaanrRd.png" alt="">
+    </div>
+    <div class="steps-item-content">
+      我是标题 <br>
+      <small>如果去掉 border-box 设置，我左边的 竖线 上下留的缝隙、将实现不了！</small>
+    </div>
+  </div>
+  <div class="steps-item step2">
+    <div class="steps-item-icon">
+      <img src="https://zos.alipayobjects.com/rmsportal/KkwxfwZGLDeWrWN.png" alt="">
+    </div>
+    <div class="steps-item-content">
+      步骤 <br> <small>this is summary text</small>
+    </div>
+  </div>
+</div>
+
+<div id="animate" style="position: relative; width:130px; height: 50px; background-color: #ccc;">
+  js 动画
+</div>
+<script>
+function animate(stepCallback = () => {}, completedCallback = () => {}, easingMethod) {
+  var start = +new Date();
+  var lastFrame = start;
+  var percent = 0;
+  var duration = 2000;
+  function step() {
+    var now = +new Date();
+    percent = (now - start) / duration;
+    if (percent > 1) {
+      percent = 1;
+    }
+    var value = easingMethod ? easingMethod(percent) : percent;
+    if (stepCallback(value, now) === false || percent === 1) {
+      completedCallback();
+    } else {
+      lastFrame = now;
+      requestAnimationFrame(step);
+    }
+  }
+  requestAnimationFrame(step);
+}
+var element = document.getElementById("animate");
+  animate((value, now) => {
+    element.style.left = 200 * value + "px";
+    console.log(200 * value, now);
+  },
+  () => console.log('completedCallback'),
+  function (t) { return t*t }
+);
+</script>
+<div class="css_animate" style="height: 200px; line-height: 200px; margin: 100px; text-align: center;">a</div>
+
+<div class="ofo_unlock">
+  <div class="round">
+    <p style="margin:40px 30px;">开锁中</p>
+  </div>
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+  <div class="circle circle3"></div>
+  <div class="circle circle4"></div>
+</div>
 </body>
 </html>
