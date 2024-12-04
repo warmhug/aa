@@ -7,8 +7,6 @@ body {
 * {
   box-sizing: border-box;
 }
-
-/* 拷贝自 Bootstrap v3.3.7 */
 a {
   text-decoration: none;
 }
@@ -18,7 +16,6 @@ a {
   width: 100%;
   height: 100%;
   z-index: -1;
-  /* https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_filter_all */
   filter: opacity(90%);
 }
 .ce-wrapper {
@@ -68,78 +65,43 @@ a {
   background-color: #fff;
 }
 
-#bookmarks {
+#bookmarks ul {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: center;
   background-color: #fff;
   font-size: 12px;
-  padding: 0 8px;
-}
-#bookmarks .other {
-  flex: none;
-}
-#bookmarks a {
-  cursor: pointer;
-}
-#bookmarks .other a {
-  margin-right: 5px;
-}
-#bookmarks ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   border: none;
-}
-#bookmarks ul li a {
-  display: flex;
-  align-items: flex-start;
-  margin: 2px;
-  white-space: nowrap;
-}
-#bookmarks ul li a img {
-  max-width: 16px;
-  margin-right: 4px;
-}
-#bookmarks .active {
-  background-color: #e8f0fe;
-  color: #333;
-}
+  margin: 0;
+  padding: 0;
 
-#bookmarks .left,
-#bookmarks .right {
-  display: flex;
-  align-items: center;
-}
-#bookmarks .left > ul {
-  display: flex;
-}
-#bookmarks .left > ul li {
-  margin-left: 10px;
-}
-#bookmarks .right > ul ul {
-  display: none;
-  position: absolute;
-  z-index: 10;
-  background-color: #fff;
-  box-shadow: 1px -1px 0px 2px rgba(0, 0, 0, 0.2);
-}
-#bookmarks .right > ul li {
-  position: relative;
-  padding: 5px 10px;
-  border-bottom: 1px solid #eee;
-}
-#bookmarks .right > ul li:last-child {
-  border-bottom: none;
-}
-#bookmarks .right > ul li:hover > ul {
-  display: block;
-}
+  li a {
+    display: flex;
+    align-items: flex-start;
+    white-space: nowrap;
+    img {
+      max-width: 16px;
+      margin-right: 4px;
+    }
+  }
 
-#topSites {
-  display: flex;
-  background-color: #fff;
-  padding-bottom: 6px;
-}
-#topSites a {
-  margin-left: 15px;
+  li {
+    list-style: none;
+    position: relative;
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li > ul {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    box-shadow: 1px -1px 0px 2px rgba(0, 0, 0, 0.2);
+  }
+  li:hover > ul {
+    display: block;
+  }
 }

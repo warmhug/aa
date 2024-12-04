@@ -1,5 +1,5 @@
 importScripts('common.js');
-importScripts('background-in.js');
+importScripts('background-inject.js');
 // console.log('hl_utils: ', hl_utils);
 console.log('bg page, 注意其执行时机', chrome);
 // console.log('bg page init no window', window?.document?.title);
@@ -81,10 +81,9 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   // console.log('onUpdated tabs: ', tabId, changeInfo, tab.url);
   const { hl_inject_auto = [] } = await hl_utils.getStorage();
   // 自动注入代码
-  hl_inject_auto.forEach(async (url, idx) => {
+  const result = hl_utils.asyncMap(hl_inject_auto, async (url, idx) => {
     const queryTabs = await chrome.tabs.query({ url: url });
-    // console.log('queryTabs: ', queryTabs);
-    queryTabs.forEach(async (qTab) => {
+    return await hl_utils.asyncMap(queryTabs, async (qTab) => {
       if (qTab.id = tabId) {
         const { css = '', ...rest } = hl_inject_auto_params[idx];
         await chrome.scripting.insertCSS({ target: { tabId }, css });
@@ -93,34 +92,49 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
           ...rest,
         });
         // console.log('auto injectionResults: ', injectionResults);
+        return injectionResults;
       }
     });
   });
+  // console.log('log result: ', result);
 });
 
-
-let clipText;
-let aiChatNew = false;
-async function aiChat() {
+async function aiChat(clipText) {
   const { hl_inject_ai = [] } = await hl_utils.getStorage();
-  hl_inject_ai.forEach(async (url, idx) => {
-    const targetTab = await hl_utils.createOrUpdateTab(url, aiChatNew);
+  // const hl_inject_ai = ['https://www.doubao.com/chat/']; // 调试用
+  const maps = hl_inject_ai.map((url, idx) => ({
+    url, func: hl_inject_ai_fns[idx]
+  }));
+  const runFn = async ({ url, func }) => {
+    const targetTab = await hl_utils.createOrUpdateTab(url, true);
+    if (!targetTab) {
+      return;
+    }
     const tabId = targetTab.id;
     if (targetTab.index > 7) {
       await chrome.tabs.move(tabId, { index: 0 });
     }
+    // 虽然页面已经 loaded 但 页面里的元素 可能还在变化、等待其稳定
+    await hl_utils.sleep(300);
+    // await hl_utils.sleep(135000);
     try {
       const injectionResults = await chrome.scripting.executeScript({
-        ...hl_inject_ai_params[idx],
+        func,
         target: { tabId },
         args: [clipText],
       });
-      console.log('autoInject: ', url, injectionResults);
     } catch (error) {
-      console.log('executeScript error: ', url, error);
+      console.log('log executeScript error: ', url, error);
     }
-  });
-  aiChatNew = false;
+  };
+  // console.log('log maps: ', maps);
+  for (let item of maps) {
+    await runFn(item);
+    // 隔一秒跑一个
+    await hl_utils.sleep(1000);
+  }
+  // 并行执行，有焦点失焦问题？
+  // await hl_utils.asyncMap(maps, runFn);
 }
 
 // 开启定时任务
@@ -142,11 +156,12 @@ async function onMessageCb(request) {
     await hl_utils.reloadTabs(request?.reloadTabsAll ? undefined : curTab);
   }
   if (request?.action === 'aiChat') {
-    clipText = request.clipText;
-    aiChat();
+    await aiChat(request.clipText);
+  }
+  if (request.action === 'openPopup') {
+    await openPopup(undefined, undefined, 0);
   }
 }
-
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   onMessageCb(request);
   // 返回消息 不能异步发送
@@ -154,18 +169,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true;
 });
 
-async function openPopup(text = 'popup', cb = () => {}) {
-  // 用于延时关闭 popup
-  const delay = 1000;
-  const response = await chrome.runtime.sendMessage({
-    _bg: true, action: 'openPopup', message: delay,
-  });
-  console.log("Receive response in background", response);
-  chrome.action.openPopup();
-  chrome.action.setBadgeText({ text });
-  setTimeout(() => {
-    cb();
-    chrome.action.setBadgeText({ text: '' });
+async function openPopup(text = 'popup', cb = async () => {}, delay = 1000) {
+  // 想自动关闭 popup 页面，需要在 popup 页面里调用 window.close();
+  // const response = await chrome.runtime.sendMessage({
+  //   _bg: true, action: 'openPopup', message: delay,
+  // });
+  // console.log("Receive response in background", response);
+  await chrome.action.openPopup();
+  await chrome.action.setBadgeText({ text });
+  setTimeout(async () => {
+    await cb();
+    await chrome.action.setBadgeText({ text: '' });
   }, delay);
 }
 
@@ -173,26 +187,14 @@ async function openPopup(text = 'popup', cb = () => {}) {
 // chrome://extensions/shortcuts
 chrome.commands.onCommand.addListener((command) => {
   openPopup(command, async () => {
-    if (command === 'aiChatNew') {
-      aiChatNew = true;
-    }
     if (command === 'aiChat') {
       response = await chrome.runtime.sendMessage(
         { _bg: true, action: command },
-        // (response) => {
-        //   // 需要等 popup 页面获取到内容，这里才能收到消息
-        //   console.log("Receive response in background", response);
-        //   if (response?.action === command && response?.clipText) {
-        //     clipText = response.clipText;
-        //     aiChat();
-        //   }
-        // }
       );
       // 需要等 popup 页面获取到内容，这里才能收到消息
       console.log("Receive response in background", response);
       if (response?.action === command && response?.clipText) {
-        clipText = response.clipText;
-        aiChat();
+        await aiChat(response.clipText);
       }
     }
   });

@@ -9,6 +9,7 @@
 
 Chrome extensions
 
+Tab Position Options
 一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) ModHeader XSwitch Tamper Tampermonkey / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / gitpod npmhub / screenity / Language Reactor / Side Browser / Sidebar Tab / Porter Plug / Video Speed Controller
 
 数据
@@ -16,8 +17,8 @@ Chrome extensions
 ```json
 {
   "hl_inject_ai": [
-    "https://chatgpt.com/",
     "https://www.doubao.com/chat/",
+    "https://chatgpt.com/",
     "https://kimi.moonshot.cn/"
   ],
   "hl_inject_auto": [
@@ -26,9 +27,8 @@ Chrome extensions
     "https://i.mi.com/note/h5#/"
   ],
   "hl_inject_blankpage": [
+    ["http://localhost/a/aa/ext-hlc/a_localFileEditor.html", "本地文件编辑器"],
     ["https://ai-bot.cn/daily-ai-news/", "AI新闻"],
-    ["http://localhost/a/aa/ext-hlc/a_tool.html", "tool"],
-    ["https://www.en998.com/sentence/", "英语"],
     ["https://www.baidu.com/s?wd=%E6%97%A5%E5%8E%86", "日历"]
   ],
   "hl_tabs_rebuild": [

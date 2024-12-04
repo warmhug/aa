@@ -21,7 +21,7 @@
       image.src = URL.createObjectURL(file);
     }
     const div = document.createElement('div');
-    div.style.cssText = 'position: absolute; z-index: 9999; top: 1px; left: 1px;'
+    div.style.cssText = 'position: absolute; z-index: 99; top: 1px; left: 1px;'
     document.body.appendChild(div);
     const description = document.createElement('div');
     description.innerHTML = `
@@ -39,7 +39,7 @@
   // for tile image test
   const testBigImg = () => {
     const imgsContainer = document.createElement('div');
-    imgsContainer.style.cssText = 'position: absolute; z-index: 9999; top: 1px; left: 1px; max-width: 1000px; overflow: scroll;';
+    imgsContainer.style.cssText = 'position: absolute; z-index: 99; top: 1px; left: 1px; max-width: 1000px; overflow: scroll;';
     document.body.appendChild(imgsContainer);
     const createRow = () => document.createElement('div');
     return {

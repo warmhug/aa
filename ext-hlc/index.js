@@ -1,13 +1,8 @@
 // 2022-01-16 from https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/mv2-archive/api/bookmarks/basic/popup.js
 
-function dumpNode(bookmarkNode, query) {
+function dumpNode(bookmarkNode, clsArg = '') {
   // console.log('cb', chrome.bookmarks);
   if (bookmarkNode.title) {
-    if (query && !bookmarkNode.children) {
-      if (String(bookmarkNode.title).indexOf(query) == -1) {
-        return document.createElement('span');
-      }
-    }
     // html 0宽字符: U+200B  U+200C  U+200D   U+FEFF  &zwnj;&ZeroWidthSpace;&#xFEFF
     let formatTitle = bookmarkNode.title
       // todo 有问题
@@ -30,7 +25,7 @@ function dumpNode(bookmarkNode, query) {
     var anchor = document.createElement('a');
     let iconUrl = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzQyODVGNCI+PHBhdGggZD0iTTIwIDZoLThsLTItMkg0Yy0xLjEgMC0xLjk5LjktMS45OSAyTDIgMThjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY4YzAtMS4xLS45LTItMi0yem0wIDEySDRWOGgxNnYxMHoiLz48L3N2Zz4=';
     if (bookmarkNode.url) {
-      anchor.setAttribute('data-href', bookmarkNode.url);
+      anchor.setAttribute('href', bookmarkNode.url);
       // chrome://bookmarks 打开控制台 查找文件夹图标 chrome://bookmarks/images/folder_open.svg
       iconUrl = chrome.runtime.getURL(`_favicon/?pageUrl=${bookmarkNode.url}`);
     }
@@ -41,67 +36,55 @@ function dumpNode(bookmarkNode, query) {
   // console.log('bookmarkNode.title', bookmarkNode.title, bookmarkNode.children);
   var li = document.createElement(bookmarkNode.title ? 'li' : 'div');
   li.append(anchor);
-  if (bookmarkNode.children && bookmarkNode.children.length > 0) {
-    li.append(dumpTreeNodes(bookmarkNode.children, query));
+  if (bookmarkNode?.children?.length) {
+    const cls = `${clsArg}-${bookmarkNode.parentId}-${bookmarkNode.id}`;
+    li.append(dumpTreeNodes(bookmarkNode.children, cls));
   }
   return li;
 }
-function dumpTreeNodes(bookmarkNodes, query) {
-  var ulEle = document.createElement('ul');
+function dumpTreeNodes(bookmarkNodes, cls = 'root') {
+  const ulEle = document.createElement('ul');
+  ulEle.className = cls;
   var i;
   for (i = 0; i < bookmarkNodes.length; i++) {
-    ulEle.append(dumpNode(bookmarkNodes[i], query));
+    ulEle.append(dumpNode(bookmarkNodes[i], cls));
   }
   return ulEle;
 }
-function dumpBookmarks(query) {
-  chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
-    // console.log('bookmarkTreeNodes', bookmarkTreeNodes);
-    let newChilds = [];
-    const roots = bookmarkTreeNodes[0].children;
-    const isChromeOrEdgeFav = ['书签栏', '收藏夹栏', 'Bookmarks Bar', 'Other Bookmarks'].includes(roots[0].title);
-    if (isChromeOrEdgeFav) {
-      newChilds = [...roots[0].children, roots[1]];
+async function dumpBookmarks() {
+  const bookmarkTreeNodes = await chrome.bookmarks.getTree();
+  const topSites = await chrome.topSites.get();
+  console.log('bookmarkTreeNodes', bookmarkTreeNodes);
+  console.log('topSites', topSites);
+  const [favBar = [], ...others] = bookmarkTreeNodes[0].children;
+  // 收藏夹栏内容 直接显示
+  const newChilds = [...favBar.children, ...others, {
+    id: 'top',
+    parentId: 'root',
+    title: 'topSite',
+    children: topSites.map((item, idx) => ({ id: `t${idx}`, ...item })),
+  }];
+  document.querySelector('#bookmarks').append(dumpTreeNodes(newChilds));
+  document.querySelector('#bookmarks').addEventListener('click', async (evt) => {
+    evt.preventDefault();
+    const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+    const targetUrl = evt.target.href;
+    if (evt.target?.tagName === 'A' && targetUrl) {
+      curTab.index === 0 ? chrome.tabs.create({
+        index: curTab.index + 1,
+        url: targetUrl
+      }) : chrome.tabs.update({ url: targetUrl });
     }
-    // 筛选出文件夹 布局到右边
-    const bmLinks = [];
-    const bmFolds = [];
-    newChilds.forEach(item => {
-      if (item.url) {
-        bmLinks.push(item);
-      } else {
-        bmFolds.push(item);
-      }
-    });
-    document.querySelector('#bookmarks').innerHTML = (`
-      <div class="left">
-        <div class="other">
-          <a data-href="chrome://extensions/">扩展</a>
-          <a data-href="chrome://bookmarks">书签</a>
-        </div>
-      </div>
-      <div class="right"></div>
-    `)
-    document.querySelector('#bookmarks .left').append(dumpTreeNodes(bmLinks, query));
-    document.querySelector('#bookmarks .right').prepend(dumpTreeNodes(bmFolds, query));
-    document.querySelector('#bookmarks').addEventListener('click', async (e) => {
-      const [curTab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-      // chrome.tabs.create({ index: curTab.index + 1, url: e.target.href });
-      // return;
-      e.preventDefault();
-      const targetUrl = e.target.getAttribute('data-href') || e.target.href;
-      if (e.target?.tagName === 'A' && targetUrl) {
-        curTab.index === 0 ? chrome.tabs.create({ index: curTab.index + 1, url: targetUrl }) : chrome.tabs.update({ url: targetUrl });
-      }
-    });
-    document.querySelector('#bookmarks .right li').addEventListener('mouseover', (evt) => {
-      const targetLi = evt.currentTarget;
-      const submenu = targetLi.querySelector('ul');
-      submenu.style.left = `-${Math.round(targetLi.offsetWidth * 1.3)}px`;
-      submenu.style.top = '0px';
-    })
   });
+  // 实现 menu 效果
+  // document.querySelector('#bookmarks li').addEventListener('mouseover', (evt) => {
+  //   const targetLi = evt.currentTarget;
+  //   const submenu = targetLi.querySelector('ul');
+  //   submenu.style.left = `-${Math.round(targetLi.offsetWidth * 1.3)}px`;
+  //   submenu.style.top = '0px';
+  // });
 }
+dumpBookmarks();
 
 // https://stackoverflow.com/a/58965134/2190503
 // https://stackoverflow.com/a/33523184/2190503
@@ -172,6 +155,7 @@ async function googleTranslate() {
     return true;
   });
 }
+googleTranslate();
 
 async function content() {
   const createIfr = (src) => `
@@ -204,6 +188,8 @@ async function content() {
       ${createIfr()}
     </div>
   `);
+  const majorIframe = document.querySelector('.major .iframe-wrap');
+  majorIframe.innerHTML = createIfr(hl_inject_blankpage[0][0]);
   document.querySelectorAll('.major .urls-wrap a').forEach(item => {
     item.addEventListener('click', evt => {
       evt.preventDefault();
@@ -211,21 +197,8 @@ async function content() {
       // const curA = evt.target.closest('.urls-wrap > a');
       // const curA = evt.target.nextElementSibling;
       const curUrl = item.getAttribute('href');
-      const majorIframe = document.querySelector('.major .iframe-wrap');
       majorIframe.innerHTML = createIfr(curUrl);
     });
   });
 }
-
-async function init() {
-  const topSites = await chrome.topSites.get();
-  console.log('topSites', topSites);
-  document.querySelector('#topSites').innerHTML = topSites.map(item => (
-    `<a title="${item.title}" href="${item.url}">${new URL(item.url).host}</a>`
-  )).join('');
-
-  dumpBookmarks();
-  await googleTranslate();
-  await content();
-}
-init();
+content();

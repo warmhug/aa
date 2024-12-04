@@ -26,5 +26,9 @@ window.addEventListener('load', () => {
     await hl_utils.videoSpeedController(hl_videoSpeed, async (speed) => {
       await hl_utils.setStorage({ hl_videoSpeed: speed });
     });
+    hl_utils.addTripleClickEvent(document, async (evt) => {
+      console.log('log Triple click evt: ', evt);
+      await chrome.runtime.sendMessage({ action: 'openPopup' });
+    }, 400);
   }, 1000);
 });

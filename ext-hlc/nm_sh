@@ -4,97 +4,118 @@
 
 export PATH="/usr/local/bin:/usr/bin:$PATH"
 
-# 自动设置全局代理
-# https://gist.github.com/rmcdongit/f66ff91e0dad78d4d6346a75ded4b751
-# https://gist.github.com/dvessel/2b6ad97b2da16d445671b39618221aab
-# https://community.jamf.com/t5/jamf-pro/scripting-quot-exclude-simple-hostnames-quot/m-p/64445
-# open /System/Library/PreferencePanes/Network.prefPane  # 打开网络偏好设置面板
-# open "x-apple.systempreferences:com.apple.Network-Settings.extension?Proxies"
-# networksetup
-# networksetup -setproxyautodiscovery Wi-Fi on  # 打开 WiFi 里 自动发现代理 开关
-# networksetup -getsecurewebproxy Wi-Fi/Ethernet  # 获取 WiFi 或 以太网 代理配置
-# networksetup -getproxybypassdomains Wi-Fi  # 忽略这些主机与域的代理设置
-# networksetup -listallnetworkservices  # 获取所有网络服务
+command_exists () {
+  command -v "$1" >/dev/null 2>&1
+}
 
-# 设置别名
-# alias pset='networksetup -setwebproxy Wi-Fi 127.0.0.1 7890 && networksetup -setsecurewebproxy Wi-Fi 127.0.0.1 7890 && networksetup -setsocksfirewallproxy Wi-Fi 127.0.0.1 7890 && networksetup -setproxybypassdomains Wi-Fi 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,127.0.0.1,localhost,*.local,timestamp.apple.com,sequoia.apple.com,seed-sequoia.siri.apple.com'
-# alias psystem='networksetup -setwebproxystate Wi-Fi on && networksetup -setsecurewebproxystate Wi-Fi on && networksetup -setsocksfirewallproxystate Wi-Fi on'
-# alias upsystem='networksetup -setwebproxystate Wi-Fi off && networksetup -setsecurewebproxystate Wi-Fi off && networksetup -setsocksfirewallproxystate Wi-Fi off'
-
-current_path=$(/bin/pwd)
-logFile="$current_path/z_log.txt"
+datef() {
+  local fmt="${1:-"%Y_%m_%d-%H_%M_%S"}"
+  local output=$(date "+$fmt")
+  echo "[$output __hl_log__nm__]"
+  # date "+$fmt"
+}
 
 log_command() {
   local command="$1"
-  local log_file="$logFile"
-  local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-  echo -e "\n[$timestamp] 执行命令: $command\n" >> "$log_file"
+  echo -e "\n$(datef) === chrome-extension nm_sh log ===" >> "$log_file"
+  echo "$(datef) 执行命令: $command" >> "$log_file"
   if eval "$command" 2>&1 | tee -a "$log_file"; then
-    echo -e "\n[$timestamp] 执行成功\n" >> "$log_file"
+    echo "$(datef) 执行完成" >> "$log_file"
   else
-    echo -e "\n[$timestamp] 执行失败\n" >> "$log_file"
+    echo "$(datef) 执行失败" >> "$log_file"
   fi
   # 添加空白
-  printf '\n%.0s' {1..10} >> $log_file
+  printf '\n%.0s' {1..2} >> $log_file
 }
 # log_command "ls -l"
+# log_command "echo Hello, World!"
 # log_command "echo 'Hello'"
+
+run_osascript() {
+  # osascript -e 'activate app "Safari"'
+  if [[ "$1" == "addRule" ]]; then
+    # osascript "$current_path/nm_ss.scpt"
+    osascript -e 'tell application "System Events" to tell process "ClashX"
+      tell menu bar item 1 of menu bar 2
+        click
+        key code 15 using command down
+      end tell
+    end tell
+    '
+  elif [[ "$1" == "topmost" ]]; then
+    while true; do
+      log_command echo "$1: test while"
+    sleep 1
+    done
+  else
+    log_command "echo 'arg is wrong'"
+  fi
+  # log_command "echo 'run_osascript_success'"
+}
+
+current_path=$(/bin/pwd)
+log_file="$current_path/z_log"
+note_file="$current_path/z_note.md"
+clash_file="$HOME/.config/clash/ss.yaml"
 
 hl_input=""
 hl_output='{"code": "200"}'
 
 dealMsg() {
-  local noteFile="$HOME/inner/__note.txt"
-  local clashFile="$HOME/.config/clash/ss.yaml"
-  local osa="$current_path/nm_ss.scpt"
-  local bypassdomains="127.0.0.1,localhost,gateway.icloud.com,gateway.icloud.com.cn,\
-  10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.local,\
-  timestamp.apple.com,sequoia.apple.com,seed-sequoia.siri.apple.com"
   hl_input=${hl_input/#*'{'/'{'}
   # hl_input=${hl_input%'"}'}
-  msg_command=$(echo "$hl_input" | yq '.message')
-  msg_content=$(echo "$hl_input" | yq '.content')
-  echo $msg_command >> $logFile
+  if ! command_exists yq; then
+    # echo "yq 命令不存在" >> $log_file
+    log_command "echo 'yq 命令不存在, 请运行 brew install yq'"
+    return
+  fi
+  local msg_command=$(echo "$hl_input" | yq '.message')
+  local msg_content=$(echo "$hl_input" | yq '.content')
+  # echo $msg_command >> $log_file
+  if [[ "$msg_command" != "setNote" ]]; then
+    log_command "echo '$msg_command'"
+  fi
 
   # 使用 2>&1 将标准错误输出到文件里
   # result=$(w2 "status" 2>&1)
-  # echo "Received message: $result" | tee -a $logFile
-  # w2 status >> $logFile
-
-  # ls >> $logFile
-  # echo $1":arg1" >> $logFile
-  # echo $HOME >> $logFile
-  # echo `which echo` >> $logFile
-  # echo `which w2` >> $logFile
+  # echo "Received message: $result" | tee -a $log_file
+  # w2 status >> $log_file
+  # ls >> $log_file
+  # echo `which echo` >> $log_file
 
   # 注意，如果 echo 的内容不被处理、会导致 Error when communicating with the native messaging host.
   # https://stackoverflow.com/a/51551525/2190503
 
   if [[ "$msg_command" == "top" ]]; then
-    open -a "Google Chrome" "http://localhost:9999?disableLeaveAlert=true"
+    open -a "Google Chrome" "http://localhost:7681/?disableLeaveAlert=true&arg=/Users/hua/.zshrc&arg=top"
     log_command "echo '进程信息:' && ps -ef | grep ttyd"
   elif [[ "$msg_command" == "top-kill" ]]; then
     clipboard_content=$(pbpaste)
     log_command "kill $clipboard_content"
   elif [[ "$msg_command" == "setNote" ]]; then
-    echo "$msg_content" > $noteFile
+    echo "$msg_content" > $note_file
   elif [[ "$msg_command" == "getNote" ]]; then
-    noteFile_cont=$(cat $noteFile)
-    hl_output='{"code": "200", "content": '$noteFile_cont'}'
+    note_cont=$(cat $note_file)
+    hl_output='{"code": "200", "content": '$note_cont'}'
   elif [[ "$msg_command" == "addRule" ]]; then
     if [[ $msg_content =~ ^www\. ]]; then
       msg_content=${msg_content#www.}
     fi
     new_str=DOMAIN-SUFFIX,"${msg_content}",Proxy
-    # 豆包+通义千问: 使用 yq 判断 如果rules 里不存在 aaa，则前置插入aaa
-    rules_value=$(yq '.rules' $clashFile)
+    rules_value=$(yq '.rules' $clash_file)
     if [[ "$rules_value" != *$new_str* ]]; then
-      echo $new_str >> $logFile
-      yq e '.rules |= [ "'"$new_str"'" ] +.' $clashFile -i
-      osascript $osa
+      echo $new_str >> $log_file
+      yq e '.rules |= [ "'"$new_str"'" ] +.' $clash_file -i
+      run_osascript "addRule"
     fi
+  elif [[ "$msg_command" == "topmost" ]]; then
+    # run_osascript "addRule"
+    run_osascript "topmost"
   elif [[ "$msg_command" == "clash" ]]; then
   # bypassdomains 和 clash rule 哪个优先？
+  local bypassdomains="127.0.0.1,localhost,gateway.icloud.com,gateway.icloud.com.cn,\
+  10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.local,\
+  timestamp.apple.com,sequoia.apple.com,seed-sequoia.siri.apple.com"
   networksetup -setproxyautodiscovery Wi-Fi off
   networksetup -setwebproxy Wi-Fi 127.0.0.1 7890
   networksetup -setsecurewebproxy Wi-Fi 127.0.0.1 7890

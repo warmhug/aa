@@ -1,7 +1,12 @@
+// @ts-nocheck
+
 // from https://github.com/usernamehw/vscode-commands/blob/master/src/utils/vscodeUtils.ts
 
-import { commands, env, Range, Selection, TextEditorRevealType, UIKind, Uri, window, workspace, StatusBarAlignment,
-	type DocumentSymbol, type TextDocument, type TextEditor } from 'vscode';
+import {
+	commands, env, Range, Selection, TextEditorRevealType, UIKind,
+	Uri, window, workspace, StatusBarAlignment,
+	type DocumentSymbol, type TextDocument, type TextEditor
+} from 'vscode';
 
 export const sleep = async (ms: number): Promise<void> => new Promise(resolve => {
 	setTimeout(resolve, ms);
@@ -19,49 +24,34 @@ export const getConfig = (name = '', scope?) => {
   return config;
 };
 
-interface tableItem {
-	header?: string;
-	content?: string;
-}
-// Render a human readable table
-export function renderTable(title = '', items: tableItem[] = []) {
-  var TABLE_WIDTH = 64;
-  var HEADER_WIDTH = 16;
-  var CONTENT_WIDTH = 48;
-  var CORNER_CHAR = '+';
-  var SEPARATOR_CHAR = '|';
-  var DIVIDER_CHAR = '-';
-  var DIVIDER = '';
-  for (var i = 0; i < TABLE_WIDTH - 2; i++) {
-    DIVIDER += DIVIDER_CHAR;
-  }
-  var VERTICAL_BORDER = CORNER_CHAR + DIVIDER + CORNER_CHAR;
-  var SEPARATOR = SEPARATOR_CHAR + DIVIDER + SEPARATOR_CHAR;
-  // Get column formatted
-  const formatColumn = (text, maxChars, first?) => {
-    var output = ((first) ? '| ' : ' ') + text;
-    for (var i = output.length; i < maxChars - 1; i++) { output += ' '; }
-    output += '|';
-    return output;
-  };
+export function generateTable(headers = [], rows = []) {
+	// 计算每列的最大宽度
+	const columnWidths = headers.map((header, index) =>
+		Math.max(header.length, ...rows.map(row => row[index].length))
+	);
+	// 定义函数来生成单行的文本
+	const generateRow = (row) => {
+		return row.map((cell, i) => String(cell).padStart(columnWidths[i])).join(" | ");
+	};
+	// 表格顶线
+	const lineSeparator = columnWidths.map(width => "-".repeat(width)).join("-|-");
 
-  let res = `${title}\n${VERTICAL_BORDER}`;
-  for (var i = 0, length = items.length; i < length; i++) {
-    var header = formatColumn(items[i].header, HEADER_WIDTH, true);
-    var content = formatColumn(items[i].content, CONTENT_WIDTH);
-    res += header + content;
-    if (i < length - 1) {
-      res += SEPARATOR;
-    }
-  }
-  res += VERTICAL_BORDER;
-	return res;
+	// 生成表格
+	const table = [];
+	table.push(lineSeparator);
+	table.push(generateRow(headers));
+	table.push(lineSeparator);
+	rows.forEach(row => table.push(generateRow(row)));
+	table.push(lineSeparator);
+
+	return table.join("\n");
 }
-const table = renderTable('标题', [
-	{ header: 'Size', content: 'info.prettySize' },
-	{ header: 'Gzipped', content: 'info.gzipSize' },
-]);
-console.log('table',  table);
+const headers = ["File", "% Stmts", "% Branch", "Uncovered Line #s"];
+const rows = [
+		["All files", "100", "95.52", ""],
+		["filesize.cjs", "100", "95.52", "77-78,173,196,199,210"]
+];
+// console.log(generateTable(headers, rows));
 
 /*
 vscode 插件开发、写一个 createOutputChannel 的工具函数，传入一个对象
@@ -111,6 +101,36 @@ export function createStatusBarItem(options) {
 // 	text: 'warmhug.demo',
 // 	color: 'red',
 // });
+
+export function miscUI() {
+	window.showQuickPick([{
+		label: "中文　»　英语",
+		from: "zh-CHS",
+		to: "en",
+		type: "ZH_CN2EN",
+	}, {
+		label: "英语　»　中文",
+		from: "en",
+		to: "zh-CHS",
+		type: "EN2ZH_CN",
+	}],{ placeHolder: "请选择翻译类型" }).then(function (res) {
+		window.showInformationMessage(res, "替换", "格式化替换").then(function (res) {
+			if (res === "替换") {
+			} else if (res === "格式化替换") {
+			}
+		});
+	});
+}
+
+export function miscEditor() {
+	const editor = window.activeTextEditor;
+	const { selection } = editor;
+	const originText = editor.document.getText(selection);
+	let newText = `${originText}-1`;
+	editor.edit((editBuilder) => {
+		editBuilder.replace(selection, newText);
+	});
+}
 
 /**
  * Return all registered vscode commands (excluding internal).

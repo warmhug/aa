@@ -1,7 +1,7 @@
 import { ThemeColor, ThemeIcon, window, commands } from 'vscode';
 import type { ExtensionContext, Terminal } from 'vscode';
 // import terminalConfigs from "./terminal.json";
-import { getConfig, sleep, createOutputChannel } from "./utils";
+import { getConfig, createOutputChannel } from "./utils";
 
 interface TerminalConfig {
   name: string;

@@ -31,10 +31,10 @@ export function activate(context: ExtensionContext) {
 
     text ? vscode.commands.executeCommand('editor.action.insertLineAfter')
         .then(() => {
-          const logToInsert = `console.log('${text}: ', ${text});`;
+          const logToInsert = `console.log('log ${text}: ', ${text});`;
           insertText(logToInsert);
         })
-      : insertText('console.log();');
+      : insertText(`console.log('log', );`);
 
   }));
 }

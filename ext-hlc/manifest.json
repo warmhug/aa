@@ -9,17 +9,12 @@
     "newtab": "index.html"
   },
   "action": {
-    "default_popup": "index-popup.html",
+    "default_popup": "i-popup.html?context=popup",
     "default_title": "popup"
   },
   "background": {
     "service_worker": "background.js"
   },
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": true
-  },
-  "devtools_page": "devtools.html",
   "commands": {
     "_execute_action": {
       "suggested_key": {
@@ -27,10 +22,6 @@
         "mac": "Command+U"
       },
       "description": "打开此扩展的 popup 页面"
-    },
-    "aiChatNew": {
-      "suggested_key": "Ctrl+Shift+F",
-      "description": "AI对话-新建"
     },
     "aiChat": {
       "suggested_key": "Ctrl+Shift+V",

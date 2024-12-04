@@ -54,7 +54,11 @@ const createEditorGroup = ({
   if (document) {
     const dir = document.fileName.split('/');
     if (dir.length > 1) {
-      label = `${dir[dir.length - 2]} / ${dir[dir.length - 1]}`;
+      let preDir = dir[dir.length - 2];
+      if (preDir?.length > 8) {
+        preDir = preDir.substring(0, 7) + '..';
+      }
+      label = `${preDir} / ${dir[dir.length - 1]}`;
     } else {
       label = dir.pop() ?? delRoot(document);
     }
@@ -150,6 +154,9 @@ const addToGroup = async (uri: vscode.Uri, addToDefault = false) => {
     return;
   }
   let selectedGroup: any;
+  if (!groups?.length) {
+    vscode.window.showInformationMessage(`还没有创建组`);
+  }
   if (!addToDefault) {
     const picked = await vscode.window.showQuickPick(groups.map(group => group.label));
     selectedGroup = groups.find(group => group.label === picked);

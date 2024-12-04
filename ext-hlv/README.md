@@ -1,10 +1,14 @@
 # ext-hlv
 
-https://code.visualstudio.com/api/get-started/your-first-extension
-
-[configuration](https://code.visualstudio.com/api/references/contribution-points#Configuration-property-schema)
-[schema](http://json-schema.org/draft-07/schema#)
-
+文档
+- https://code.visualstudio.com/api/get-started/your-first-extension
+- [configuration](https://code.visualstudio.com/api/references/contribution-points#Configuration-property-schema)
+- [schema](http://json-schema.org/draft-07/schema#)
+- 所有内置命令(built-in commands)
+  - https://code.visualstudio.com/api/references/commands
+  - https://code.visualstudio.com/docs/getstarted/keybindings
+  - https://gist.github.com/skfarhat/4e88ef386c93b9dceb98121d9457edbf
+发布
 - https://dev.azure.com/warmhug
 - https://marketplace.visualstudio.com/manage/publishers/warmhug
 
@@ -24,18 +28,14 @@ npm run pack
 - 在 Extension Development Host 窗口中，按下 Cmd+Opt+I 打开开发者工具，查看 console 输出。
 
 
-
 # vscode
 > 2020 ~ 2024
 
+## 常用
+
 - 按`cmd shift p` 输入 code zoom reload(未知错误) diplay(修改语言) 等命令。
 - 在查找(替换)框里按 ctrl + enter 支持多行，或者 复制多行文本 粘贴。
-- 端口 [转发](https://code.visualstudio.com/docs/editor/port-forwarding) 实现 [内网穿透](https://51.ruyo.net/18562.html)，目前已被 [国内禁用](https://github.com/microsoft/vscode-remote-release/issues/9438)
-- 所有内置命令(built-in commands)
-  - https://code.visualstudio.com/api/references/commands
-  - https://code.visualstudio.com/docs/getstarted/keybindings
-  - https://gist.github.com/skfarhat/4e88ef386c93b9dceb98121d9457edbf
-
+- 查找中文，启用正则表达式 搜索 [\u4e00-\u9fa5]
 
 https://github.com/jianbingfang/vscode-dup-checker
 
@@ -43,6 +43,7 @@ https://github.com/jianbingfang/vscode-dup-checker
 扩展 [推荐](https://github.com/viatsko/awesome-vscode):
 - plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / markdown-pdf / marp / GitLens / pangu / Hungry Delete / Template String Converter
 - Code Runner / Terminal Keeper / Commands(usernamehw) / Todo Tree / Excalidraw / npm-dependency-links / Bookmarks / Diff Folders / Editor Group Minimizer Plus / favorites
+
 
 ```json
 // 快捷键 设置
@@ -75,6 +76,8 @@ https://github.com/jianbingfang/vscode-dup-checker
 tasks `xxProj/.vscode/tasks.json`
 代码片段 `xxProj/.vscode/my.code-snippets`、
 Bookmarks扩展 `xxProj/.vscode/bookmarks.json`
+
+端口 [转发](https://code.visualstudio.com/docs/editor/port-forwarding) 实现 [内网穿透](https://51.ruyo.net/18562.html)，目前已被 [国内禁用](https://github.com/microsoft/vscode-remote-release/issues/9438)
 
 
 ## extension
@@ -165,29 +168,37 @@ Bookmarks扩展 `xxProj/.vscode/bookmarks.json`
       "args": "run-my-shell",
     },
     "reloadWindow": {
-      "command": "workbench.action.reloadWindow"
+      "command": "workbench.action.reloadWindow",
+      // "command": "workbench.action.toggleAuxiliaryBar",
+      // "command": "workbench.action.togglePanel",
+      "statusBar": {
+        "text": "reloadWindow",
+        "color": "yellow",
+        "alignment": "left",
+        "priority": -99,
+      },
+    },
+    "array of themes to cycle through": {
+      "command": "commands.toggleSetting",
+      "args": {
+        "setting": "workbench.colorTheme",
+        "value": ["Quiet Light", "Solarized Light", "Monokai Dimmed"],
+      },
+      "icon": "symbol-color",
+      "statusBar": {
+        "text": "colorTheme",
+        "color": "yellow",
+        "alignment": "left",
+      },
     },
     "SecondarySideBar": {
       "command": "workbench.action.toggleAuxiliaryBar",
       // "command": "workbench.action.togglePanel",
-      "statusBar": {
-        "text": "SecondaryBar",
-        "color": "yellow",
-        "alignment": "left",
-        "priority": -9999,
-      },
     },
-    // "Focus terminal named 'foobar'": {
-    //   "command": "commands.focusTerminal",
-    //   "args": {
-    //     "target": "newest",// focus newest matching terminal; create new if no match
-    //     "name": "foobar",// if no match, assign a name to the new terminal
-    //   },
-    // },
-    // "Terminal: Run Watch": {
+    // "Terminal: Run start": {
     //   "command": "workbench.action.terminal.sendSequence",
     //   "args": {
-    //     "text": "npm run watch\r",
+    //     "text": "npm start\r",
     //   },
     // },
     // "Organize imports": {

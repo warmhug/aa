@@ -211,7 +211,7 @@ const hl_uiUtils = {
     }
     return createModal;
   },
-  confirm: function (text = '', closeTime = 0) {
+  confirm: function (html = '', closeTime = 0) {
     // 原生 alert confirm 框 能显示的 字符数量 较少
     let [res, rej] = []
     const promise = new Promise((resolve, reject) => {
@@ -223,7 +223,7 @@ const hl_uiUtils = {
     container.style.cssText = 'display:block; position:fixed; z-index:999; top:50%; left:50%; transform:translate(-50%, -50%); background-color:white; padding:20px; border:1px solid black;';
     container.style.display = 'block';
     const content = document.createElement('div');
-    content.innerHTML = text;
+    content.innerHTML = html;
     const footer = document.createElement('div');
     footer.addEventListener('click', (evt) => {
       if (evt.target.id == 'ok') {
@@ -280,9 +280,44 @@ const hl_uiUtils = {
     });
     return ulList;
   },
+  // 双击事件 被 选中 文字占用，这里实现三击事件
+  addTripleClickEvent: function (element, callback, timeout = 500) {
+    if (!element || typeof callback !== 'function') {
+      throw new Error('请提供有效的元素和回调函数');
+    }
+    let clickCount = 0;
+    let clickTimer = null;
+    element.addEventListener('click', () => {
+      clickCount++;
+      // 如果是第一次点击，启动一个定时器
+      if (clickCount === 1) {
+        clickTimer = setTimeout(() => {
+          clickCount = 0;
+          clickTimer = null;
+        }, timeout);
+      }
+      // 如果达到三击，触发回调
+      if (clickCount === 3) {
+        clearTimeout(clickTimer);
+        clickCount = 0;
+        clickTimer = null;
+        callback();
+      }
+    });
+  },
 };
 
 const hl_commonUtils = {
+  asyncMap: async function (arr, callback = async () => {}) {
+    const res = await Promise.all(arr.map(async (item, index) => {
+      try {
+        return await callback(item, index);
+      } catch (error) {
+        return { error };
+      }
+    }));
+    return res;
+  },
   getNow: () => {
     const now = new Date();
     return `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}_${now.getHours()}-${now.getMinutes()}`;
@@ -448,6 +483,34 @@ const hl_commonUtils = {
       };
     });
   },
+  // FileHandle 需要通过 IndexedDB 来存储
+  fileHandleOpt: function () {
+    const saveFileHandle = async (id, fileHandle, filePath) => {
+      if (!id || !fileHandle) {
+        return;
+      }
+      const [store] = await this.openDatabase();
+      const request = store.put({ id, fileHandle, filePath });
+      return new Promise((resolve, reject) => {
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+    const getFileHandle = async (id) => {
+      const [store] = await this.openDatabase();
+      const request = id ? (await store.get(id)) : (await store.getAll());
+      return new Promise((resolve, reject) => {
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+    const deleteFileHandle = async (id) => {
+      const [store] = await this.openDatabase();
+      const request = id ? (await store.delete(id)) : (await store.clear());
+      return new Promise((resolve, reject) => {
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+    return { saveFileHandle, getFileHandle, deleteFileHandle };
+  },
   fileReader: async function (fileArg, streamRead) {
     try {
       let file = fileArg;
@@ -477,44 +540,6 @@ const hl_commonUtils = {
         ({ done, value } = await reader.read());
       }
     }
-  },
-  // FileHandle 可以通过 IndexedDB 来存储
-  fileHandleOpt: function () {
-    // 存储文件句柄
-    const saveFileHandle = async (id, fileHandle) => {
-      // console.log('id, fileHandle: ', id, fileHandle);
-      if (!id || !fileHandle) {
-        return;
-      }
-      const [store] = await this.openDatabase();
-      const request = store.put({ id, fileHandle });
-      return new Promise((resolve, reject) => {
-        request.onsuccess = () => resolve(request.result);
-      });
-    }
-    // 读取文件句柄
-    const getFileHandle = async (id) => {
-      if (!id) {
-        return;
-      }
-      const [store] = await this.openDatabase();
-      const request = await store.get(id);
-      return new Promise((resolve, reject) => {
-        request.onsuccess = () => resolve(request.result);
-      });
-    }
-    // 删除文件句柄
-    const deleteFileHandle = async (id) => {
-      if (!id) {
-        return;
-      }
-      const [store] = await this.openDatabase();
-      const request = store.delete(id);
-      return new Promise((resolve, reject) => {
-        request.onsuccess = () => resolve(request.result);
-      });
-    }
-    return { saveFileHandle, getFileHandle, deleteFileHandle };
   },
 };
 
@@ -583,6 +608,23 @@ const hl_utils = {
     // console.log('sync Value is get', syncRes);
     return localRes || syncRes;
   },
+  // 判断 popup.html 页面是在 浏览器扩展弹窗里打开 or 是独立的 tab 页面打开
+  isPopup: async function () {
+    // 通过 curTab 不能判断
+    const [curTab] = await chrome.tabs.query({ active: true });
+    // 通过 outerWidth outerHeight 可以判断
+    // console.log('log window: ', window.opener, window.location.href);
+    // console.log('log window: ', window.outerWidth, window.outerHeight);
+    // 通过 manifest.json 里设置参数 可以判断
+    // "action": {
+    //   "default_popup": "i-popup.html?context=popup",
+    // },
+    const urlParams = new URLSearchParams(window.location.search);
+    const context = urlParams.get('context');
+    // console.log('log context: ', context);
+    const inPopup = context === 'popup';
+    return inPopup;
+  },
   cron: function (time, callback = () => {}) {
     let cronLog = '';
     const self = this;
@@ -601,7 +643,7 @@ const hl_utils = {
     }, 10 * defaultTime);
     return cronFn(time);
   },
-  // 检测 url 对应的 tab ，如果不存在 则创建，如果存在 则激活
+  // 检测 url 对应的 tab ，如果不存在 则创建，如果存在 则 reload 激活，并轮询获得网页 loaded 状态
   createOrUpdateTab: async (targetUrl, strictMatch = fasle) => {
     // 'chrome-extension://kafpfdegkmheageeldelgnnkegpkbpca/blank.html' can't be query. 比如 chrome://newtab/
     const tabs = await chrome.tabs.query({});
@@ -611,30 +653,65 @@ const hl_utils = {
     if (!targetTab) {
       targetTab = await chrome.tabs.create({ url: targetUrl, active: true });
     } else {
-      // console.log('targetTab: ', targetTab, targetUrl);
       if (strictMatch && targetTab.url !== targetUrl) {
-        await chrome.tabs.update(targetTab.id, {
-          url: targetUrl,
-        });
-      }
-      if (targetTab.status !== 'complete') {
+        console.log('log before update targetId: ', targetTab.id);
+        // 注意：update 后，产生了新的 tab 信息
+        targetTab = await chrome.tabs.update(targetTab.id, { url: targetUrl },
+          // 如果有回调，await 返回值为 undefined
+          // function (updatedTab) {
+          //   console.log('log updatedTab: ', updatedTab);
+          //   const intervalId = setInterval(() => {
+          //     chrome.tabs.get(updatedTab.id, function (tab) {
+          //       console.log('log tab: ', tab);
+          //       if (tab.pendingUrl === tab.url || tab.url == targetUrl) {
+          //         console.log('Navigation completed!');
+          //         clearInterval(intervalId);
+          //       }
+          //     });
+          //   }, 50);
+          // }
+        );
+        console.log('log after update targetId: ', targetTab?.id);
+      } else {
         // status complete 只表示 页面 初始化完成 但页面内容的资源可能没有 onload
         // chrome.tabs.reload 和 update 很快会结束，指的是 tab 的变化、跟页面内容无关
+        // 注意，如果先调用了 update 不应该再立即调用 reload
+        console.log('log tabs.reload: ', tabs.reload);
         await chrome.tabs.reload(targetTab.id);
-        // 轮询检查状态
-        await new Promise(resolve => {
-          let interval;
-          interval = setInterval(() => {
-            if (targetTab.status === 'complete') {
-              console.log('targetTab.status: ', targetTab.status);
-              clearInterval(interval);
-              resolve();
-            }
-          }, 50);
-        });
       }
     }
-    // console.log('targetTab: ', targetTab);
+    console.log('log tab status: ', targetTab.status);
+    if (targetTab.status !== 'complete') {
+      await new Promise(resolve => {
+        let interval;
+        interval = setInterval(() => {
+          chrome.tabs.get(targetTab.id, function (tab) {
+            if (chrome.runtime.lastError) {
+              console.log('log lastError.message: ', chrome.runtime.lastError.message);
+              clearInterval(interval);
+              return;
+            }
+            console.log('log targetTab.status setInterval: ',
+              targetTab.id === tab.id, targetTab.status, tab.status);
+            if (tab.status === 'complete') {
+              clearInterval(interval);
+              targetTab = tab;
+              interval = null;
+              resolve();
+            }
+          });
+        }, 500);
+        setTimeout(() => {
+          // 超时清除
+          console.log('log timeout clearInterval: ', interval);
+          if (interval) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 60000);
+      });
+    }
+    console.log('log targetTab return: ', targetTab);
     return targetTab;
   },
   // 如果在 popup 页面 调用 tabs.remove /
@@ -664,8 +741,8 @@ const hl_utils = {
     } else {
       // 刷新所有页面
       const tabsAll = await chrome.tabs.query({});
-      tabsAll.forEach(async (tab) => {
-        await chrome.tabs.reload(tab.id);
+      tabsAll.forEach((tab) => {
+        chrome.tabs.reload(tab.id);
       });
     }
   },
@@ -708,7 +785,7 @@ const hl_utils = {
     const createContainer = () => {
       const container = document.createElement('div');
       container.setAttribute('data-flag', 'hl_search');
-      container.style.cssText = 'position: fixed; right: 500px; top: 4px; z-index: 9999; opacity: 0.3;';
+      container.style.cssText = 'position: fixed; right: 500px; top: 4px; z-index: 9988; opacity: 0.3;';
       document.body.append(container);
       return container;
     }
@@ -723,7 +800,7 @@ const hl_utils = {
     const searchEngines = ['google.com', 'bing.com', 'baidu.com'];
     const searchEngineNames = ['Goog', 'Bing', 'BD'];
     const createHref = (matchTxt, query) => 'https://www.' + matchTxt + '?' + query;
-    console.log('run search', urlObj.pathname);
+    // console.log('run search', urlObj.pathname);
     if (['/', '/search'].includes(urlObj.pathname) && urlObj.host.endsWith(searchEngines[0])) {
       const query = urlObj.searchParams.get('q') || '';
       const container = createContainer();
@@ -744,7 +821,11 @@ const hl_utils = {
   videoSpeedController: (videoSpeed = 2, onChange = async (arg) => {}) => {
     // 参考 Video Speed Controller https://chromewebstore.google.com/detail/nffaoalbilbmmfgbnbgppjihopabppdk
     // 测试地址 https://shapeshed.com/examples/HTML5-video-element/
-    const controlEle = (video) => {
+    const changeEvt = async (speed = videoSpeed) => {
+      video.playbackRate = speed;
+      await onChange(video.playbackRate);
+    };
+    const initCtrl = (video) => {
       const rect = video.getBoundingClientRect();
       const offsetRect = video.offsetParent?.getBoundingClientRect();
       const top = Math.max(rect.top - (offsetRect?.top || 0), 0);
@@ -754,19 +835,25 @@ const hl_utils = {
       input.setAttribute('type', 'number');
       input.setAttribute('step', '0.2');
       input.setAttribute('min', '0.2');
-      input.style.cssText = `position: absolute; z-index: 9999; opacity: 0.3; width: 50px; height: 20px; top: ${top}px; left: ${left}px;`;
+      input.style.cssText = `position: absolute; z-index: 9988; opacity: 0.3; width: 50px; height: 20px; top: ${top}px; left: ${left}px;`;
+      // 设置初始值
       input.value = video.playbackRate !== 1 ? video.playbackRate.toFixed(2) : videoSpeed;
       video.playbackRate = Number(input.value);
+      let newSpeed = video.playbackRate;
+      video.addEventListener('loadeddata', async () => {
+        // 视频地址变化时
+        // console.log('视频数据已加载:', videoElement.src);
+        await changeEvt(newSpeed);
+      });
       input.addEventListener('change', async (evt) => {
-        // console.log('evt: ', evt);
-        video.playbackRate = Number(evt.target.value);
-        await onChange(video.playbackRate);
+        newSpeed = Number(evt.target.value);
+        await changeEvt(newSpeed);
       });
       video.parentElement.insertBefore(input, video.parentElement.firstChild);
       return input;
     }
     document.querySelectorAll('video').forEach(item => {
-      const input = controlEle(item);
+      const input = initCtrl(item);
       input.parentElement.addEventListener('mouseenter', () => {
         input.style.display = 'block';
       });

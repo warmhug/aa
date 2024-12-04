@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>hl extension popup</title>
+<style>
+  .controls, .msg {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin: 5px 0;
+    button {
+      border: 1px solid #eee;
+      cursor: pointer;
+    }
+  }
+  .controls button {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+  .msg button {
+    transform: scale(0.8);
+  }
+  [data-field="hl_ctrl_proxy"] .active {
+    background-color: #cddf8e;
+  }
+  [data-field="hl_ctrl_misc"] .active {
+    border-bottom: 1px solid red;
+  }
+  .mynotes {
+    display: flex;
+    align-items: baseline;
+    margin: 10px 0;
+    .mynotesMain {
+      flex: 1;
+    }
+    button {
+      margin-left: 4px;
+      border: 1px solid #eee;
+    }
+  }
+  .urls {
+    margin-right: 20px;
+    a {
+      margin-right: 10px;
+    }
+  }
+  summary {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    cursor: pointer;
+    color: #ddd;
+    span {
+      margin-right: 10px;
+    }
+  }
+  #tuiEditor {
+    resize: vertical;
+    overflow: auto;
+    border-bottom: 1px solid #eee;
+    > .toastui-editor-contents {
+      /* 只在 viewer: true 下生效 */
+      max-height: 400px;
+    }
+  }
+</style>
+<link rel="stylesheet" href="./assets/toastui-editor.min.css">
+</head>
+<!-- popup 页面 浏览器限制的 最大宽度：800px 最大高度：600px -->
+<body style="min-width: 700px;">
+<div id="tuiEditor"></div>
+<div class="mynotes">
+  <div class="mynotesMain"></div>
+  <button id="importBtn">load</button>
+</div>
+<div>
+  <div class="controls" data-field="hl_ctrl_proxy">
+    <div class="urls">
+      <span id="chromeUrls">
+        <!-- <a href="chrome://chrome-urls" target="_blank">chrome-urls</a> -->
+        <a href="chrome://extensions/shortcuts">快捷键</a>
+        <a href="chrome://extensions/">扩展</a>
+        <a href="chrome://bookmarks">书签</a>
+        <a href="chrome-extension://kafpfdegkmheageeldelgnnkegpkbpca/i-popup.html">单独打开</a>
+      </span>
+      <a
+        href="https://developer.chrome.com/docs/extensions/reference/api/tabs"
+        target="_blank"
+      >
+        api/tabs
+      </a>
+      <a id="ipEle" target="_blank"></a>
+    </div>
+    <button id="resizeWindow">resize</button>
+  </div>
+  <div class="msg"></div>
+  <div class="controls" data-field="hl_ctrl_misc">
+    <!-- <button id="snapshot">截图</button> -->
+    <button id="switchChromeProxy"></button>
+    <button id="openMacConfig">查看系统代理设置</button>
+    <button id="ai">AI</button>
+    <button id="operateTabs">operateTabs</button>
+    <button id="top">top</button>
+  </div>
+  <div class="msg"></div>
+</div>
+<details open>
+  <summary>
+    点击展开
+    <span>当前页面被插入css/js</span>
+    <span>快捷键</span>
+    <span>图片生成</span>
+  </summary>
+  <a href="https://proxy.incolumitas.com/proxy_detect.html">vpn检测</a>
+  <a href="https://dummyimage.com/750x300/eee/f0f" target="_blank">dummyimage.com/750x300/eee/f0f</a>
+  <a href="https://htmlcolorcodes.com/zh/" target="_blank">颜色选择</a>
+  <a href="https://www.en998.com/sentence/">en998</a>
+  <div id="cmds" style="margin: 10px 0;"></div>
+  <div id="injectCode" style="margin: 10px 0; overflow-x: scroll;"></div>
+  <fieldset id="powerOps">
+    <legend>电源模式: </legend>
+    <input type="radio" id="radio-1" name="power" value="display">
+    <label for="radio-1">屏幕常亮</label>
+    <input type="radio" id="radio-2" name="power" value="system">
+    <label for="radio-2">应用运行(屏幕关闭)</label>
+    <input type="radio" id="radio-3" name="power" value="default">
+    <label for="radio-3">操作系统默认</label>
+  </fieldset>
+</details>
+<details open id="storageEle">
+  <summary>sync / remove storage 点击展开</summary>
+  <textarea style="height: 50px; width: 100%;"></textarea>
+  <input style="width: 100%;" value="[]" />
+</details>
+
+<script src="./common.js"></script>
+<script src="./assets/toastui-editor-all.js"></script>
+<script src="./i-popup.js"></script>
+</body>
+</html>
