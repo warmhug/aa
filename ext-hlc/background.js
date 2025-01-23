@@ -4,9 +4,6 @@ importScripts('background-inject.js');
 console.log('bg page, 注意其执行时机', chrome);
 // console.log('bg page init no window', window?.document?.title);
 
-chrome.omnibox.setDefaultSuggestion({
-  description: '输入中文翻译为英语'
-});
 // 在地址栏调用 Google 翻译 API 直接搜索
 const changeDelay = hl_utils.debounce((text, suggest) => {
   if (text.length <= 1) {
@@ -49,6 +46,9 @@ const saveResult = async (text) => {
 };
 
 let cacheText = '';
+chrome.omnibox.setDefaultSuggestion({
+  description: '输入中文翻译为英语'
+});
 chrome.omnibox.onInputCancelled.addListener(() => {
   // console.log('onInputCancelled', cacheText);
   if (cacheText.trim().length) {
@@ -68,15 +68,29 @@ chrome.omnibox.onInputStarted.addListener((text) => {
   // console.log('onInputStarted', text, cacheText);
 });
 
+let lastActiveTabIndex = null;  // 用来记录上一个活动标签页的索引
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  // 记录每次切换的活动标签页的索引
+  const tab = await chrome.tabs.get(activeInfo.tabId);
+  lastActiveTabIndex = tab.index;
+});
 chrome.tabs.onCreated.addListener(async (tabInfo) => {
   console.log('onCreated tabInfo: ', tabInfo);
+  // 如果上一次活动标签页的索引已知，将新标签页放在该标签页的右边
+  if (lastActiveTabIndex !== null) {
+    await chrome.tabs.move(tabInfo.id, { index: lastActiveTabIndex + 1 });
+  }
   // 在 地址栏搜索 并按住 CMD+Enter 后打开的 tab 移动到在当前 tab 右边
-  const searchEngines = ['google.com', 'bing.com', 'baidu.com'];
   const [curTab] = await chrome.tabs.query({ active: true });
-  if (!tabInfo.active && searchEngines.some(item => tabInfo.pendingUrl?.indexOf(item) > -1)) {
+  const searchEngines = ['google.com', 'bing.com', 'baidu.com'];
+  if (
+    !tabInfo.active &&
+    searchEngines.some(item => tabInfo.pendingUrl?.indexOf(item) > -1)
+  ) {
     await chrome.tabs.move(tabInfo.id, { index: curTab.index + 1 });
   }
 });
+
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   // console.log('onUpdated tabs: ', tabId, changeInfo, tab.url);
   const { hl_inject_auto = [] } = await hl_utils.getStorage();

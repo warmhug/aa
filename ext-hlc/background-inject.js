@@ -77,7 +77,7 @@ const hl_inject_auto_params = [
       hl_utils.createSearchSwitch();
       window.addEventListener('popstate', function (event) {
         const searchParams = new URLSearchParams(window.location.search);
-        console.log('URL search parameters changed:', searchParams);
+        // console.log('URL search parameters changed:', searchParams);
         hl_utils.createSearchSwitch();
       });
     },

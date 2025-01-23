@@ -31,55 +31,6 @@ npm run pack
 # vscode
 > 2020 ~ 2024
 
-## 常用
-
-- 按`cmd shift p` 输入 code zoom reload(未知错误) diplay(修改语言) 等命令。
-- 在查找(替换)框里按 ctrl + enter 支持多行，或者 复制多行文本 粘贴。
-- 查找中文，启用正则表达式 搜索 [\u4e00-\u9fa5]
-
-https://github.com/jianbingfang/vscode-dup-checker
-
-[tab group 建议](https://github.com/microsoft/vscode/issues/100335#issuecomment-964358943)
-扩展 [推荐](https://github.com/viatsko/awesome-vscode):
-- plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / markdown-pdf / marp / GitLens / pangu / Hungry Delete / Template String Converter
-- Code Runner / Terminal Keeper / Commands(usernamehw) / Todo Tree / Excalidraw / npm-dependency-links / Bookmarks / Diff Folders / Editor Group Minimizer Plus / favorites
-
-
-```json
-// 快捷键 设置
-[
-  { "key": "cmd+d", "command": "editor.action.copyLinesDownAction" },
-  { "key": "alt+`", "command": "terminal.open" }
-]
-// markdown-pdf 扩展设置
-{
-  "markdown-pdf.displayHeaderFooter": false,
-  "markdown-pdf.margin.bottom": "0.01cm",
-  "markdown-pdf.margin.top": "0.01cm",
-  "markdown-pdf.margin.left": "0.5cm",
-  "markdown-pdf.margin.right": "0.5cm"
-}
-```
-
-常用设置
-`xxProj/.vscode/settings.json`
-```json
-{
-  "editor.tabSize": 2,
-  "prettier.singleQuote": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "search.exclude": {
-    "**/dist": true,
-  }
-}
-```
-tasks `xxProj/.vscode/tasks.json`
-代码片段 `xxProj/.vscode/my.code-snippets`、
-Bookmarks扩展 `xxProj/.vscode/bookmarks.json`
-
-端口 [转发](https://code.visualstudio.com/docs/editor/port-forwarding) 实现 [内网穿透](https://51.ruyo.net/18562.html)，目前已被 [国内禁用](https://github.com/microsoft/vscode-remote-release/issues/9438)
-
-
 ## extension
 
 ```json

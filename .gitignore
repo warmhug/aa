@@ -34,15 +34,17 @@ cert/*
 # node
 **/node_modules
 node_modules
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
 
 # ignore build files
 **/dist
 dist
 out
 build
+
+# lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
 # vscode 测试和插件
 .vscode-test/

@@ -1,8 +1,108 @@
 
 # English
 
+- [english news inlevels](https://englishnewsinlevels.com/)
+- [en998](https://www.en998.com/sentence/) [earthworm](https://earthworm.cuixueshe.com/)
+
+markdown 表情 :+1: :smile: :smiley: :laughing:
+- [emojispark](https://emojispark.com/)
+- [emoji8](https://emoji8.com/zh-hans/)
+- [emoji-cheat-sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
+
+再见：sa you na la  是吗：soga    什么：nani   awesome 牛逼
+
+
+## 2025-01 ~ 03
+
+Are you feeling okay?
+I don't feel well. ...... ...... You don't look well.
+She passed out.
+I have a stomachache.
+I have a dull/sharp/throbbing/piercing/stabbing pain.
+
+
 ## 2024-11 ~ 12
 
+It's been quite a journey this year, full of surprises and unexpected events. Let's leave the past behind and move on.
+
+next time you get a gift that is less than perfect, remember that it is not nice to look a gift horse in the mouth. After all, it’s the thought that counts. This means that it’s the thought of gift-giving and not the gift itself that is important.
+
+" Fool around" also means light-hearted sexual activity. For example, the husband and wife were fooling around in the kitchen when their friends and family walked in for dinner. Awkward!
+Finally, we often use the word " fool" in warnings to others. For example, "Don't fool around with that! You will break it." Or, " Stop fooling around." And the ever popular, " This is no time to fool around" .
+
+Your eyes water, your heart rate goes up and your face gets that beautiful laughter glow. In fact, many doctors say that mental health can affect physical health. You might even say, "Laughter is the best medicine".
+You know what we say -- misery loves company. This means that some people who are miserable and unhappy like to make others miserable and unhappy, too. On the other hand, making others laugh with you is an act of joy and kindness.
+So, in the end, you could say the teacher definitely had the last laugh. When you have the last laugh, you end up winning when at first you were losing. Another way to have the last laugh, is to simply laugh off a tough situation. It shows you just do not care. For example, if the teacher is a friend of yours, you could always tell him to just laugh it off.
+It may be difficult. But if you have the choice to laugh or cry, chose laughter.
+As we also like to say: Laugh and the world laughs with you; cry and you cry alone. This means that people prefer to be around those who are happy and cheerful.
+Ella Wheeler Wilcox, a poet of the late nineteenth and early twentieth centuries, penned this famous expression. In her poem "Solitude," she writes ,"Laugh, and the world laughs with you; weep, and you weep alone".
+
+Broadway's Theater District is between 42nd and 53rd Streets in downtown Manhattan.
+
+Anyone who conducts an argument by appealing to authority is not using his intelligence; he is just using his memory.
+一个借着引经据典来辩论的人，不是在运用自己的才智，他是在运用自己的记忆力。
+
+apidog
+
+The first ones are about love. Some people say, "All is fair in love and war". They mean that anything you do in a relationship or in battle is acceptable. Another proverb about love is, "Absence makes the heart grow fonder". This means you love someone even more when he or she is far away. But other people say, "Out of sight, out of mind". You may not even think about that person when he or she is not with you. Which of these proverbs do you think is most true? Another proverb says "Love is blind". In other words, when you are in love with someone, you may refuse to see anything bad about that person. Here is another popular saying about love: "The way to a man's heart is through his stomach". Some people believe that a woman can win a man's love if she prepares his favorite foods.
+
+as easy as taking candy from a baby.
+
+Why didn't you say something sooner"?
+
+If your apple didn't fall far from the tree, you are very much like your mom or dad. And if you are compare apples and oranges you are comparing two things that are so different that any comparison is really not productive.
+
+What is a whistleblower? The word sounds like it means a person directing a game, or a police officer directing traffic. Those people often has a device called a whistle, which makes a loud sound when you blow air through it. The sound of the whistle is usually a sign that someone has violated a rule.
+
+Trust usually comes with time.
+
+It is easy to get the two terms mixed up. They both deal with distance.
+"Farther" can also be used as an adverb, like in the following example, well known to parents taking a trip with young children. Mommy! Are we there yet? How much farther do we have to go until we get there?!
+
+"Hi, Dave"! you say. "Good to see you again. What's going on"? Dave may say: "Maggie! I have been so busy at work. All is well. What's up with you"? Dave wants to know what Maggie has been doing recently. This is a wide open, general question.
+You see your friend Mary at the bus stop. You know her mother was sick and in the hospital. "Hi, Mary. I have been thinking about you. How is it going? How is your Mom doing"?
+
+Here is another version is by the Scottish group The Cast.
+
+Another expression usually used for business and not parties is A-S-A-P. So, a colleague might say she needs something done ASAP. It means as soon as possible. She might also need to have something done by C-O-B. That means she wants to finish it by "Close Of Business" or the end of the work day.
+
+Manage versions like a pro
+Use branches to version documentation just like software. Antora can find repository branches and assemble the files in each branch into a versioned documentation collection. Antora also knows how to ignore branches you don’t want published.
+
+
+Let's say you forgot that you invited your boyfriend or girlfriend to a special birthday date. Your beloved waited for you, for hours, crying, in the rain. Much later, you sit up in bed and remember your missed appointment. You immediately call your partner and say that you are so sorry. You promise to wear sackcloth and ashes for the rest of the month.
+You can also use the phrase "sackcloth and ashes" in a sarcastic way. This means you say it, but do not really mean it.
+
+When a country experiences a recession or depression, people who live paycheck-to-paycheck may find themselves in a tough situation. Living paycheck-to-paycheck means you have little money in savings. You need your next paycheck to pay your bills. However, if you have some money put aside, you might feel less stressed.
+
+Another way we use "demand" these days is in talking about the "on-demand economy". That is the term used for internet-based businesses such as ride-sharing, meal delivery and online shopping which connect purchasers immediately and directly with goods and services. When you "demand" an Uber or Lyft car, it comes to you.
+
+Maybe instead of sending a text message with the letters BRB (be right back),we could use the image of a lamb shaking its tail. That would fun!
+
+She must have realized how surprised I was. So, she apologized for springing her happy news on me out of the blue like that.
+But what if the news involves other people? That is when springing it on someone is a bit more complex.
+They had been building their company for a few years and were finally starting to make a profit.
+
+Maybe the person has many mouths to feed at home and does not have time to stop and smell the roses. People and their situations are complex.
+
+People who do not want to hear our ideas, tell us not to "waste our breath".If we are really unhappy with someone, we can say to them, "You are a waste of space"!
+If someone is very sick or is losing a lot of weight, we can say they are "wasting away".
+And if someone has too much alcohol and cannot control their words and actions, we can say they are "wasted".
+Here's the first one: "Haste makes waste".
+So, if someone says, "Hurry up! It's taking you forever to cut that wood for the house project". You can simply say: "Haste makes waste. I want to do it right the first time"!
+The other common expression is: "Waste not, want not". This means that if a person never wastes things, he or she will have what is needed. We often say this as a response to being very frugal.
+
+I have taught in many countries where the common practice is for students to call me Teacher. It always sounded a little strange to me. Most Americans do not use Teacher to address a teacher in English.
+
+Most office workers spend the day in a sitting position.
+
+Losing his job, apartment, and wife in one month pushed my friend off the deep end. Not surprisingly!
+
+My co-worker Pete is known for his sunny personality. Anyone who meets him likes him. He has a really sunny disposition and is always smiling. Pete always seems in a good mood.
+What a happy guy.
+Now, just so you know … this comment probably would make her even LESS happy! Sarcasm can easily make people angry.
+People who see the good in nearly every situation are optimistic. They are hopeful. They see the glass as half full, not half empty.
+The next time you run into a bump in the road -- which is another way to say a little problem -- try your best to see the sunny side.
 
 
 ## 2024-07 ~ 10

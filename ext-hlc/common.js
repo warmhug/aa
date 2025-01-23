@@ -10,6 +10,170 @@ const hl_uiUtils = {
     style.textContent = cssText;
     document.head.appendChild(style);
   },
+  logger: function () {
+    if (typeof console !== "undefined" && console.log) {
+      try {
+        console.log.apply(null, arguments);
+      } catch (error) {
+        // on Mobile maybe throw "TypeError: Illegal invocation"
+      }
+    }
+    var args = Array.prototype.slice.call(arguments);
+    var ele = document.getElementById("loger");
+    ele.style.cssText =
+      "position:fixed;z-index:99999;left:0;top:0;background:rgba(0,0,0,.5);color:#fff;padding:5px";
+    ele.innerHTML += "<br /><br />" + args.join(" ");
+  },
+  // MutationObserver  ResizeObserver  https://web.dev/i18n/en/resize-observer/
+  // 使用 Performance https://web.dev/i18n/en/cls/ 监测异步 js 延迟渲染的 dom 元素稳定出现时间，不准确。
+  // window.addEventListener('load', () => {
+  //   cls(() => {
+  //     // console.log('log cls', location.href, document.body.clientHeight, document.body.scrollHeight);
+  //   });
+  // });
+  cls: function (cb = () => {}) {
+    let clsValue = 0, clsEntries = [], sessionValue = 0, sessionEntries = [];
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (!entry.hadRecentInput) {
+          const firstSessionEntry = sessionEntries[0];
+          const lastSessionEntry = sessionEntries[sessionEntries.length - 1];
+          if (sessionValue &&
+              entry.startTime - lastSessionEntry.startTime < 1000 &&
+              entry.startTime - firstSessionEntry.startTime < 5000) {
+            sessionValue += entry.value;
+            sessionEntries.push(entry);
+          } else {
+            sessionValue = entry.value;
+            sessionEntries = [entry];
+          }
+          if (sessionValue > clsValue) {
+            clsValue = sessionValue;
+            clsEntries = sessionEntries;
+            cb();
+          }
+        }
+      }
+    }).observe({type: 'layout-shift', buffered: true});
+  },
+  copyStr: function (event) {
+    // <textarea></textarea>
+    var copyTextarea = document.querySelector('textarea');
+    copyTextarea.select();
+    try {
+      var successful = document.execCommand('copy');
+      console.log('Copying command ' + successful ? 'successful' : 'unsuccessful');
+    } catch (err) {
+      console.log('unable to copy');
+    }
+  },
+  // 用于 Chrome 浏览器插件里，检测并等待飞书文档的标题出现
+  feishuDocsJs: function () {
+    const checkEle = (selector, cb = () => {}) => {
+      let ele, timeout = 8000, startTime = Date.now();
+      const check = () => {
+        ele = document.querySelector(selector);
+        if (!ele && Date.now() - startTime < timeout) {
+          setTimeout(check, 200);
+        } else if (ele) {
+          cb(ele);
+        }
+      };
+      check();
+    };
+    if (window !== top) {
+      checkEle('.suite-title-input', (ele) => {
+        window.postMessage(JSON.stringify({
+          _url: location.href,
+          title: ele.innerHTML,
+        }), '*');
+      });
+    }
+  },
+  // createSearchSwitch('https://www.google.com/search?q=ss&sca_esv=bb');
+  // createSearchSwitch('https://bing.com/search?q=js&ac=b')
+  // createSearchSwitch('https://www.baidu.com/s?wd=js')
+  createSearchSwitch: function (url) {
+    const createContainer = () => {
+      const container = document.createElement('div');
+      container.setAttribute('data-flag', 'hl_search');
+      container.style.cssText = 'position: fixed; right: 500px; top: 4px; z-index: 9988; opacity: 0.3;';
+      document.body.append(container);
+      return container;
+    }
+    const createLink = (container, href, text) => {
+      const ele = document.createElement('a');
+      ele.href = href;
+      ele.innerText = text;
+      ele.style.cssText = 'text-decoration: none; margin-right: 10px';
+      container.appendChild(ele);
+    }
+    const urlObj = new URL(url || location.href);
+    const searchEngines = ['google.com', 'bing.com', 'baidu.com'];
+    const searchEngineNames = ['Goog', 'Bing', 'BD'];
+    const createHref = (matchTxt, query) => 'https://www.' + matchTxt + '?' + query;
+    // console.log('run search', urlObj.pathname);
+    if (['/', '/search'].includes(urlObj.pathname) && urlObj.host.endsWith(searchEngines[0])) {
+      const query = urlObj.searchParams.get('q') || '';
+      const container = createContainer();
+      createLink(container, createHref(searchEngines[1] + '/search', 'q=' + query), searchEngineNames[1]);
+      createLink(container, createHref(searchEngines[2] + '/s', 'wd=' + query), searchEngineNames[2]);
+    } else if (['/', '/search'].includes(urlObj.pathname) && urlObj.host.endsWith(searchEngines[1])) {
+      const query = urlObj.searchParams.get('q') || '';
+      const container = createContainer();
+      createLink(container, createHref(searchEngines[0] + '/search', 'q=' + query), searchEngineNames[0]);
+      createLink(container, createHref(searchEngines[2] + '/s', 'wd=' + query), searchEngineNames[2]);
+    } else if (['/', '/s'].includes(urlObj.pathname) && urlObj.host.endsWith(searchEngines[2])) {
+      const query = urlObj.searchParams.get('wd') || '';
+      const container = createContainer();
+      createLink(container, createHref(searchEngines[0] + '/search', 'q=' + query), searchEngineNames[0]);
+      createLink(container, createHref(searchEngines[1] + '/search', 'q=' + query), searchEngineNames[1]);
+    }
+  },
+  videoSpeedController: (videoSpeed = 2, onChange = async (arg) => {}) => {
+    // 参考 Video Speed Controller https://chromewebstore.google.com/detail/nffaoalbilbmmfgbnbgppjihopabppdk
+    // 测试地址 https://shapeshed.com/examples/HTML5-video-element/
+    const changeEvt = async (speed = videoSpeed) => {
+      video.playbackRate = speed;
+      await onChange(video.playbackRate);
+    };
+    const initCtrl = (video) => {
+      const rect = video.getBoundingClientRect();
+      const offsetRect = video.offsetParent?.getBoundingClientRect();
+      const top = Math.max(rect.top - (offsetRect?.top || 0), 0);
+      const left = Math.max(rect.left - (offsetRect?.left || 0), 0);
+      const input = document.createElement('input');
+      input.setAttribute('name', 'hl_video_controller');
+      input.setAttribute('type', 'number');
+      input.setAttribute('step', '0.2');
+      input.setAttribute('min', '0.2');
+      input.style.cssText = `position: absolute; z-index: 9988; opacity: 0.3; width: 50px; height: 20px; top: ${top}px; left: ${left}px;`;
+      // 设置初始值
+      input.value = video.playbackRate !== 1 ? video.playbackRate.toFixed(2) : videoSpeed;
+      video.playbackRate = Number(input.value);
+      let newSpeed = video.playbackRate;
+      video.addEventListener('loadeddata', async () => {
+        // 视频地址变化时
+        // console.log('视频数据已加载:', videoElement.src);
+        await changeEvt(newSpeed);
+      });
+      input.addEventListener('change', async (evt) => {
+        newSpeed = Number(evt.target.value);
+        await changeEvt(newSpeed);
+      });
+      video.parentElement.insertBefore(input, video.parentElement.firstChild);
+      return input;
+    }
+    document.querySelectorAll('video').forEach(item => {
+      const input = initCtrl(item);
+      input.parentElement.addEventListener('mouseenter', () => {
+        input.style.display = 'block';
+      });
+      input.parentElement.addEventListener('mouseleave', () => {
+        input.style.display = 'none';
+      });
+    });
+  },
   modalBs: function ({
     content,
     onOpen = () => {}, onClose = () => {},
@@ -305,6 +469,92 @@ const hl_uiUtils = {
       }
     });
   },
+  resizer: function (dragerXSelctor = '#resizerX', leftEleSelctor = '#sideIframe') {
+    // https://stackoverflow.com/a/58965134/2190503
+    // https://stackoverflow.com/a/33523184/2190503
+    // 左右拖动 设置左边元素宽度
+    const dragerX = document.querySelector(dragerXSelctor);
+    const leftEle = document.querySelector(leftEleSelctor);
+    if (!dragerX || !leftEle) {
+      return;
+    }
+    const mousemove = (evt) => {
+      // return;
+      leftEle.style.width = `${evt.pageX}px`;
+    };
+    dragerX.onmousedown = function () {
+      document.documentElement.addEventListener('mousemove', doDrag, false);
+      document.documentElement.addEventListener('mouseup', stopDrag, false);
+    }
+    const doDrag = function (evt) {
+      if (evt.which != 1) {
+        console.log("mouseup");
+        stopDrag(evt);
+        return;
+      }
+      // 解决 拖动元素内部 有 iframe 时 拖动卡顿 问题
+      document.querySelectorAll('iframe').forEach(item => {
+        item.style.pointerEvents = 'none';
+      });
+      mousemove(evt);
+    }
+    const stopDrag = async function (evt) {
+      // console.log("stopDrag(evt)");
+      document.documentElement.removeEventListener('mousemove', doDrag, false);
+      document.documentElement.removeEventListener('mouseup', stopDrag, false);
+      document.querySelectorAll('iframe').forEach(item => {
+        item.style.pointerEvents = 'auto';
+      });
+      const saveWidth = `${leftEle.offsetWidth / (window.innerWidth - 12) * 100}%`;
+      await hl_utils.setStorage({ hl_other_sideWidth: saveWidth });
+    }
+  },
+  createIframe: function () {
+    const defaultHtml = `<!DOCTYPE html><html>
+    <head>
+    <meta charset="utf-8" />
+    <base target="_blank" />
+    <link rel="stylesheet" href="./assets/toastui-editor.min.css">
+    </head>
+    <body>
+    <div id="tuiEditor"></div>
+    <script src="./assets/toastui-editor-all.js"></script>
+    <!-- chrome-extension://xx.html 里不能内联 script -->
+    <script src="./assets/toastui.js"></script>
+    </body>
+    </html>`;
+    const ifrElement = document.createElement('iframe');
+    function writeContent(finalHtml = defaultHtml) {
+      const ifaDom = ifrElement.contentDocument || ifrElement.contentWindow?.document;
+      if (!ifaDom) {
+        return;
+      }
+      ifaDom.open();
+      // console.log('log finalHtml: ', finalHtml);
+      // 向 iframe 元素里写入 html
+      ifaDom.write(finalHtml);
+      ifaDom.close();
+    }
+    // document.body.appendChild(ifrElement);
+    // 注意: 需要先插入文档, 才能操作
+    // writeContent(finalHtml);
+    return { ifrElement, defaultHtml, writeContent };
+  },
+  createDomByStr: function (
+    htmlString = '<p>Hello, World!</p>',
+  ) {
+    const tempElement = document.createElement('div');
+    tempElement.innerHTML = htmlString;
+    const ele = tempElement.firstChild; // 获取第一个 div 元素
+    // console.log('log ele: ', ele);
+    return ele;
+  },
+  createBtn: function(txt = '', clickFn = async () => {}) {
+    const btn = document.createElement('button');
+    btn.innerHTML = txt;
+    btn.addEventListener('click', clickFn);
+    return btn;
+  },
 };
 
 const hl_commonUtils = {
@@ -543,75 +793,62 @@ const hl_commonUtils = {
   },
 };
 
-const hl_utils = {
-  ...hl_commonUtils,
-  ...hl_uiUtils,
-  // chrome storage 的保存内容可以是对象
-  // setStorage({ hl_savedData: obj }, false);
-  setStorage: async function (kv, isSync = true) {
-    if (!chrome?.storage?.local) {
-      Object.keys(kv).forEach(key => {
-        if (typeof kv[key] === 'object') {
-          localStorage.setItem(key, JSON.stringify(kv[key]));
-        } else {
-          localStorage.setItem(key, kv[key]);
-        }
+const hl_chromeUtils = {
+  sendNativeMessage: (() => {
+    let port = null;
+    function connect(name) {
+      // 双向通信
+      port = chrome.runtime.connectNative(name);
+      port.onMessage.addListener((message) => {
+        console.log('Received message from native: ', message);
       });
-      return;
-    }
-    // local 最大为 5m sync 最大为8k 超出报错 QUOTA_BYTES_PER_ITEM quota exceeded
-    const localRes = await chrome.storage.local.set(kv);
-    // console.log('local Value is set ', localRes);
-    if (isSync) {
-      const syncRes = await chrome.storage.sync.set(kv);
-    }
-    // console.log('sync Value is set ', syncRes);
-  },
-  // getStorage(null, false);
-  // getStorage(['hl_savedData'], false);
-  getStorage: async function (keys = null, isSync = true) {
-    if (!chrome?.storage?.local) {
-      const res = {};
-      Object.keys(localStorage).forEach(key => {
-        const resItem = localStorage.getItem(key);
-        const parseItem = this.jsonParse(resItem);
-        if (parseItem) {
-          res[key] = parseItem;
-        } else {
-          res[key] = resItem;
-        }
+      port.onDisconnect.addListener((p) => {
+        console.log('Disconnected', chrome.runtime.lastError);
+        port = null;
       });
-      return res;
     }
-    let res = await chrome.storage.local.get(keys);
-    // console.log('local Value is get ', res);
-    if (isSync) {
-      res = (await chrome.storage.sync.get(keys)) || res;
-    }
-    // console.log('sync Value is get', res);
-    return res;
-  },
-  removeStorage: async function (keys) {
-    if (!chrome?.storage?.local) {
-      if (Array.isArray(keys)) {
-        keys.forEach(item => {
-          localStorage.removeItem(item);
+    async function sendMessage(message, content) {
+      // 单向通信
+      let response;
+      try {
+        response = await chrome.runtime.sendNativeMessage('nm_sh', {
+          message,
+          content,
         });
-      } else {
-        localStorage.removeItem(keys);
+        console.log('sendNativeMessage 接收到消息:', response);
+      } catch (error) {
+        console.log('sendNativeMessage error: ', error, error.name);
+        response = { code: '304', error: error.message };
       }
-      return;
+      return response;
+      connect('nm_sh');
+      port.postMessage({ message });
     }
-    const localRes = await chrome.storage.local.remove(keys);
-    // console.log('local Value is get ', localRes);
-    const syncRes = await chrome.storage.sync.remove(keys);
-    // console.log('sync Value is get', syncRes);
-    return localRes || syncRes;
+    return sendMessage;
+  })(),
+  // <a href="chrome://settings/system">chrome-proxy</a>
+  // aEle.addEventListener('click', openChromeUrl);
+  openChromeUrl: function (evt) {
+    evt.preventDefault();
+    const url = evt.target.getAttribute('href');
+    if (url) {
+      chrome.tabs.create({ url });
+    }
+  },
+  getCurTab: async function () {
+    const [curTab] = await chrome.tabs.query({ active: true });
+    return { ...curTab };
+  },
+  getCookies: async function (domain) {
+    if (!domain) {
+      const curTab = await this.getCurTab();
+      domain = new URL(curTab.url).hostname;
+    }
+    const cookies = await chrome.cookies.getAll({ domain });
+    console.log('log cookies: ', cookies);
   },
   // 判断 popup.html 页面是在 浏览器扩展弹窗里打开 or 是独立的 tab 页面打开
   isPopup: async function () {
-    // 通过 curTab 不能判断
-    const [curTab] = await chrome.tabs.query({ active: true });
     // 通过 outerWidth outerHeight 可以判断
     // console.log('log window: ', window.opener, window.location.href);
     // console.log('log window: ', window.outerWidth, window.outerHeight);
@@ -624,24 +861,6 @@ const hl_utils = {
     // console.log('log context: ', context);
     const inPopup = context === 'popup';
     return inPopup;
-  },
-  cron: function (time, callback = () => {}) {
-    let cronLog = '';
-    const self = this;
-    const defaultTime = 2 * 60 * 60 * 1000;
-    function cronFn(time) {
-      setTimeout(async () => {
-        callback();
-        cronLog += `${self.getNow()} cronFn \n`;
-        console.log('cronLog: ', cronLog);
-        await self.setStorage({ hl_cron: cronLog }, false);
-        cronFn(time || defaultTime);
-      }, time || defaultTime);
-    }
-    setInterval(async () => {
-      await self.setStorage({ hl_cron: `清除 log ${self.getNow()}` }, false);
-    }, 10 * defaultTime);
-    return cronFn(time);
   },
   // 检测 url 对应的 tab ，如果不存在 则创建，如果存在 则 reload 激活，并轮询获得网页 loaded 状态
   createOrUpdateTab: async (targetUrl, strictMatch = fasle) => {
@@ -746,120 +965,145 @@ const hl_utils = {
       });
     }
   },
-  sendNativeMessage: (() => {
-    let port = null;
-    function connect(name) {
-      // 双向通信
-      port = chrome.runtime.connectNative(name);
-      port.onMessage.addListener((message) => {
-        console.log('Received message from native: ', message);
-      });
-      port.onDisconnect.addListener((p) => {
-        console.log('Disconnected', chrome.runtime.lastError);
-        port = null;
-      });
+  /*
+  // pacRule.pac 文件内容
+  function FindProxyForURL(url, host) {
+    // SwitchyOmega https://github.com/gfwlist/gfwlist
+    // var currentTime = new Date();
+    // var hour = currentTime.getHours();
+    // if (hour >= 9 && hour < 17) {
+    //   // 在工作时间内
+    //   if (shExpMatch(url, "http://internal.example.com/*")) {
+    //     return "DIRECT";
+    //   } else {
+    //     return "PROXY proxy.example.com:8080";
+    //   }
+    // } else {
+    //   // 非工作时间
+    //   return "DIRECT";
+    // }
+    if (dnsDomainIs(host, ".company.net")
+    || dnsDomainIs(host, ".company1.net")
+    ) {
+      return "SYSTEM";
     }
-    async function sendMessage(message, content) {
-      // 单向通信
-      let response;
-      try {
-        response = await chrome.runtime.sendNativeMessage('nm_sh', {
-          message,
-          content,
-        });
-        console.log('sendNativeMessage 接收到消息:', response);
-      } catch (error) {
-        console.log('sendNativeMessage error: ', error, error.name);
-        response = { code: '304', error: error.message };
-      }
-      return response;
-      connect('nm_sh');
-      port.postMessage({ message });
+    if (dnsDomainIs(host, ".google.com")) {
+      return "PROXY 127.0.0.1:7890";
     }
-    return sendMessage;
-  })(),
-  // createSearchSwitch('https://www.google.com/search?q=ss&sca_esv=bb');
-  // createSearchSwitch('https://bing.com/search?q=js&ac=b')
-  // createSearchSwitch('https://www.baidu.com/s?wd=js')
-  createSearchSwitch: function (url) {
-    const createContainer = () => {
-      const container = document.createElement('div');
-      container.setAttribute('data-flag', 'hl_search');
-      container.style.cssText = 'position: fixed; right: 500px; top: 4px; z-index: 9988; opacity: 0.3;';
-      document.body.append(container);
-      return container;
-    }
-    const createLink = (container, href, text) => {
-      const ele = document.createElement('a');
-      ele.href = href;
-      ele.innerText = text;
-      ele.style.cssText = 'text-decoration: none; margin-right: 10px';
-      container.appendChild(ele);
-    }
-    const urlObj = new URL(url || location.href);
-    const searchEngines = ['google.com', 'bing.com', 'baidu.com'];
-    const searchEngineNames = ['Goog', 'Bing', 'BD'];
-    const createHref = (matchTxt, query) => 'https://www.' + matchTxt + '?' + query;
-    // console.log('run search', urlObj.pathname);
-    if (['/', '/search'].includes(urlObj.pathname) && urlObj.host.endsWith(searchEngines[0])) {
-      const query = urlObj.searchParams.get('q') || '';
-      const container = createContainer();
-      createLink(container, createHref(searchEngines[1] + '/search', 'q=' + query), searchEngineNames[1]);
-      createLink(container, createHref(searchEngines[2] + '/s', 'wd=' + query), searchEngineNames[2]);
-    } else if (['/', '/search'].includes(urlObj.pathname) && urlObj.host.endsWith(searchEngines[1])) {
-      const query = urlObj.searchParams.get('q') || '';
-      const container = createContainer();
-      createLink(container, createHref(searchEngines[0] + '/search', 'q=' + query), searchEngineNames[0]);
-      createLink(container, createHref(searchEngines[2] + '/s', 'wd=' + query), searchEngineNames[2]);
-    } else if (['/', '/s'].includes(urlObj.pathname) && urlObj.host.endsWith(searchEngines[2])) {
-      const query = urlObj.searchParams.get('wd') || '';
-      const container = createContainer();
-      createLink(container, createHref(searchEngines[0] + '/search', 'q=' + query), searchEngineNames[0]);
-      createLink(container, createHref(searchEngines[1] + '/search', 'q=' + query), searchEngineNames[1]);
-    }
-  },
-  videoSpeedController: (videoSpeed = 2, onChange = async (arg) => {}) => {
-    // 参考 Video Speed Controller https://chromewebstore.google.com/detail/nffaoalbilbmmfgbnbgppjihopabppdk
-    // 测试地址 https://shapeshed.com/examples/HTML5-video-element/
-    const changeEvt = async (speed = videoSpeed) => {
-      video.playbackRate = speed;
-      await onChange(video.playbackRate);
+    return "DIRECT";
+  }
+  */
+  setChromeProxy: async (curTab) => {
+    const fixedConfig = {
+      mode: 'fixed_servers',
+      rules: {
+        bypassList: ['127.0.0.1', '[::1]', 'localhost'],
+        singleProxy: {
+          host: '127.0.0.1', port: 7890, scheme: 'http',
+        },
+      },
     };
-    const initCtrl = (video) => {
-      const rect = video.getBoundingClientRect();
-      const offsetRect = video.offsetParent?.getBoundingClientRect();
-      const top = Math.max(rect.top - (offsetRect?.top || 0), 0);
-      const left = Math.max(rect.left - (offsetRect?.left || 0), 0);
-      const input = document.createElement('input');
-      input.setAttribute('name', 'hl_video_controller');
-      input.setAttribute('type', 'number');
-      input.setAttribute('step', '0.2');
-      input.setAttribute('min', '0.2');
-      input.style.cssText = `position: absolute; z-index: 9988; opacity: 0.3; width: 50px; height: 20px; top: ${top}px; left: ${left}px;`;
-      // 设置初始值
-      input.value = video.playbackRate !== 1 ? video.playbackRate.toFixed(2) : videoSpeed;
-      video.playbackRate = Number(input.value);
-      let newSpeed = video.playbackRate;
-      video.addEventListener('loadeddata', async () => {
-        // 视频地址变化时
-        // console.log('视频数据已加载:', videoElement.src);
-        await changeEvt(newSpeed);
+    const proxyConfig = await chrome.proxy.settings.get({'incognito': false});
+    console.log('chrome.proxy proxyConfig', proxyConfig);
+    const proxyOn = proxyConfig.value.mode === 'system';
+    if (proxyOn) {
+      const pacScript = storage.hl_other_pacScript || {
+        "url": "./pacRule.pac",
+        // "data": ""
+      };
+      await chrome.proxy.settings.set({
+        value: { mode: 'pac_script', pacScript },
+        scope: 'regular',
       });
-      input.addEventListener('change', async (evt) => {
-        newSpeed = Number(evt.target.value);
-        await changeEvt(newSpeed);
-      });
-      video.parentElement.insertBefore(input, video.parentElement.firstChild);
-      return input;
+    } else {
+      await chrome.proxy.settings.clear({});
     }
-    document.querySelectorAll('video').forEach(item => {
-      const input = initCtrl(item);
-      input.parentElement.addEventListener('mouseenter', () => {
-        input.style.display = 'block';
+    return proxyOn;
+  },
+};
+
+const hl_utils = {
+  ...hl_commonUtils,
+  ...hl_uiUtils,
+  ...hl_chromeUtils,
+  // chrome storage 的保存内容可以是对象
+  // setStorage({ hl_savedData: obj }, false);
+  setStorage: async function (kv, isSync = true) {
+    if (!chrome?.storage?.local) {
+      Object.keys(kv).forEach(key => {
+        if (typeof kv[key] === 'object') {
+          localStorage.setItem(key, JSON.stringify(kv[key]));
+        } else {
+          localStorage.setItem(key, kv[key]);
+        }
       });
-      input.parentElement.addEventListener('mouseleave', () => {
-        input.style.display = 'none';
+      return;
+    }
+    // local 最大为 5m sync 最大为8k 超出报错 QUOTA_BYTES_PER_ITEM quota exceeded
+    const localRes = await chrome.storage.local.set(kv);
+    // console.log('local Value is set ', localRes);
+    if (isSync) {
+      const syncRes = await chrome.storage.sync.set(kv);
+    }
+    // console.log('sync Value is set ', syncRes);
+  },
+  // getStorage(null, false);
+  // getStorage(['hl_savedData'], false);
+  getStorage: async function (keys = null, isSync = true) {
+    if (!chrome?.storage?.local) {
+      const res = {};
+      Object.keys(localStorage).forEach(key => {
+        const resItem = localStorage.getItem(key);
+        const parseItem = this.jsonParse(resItem);
+        if (parseItem) {
+          res[key] = parseItem;
+        } else {
+          res[key] = resItem;
+        }
       });
-    });
+      return res;
+    }
+    let res = await chrome.storage.local.get(keys);
+    // console.log('local Value is get ', res);
+    if (isSync) {
+      res = (await chrome.storage.sync.get(keys)) || res;
+    }
+    // console.log('sync Value is get', res);
+    return res;
+  },
+  removeStorage: async function (keys) {
+    if (!chrome?.storage?.local) {
+      if (Array.isArray(keys)) {
+        keys.forEach(item => {
+          localStorage.removeItem(item);
+        });
+      } else {
+        localStorage.removeItem(keys);
+      }
+      return;
+    }
+    const localRes = await chrome.storage.local.remove(keys);
+    // console.log('local Value is get ', localRes);
+    const syncRes = await chrome.storage.sync.remove(keys);
+    // console.log('sync Value is get', syncRes);
+    return localRes || syncRes;
+  },
+  cron: function (time, callback = () => {}) {
+    let cronLog = '';
+    const self = this;
+    const defaultTime = 2 * 60 * 60 * 1000;
+    function cronFn(time) {
+      setTimeout(async () => {
+        callback();
+        cronLog += `${self.getNow()} cronFn \n`;
+        console.log('cronLog: ', cronLog);
+        await self.setStorage({ hl_cron: cronLog }, false);
+        cronFn(time || defaultTime);
+      }, time || defaultTime);
+    }
+    setInterval(async () => {
+      await self.setStorage({ hl_cron: `清除 log ${self.getNow()}` }, false);
+    }, 10 * defaultTime);
+    return cronFn(time);
   },
 };

@@ -6,19 +6,14 @@
 2. manifest -> background -> scripts 打开 `chrome://extensions/` 相应的插件名、点“背景页”。
 3. manifest -> content_scripts 设置的 js 位置：“控制台 -> Sources -> Content scripts”
 
-
-Chrome extensions
-
-Tab Position Options
-一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) ModHeader XSwitch Tamper Tampermonkey / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / gitpod npmhub / screenity / Language Reactor / Side Browser / Sidebar Tab / Porter Plug / Video Speed Controller
-
-数据
+配置
 
 ```json
 {
   "hl_inject_ai": [
     "https://www.doubao.com/chat/",
     "https://chatgpt.com/",
+    "https://gemini.google.com/",
     "https://kimi.moonshot.cn/"
   ],
   "hl_inject_auto": [
@@ -29,7 +24,9 @@ Tab Position Options
   "hl_inject_blankpage": [
     ["http://localhost/a/aa/ext-hlc/a_localFileEditor.html", "本地文件编辑器"],
     ["https://ai-bot.cn/daily-ai-news/", "AI新闻"],
-    ["https://www.baidu.com/s?wd=%E6%97%A5%E5%8E%86", "日历"]
+    ["https://www.baidu.com/s?wd=%E6%97%A5%E5%8E%86", "日历"],
+    ["https://uutool.cn/", "uutool"],
+    ["https://proxy.incolumitas.com/proxy_detect.html", "vpn检测"]
   ],
   "hl_tabs_rebuild": [
     "https://i.mi.com/note/h5#/"
@@ -129,6 +126,63 @@ sed -i -e "s/HOST_PATH/$ESCAPED_HOST_PATH/" "$TARGET_DIR/$HOST_NAME.json"
 chmod o+r "$TARGET_DIR/$HOST_NAME.json"
 
 echo Native messaging host $HOST_NAME has been installed.
+```
+
+使用 js
+
+```js
+#!/usr/bin/env -S /Users/hua/.nvm/versions/node/v22.3.0/bin/node --max-old-space-size=14 --jitless --expose-gc --v8-pool-size=1 --experimental-default-type=module
+
+// https://github.com/guest271314/native-messaging-nodejs/blob/main/nm_nodejs.js
+// guest271314, 10-9-2022
+import { open } from "node:fs/promises";
+process.env.UV_THREADPOOL_SIZE = 1;
+
+// https://github.com/denoland/deno/discussions/17236#discussioncomment-4566134
+// https://github.com/saghul/txiki.js/blob/master/src/js/core/tjs/eval-stdin.js
+async function readFullAsync(length, buffer = new Uint8Array(65536)) {
+  const data = [];
+  while (data.length < length) {
+    const input = await open("/dev/stdin");
+    let { bytesRead } = await input.read({
+      buffer
+    });
+    await input.close();
+    if (bytesRead === 0) {
+      break;
+    }
+    data.push(...buffer.subarray(0, bytesRead));
+  }
+  return new Uint8Array(data);
+}
+
+async function getMessage() {
+  const header = new Uint32Array(1);
+  await readFullAsync(1, header);
+  const content = await readFullAsync(header[0]);
+  return content;
+}
+
+async function sendMessage(message) {
+  const header = new Uint32Array([message.length]);
+  const stdout = await open("/proc/self/fd/1", "w");
+  await stdout.write(header);
+  await stdout.write(message);
+  await stdout.close();
+  global.gc();
+}
+
+async function main() {
+  while (true) {
+    try {
+      const message = await getMessage();
+      await sendMessage(message);
+    } catch (e) {
+      process.exit();
+    }
+  }
+}
+main();
 ```
 
 

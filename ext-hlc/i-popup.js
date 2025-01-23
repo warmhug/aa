@@ -36,30 +36,18 @@ async function renderText() {
   });
 }
 
-function createBtn(txt = '', clickFn = async () => {}) {
-  const btn = document.createElement('button');
-  btn.innerHTML = txt;
-  btn.addEventListener('click', clickFn);
-  return btn;
-}
+const { createBtn, createDomByStr, openChromeUrl } = hl_utils;
 
-async function getCurTab() {
-  const [curTab] = await chrome.tabs.query({ active: true });
-  console.log('log curTab: ', curTab);
-  // const { url, index } = curTab;
-  return { ...curTab };
-}
+(async function popup () {
+  hl_utils.getCookies();
 
-function openChromeUrl(evt) {
-  evt.preventDefault();
-  const url = evt.target.getAttribute('href');
-  if (url) {
-    chrome.tabs.create({ url });
-  }
-}
-
-popup();
-async function popup () {
+  const openPopup = document.querySelector('#openPopup');
+  openPopup.addEventListener('click', async () => {
+    const tab = await hl_utils.getCurTab();
+    const url = chrome.runtime.getURL('i-popup.html');
+    // console.log('log url: ', url);
+    chrome.tabs.create({ url, index: tab.index + 1 });
+  });
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     // console.log(`Command "${command}" triggered`, window, location.href);
@@ -84,8 +72,8 @@ async function popup () {
   });
 
   const operateTabs = (storage) => {
-    const divs = document.createElement('div');
-    divs.appendChild(createBtn('restore-tab', async () => {
+    const wrapper = document.createElement('div');
+    wrapper.appendChild(createBtn('restore-tab', async () => {
       var tabsAll = async () => await chrome.tabs.query({});
       // 情况: url 相同或只是 origin-pathname 相同，相同 tab 有多个
       // 粗暴处理: 删掉已存在的 origin-pathname 相同的 tab (多个)
@@ -103,7 +91,7 @@ async function popup () {
         chrome.tabs.create({ url, index: tabsLength + idx });
       });
     }));
-    divs.appendChild(createBtn('选中的tab', async () => {
+    wrapper.appendChild(createBtn('选中的tab', async () => {
       const tabs = await chrome.tabs.query({ highlighted: true });
       const saveVal = tabs.map(tab => tab.url);
       const html = `
@@ -114,7 +102,7 @@ async function popup () {
       `;
       const confirmResult = await hl_utils.confirm(html);
     }));
-    divs.appendChild(createBtn('del-ungroup-tab', async () => {
+    wrapper.appendChild(createBtn('del-ungroup-tab', async () => {
       // 如果 url 里含有 #xxx 则 匹配不到
       // const savedTabs = await chrome.tabs.query({ url: storage.hl_tabs_saved });
       var tabsAll = await chrome.tabs.query({});
@@ -122,16 +110,16 @@ async function popup () {
       const dTabs = tabsAll.filter(tab => tab.groupId == -1 && !tab.pinned);
       await chrome.tabs.remove(dTabs.map(tab => tab.id));
     }));
-    divs.appendChild(createBtn('重建pin-tab', async () => {
+    wrapper.appendChild(createBtn('重建pin-tab', async () => {
       dealResponse(await chrome.runtime.sendMessage({ action: 'reCreateTabs' }));
     }));
-    divs.appendChild(createBtn('重载tab', async () => {
+    wrapper.appendChild(createBtn('重载tab', async () => {
       dealResponse(await chrome.runtime.sendMessage({ action: 'reloadTabs' }));
     }));
-    divs.appendChild(createBtn('刷新所有tabs', async () => {
+    wrapper.appendChild(createBtn('刷新所有tabs', async () => {
       dealResponse(await chrome.runtime.sendMessage({ action: 'reloadTabs', reloadTabsAll: true }));
     }));
-    divs.appendChild(createBtn('去重tab', async () => {
+    wrapper.appendChild(createBtn('去重tab', async () => {
       var tabsAll = await chrome.tabs.query({});
       const dupTabs = tabsAll.filter((tab, index) => {
         const idx = tabsAll.findIndex(item => tab.url === item.url);
@@ -144,7 +132,7 @@ async function popup () {
         await chrome.tabs.remove(dupTabs.map(tab => tab.id));
       }
     }));
-    return divs;
+    return wrapper;
   }
 
   const proxyListPrefix = 'hl_ctrl_proxy';
@@ -154,29 +142,31 @@ async function popup () {
     const storage = await hl_utils.getStorage(null);
     const storageField = ctrlEle.getAttribute('data-field');
     const tips = {
-      hl_ctrl_proxy_whistle: () => `
-        代理服务已启动 (浏览器插件局部代理即可) &nbsp;
-        <a href="http://127.0.0.1:8899" target="_blank">规则配置</a> &nbsp;
-        <a href="https://wproxy.org/whistle/install.html" target="_blank">文档</a>
-      `,
+      hl_ctrl_proxy_whistle: () => {
+        const wrapper = document.createElement('div');
+        const chromeProxy = createDomByStr(
+          '<a href="chrome://settings/system">chrome-proxy</a>'
+        );
+        chromeProxy.addEventListener('click', openChromeUrl);
+        wrapper.appendChild(createDomByStr(`<span>
+  代理服务已启动 &nbsp;
+  <a href="http://127.0.0.1:8899" target="_blank">规则配置</a> &nbsp;
+  <a href="https://wproxy.org/whistle/install.html" target="_blank">文档</a>
+  &nbsp;
+</span>`));
+        wrapper.appendChild(chromeProxy);
+        return wrapper;
+      },
       hl_ctrl_proxy_clash: () => {
         const btn = createBtn('addRule', async () => {
           dealResponse(await hl_utils.sendNativeMessage('addRule',
-            new URL((await getCurTab()).url).host));
+            new URL((await hl_utils.getCurTab()).url).host));
         });
         setTimeout(() => {
           btn.insertAdjacentHTML('afterend',
           `<a style="margin-left:8px" href="http://127.0.0.1:58147/ui/#/rules" target="_blank">监控</a>`);
         }, 100);
         return btn;
-      },
-      switchChromeProxy: () => {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = `
-        查看 <a href="chrome://settings/system">chrome-proxy</a> 设置是否正确
-        `;
-        wrapper.addEventListener('click', openChromeUrl);
-        return wrapper;
       },
       top: () => {
         const btn = createBtn('top-kill', async () => {
@@ -209,11 +199,6 @@ async function popup () {
         btn?.classList.add('active');
         setTips(btn?.id);
       }
-      ctrlEle.querySelectorAll('button').forEach(item => {
-        if (item.id === 'switchChromeProxy') {
-          item.innerHTML = `${Boolean(storage[`hl_ctrl_${item.id}`]) ? '关闭': '打开'}Chrome代理`;
-        }
-      });
     } else if (btnEle) {
       ctrlEle.querySelectorAll('button').forEach(item => item.classList.remove('active'));
       btnEle.classList.add('active');
@@ -291,35 +276,6 @@ async function popup () {
           chrome.windows.update(windc.id, { width: 1728 });
         });
         break;
-      case 'switchChromeProxy':
-        const fixConfig = {
-          mode: 'fixed_servers',
-          rules: {
-            bypassList: ['127.0.0.1', '[::1]', 'localhost'],
-            singleProxy: {
-              host: '127.0.0.1',
-              port: 7890,
-              scheme: 'http',
-            }
-          }
-        };
-        const proxyConfig = await chrome.proxy.settings.get({'incognito': false});
-        console.log('chrome.proxy proxyConfig', proxyConfig);
-        const proxyOn = proxyConfig.value.mode === 'system';
-        if (proxyOn) {
-          const pacScript = storage.hl_other_pacScript || {
-            "url": "http://localhost/a/aa/z_pacRule.pac",
-            // "data": ""
-          };
-          await chrome.proxy.settings.set({
-            value: { mode: 'pac_script', pacScript },
-            scope: 'regular',
-          });
-        } else {
-          await chrome.proxy.settings.clear({});
-        }
-        await hl_utils.setStorage({ [`hl_ctrl_${field}`]: proxyOn });
-        break;
     }
     dealResponse(response);
   };
@@ -332,8 +288,6 @@ async function popup () {
     ipEle.setAttribute('href', localIP);
     ipEle.innerHTML = localIP;
   });
-
-  document.querySelector('#chromeUrls').addEventListener('click', openChromeUrl);
 
   const localStorage = await hl_utils.getStorage(null, false);
   const syncStorage = await hl_utils.getStorage(null);
@@ -387,12 +341,12 @@ async function popup () {
     //   console.log('reportActivity');
     // });
   });
-}
+})();
 
 // 压缩地址 https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js
 // api 地址 https://nhn.github.io/tui.editor/latest/
-async function tuiEditor() {
-  const { index: idx } = await getCurTab();
+(async function tuiEditor() {
+  const { index: idx } = await hl_utils.getCurTab();
   const inPopup = await hl_utils.isPopup();
   // console.log('log inPopup: ', inPopup);
 
@@ -444,5 +398,4 @@ async function tuiEditor() {
       });
     }
   });
-}
-tuiEditor();
+})();

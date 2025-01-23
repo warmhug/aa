@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
+<base target="_blank" />
 <title>hl extension popup</title>
 <style>
   .controls, .msg {
@@ -39,12 +40,6 @@
       border: 1px solid #eee;
     }
   }
-  .urls {
-    margin-right: 20px;
-    a {
-      margin-right: 10px;
-    }
-  }
   summary {
     padding: 10px 0;
     display: flex;
@@ -62,7 +57,7 @@
     border-bottom: 1px solid #eee;
     > .toastui-editor-contents {
       /* 只在 viewer: true 下生效 */
-      max-height: 400px;
+      max-height: 350px;
     }
   }
 </style>
@@ -77,28 +72,13 @@
 </div>
 <div>
   <div class="controls" data-field="hl_ctrl_proxy">
-    <div class="urls">
-      <span id="chromeUrls">
-        <!-- <a href="chrome://chrome-urls" target="_blank">chrome-urls</a> -->
-        <a href="chrome://extensions/shortcuts">快捷键</a>
-        <a href="chrome://extensions/">扩展</a>
-        <a href="chrome://bookmarks">书签</a>
-        <a href="chrome-extension://kafpfdegkmheageeldelgnnkegpkbpca/i-popup.html">单独打开</a>
-      </span>
-      <a
-        href="https://developer.chrome.com/docs/extensions/reference/api/tabs"
-        target="_blank"
-      >
-        api/tabs
-      </a>
-      <a id="ipEle" target="_blank"></a>
-    </div>
-    <button id="resizeWindow">resize</button>
+    <a id="openPopup" style="margin-right: 20px;">openPopup</a>
+    <!-- <button id="resizeWindow">resize</button> -->
   </div>
   <div class="msg"></div>
   <div class="controls" data-field="hl_ctrl_misc">
+    <a id="ipEle" target="_blank" style="margin-right: 20px;"></a>
     <!-- <button id="snapshot">截图</button> -->
-    <button id="switchChromeProxy"></button>
     <button id="openMacConfig">查看系统代理设置</button>
     <button id="ai">AI</button>
     <button id="operateTabs">operateTabs</button>
@@ -108,15 +88,9 @@
 </div>
 <details open>
   <summary>
-    点击展开
     <span>当前页面被插入css/js</span>
     <span>快捷键</span>
-    <span>图片生成</span>
   </summary>
-  <a href="https://proxy.incolumitas.com/proxy_detect.html">vpn检测</a>
-  <a href="https://dummyimage.com/750x300/eee/f0f" target="_blank">dummyimage.com/750x300/eee/f0f</a>
-  <a href="https://htmlcolorcodes.com/zh/" target="_blank">颜色选择</a>
-  <a href="https://www.en998.com/sentence/">en998</a>
   <div id="cmds" style="margin: 10px 0;"></div>
   <div id="injectCode" style="margin: 10px 0; overflow-x: scroll;"></div>
   <fieldset id="powerOps">
@@ -130,8 +104,8 @@
   </fieldset>
 </details>
 <details open id="storageEle">
-  <summary>sync / remove storage 点击展开</summary>
-  <textarea style="height: 50px; width: 100%;"></textarea>
+  <summary>sync / remove storage</summary>
+  <textarea style="height: 250px; width: 100%;"></textarea>
   <input style="width: 100%;" value="[]" />
 </details>
 

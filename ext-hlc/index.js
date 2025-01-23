@@ -86,44 +86,6 @@ async function dumpBookmarks() {
 }
 dumpBookmarks();
 
-// https://stackoverflow.com/a/58965134/2190503
-// https://stackoverflow.com/a/33523184/2190503
-function resizer() {
-  var resizer = document.querySelector('#resizerX');
-  var sideIframe = document.getElementById('sideIframe');
-  const mousemove = (evt) => {
-    // return;
-    sideIframe.style.width = `${evt.pageX}px`;
-  };
-
-  resizer.onmousedown = function () {
-    document.documentElement.addEventListener('mousemove', doDrag, false);
-    document.documentElement.addEventListener('mouseup', stopDrag, false);
-  }
-  const doDrag = function (evt) {
-    if (evt.which != 1) {
-      console.log("mouseup");
-      stopDrag(evt);
-      return;
-    }
-    // 解决内部有 iframe 时 拖动卡顿 问题
-    document.querySelectorAll('iframe').forEach(item => {
-      item.style.pointerEvents = 'none';
-    });
-    mousemove(evt);
-  }
-  const stopDrag = async function (evt) {
-    // console.log("stopDrag(evt)");
-    document.documentElement.removeEventListener('mousemove', doDrag, false);
-    document.documentElement.removeEventListener('mouseup', stopDrag, false);
-    document.querySelectorAll('iframe').forEach(item => {
-      item.style.pointerEvents = 'auto';
-    });
-    const saveWidth = `${sideIframe.offsetWidth / (window.innerWidth - 12) * 100}%`;
-    await hl_utils.setStorage({ hl_other_sideWidth: saveWidth });
-  }
-}
-
 async function googleTranslate() {
   const setUrl = (modal, url) => {
     const iframeWrap = modal.querySelector('.iframe-wrap.google');
@@ -167,15 +129,17 @@ async function content() {
   ${src ? '' : '<div class="tip">选择上方网址</div>'}
   `;
 
-  const sideIframe = document.querySelector('#sideIframe');
-  sideIframe.innerHTML = `
-  <div class="iframe-wrap">
-    ${createIfr('https://warmhug.github.io/aa')}
-  </div>
-  `;
-  resizer();
+  hl_utils.resizer();
+
   const { hl_other_sideWidth, hl_inject_blankpage = [] } = await hl_utils.getStorage();
+  const sideIframe = document.querySelector('#sideIframe');
   sideIframe.style.width = hl_other_sideWidth ?? '40%';
+
+  const sideIframeWrap = sideIframe.querySelector('.iframe-wrap');
+  // sideIframeWrap.innerHTML = createIfr('https://warmhug.github.io/aa/eng');
+  const { ifrElement, writeContent } = hl_utils.createIframe();
+  sideIframeWrap.appendChild(ifrElement);
+  writeContent();
 
   const majorContent = document.querySelector('.major');
   majorContent.insertAdjacentHTML('beforeend', `

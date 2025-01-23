@@ -28,7 +28,7 @@ window.addEventListener('load', () => {
     });
     hl_utils.addTripleClickEvent(document, async (evt) => {
       console.log('log Triple click evt: ', evt);
-      await chrome.runtime.sendMessage({ action: 'openPopup' });
+      // await chrome.runtime.sendMessage({ action: 'openPopup' });
     }, 400);
   }, 1000);
 });

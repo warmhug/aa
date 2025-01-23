@@ -5,22 +5,21 @@ show_title: false
 permalink: /
 ---
 
-# 媒体
+# .
+
+- 网易 [科技](https://tech.163.com/)  [财经](https://money.163.com/) [国际](https://news.163.com/world/)
+- [pmbaobao](https://www.pmbaobao.com/)  [热榜](https://tophub.today/)  [凤凰网](https://www.ifeng.com)
+
+- [时代周刊](https://time.com)  [纽约时报](https://nytimes.com)  [华尔街日报](https://www.wsj.com)
+- https://youtube.com  https://instagram.com  https://whatsapp.com
 
 [科技周刊](https://www.ruanyifeng.com/blog/2024/10/weekly-issue-322.html)
 [oschina](https://www.oschina.net) [36kr热榜](https://www.36kr.com/hot-list/catalog)
 [极客公园](https://www.geekpark.net) [少数派](https://sspai.com) [威锋网](https://www.feng.com)
 [人人PD](http://www.woshipm.com)  [yuque](https://www.yuque.com/iscott)
 [蜻蜓](https://www.qingting.fm/) [什么值得买](https://www.smzdm.com)
-[壹心理](https://www.xinli001.com)  [热榜](https://tophub.today/)
+[奇绩创坛](https://www.miracleplus.com)  [壹心理](https://www.xinli001.com)
 
-[时代周刊](https://time.com)  [纽约时报](https://nytimes.com)  [华尔街日报](https://www.wsj.com)
-[凤凰网](https://www.ifeng.com) [测网速](https://fast.com)  [flickr](https://flickr.com)
-[奇绩创坛](https://www.miracleplus.com)
-https://youtube.com  https://instagram.com  https://whatsapp.com  https://archive.org
-https://coolshell.cn  2022-04 《美国公布：长达35页的2045年新兴科技趋势报告》 https://mp.weixin.qq.com/s/ox6NHtK4usvKJ1gpk8uY8A
-
------- 前端
 > [codesandbox](https://codesandbox.io/s/zpjo211yp) [codepen](https://codepen.io)  GitHub登录
 > [GitHub](https://github.com/warmhug/aa)
 
@@ -39,1022 +38,210 @@ https://twitter.com/shadcn
 https://npmtrends.com/@mantine/core-vs-chakra-ui
 https://npmtrends.com/lint-staged-vs-pre-commit-vs-pretty-quick
 [设计工具排名](https://uxtools.co/tools/design)
-
-[2021 大前端技术回顾及未来展望](https://mp.weixin.qq.com/s/HfZDrrqDNUVpnU-aegKxcg)
-[2021 年 Rust 生态版图调研报告](https://zhuanlan.zhihu.com/p/458046979)
 [2019中国开源软件榜](https://www.oschina.net/project/top_cn_2019)
 [2018前端技术清单](https://juejin.im/post/5bdfb387e51d452c8e0aa902)
+https://coolshell.cn
 
 
-# FE suffer
+## AI 场景
 
-[antd tree-shaking](https://github.com/ant-design/ant-design/issues/23988)
+https://app.slack.com/client/T053EMGBEEN/C05BVLPE885?geocode=zh-cn
+外国学校 https://lmarena.ai/
+https://openrouter.ai/rankings
+https://poe.com/
+2025-01 大模型竞技场
 
-## pro-components 2024-07~10
+https://github.com/luban-agi/Awesome-AIGC-Tutorials
+https://columns.ai/chatgpt
 
-### 流水线(pipeline/ci/cd)
+https://chromeai.org/
+https://gpt4o.so/
+https://github.com/fifteen42/localhostai
 
-问题：现在的方案、针对“单包/单项目”的开发，没有考虑到这种大型联合开发的场景，另外在功能的扩展性和产品细节等方面、存在不少优化空间。
-需求：解决 monorepo 组件开发，对每个子包 有统一规范并需要强制Check的 情况。
+https://www.cursor.com/  https://codeium.com/
+https://aichatru.ru/en
+https://chat100.ai/zh-CN
+https://github.com/guanguans/ai-commit
+https://github.com/guoriyue/LangCommand
+https://www.opkfc.com/list
 
-流水线问题
-- 自定义问题
-  - 不能像是 GitHub action 一样，能完全自定义流水线。不支持自动生成 PR 供合并。
-  - 默认运行 npm i，没考虑 pnpm 等工具，node 版本可选的少。
-- 比如公共的 release / test 分支是由 feat1 2 3 合并而成，但流水线里没有提供 合并进来 分支名 信息。
-  - 需求：在 feature 分支合并到 release 时，在 release 流水线里 想拦截检查 feature 分支是否规范：比如 commit message 规范性，是否 rebase 过 master，是否 commit 数量过多，是否修改了被保护的代码 等。
-  - 现状：只能在 feature 分支流水线里检查，可以设置卡点 当 feature 流水线运行失败、则不能合并到 release 或 test 分支。
-  - 问题：feature 分支代码是一周前的、一周前 feature 流水线运行结果也是成功的，这一周里 master 分支已经有很多新提交、但 feature 也没有跟 master 产生冲突、所以会自动和 master 代码合并起来生成 release 分支。但此时的 feature 分支没有 rebase 过最新的 master 不符合预期的规范。
-  - 解法：一是在合并到 release 时，feature 流水线先自动运行一遍。更好的是在 release 流水线里提供合并进来的各个 feature 分支名、自定义脚本 检查这些 feature 分支是否都符合预期的要求。
-- 使用 lerna 时、需要人工 配置模板，迁移或新建项目 不了解这个。
-- 内置的 扫描过时风险依赖、安全检查 等任务不支持 loglevel 设置，影响查日志效率。
-  - 不支持 内置任务 与 用户任务 的 log 文件拆分。
-  - 成功时就提示个成功 就行、失败了再显示具体日志，不要一直都是显示一大堆。
-  - 或者能 支持统一或单独配置 loglevel (silly verbose silent)。
-  - 自定义的关键 log 信息，全被其他无用的 log 淹没了。协作同学、对这个流水线不熟悉，根本看不懂哪里是对的 哪里是错的。
-- 不支持给 gitlab 打 annotated tags, 不支持 灵活调用 打 tag 的脚本。
-  - 容器内不注入git的ssh key 。拉代码容器的key不会暴露给其他容器。
-- 推送代码和权限
-  - 安全要求、不能推送代码到 gitlab，也不支持在 feature 流水线里 推代码。
-  - 使用者对 gitlab 代码只有 读权限、没有 写权限。
+综合/模型厂商
+https://chatgpt.com  https://gemini.google.com/
+https://www.doubao.com/chat/  https://kimi.moonshot.cn
+https://tongyi.aliyun.com/qianwen/  https://duckduckgo.com/?q=DuckDuckGo&ia=chat
+https://www.meta.ai/  https://llama3.dev/  https://www.perplexity.ai/
+https://chat.deepseek.com/  https://chathub.gg/
 
-项管平台 brok 问题
-- 各 feature 分支合并代码到 test 或 release，不支持检测是否 rebase 和 squash 代码。
-- release 构建或发布成功的节点，不支持配置 通知人和群。
-- 某个服务只能在某个brok项目使用。
-- 右上角新建按钮、只能建项目 不能建任务直接，希望能基于 已有的项目、直接能 新建任务。
-- [已解决] packman节点在 feature 流水线的 NPM_TAG 环境变量不支持设置。
+代码生成 对话式
+蚂蚁 https://weavefox.ai/
+https://githubnext.com/projects/github-spark
+https://bolt.new/
 
-流水线运行 lerna publish 问题
-- lerna ERR! ENOGIT Detached git HEAD
-  - 使用 `git checkout $PACKMAN_PUBLISH_BRANCH` 重新 tach 上
-  - 如果没有 git ssh key 则没有对 remote 的操作权限，需要加上 `--no-push --no-git-tag-version` 参数，不然会报错。
-  - [参考](https://github.com/lerna/lerna/issues/2443)
-- lerna ERR! EUNCOMMIT Working tree has uncommitted changes
-  - 如果是 M pnpm-lock.yaml 则确保开发阶段使用的 pnpm 版本一致
-  - 如果是其他文件，使用 from-git 或 git commit https://github.com/lerna/lerna/issues/1591
+代码生成 https://www.ancodeai.com  https://github.com/abi/screenshot-to-code
+网易-海豹D2C https://music.163.com/st/seal
+字节 编程助手 https://www.marscode.com 海外 https://www.coze.com
+电脑操作 https://deepmind.google/technologies/project-mariner/
 
+生成 AI 应用
+https://www.wordware.ai/
+https://mp.weixin.qq.com/s/qdXnBoMV4u2r-abUSnFReA
+https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web
 
-### lerna
+智能客服/知识库问答
+https://beta.character.ai
+antd机器人 Peter Cat https://mp.weixin.qq.com/s/PnHVc1_yBPu2HiA2En9cAg
+https://github.com/1Panel-dev/MaxKB
+https://github.com/cs-lazy-tools/ChatGPT-On-CS
 
-[lerna commands](https://lerna.js.org/docs/api-reference/commands)
-[lerna实践](https://warmhug.github.io/2024/08/06/lerna-usage.html)
-lerna version 命令除了能 自动升级版本号，还能 自动生成 changelog 文档，自动给 gitlab 打 tag。
+支付宝 https://tbox.alipay.com/
+阿里 B2B 个人采购代理 https://www.accio.com/
+音乐 https://lamucal.ai/
 
-更新 “有变更的包” 自身版本号 & 依赖的其他子包的版本号，修改 package.json 文件
+手机助手
+https://github.com/Skythinker616/gpt-assistant-android
+https://github.com/X-PLUG/MobileAgent
+2023
 
-```js
-/**
-利用 lerna exec + npm version 命令:
-能升级每个包本身的 version 但其 dependencies 的 version 需要额外处理。
-可以使用 pnpm up 命令，但升级后的 包的版本号为 "@afe/pro-form": "workspace:0.1.3" 类似这样，
-需要 lerna/npm publish 命令再次处理。
-*/
-await Promise.all(versionInfo.map(async ({ name, newVersion }) => {
-  return await exec('node',[
-    [lernaCli], 'exec', '--scope', name, '--', `pnpm version ${newVersion} --workspaces=false --no-git-tag-version --allow-same-version=true`
-  ], { shell: false });
-}));
+AI Design: Google [AutoDraw](https://www.autodraw.com/) (原理[介绍](https://research.googleblog.com/2017/04/teaching-machines-to-draw.html))、鲁班、[sketch-rnn](https://github.com/tensorflow/magenta/blob/master/magenta/models/sketch_rnn/README.md)、[机器作艺术画](https://robotart.org/artworks/)、设计与人工智能[系列报告](http://sheji.ai/#/?_k=twxxpk)、[lobe.ai 生成表情](https://lobe.ai/)。
 
-// lerna version 只能根据当前文件的版本号升级，当前文件可能版本老旧
-const lernaArgs = () => [
-  '--message', `chore(release): auto version latest`, '--no-push',
-  '--loglevel', 'silly', '--no-commit-hooks', '--yes',
-  '--include-merged-tags', '--exact',
-];
-await exec('node',[
-    [lernaCli], 'version', 'prerelease', '--preid', npmTag, ...lernaArgs(),
-    '--git-tag-command', `git tag -a %s -f -m 流水线打标签%s`,
-  ],
-  { shell: false },
-);
+AI 编码/代码推荐: [为什么难](https://www.outsystems.com/blog/posts/ai-machine-learning-future-low-code/)、Facebook [Aroma](https://code.fb.com/developer-tools/aroma/)、[Would-AI-be-able-to-write-code](https://www.quora.com/Would-AI-be-able-to-write-code)。
+imgcook(控件识别) / dumbo / 闲鱼UI2Code / 视觉稿还原比对-蒙娜丽莎。
 
-// 流水线提供的能直接打 tag 并推送到 gitlab 上的工具， 但 不建议业务使用
-const proj = 'fe/pro-components';
-await exec('./gitw', [
-  '--company', 'xxx', '--option', 'tag', '--repo', proj, '--tag', tagName,
-  '--branch', PACKMAN_PUBLISH_BRANCH,
-]);
-const gitwTag = `./gitw --company xxx --option tag --repo ${proj} --tag %s --branch ${PACKMAN_PUBLISH_BRANCH}`;
-await exec('node',[
-  [lernaCli], 'version', 'patch', ...lernaArgs(), '--conventional-commits',
-  '--git-tag-command', gitwTag,
-  ],
-  { shell: false },
-);
-```
+JS 实现神经网络、[天猫精灵](https://open.bot.tmall.com/)、机器人工厂、阿里文娱 [AI 视频智能](https://ailab.youku.com/#/)、JS IM / [botui](https://github.com/moinism/botui)
+知识图谱 https://github.com/ownthink/KnowledgeGraphData / https://www.ownthink.com/
+2019
 
-总结
-- lerna 子包之间互相依赖
-  - 配置文件 lerna.json 的 `"version": "independent"` 模式，不强制同步所有子包的版本:比如 A子包依赖B子包 B没有更新 A有更新，A子包的 package.json 不会修改 它依赖的B子包的版本号。
-  - 利用了 pnpm 的 `--link-workspace-packages=true` 设置，比如 A子包依赖B子包 B子包本地版本号为1.1.1(npm上不存在此版本号) 如果A子包dep里的B子包版本号也写死为1.1.1，则B子包如果有变更、使用 `lerna changed` 就会显示 B A 子包都会有变化，默认都会升级版本号。
-  - 在 lerna publish / version / changed 设置 `--include-merged-tags` 会检测 master 外的其他分支发布的 release tags。公司通常为 feature / test / pre-release / release 研发模式、在分支上发布很常见，建议加上。
-  - 在 lerna publish / version / changed 设置 `--scope` 不起作用 https://github.com/lerna/lerna/issues/1556
-  - 构建时需包含依赖 `lerna run build --include-dependencies --concurrency 4` (最大并发数为4) 要使用 concurrency 不要使用 parallel 参数 会忽略 dependencies 之间的构建先后顺序 导致构建出错。
-  - 子包怎么更新自身依赖 https://github.com/lerna/lerna/issues/2142
-- lerna 根据什么检测变更
-  - 如果你的项目使用了规范化的提交信息（例如，使用 commitizen 和 cz-lerna-changelog），Lerna 可以更准确地检测变更，因为它会根据提交信息中的标签来识别影响的包。
-  - `lerna ls --since master` [since文档](https://lerna.js.org/docs/api-reference/commands#--since-ref) changed 不支持 since 参数
-  - 如果 lerna publish 失败，使用 lerna publish from-git 重新发布，不用改版本号。
-  - [lerna 发包原理浅析](https://zhuanlan.zhihu.com/p/392438222) lerna changed 判断如果没有 tag，则认为全部的包都需要发布。
-- lerna 仅支持 git annotated tags:
-  - [tag问题](https://juejin.cn/post/7114538970339344420)
-  - 如果 lerna publish 打 tag 的 commit 被 squash，但 tag 仍然存在，会导致 lerna changed 检测错误。 pro-components commit/f3900b2e89dda3186223fbd09330d8306dd46576
-  - https://lerna.js.org/docs/troubleshooting#publish-command
-  - https://github.com/lerna/lerna/issues/1357#issuecomment-438162152
-  - 如果是 annotated 使用 git show tag_name 会看到包含 tagger 标记
-  - 或者使用 git tag -v tag_name 不出现 error: cannot verify a non-tag object
-- lerna version 不支持 dry-run、lerna lite 支持 https://github.com/lerna/lerna/issues/51#issuecomment-2293358836
+西安交大[设计图转代码](https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489854&idx=1&sn=4828d5d36c3becdf8b1f46490b5ce708)、
+[Microsoft Sketch2Code](https://github.com/Microsoft/ailab/tree/master/Sketch2Code)、[sketch2code](https://azure.microsoft.com/en-us/blog/turn-your-whiteboard-sketches-to-working-code-in-seconds-with-sketch2code)、
+[pix2code](https://github.com/tonybeltramelli/pix2code)、
+[Screenshot-to-code](https://github.com/emilwallner/Screenshot-to-code)。
+2018 AI图转码
+
+百度大脑 http://ai.baidu.com/ 微软 https://azure.microsoft.com/en-us/services/cognitive-services/ 、阿里 PAI (数据采集，数据处理，特征工程，建模，预测服务) xNN、AliNN
+蚂蚁：分布式学习和系统：智能客服；Parameter Server架构；美国组：自然语言处理；推荐营销；小助手；商业产品架构：金融类，量化理财因子发现，金融知识图谱；AI 平台部：达尔文测试系统；底层的GPU，FPGA开发调度系统阿尔卑斯。
+2016-09 Google Allo
+2017
 
 
+## AI 使用
 
-### 版本问题
+--- 2025-01
 
-确保依赖版本始终同步的一种常用方法是，在 package.json 中为工作区包的依赖项指定严格的版本号，而不是 ^ 或 ~ 这样的语义版本号范围。这样做可以避免依赖更新时出现的意外问题。
+前端或 node 项目, 引用A包的时候，比如A引用了B，B里面有overrides/resolutions，最终会装 overrides / resolutions 指向的包吗?
+主项目的 overrides/resolutions 优先级最高，覆盖所有依赖。
+如果主项目没有定义，子依赖的 overrides/resolutions 只会影响其自己的依赖树。
 
-lockfile 出现合并冲突，主流的包管理工具都支持运行依赖安装命令（npm install/yarn/pnpm install）来自动解决冲突。
-在 主分支 上合入 开发分支（git merge feat-branch），theirs 指的就是开发分支，ours 指的是主分支，如果两个分支同时更新同一模块的版本号、对 lockfile 进行合并的策略:
-- npm：深合并，并以当前分支（ ours ）的为准
-- yarn：浅合并，并以目标分支（theirs）的为准
-- pnpm：深合并，以版本号大的为准 (认为 新版本出现的问题会比旧版本更少)
-  - 关注直接依赖 搜素 specifiers 的版本变更，对于直接依赖引入的间接依赖，自动升级出错的概率较小（一旦出错影响的不只一个项目），且 review 成本太高，选择信任社区。
-  - 支持在每个分支中生成锁文件 https://github.com/pnpm/pnpm/pull/4475 。
-  - [@types/react 18.3.5 bug](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/70418) 在 package.json 设置 resolutions 锁定版本。
+怎么在运行 npm start / build 之前, 确保 node_modules 里的依赖有被重新 Insall 过
 
-对于应用项目来说，可以直接使用固定版本；但是对于类库项目，不推荐固定版本，有以下原因：
-- 依赖该类库的应用项目无法充分复用依赖：比如 ^1.0.0 和 ^1.1.0 可以合并成 ^1.1.0）
-- 类库项目的间接依赖出现安全漏洞时，无法通过重新安装依赖直接修复
-- 锁定直接依赖的版本也不完全有效，丢失 lock 后，直接依赖的间接依赖还是会进行升级，进而导致 BREAKING CHANGE
-- 锁版本 就得信任其他依赖不会出现问题（听天由命）
-- 尽量由开发流程保证，有冲突就复测，并做好充足的人工 review
+--- 2024-12
 
-在开发一个 npm包 时，你的 npm包 是需要被其他仓库依赖的，由于扁平安装机制，如果你锁定了依赖包版本，你的依赖包就不能和其他依赖包共享同一 semver 范围内的依赖包，这样会造成不必要的冗余。所以我们不应该把package-lock.json 文件发布出去（ npm 默认也不会把 package-lock.json 文件发布出去）。
+utils.ts 文件内容为
+export function getChangedPkgNames() {}
+export async function get1() {}
+index.ts 文件内容为
+export * from './utils';
+不能把 utils 里的函数正确导出来, 是什么问题?
 
-npm 包的主版本号为 0 时，会被认为是一个不稳定版本，主版本号和次版本号都为 0: ^0.0.z、~0.0.z 都被当作固定版本，主版本号为 0: ^0.y.z 表现和 ~0.y.z 相同，只保持修订号为最新版本。
-1.0.0 的版本号用于界定公共 API，对外部发布一个正式版本的npm包时，把它的版本标为1.0.0。
+monorepo 项目根目录 tsconfig 里已配置 "paths": { "@xx/monoaid": ["./common/monoaid/src/index.ts"] }
+根目录有个 build.mjs 文件,内容有 import { xx } from '@xx/monoaid';
+使用 node ./build.mjs 运行报错 Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@xx/monoaid'
+这是因为 TypeScript 的 paths 配置只影响 TypeScript 编译器和工具（如 IDE 的代码提示），而不会直接影响运行时（Node.js）。Node.js 不会解析 tsconfig.json 中的 paths，所以它找不到 @afe/monoaid 模块。
 
-pre-release 预发布版本号的排序规则是：
-不同预发布版本类型之间 alpha < beta < rc < release（即稳定版本，没有预发布标识符）。
-同一预发布版本类型下，数字越大，版本越新，例如 1.0.0-alpha.1 < 1.0.0-alpha.2。
-比如 rc-0..n > beta-0..n > alpha-2..
+在 bash 脚本的执行开头重置 env, 应该怎么写?
+
+为什么 mui button 的 api 叫 variant , 最初来源于哪里?
+
+antd 还有其他的 api 一样的版本吗?
+由于大量项目已基于 antd 构建, 但需要换一套组件库, 希望新的组件库 api 和相应功能 都能对 antd做兼容, 应该怎么做? 最好的办法是什么?
+应该基于哪个新的组件库来做呢?
+有人用 Material UI 做兼容 antd 的 api 的中间层库吗?
+
+monorepo 忽略了 samples 子目录, 但在 samples/xx 里运行 pnpm install 还是会根据根目录的 pnpm-lock 安装依赖, 怎么避免这个问题?
+
+学习 tailwind 应该要理解哪些重点和难点地方
+tailwind variants vs cva
+
+基于 React Hook Form 和 Zod 做一个新的 react form 组件, 使其功能和 antd 4 的 Form 组件一样, api 用法也一样.
+
+一个 position: absolute; 的元素, 被很多个  position: relative; 的外围元素包裹, 怎么让这个 absolute 的元素在最顶层显示?
+
+利用 GitHub 当存储的笔记软件 有哪些?
+
+macOS 使用 快捷指令 制作一个功能, 能触发 ctrl+. 快捷键.
+
+--- 2024-11
+
+很多 react UI 组件库都有 variant 属性, 为什么这么命名, 作用是什么 作用都一样吗
+chrome 插件 popup 页面, 怎么区分是在 新 tab 打开, 还是 弹窗里打开?
+https://chatgpt.com/share/674d2c48-8c94-8008-aca4-0ae4cc13eaa7
+
+shadcn/ui ant-design material-ui 现状综合看哪个好、应该怎么选择？
+基于哪个做二次开发比较好，成本怎么样？
+需要面向未来、有一定先进性，应该怎么选?
+想从 antd 迁移到新的 react 组件库, 要求 api 尽量一致或者改造成本低, 哪个新组件库符合要求?
+https://chatgpt.com/share/6749ea04-8f08-8008-9f30-132d8ec8071d
+
+在 macOS 系统上、使用 bash 写一个函数，自动地每天上午 11点50分 拷贝文件 a.md 的内容到一个新文件 _backup/datetime_a.md 中，每隔三天的 上午11点49分、清空 b.log 和 c.log 文件的内容。运行前后需要发出通知。
+把 备份的文件, 只保留 5 个最新的, 其余旧的删除.
+https://chatgpt.com/share/674539a5-4d50-8008-9cce-a950f4a2354b
+
+在macOS用户目录下的 .zshrc 里写一个函数，判断是否已运行命令 ttyd -W -a zsh >> "$z_log" 2>&1 & 如果未运行过、则运行一次，如果已运行、则进一步判断：如果调用者是 ttyd 、则根据 http://localhost:7681/?arg=/Users/hua/.zshrc&arg='echo "aa"' 这个 URL 运行 arg 参数里的 echo 等任意自定义命令。
+https://chatgpt.com/share/6742e267-f3a0-8008-bda3-6b1b6bbce601
+
+js工具库代码最新版本是 3.x，但需要修复很久之前的 1.x 版本的 bug，当前只有 master 分支，怎么用 git 管理老版本的代码升级？
+LTS（长期支持）策略 详解。
+如果是 monorepo 项目，应该采用什么策略？
+在老的 1.x 分支上拉了代码做改动，合并到 master 产生了大量冲突，怎么解决？
+怎么在 git 提交历史中插入一个提交？
+怎么把 某个 commit 改动的文件，应用到另一个分支上、但不携带改动之前的历史信息。
+以上合并方式是什么？把改动的文件内容全覆盖，还是对改动的某些行进行交集合并，删除的文件或内容怎么处理？
+`git checkout <commit-hash> -- <file-path>` 如果有多个 file 需要分别添加吗，有更快的方法吗？
+https://chatgpt.com/share/673dd191-0d74-8008-a826-16844c0b9bb5
 
 
-### git 冲突
+--- 2024-06~09
 
-Git 合并出现冲突的原因在于 两个分支版本对一个文件的同一区域 做了修改。
-如果是不同区域，Git 会尝试自动合并（auto-merge，默认策略）解决冲突。
+git 有很多 commit，一次性合并所有提交记录
+git rebase autosquash 更详细用法
+https://chatgpt.com/share/674ab367-c974-8008-9cdb-410303f51fe4
 
-自动合并规则 (比如对 配置文件A(.npmrc) 的第12行 做修改):
-> origin 和 origin1 是只有 .npmrc 等配置文件 有差异的 两个代码库 (用于部署到不同环境)，除了配置文件外 其他文件内容相同。
-- origin/master 文件A 的第3行 后只有 2行 内容。
-- origin1/master 文件A 的第3行 后有 5行 内容，并和 origin/master 文件A 的 后2行 内容完全不同。
-- 当前在 origin/master 分支，需要合并 origin1/master 分支，运行 `git merge -X ours origin1/master --no-commit` 后 自动解决了冲突。
-- 此时合并结果为：前两行(相同) + origin1文件A后5行 + origin文件A的第三行(有改动)和后2行。会发现 origin文件A后2行 不是想要的内容。
+修改调试 VS Code 插件代码
+https://chatgpt.com/share/674ab3ee-34c8-8008-b4bb-12ec48e8b2d6
 
-由此看来 git 自动合并冲突的方法是“不安全”的。
+mac系统的 Apache 怎么配置 localhost 同时支持 https http
+能不配置 apache2/extra 里的文件吗
+https://chatgpt.com/share/674ab45e-27a8-8008-b1bb-04c8bf5e444e
 
+clash 配置指定域名用指定 dns 解析
+https://chatgpt.com/share/671762b0-e55c-8008-bf27-b762cf930059
+
+
+bash 查找 packages 目录下二级 目录里存在的所有 config.ts congfig.tsx config.js 和 config 目录，排除掉 node_modules 目录。不查找子路径。查找结果 存放到数组里。
 ```sh
-# 操作 https://stackoverflow.com/a/930495/2190503
-git stash push lock.yaml  # 暂存 lock 文件，使用当前 lock 文件
-git checkout --ours "*lock*" # 使用 当前或目标(--theirs) 的 lock 文件
-# 在 .gitattributes 文件里配置 当 pnpm-lock.yaml 出现冲突时，将以当前分支为准
-pnpm-lock.yaml merge=ours
+result=($(find packages/*/src -maxdepth 1 -type f \( -name "config.ts" -o -name "config.tsx" -o -name "config.js" \) -not -path "*/node_modules/*" -o -type d -name "config" -not -path "*/node_modules/*"))
 ```
 
-多分支合并冲突原因：
-- 代码差异过大：1.x 和 master 在文件结构、功能模块等方面差异较多。
-- 历史变更未同步：master 分支的某些改动未在 1.x 中体现。
-- 文件删除或重命名：1.x 和 master 对同一文件的操作不同步。
-- 如果 1.x 和 master 需要长期共存，定期同步两者的改动，避免分支差异积累到难以处理的程度。
+帮我写 Chrome 插件代码，实现这样的功能：选中一些标签页、把他们的 URL以有序数组形式 存储到 chrome storage 里、同时关闭这些标签页，通过 popup  页面的一个按钮、从数组里恢复打开标签页，并把这些标签页移动到其他已存在标签页的后边。
 
+使用 html modal 元素写一个类似 bootstrap 的 modal 功能，抽象成 js 组件、把 css 注入进去。
+把类改为使用函数写法。
+防止多次调用时，多次生成样式和元素。
+返回 打开 关闭 toggleModal 的函数。
+把 openModalBtn 元素放到 js 里。
+把 modal-content 和 close-btn 也放到 js 里去。
 
-### iframe 内页面操作父页面dom (不同域名)
+npm version 怎么自动升级 monorepo 的 子包依赖版本号
+pnpm 只检查并保持 workspaces 内部包 的最新版本，写成 bash 脚本
 
-问题：文档网站域名是 https://pro.xx.net 使用 iframe 引用了 https://cdn.xx.com/dist/index.html 这个放在cdn上的静态html页面（css/js也是放在cdn上）也就是文档的实际内容。
-页面里的链接需要改变 URL 的 hash 地址，但这两个域名 完全不同、无法直接改变 pro.xx.net 这个 URL 的参数。几种方案:
-- [window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
-  - 注意收发消息的时机，比如需要等页面 onload
-- [html proxy](https://juejin.cn/post/7174065483014995981) 会有 csp 等问题，不建议使用。
-- 微前端 更复杂的方案。
+bash 处理 git ls-remote --tags origin 和 git tag -l 获取到的字符串列表，并正则匹配到字符串里 refs/tags/ 之后的部分
 
-跨域和同源政策:
-> https://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html
-- 同源: 协议、域名、端口都要相同；如果不同源，则 dom 和 storage 无法读取、Ajax 不能发送。
-- 使用 document.domain (已被废弃)，要求“一级域名”必须要一样、否则不行，设置后端口变为null。
-  - 能规避同源政策，两个网页可以共享Cookie、能够**互相获取和操作**对方的 dom 元素。
-  - 但是 LocalStorage 和 IndexDB 无法通过这种方法共享。
-- 设置 cors headers 解决的是 Ajax 问题，不能解决跨域 iframe 和父页面之间 dom 操作问题。
+豆包+通义千问: 使用 yq 判断 如果rules 里不存在 aaa，则前置插入aaa
 
-```js
-// dumi 设置为 history: { type: 'hash' } 模式, 应用内链接改变 URL 的 hash:
-// 但不会触发 window 自己绑定的 hashchange 事件, dumi 提供的 钩子函数 onRouteChange 会被触发, 为什么?
-window.addEventListener('hashchange', (evt) => {
-  console.log('evt ifr: ', evt.newURL, evt.oldURL, location.hash);
-});
-```
+Chrome Native Messaging 使用 bash 文件的 shebang 地址有问题，怎么让 /usr/local/bin 和 /usr/bin 都能互相调用
 
-### antd
-
-antd5 [发布日志](https://github.com/ant-design/ant-design/issues/38671)  https://www.yuque.com/ant-design/ant-design/cy5nfvdo8oidvwmz
-- less到cssvar和design-token，不需要按需加载插件，使用day.js
-- [releases/tag/5.0.0](https://github.com/ant-design/ant-design/releases/tag/5.0.0)
-- [迁移 less 到 cssinjs](https://ant-design.github.io/antd-style/zh-CN/guide/migrate-less-codemod)
-
-antd4 [发布日志](https://github.com/ant-design/ant-design/issues/21656)
-- 暗色主题 无边框组件 图标按需加载 form/table重做 内置虚拟滚动
-- [antd 3.x-stable](https://github.com/ant-design/ant-design/tree/3.x-stable)
-
-
-### less/css
-
-- [postcss](https://github.com/postcss/postcss): 处在 css 预处理器 less scss 等流程之后，解析 css 为 ast，并有 Autoprefixer 等知名插件。
-- antd-style 只能和 antd@5 配合使用 https://github.com/ant-design/antd-style/issues/156
-
-[less Playground](https://lesscss.org/less-preview)
-[analyze-css](https://www.projectwallace.com/analyze-css)
-```less
-// dumi dark theme
-@dark-selector: ~[data-prefers-color="dark"];
-.some-container {
-  color: #fff;
-  @{dark-selector} & {
-    color: #000;
-  }
-}
-```
-
-### pnpm i 报错
-
-pnpm install 时 esbuild 报错
-
-```sh
-.../esbuild@0.21.5/node_modules/esbuild postinstall$ node install.js
-xxx/node_modules/.pnpm/esbuild@0.21.5/node_modules/esbuild/install
-throw new Error(`Expected ${JSON.stringify(versionFromPackageJSON)}
-Error: Expected "0.21.5" but got "0.23.1"
-at xxx/node_modules/.pnpm/esbuild@0.21.5/node_modules/esbuild
-Node.js v18.20.4
-node_modules/.pnpm/node-sass@4.14.1/node_modules/node-sass: Running install script...
-ELIFECYCLE Command failed with exit code 1.
-```
-
-在 package.json 里对 esbuild 包设置 pnpm resolutions/overrides 都没用 https://github.com/evanw/esbuild/issues/3800 ，
-发现 k.j 源的包信息、缺少了 `optionalDependencies` 部分 (原因猜测是 esbuild 这一个版本号有问题 修复后覆盖发包 而不是正常的升级版本号)，实际原因是 k.j 源“限制了字段长度”，把 optionalDependencies 字段删除了。负责的同学去掉了这个限制、这个问题被解决。但又出现以下新的报错:
-
-```sh
-.../node_modules/node-sass postinstall$ node scripts/build.js
-node_modules/.pnpm/node-gyp@3.8
-gyp ERR! configure error
-gyp ERR! stack Error: Command failed: /usr/local/bin/python3.10 -c import sys; print "&s.%s.&s"
-gyp ERR! cwd .../node_modules/.pnpm/node-sass@4.14.1/
-gyp ERR! node -v v18.20.4
-gyp ERR! node-gyp -v 3.8.0
-gyp ERR! not ok
-Build failed with error code: 1
-```
-
-这个错跟 [node-sass](https://www.npmjs.com/package/node-sass/v/8.0.0) 有关:
-sass-loader需要用node-gyp构建，node18需要最低node-sass 8.0 版本。
-
-在项目根目录使用 `npm ls node-sass` 查到 `style-loader@2.0.0 -> sass-loader@8.0.2 -> node-sass@4.14.1` 即 style-loader 依赖的依赖 含有 node-sass 4 版本，和 node18 环境不搭配。
-
-解决方法: 在 package.json 里对 node-sass 包设置 resolutions/overrides 为固定的 `node-sass@8.x` 。
-
-另外解决方法: 在 install 时 ignore-scripts 绕过，但这个方法无法在 npmrc 文件里做配置。
-
-```sh
-pnpm i --ignore-scripts esbuild@0.21.4
-pnpm i --ignore-scripts node-sass@4.14.1
-```
-
-
-### 打包构建
-
-[father](https://github.com/umijs/father) 和 dumi
-- father 4 Bundle 模式使用 Webpack 作为构建核心，Bundless 模式支持 esbuild、Babel 及 SWC 三种构建核心。
-- father 4 打包成 umd 产物时，lessLoader 设置 `math: 'always'` 配置项 https://github.com/umijs/father/issues/514#issuecomment-2222842879
-  - [webpack chain 用法](https://juejin.cn/post/6947851867422621733)
-- [father 2.x](https://github.com/umijs/father/tree/v2.9.0) 基于 [rollupjs](https://rollupjs.org/) 构建，采用 babel插件 编译 js/ts、采用 [rollup-plugin-postcss](https://github.com/egoist/rollup-plugin-postcss) 编译 less/css (不支持less配置项)。利用 [docz](https://www.docz.site/) 生成网站。
-- dumi 设置非根目录 [publicPath](https://github.com/umijs/dumi/issues/849)
-
-[rollup，vite以及webpack比较与介绍](https://juejin.cn/post/7097493230572273700)
-- rollup 与 webpack 都是基于JavaScript依赖系统的一个打包构建工具，他们的共同点很多。 Rollup 默认打包为 ES6 格式、依靠插件生成 CommonJS 和 AMD 代码，静态分析代码中的 import 并排除任何未实际使用的代码。 Rollup 构建速度明显快于 webpack，生成的代码量很小。
-- 不过在应用开发层面讲，如果开发一个Web应用webpack要比rollup有更大的优势，因为其天然继承了devServer以及hmr，这使得开发者可以快速的对应用进行调试开发。 Rollup 更加适合插件开发，而webpack更加适合应用开发。
-- vite 号称是下一代的打包构建工具，主要体现在他从开发环境到生产环境的构建速度都能比webpack提升很多倍，原因就在于基于 rollup 和 esbuild 两个基础构建工具上。利用浏览器对ESM模块的支持，通过babel解决兼容性。将应用中的模块区分为 依赖 和 源码 两类，Vite使用esbuild预构建依赖、构建速度快 10-100 倍。在浏览器请求源码时、根据 router 按需以 原生 ESM方式提供 源码。利用 HTTP 头来加速整个页面的重新加载，源码模块的请求会根据 304 Not Modified 进行协商缓存，而依赖模块请求则会通过 Cache-Control: max-age=31536000,immutable 进行强缓存，因此一旦被缓存它们将不需要再次请求。
-- vite 在生产环境打包也使用的 rollup，在预购建依赖的时候使用 esbuild。
-- esbuild 使用 go 编写，发挥多线程多核优势，不使用 AST。所以一些通过 AST 处理代码的 babel插件没有很好的方法过渡到 esbuild 中。
-
-概述
-- 转译器：将一门高级语音转译为另一种高级语言，如 ts 转译为 js、es6 转译为 es5 等等。 用js/ts实现的 babel、tsc 其他语言实现的 esbuild（go）、swc（rust）。
-  - [esbuild](https://esbuild.github.io/) 不提供 AST 操作能力，一些需要操作 AST 的 babel 插件无法与之兼容。有两大功能，分别是 bundler 与 minifier，其中 bundler 用于代码编译，类似 babel-loader、ts-loader；minifier 用于代码压缩，类似 terser。
-  - SWC 设计为与 babel 插件体系相兼容，因此可以在许多现有的 babel 配置下无缝替换，提升构建速度。
-- 打包器：将项目中的各种文件如 png、sass、json 等等打包成想要的结果。
-  - 一类是通过监听源代码变化然后重新构建项目将打包后的代码推送到浏览器的传统模式 如 Webpack、 rollup、 [parcel](https://parceljs.org/) 。
-  - 另一类是通过浏览器的原生 module 来实现动态打包的 bundleless 模式 如 [vite](https://vite.dev/) 、 [snowpack](https://www.snowpack.dev/) 他们都依赖 esbuild 。
-  - Bundle vs Bundleless（代表就是webpack VS vite）。 webpack 等工具会把代码打包成 Bundle 文件，而 vite 则是依赖原生的 ESM 来实现，虽然在生产环境仍然要打包。 在生产环境中发布未打包的 ESM 仍然效率低下（即使使用 HTTP/2）。为了在生产环境中获得最佳的加载性能，最好还是将代码进行 tree-shaking、懒加载和 chunk 分割（以获得更好的缓存）。
-- gulp 强调的是前端开发的工作流程，通过配置一系列的task，定义执行顺序，来让gulp执行。 webpack 侧重模块打包，我们可以把开发中的所有资源（图片、js文件、css文件等）都看成模块，通过loader（加载器）和plugins（插件）对资源进行处理，打包成符合生产环境部署的前端资源。 对于 gulp 来说模块化不是他强调的东西，而 webpack 更强调模块化开发，而文件压缩合并、预处理等功能，不过是他附带的功能。
-
-
-
-## pintu 2024-06
-
-体验问题: avi 对图的大小限制、下载大图时进度提示、重复点击和并发问题、下载低质量(宽高和分辨率不变)图片。
-
-设计稿 设计倍率:
-[摹客](https://help.mockplus.cn/p/504) 插件，可以自动匹配特定的尺寸为 2x 倍率、其他尺寸为 1x 倍率，可以手动修改指定。[摹客demo](https://app.mockplus.cn/app/z1pw7JNhn/develop/design/mmHsUz9q0)
-蓝湖 待调研。
-
-相关:
-- [蓝湖](https://lanhuapp.com/)、[摹客](https://www.mockplus.cn/)、[moonvy](https://moonvy.com/)
-- [缩小png](https://tinypng.com/) [changeDPI](https://github.com/shutterstock/changeDPI)
-
-### sketch 插件
-
-https://developer.sketch.com/plugins
-[Sketch 插件开发实践](https://segmentfault.com/a/1190000020920371)
-
-Sketch 和 Figma 插件都不支持 XMLHttpRequest 导致上传图片时 无法监听上传进度
-fetch 只能监听下载进度 https://juejin.cn/post/7253969759191023675
-https://forum.figma.com/t/cannot-make-a-post-request-in-figma-plugin/25039
-
-[skpm](https://github.com/skpm/skpm) 通过 polyfill 方式支持 fetch FormData 如下代码
-https://github.com/skpm/skpm/blob/master/packages/builder/src/utils/webpackConfig.js
-```js
-new webpack.ProvidePlugin({
-   fetch: require.resolve('sketch-polyfill-fetch'),
-   FormData: require.resolve('sketch-polyfill-fetch/lib/form-data'),
-   Promise: require.resolve('@skpm/promise'),
-}),
-```
-
-浏览器/node等环境的 宿主 判断如下，但 sketch 插件的宿主跟这些都不同
-```js
-// https://github.com/ladjs/superagent/blob/master/src/client.js
-let root;
-if (typeof window !== 'undefined') {
-  // Browser window
-  root = window;
-} else if (typeof self === 'undefined') {
-  // Other environments
-  console.warn('non-browser environment');
-  root = this;
-} else {
-  // Web Worker
-  root = self;
-}
-```
-
-### WebGL 图像查看器
-
-能支持超大图 不卡顿。 https://www.photopea.com/ (Facebook [私信](https://www.facebook.com/photopea))
-
-- [sketch demo](https://www.sketch.com/s/a00a5b36-d81a-4a55-8e78-ffac2894d292)
-- [figma demo](https://www.figma.com/design/dknmxVeJpnOq5aD0K9WvUa/test?node-id=0-1&t=qfDYyfOJPjQe4SDo-0)
-
-figma 不支持插入 大于 4096px 的图片，会被裁剪和降低清晰度，参考[文档](https://help.figma.com/hc/en-us/articles/360040028034-Add-images-and-videos-to-design-files)。
-
-canvas 模糊问题：
-[antialiasing](https://stackoverflow.com/questions/17861447/html5-canvas-drawimage-how-to-apply-antialiasing)
-[canvas-blur](https://medium.com/wdstack/fixing-html5-2d-canvas-blur-8ebe27db07da)
-[lines-are-blurry](https://stackoverflow.com/questions/8696631/canvas-drawings-like-lines-are-blurry)
-[canvas drawimage blurry](https://stackoverflow.com/questions/31910043/html5-canvas-drawimage-draws-image-blurry)
-[higher-dpi-graphics-with-html5-canvas](https://stackoverflow.com/questions/14488849/higher-dpi-graphics-with-html5-canvas)
-[sketch points-vs-pixels](https://www.sketch.com/support/sketch-features/mac-app/points-vs-pixels/)
-[Optimizing_canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
-
-查看支持度: chrome://gpu  chrome://settings/system (图形加速)  https://get.webgl.org/
-注意：
-- 如果电脑只有一个显卡，比如 mac mini（m系列芯片）、Windows台式机、部分低配笔记本电脑，需要在 Chrome 浏览器设置里开启“图形加速”功能。
-- Chrome 图形加速开启方法：手动打开“设置-系统”、或在浏览器地址栏输入`chrome://settings/system`，勾选“使用图形加速功能”，重启浏览器。
-- Intel 电脑一般都有双显卡。
-- 外接显示器没有GPU。因此，图形渲染由主 CPU 完成。
-- 开启图形加速，可能使 Chrome cpu 占用一直高于 100%、风扇噪音大。
-
-参考
-- https://webglfundamentals.org/webgl/lessons/webgl-image-processing.html
-- https://webglfundamentals.org/webgl/lessons/webgl-2d-scale.html
-- https://webgl2fundamentals.org/webgl/lessons/webgl-cross-platform-issues.html
-- https://elhigu.github.io/canvas-image-tiles/
-- https://fengyuanchen.github.io/cropperjs/
-- https://pettor.github.io/app-pixi-image-editor
-- https://github.com/pixijs/pixijs/issues/6372
-- https://css-tricks.com/building-an-images-gallery-using-pixijs-and-webgl/
-- https://github.com/openseadragon/openseadragon
-
-- canvas engines 性能测试 https://benchmarks.slaylines.io/webgl.html
-- WebGL vs WebGPU https://www.infoq.cn/article/QwAwharqAwdrAgtCoXQv
-- 360 viewer https://github.com/y-fujii/zuho
-- 360 viewer https://github.com/Experience-Monks/360-image-viewer
-- 医学图像查看 https://github.com/niivue/niivue
-- https://www.wenjiangs.com/docs/webgl-docs-zh
-- https://stackoverflow.com/questions/21603350/is-there-any-reason-for-using-webgl-instead-of-2d-canvas-for-2d-games-apps
-- https://gamedev.stackexchange.com/questions/7927/should-i-use-textures-not-sized-to-a-power-of-2
-
-不是 webgl 实现的 https://github.com/konvajs/konva
-
-
-## 2023
-
-代码写的要优美(卷)：分块用class类、赋值用lodash set。
-
-代码坑：代码目录结构层级深。公共组件或公共状态复杂且难找。未用到的代码没删除，后期涉及到改动也不敢轻易删。
-
-代码以前正常、现在不正常，如果前端没有改动，那就是后端数据变更导致。比如 布尔 判断这种情况、前端这么写：
-`obj.id ? update() : create()`; 后端的 id 数据变更后存在 number 0 时，前端代码逻辑即出错。这就是 js 的弱类型导致的问题。
-
-tailwindcss 的 text-danger 等 className 使用。
-
-
-## 2022-01~04
-
-arm aem 对任何请求（包括图片）都做埋点，导致业务接口被阻塞，页面性能下降一倍。采用合并、延迟上报埋点方式，把所有打点请求都延迟推入单独的队列维护，当页面完全加载完成后再从队列中依次取出数据进行上报。下掉非必要埋点。
-
-- 一个组件里 点击触发请求、返回成功或失败，设置 isSuccess 的布尔值。另一个组件 需要监听 成功和重新点击 的状态，即 重新点击 isSuccess 不能为 true，但上次点击后 已经把它设置为了 true 怎么解决？
-- useEffect 里监听的 多个状态、互相有影响，怎么解决？分别写 useEffect。
-- antd 多层弹窗嵌套需要设置 [getPopupContainer](https://img.alicdn.com/imgextra/i3/O1CN01uK3oLs1dJyW9Y1sZJ_!!6000000003716-0-tps-1234-1166.jpg)
-
-react-big-calendar 日历组件支持自定义的 EventWrapper 子组件，业务场景中 EventWrapper 组件需要根据某个业务 prop 调用接口获取数据。但 EventWrapper 可能会被 react-big-calendar 加载卸载或重复渲染很多次(次数不可控)，而只用在“第一次加载或卸载再加载”时调用接口一次即可。此时 useEffect 的监听 该怎么写？
-
-```js
-// EventWrapper 组件
-const { param1, param2, mode } = props;
-useEffect(() => {
-  if (mode === 'a') {
-    fetchData({ param1, param2 })
-  }
-  // 怎么确保只请求一次，同时监听 prop 变化？
-}, []);
-```
-
-
-## remaxjs 2021-08
-- 导入函数不能这样 `import _ from 'lodash';` 而要这样 `import groupBy from 'lodash/groupBy';` (踩坑0.5h+)，遇到这类错误无法定位、调试困难。
-- 样式：单位要 x2、box-sizing 要设置到相应位置，伪元素无法定位。
-- 元素：span 标签有嵌套时不起作用、样式不正确，i 标签等更多 html 标签不支持。
-- 组件：
-   - 功能不强：Picker 不支持两列，Tabs 功能和样式不好用，类似pc上 tooltip 的 Tips 组件位置难设置，有些组件 slot 必须要用 View 不灵活。
-   - 封装不完善，FlexItem 不支持设置 className、没有 Row Col 等便捷组件。
-- 图表组件 g2 不起作用，antd、react-dom 等引用内容要移除。
-- 迁移额外成本：很多地方都要修改，架构调整(找到pc各模块代码、删减/重新组织)。
-- 小程序：picker 和 optionsSelect 的使用场景区别？mobile table design patterns 用列表代替表格。
-
-
-## 2021 navigator.geolocation
-
-> gts周日报需求，需要定位功能。
-
-定位技术：GPS定位技术、基站定位技术、利用Wifi在小范围内定位。
-GPS定位搜索卫星初次定位时间过长而略显不便。另外，卫星信号覆盖不好时，比如室内，会导致无法定位。
-手机定位的原理 https://www.sohu.com/a/76257016_335896
-
-问题：
-2021-09 Chrome 浏览器在 4G 热点和家里 WiFi 环境下，不会执行 getCurrentPosition 公司 WiFi 可以。网络翻墙问题。
-如图 https://gw.alicdn.com/imgextra/i4/O1CN01c6wdMl1OuPlbjec3c_!!6000000001765-2-tps-1112-518.png
-最优方案、使用 高德或百度 封装的定位功能，避开 googleapis 被墙的问题。
-
-2012-01 三星gt-i9003(安卓2.3.5)、中兴ZTE-U880(安卓2.2.2) 浏览器不执行 getCurrentPosition 也没有是否允许定位的提示框弹出。
-
-```js
-if ("geolocation" in navigator) {
-navigator.geolocation.getCurrentPosition((position) => {
-   console.log('geolocation', position);
-},
-(error) => {
-   console.log('geolocation error', error);
-   if (error.PERMISSION_DENIED) {
-      console.log('未开启定位权限');
-   }
-   if (error.POSITION_UNAVAILABLE) {
-      // 在 Chrome 浏览器里，因为被墙、会返回 Network location provider at 'https://www.googleapis.com/ :ERR_TIMED_OUT.
-      console.log('至少有一个内部位置源返回一个内部错误');
-   }
-   if (error.TIMEOUT) {
-      console.log('超时');
-   }
-},
-{
-   timeout: 1000 * 15,
-   // enableHighAccuracy: true, // 设为 true 移动端通过 gps 定位、费电
-   // maximumAge: 1000 * 15, // 返回 15 秒内的 缓存位置，默认为 0
-}
-);
-} else {
-/* geolocation IS NOT available */
-}
-```
-
-
-## 2020~2021 周日报 antd redux / umi
-
-- waterfall 瀑布流 内容顺序 难保证 https://segmentfault.com/q/1010000009117246/
-- flex 顺序正确的 布局 https://jessieji.com/2019/pure-css-masonry
-- 多列 https://segmentfault.com/a/1190000017866549
-
-周日报遗留问题：
-dashboard 数据边界细节很多。
-复制文字+多个图片、分别上传多个图片。
-保存过期、前端存。大表格崩溃、大小极限。 编辑页 id 输错、结果处理。
-一次性复制进去、还是会弹出事项选择框。导入上一篇 事项匹配错误。
-断网再连上、报标题不能为空。新版日志编辑器：选中报错、任务样式问题。
-
-- beforeunload 事件里有 ajax 等不到返回、页面就会关闭，怎么解决？
-- 使用 `DOMParser().parseFromString(xml, 'text/xml');`解析 xml 时、需要把 xml 里的 `&` 等特殊符号 转义为 `&amp;` 不然会解析错误；参考 解答[一](https://stackoverflow.com/questions/17423495/how-to-solve-ampersand-conversion-issue-in-xml)、[二](https://stackoverflow.com/questions/11555890/how-to-parse-xml-with-special-character-specifically-for-ampersand)。
-- 使用 `https://localhost` 或 umi 报 Disconnected from the devServer, trying to reconnect... 提示、设置 `chrome://flags/#allow-insecure-localhost` 能暂时解决。
-- Chrome 无法访问非受信证书页面，方法1: 在页面上手工输入 `thisisunsafe` 。方法2: 打开 `chrome://net-internals/#hsts`在 Delete domain security policies 里删除相应域名。
-- blocked:mixed-content 在 HTTPS 页面上有 HTTP 的请求，会被 Chrome 阻止、统一改为 HTTPS 即可。参考 [fixing-mixed-content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/fixing-mixed-content?hl=zh-cn)
-- 绑定 host 访问 https 时 (`https://localhost`)、Chrome 可能会有 ERR_CERT_AUTHORITY_INVALID 证书错误，解决 [方法一](https://segmentfault.com/a/1190000021843971)、[方法二](https://blog.csdn.net/xujing19920814/article/details/53966948)。
-
-- react 不会触发 keydown 事件，需要设置 focus 或 tabIndex="1"
-- web excel 缺点：数据量大时页面死掉。
-- 下载文件不能直接可点击下载，需要设置 csrf token 来避免安全问题。
-- [大规格文件的上传优化](https://aotu.io/notes/2020/05/12/file-upload/index.html)
-
-antd
-- Table 伸缩列 [bug多](https://github.com/ant-design/ant-design/commit/84c65582c71c66df9744177d337cfd3d4ce1a713)、性能[差](https://github.com/ant-design/ant-design/issues/28214)。
-- Menu 和 Modal `<Menu.Item onClick={doSth} />` 里放子组件、子组件里有 `<Modal onCancel={cancel} />` 弹窗，cancel 事件会触发 menu item 的 click 事件；弹窗里嵌套弹窗问题。
-- Select 组件
-   - 下拉框和选择框样式分别自定义场景：比如 `mode="multiple"`、`labelInValue`、`options` 的 label 为定制的 jsx 时，可使用 `Select.Option` 组件 + `optionLabelProp="label"` 组合来避免 `onChange` 参数里的 label 是 jsx 、也能让选择框里 选项样式 能自定义。
-   - 无尽列表翻页 [issues/12406](https://github.com/ant-design/ant-design/issues/12406)
-   - 搜索框和单选选择框合并 [0.12 效果](https://012x.ant.design/components/select/#demo-search)、[1.x修改](https://github.com/ant-design/ant-design/issues/1390)、1.0 [changelog](https://github.com/ant-design/ant-design/issues/1050)
-   - 数据项有重复时 会乱跳，如视频：[mp4](https://gw.alipayobjects.com/os/rmsportal/GxGqYTHnIXRioQTbtkok.mp4)
-- Upload 组件
-   - 多文件合并到一个 xhr 里上传 [issues/8579](https://github.com/ant-design/ant-design/issues/8579)
-   - 使用内部的 UploadList 来[自定义进度条显示位置](https://github.com/ant-design/ant-design/issues/8387)
-   - umi-request 基于 fetch 实现、不支持显示上传文件的进度，而 axios 可以支持。
-   - 使用`beforeUpload`来限制上传文件大小、`customRequest`自定义上传接口和上传进度。
-- Upload 上传文件/夹 (参考 语雀 或 teambition 上传资源)
-   - 上传的文件或文件夹、都会存在一个`fileList`列表里，文件属性`webkitRelativePath`的值存在时、表示上传的是文件夹里的文件。`onChange`会在上传状态(上传中、已完成、失败等)变化时调用。
-   - 多次点上传按钮时、可根据`fileList`里每个条目的`uid`标记来区分新旧。两次上传同一个文件夹时、需要 分别创建不同的文件夹名，比如后缀加上(1)。
-   - 需要等待 所有文件都上传后 (即状态都是 done) 并且至少有一个文件上传成功，再创建目录。
-   - 前端根据每个文件的`webkitRelativePath`值，循环构造出多层 文件夹 的层级数据，传给后端。
-   - 后端一般需要起“异步”的任务、创建各级文件夹，前端轮询异步任务状态、判断是否成功。
-   - 大文件分片上传和断点续传[原理](https://segmentfault.com/a/1190000040309502)，需要使用 oss 提供的 sdk。
-   - 文件夹里包含超过 300 个小文件，上传起始会卡顿、上传失败的文件优先显示、上传过程并发数的浏览器限制。
-- Popover 和 Tooltip 组件，children 如果不是元素、而是 {props.children} 不起作用。
-
-redux / umi
-
-- 框架的“双向绑定”意思是 view -> state -> view 变化的绑定，而不是 state1 <-> state2 变化的绑定、同样功能的 state 只用定义一个、有多个就会导致 state 变更检测的死循环。
-- umi 某个 router 多处复用方案 [umi/1830](https://github.com/umijs/umi/issues/1830)、[umi/4569](https://github.com/umijs/umi/issues/4569)
-- subscriptions 怎么获取到 model 中的 state [issues/1600](https://github.com/dvajs/dva/issues/1600)
-- 多个请求并行发起 [redux-saga/issues/1800](https://github.com/redux-saga/redux-saga/issues/1800)、[redux-saga/pull/759](https://github.com/redux-saga/redux-saga/pull/759)、[dva/issues/1009](https://github.com/dvajs/dva/issues/1009)
-- 如何请求多个数据源并渲染？如[图](https://img.alicdn.com/imgextra/i4/O1CN0150J8CS26jHFosJFF4_!!6000000007697-2-tps-476-266.png)
-
-后端
-
-- 2021-03-01 用户导入200万条数据、Java堆打爆 虚拟机退出、数据库连接满。
-- 2020-07~10 账号、权限、越权漏洞、上传文件不成功、丢文件。
-- 2020-04 vm修改了、刷新页面可能不会更新，因为有缓存、要重启机器。
-
-
-## 2019 以前
-
-### 大安全移动业务开发 2019-02
-- 熄屏时 JS 倒计时变慢 
-- H5软键盘兼容方案 [https://segmentfault.com/a/1190000018959389](https://segmentfault.com/a/1190000018959389)
-- iOS 9.1 以下系统的 WKWebView 在 302 后的 document 地址可能不变更。
-   - 比如当前域 (mobileic.alipay.com) 有相对地址的 post 请求 `ajax({ url: './verify.json', method: 'post' })`，但是这个页面是由 上个域 (securitycore.alipay.com) 的页面 302 跳转过来的，最终拼接出来的 ajax url 地址是上个域的 `securitycore.alipay.com/verify.json`导致错误，所以 post url 建议换成绝对地址。
-- antd-mobile Carousel 在 iPhone 7/8 上有些情况下，卡住不会滚动、斜着滑动(同时导致页面上下滑动)时卡顿。[ant-design-mobile/issues?utf8=%E2%9C%93&q=is%3Aissue+carousel](https://github.com/ant-design/ant-design-mobile/issues?utf8=%E2%9C%93&q=is%3Aissue+carousel)
-- Input 输入框 被键盘遮挡
-   - 更多 [讨论和解法](https://juejin.im/post/59d74afe5188257e8267b03f)，部分 安卓机型 比如 moto 暂时无法解决。
-- Android 4 白屏: `Set``Promise``Symbol` 未定义错误
-- iOS webview 里 https 页面引入 http 的 js/css 不能加载？需要统一使用 https 协议。
-- iOS 9 不支持 箭头函数
-
-
-### G2/G6 问题 2018
-
-- [G2] 时间横坐标在 mac 能显示 24 小时、正常，在 win7 上只能显示 12 小时。
-- [G6] 绘制每个元素，都要自己设置 大小、填充、边框？挨个绘制多个元素时：要获取前一个元素的位置 + 当前元素尺寸，手工重新定位？
-- [G6] API 文档没法搜索：支持哪些属性设置、文档难查找。比如 label 的 text 居中怎么设置？
-- [G6] fixView: autoZoom 和 maxZoom: 2 会有兼容性问题
-   - mac chrome 71 图不会自动居中，出现在左上角。
-   - win7 chrome 55 看起来正常，但此浏览器版本太旧。
-- [G6] 图表疑似绘制两次？
-
-
-### scroll
-
-- 模拟滚动
-  - iScroll 并没有监听原生`onscroll`事件，而是用 touch 事件模拟浏览器原生滚动效果。
-  - 缺点：模拟的滚动结束后，不会自然触发“浏览器原生的滚动”，类似需求不容易满足。
-- touch 事件 和 手势
-  - 在某个元素的 touchmove 事件里如果有 e.preventDefault() 则会阻止包括 body 的整个页面滚动。
-  - 手势是使用 touch 事件实现的，比如 https://github.com/hammerjs/hammer.js 。
-  - 走马灯、下拉刷新、上拉刷新、Swipeable-Tabs、iOS swipe-to-show-actions 等都需要基于一个良好的“手势”库来实现。
-- 原生 scroll 事件问题
-  - ios 上 scroll 事件，只在 scroll 结束时触发（ios < 8），安卓会一直触发。
-  - iOS < 8 pauses painting during scrolling.
-  - 滚动过程中要「fixed标题栏」，在惯性滚动过程中不会触发 scroll 事件。
-  - [iOS 与 惯性滚动](https://fe.ele.me/momentum-scrolling-on-ios/)
-
-移动端 scroll 事件只在滚动结束时触发，用 touchmove 事件代替。
-
-scrollTop/Left 变化会 多触发一次 scroll 事件。参考
-https://stackoverflow.com/questions/1386696/make-scrollleft-scrolltop-changes-not-trigger-scroll-event
-
-
-### touch
-
-```js
-// -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-/* touch 和 mouse 事件 执行顺序
-  Android: touchstart -> touchend -> mouseenter -> mousemove -> mousedown -> mouseup -> click
-  iOS: touchstart -> touchend -> mouseenter -> mousemove
-  iOS 上如果注册了 mousemove 或 mouseenter 那么 mouse down up 事件不会触发。
-  touchMove 只在 touchstart 元素上触发；mouseMove 在当前鼠标位置上触发。
-  touch 结束后不会触发 mouseleave 需要再点击一下元素外边 才会触发。
-*/
-// http://zeptojs.com/zepto.js
-var startTime, m = false;
-function log(msg) {
-  $('body').append('<div>' + (new Date().getTime() - startTime) + ': ' + msg + '</div>');
-}
-$('#test').bind('click', function () {
-  log('click');
-}).bind('mousedown', function (e) {
-  e.preventDefault();
-  startTime = startTime || new Date().getTime();
-  m = true;
-  log('mousedown');
-}).bind('mousemove', function (e) {
-  e.preventDefault();
-  log('mousemove');
-  if (!m) return;
-  log('mousemove con');
-}).bind('mouseup', function () {
-  m = false;
-  log('mouseup');
-}).bind('mouseenter', function() {
-  log('mouseenter');
-}).bind('mouseleave', function() {
-  log('mouseleave');
-}).bind('touchstart', function () {
-  startTime = new Date().getTime();
-  log('touchStart');
-}).bind('touchmove', function (e) {
-  e.preventDefault();
-  log('touchMove');
-}).bind('touchend', function () {
-  log('touchEnd');
-});
-```
-
-touch-action: manipulation;
-touch-action: none;
-指针事件 (Pointer Events)：是一个新的 web 事件系列，相应的规范旨在使用一个单独的事件模型，
-对所有输入类型，包括鼠标 (mouse)、触摸 (touch)、触控 (stylus) 等，进行统一的处理。
-例如，你可以只去监听一个元素的 pointerdown 事件，无需分别监听其 touchstart 和 mousedown 事件。
-有一个和点击延迟直接相关的实现 —— 一个名为 touch-action 的新 CSS 属性。
-根据规范，touch-action 属性决定 “是否触摸操作会触发用户代理的默认行为。这包括但不限于双指缩放等行为”。
-touch-action 的默认值为 auto，将其置为 none 即可移除目标元素的 300 毫秒点击延迟。
-IE 11+ 可以用 touch-action: manipulation; 属性来阻止元素的双击缩放。
-
-### [fastclick](https://github.com/ftlabs/fastclick)
-
-Touch事件穿透，click事件被执行了两次：一次是touchend我们手动执行，一次是系统自建的click，这就是传说中的鬼点击 ghost-click 。
-在 touchend 处阻止浏览器默认事件，避免 鬼点击，iOS 有效，android 无效。
-
-```js
-// #d1, #d2 {width: 100%; height: 50px;position: absolute;z-index: 1;top: 0; left: 0;}
-// #d1 {background-color: blue; color: #fff;}
-// #d2 {background-color: red;color: #fff; width: 60%; height: 70px;}
-// d2 在 d1 上边
-var touchStartTime = 0;
-var d1 = document.getElementById('d1');
-var d2 = document.getElementById('d2');
-function hideD2() { d2.style.display = 'none'; }
-function log(text) {
-  var console = document.getElementById('console');
-  console.innerHTML += '<br />' + text;
-}
-d1.addEventListener('touchstart', function () {
-  log('blue div: touchstart');
-})
-d1.addEventListener('touchend', function () {
-  log('blue div: touchend');
-})
-d1.addEventListener('click', function () {
-  log('blue div: click');
-})
-d2.addEventListener('touchstart', function () {
-  touchStartTime = new Date().getTime();
-  log('red div: touchstart');
-  // hideD2();
-})
-d2.addEventListener('touchend', function () {
-  log('red div: touchend, ' + (new Date().getTime() - touchStartTime));
-  hideD2();
-})
-d2.addEventListener('click', function () {
-  log('red div: click, ' + (new Date().getTime() - touchStartTime));
-  // hideD2();
-})
-```
-
-设置 `<meta name="viewport" content="width=device-width, initial-scale=1">` 后，Chrome 32+ on Android 和 iOS 10 都不会再有 300ms 延迟，可以不使用 fastclick。
-
-```js
-// https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js
-window.addEventListener('load', function() {
-  var logId = 0;
-  var tsTime;
-  document.getElementById('btn').addEventListener('touchstart', function() {
-    tsTime = new Date().getTime();
-    // console.log(tsTime)
-  })
-  document.getElementById('btn').addEventListener('click', function() {
-    // console.log(new Date().getTime())
-    document.getElementById('log').innerHTML =
-      logId++ + ' 点击延迟：' + (new Date().getTime() - tsTime);
-  })
-  FastClick.attach(document.body);
-}, false);
-```
-
-### webview
-
-```js
-document.write('<pre>');
-document.writeln(navigator.userAgent);
-var isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/i.test(navigator.userAgent);
-document.writeln('is iOS: ', isIOS);
-
-var isWebView = typeof navigator !== 'undefined' && /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
-document.writeln('is WebView: ', isWebView);
-
-// https://stackoverflow.com/questions/28795476/detect-if-page-is-loaded-inside-wkwebview-in-javascript
-if (navigator.platform.substr(0,2) === 'iP') {
-  //iOS (iPhone, iPod or iPad)
-  var lte9 = /constructor/i.test(window.HTMLElement);
-  var nav = window.navigator, ua = nav.userAgent, idb = !!window.indexedDB;
-  if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){
-    //Safari (WKWebView/Nitro since 6+)
-    document.writeln('is UIWebView: false. is Safari');
-  } else if ((!idb && lte9) || !window.statusbar.visible) {
-    //UIWebView
-    document.writeln('is UIWebView: true');
-  } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
-    //WKWebView
-    document.writeln('is WKWebView: true');
-  }
-}
-```
-
-浏览器内核区别：手机系统官方浏览器、Chrome、UC、QQ、android控件里的webview、自己开发的APP里引用的 Webview，内核都不一样。
-
-
-### 2013-08 兼容性问题
-- IE8及以下，ajax请求地址和参数相同时，会在一段事件内，读取浏览器缓存的ajax返回文件数据，而不去重新请求。-- 解决：请求参数加时间戳
-- JSON.stringify 只支持IE8\9\10标准文档模式，考虑到文档设置有兼容性视图模式（IE67模式）需要对此方法做兼容（参考json2.js）
-- input、textarea的blur事件中删改页面元素，会影响作用区域周围的元素事件处理。例如：点提交btn，先触发了blur事件，改变btn周围的元素，使得btn位置变动，此时btn的事件处理函数不会触发，再点才可触发。
-- IE8里在某个元素上设置`background: transparent;`，给此元素添加事件，并不会触发事件，像click mousedown事件
-- IE9什么原因能导致input file框点击没反应？
-
-
-### 2012
-
-[Template-Engine-Chooser!](http://garann.github.io/template-chooser/)
-模板引擎一般需要：预编译，运行时两个阶段。
-
-- [mustache](https://github.com/janl/mustache.js) --不能预编译，轻逻辑，有各种语言(eg. java)版本
-- [Hogan](https://github.com/twitter/hogan.js) -- mustache的编译器，使用基本没问题
-- [handlebars](http://handlebarsjs.com/) -- 有runtime版本，基本能保证高性能；有扩展支持if else等，
-- [artTemplate](https://github.com/aui/artTemplate?source=c) -- 国内出品，特性比较全面；有预编译工具；但是- 模板语法不通用，没有服务端语言支持。
-- [ejs](http://embeddedjs.com/) --有些古老，使用不便
-
-
-### 2011
-- https://www.cnblogs.com/huajs/
-- http://images.cnblogs.com/cnblogs_com/bluedream2009/201609/o_mm.jpg
-- https://os.alipayobjects.com/rmsportal/EylTaSCtqXQRiTK.jpg
-- 2011.5.11google首页动画 - 现代舞先驱玛莎·葛兰姆 117 周年诞辰
-- [html5 snooker club](http://www.codeproject.com/Articles/217626/Html-Snooker-Club)
-- [粒子系统](http://spielzeugz.de/html5/liquid-particles.html)
-- [simulation of a cube that rotates](http://stackoverflow.com/questions/1401311/could-someone-explain-the-math-behind-how-this-cube-rotating-script-works?tab=active#tab-top)
-- [三维旋转矩阵](http://wenku.baidu.com/view/58b1f64cf7ec4afe04a1df73.html)
-
-`$('xx').data()` 使用地方 - [jQuery.data](http://www.cnblogs.com/silin6/p/jQuery_data.html)
-在实际应用中我们要给我们的 DOM 添加数据，如果我们给一个 DOM 添加的数据太多的话，会存在循环引用的风险，例如我们添加的数据恰好引用了这个 DOM 元素，就会存在内存的泄露。
-jquery 使用了数据缓存的机制就解决或者说避免这一问题。在 DOM 上扩展了一个属性 expando，数据都存在了 $.cache 中，利用 expando 这个属性建立 DOM 和缓存对象之间的联系。无论我们添加多少的数据都会存储在缓存对象中，而不是直接挂在 DOM 上。
-es6 WeakMap 解决类似问题。
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-# FE 收集
 
 
 ## snippets
-
-### misc
-
-```js
-function logger() {
-  if (typeof console !== "undefined" && console.log) {
-    try {
-      console.log.apply(null, arguments);
-    } catch (error) {
-      // on Mobile maybe throw "TypeError: Illegal invocation"
-    }
-  }
-  var args = Array.prototype.slice.call(arguments);
-  var ele = document.getElementById("loger");
-  ele.style.cssText =
-    "position:fixed;z-index:99999;left:0;top:0;background:rgba(0,0,0,.5);color:#fff;padding:5px";
-  ele.innerHTML += "<br /><br />" + args.join(" ");
-}
-
-function copyStr(event) {
-  // <textarea></textarea>
-  var copyTextarea = document.querySelector('textarea');
-  copyTextarea.select();
-  try {
-    var successful = document.execCommand('copy');
-    console.log('Copying command ' + successful ? 'successful' : 'unsuccessful');
-  } catch (err) {
-    console.log('unable to copy');
-  }
-}
-
-// 用于 Chrome 浏览器插件里，检测并等待飞书文档的标题出现
-const feishuDocsJs = () => {
-  const checkEle = (selector, cb = () => {}) => {
-    let ele, timeout = 8000, startTime = Date.now();
-    const check = () => {
-      ele = document.querySelector(selector);
-      if (!ele && Date.now() - startTime < timeout) {
-        setTimeout(check, 200);
-      } else if (ele) {
-        cb(ele);
-      }
-    };
-    check();
-  };
-  if (window !== top) {
-    checkEle('.suite-title-input', (ele) => {
-      window.postMessage(JSON.stringify({
-        _url: location.href,
-        title: ele.innerHTML,
-      }), '*');
-    });
-  }
-};
-
-// MutationObserver  ResizeObserver  https://web.dev/i18n/en/resize-observer/
-// 使用 Performance https://web.dev/i18n/en/cls/ 监测异步 js 延迟渲染的 dom 元素稳定出现时间，不准确。
-const cls = (cb = () => {}) => {
-  let clsValue = 0, clsEntries = [], sessionValue = 0, sessionEntries = [];
-  new PerformanceObserver((entryList) => {
-    for (const entry of entryList.getEntries()) {
-      if (!entry.hadRecentInput) {
-        const firstSessionEntry = sessionEntries[0];
-        const lastSessionEntry = sessionEntries[sessionEntries.length - 1];
-        if (sessionValue &&
-            entry.startTime - lastSessionEntry.startTime < 1000 &&
-            entry.startTime - firstSessionEntry.startTime < 5000) {
-          sessionValue += entry.value;
-          sessionEntries.push(entry);
-        } else {
-          sessionValue = entry.value;
-          sessionEntries = [entry];
-        }
-        if (sessionValue > clsValue) {
-          clsValue = sessionValue;
-          clsEntries = sessionEntries;
-          cb();
-        }
-      }
-    }
-  }).observe({type: 'layout-shift', buffered: true});
-};
-window.addEventListener('load', () => {
-  cls(() => {
-    // console.log('sss cls', location.href, document.body.clientHeight, document.body.scrollHeight);
-  });
-});
-
-// WebComponents Shadow DOM
-/*
-当用户没有与网页进行任何交互 并且也没有动画 requestIdleCallback 执行的时间最长可达到50ms。
-屏幕是 60hz 有渲染时、每帧执行时间16ms（1000ms / 16），剩余空闲时间小于它。
-requestAnimationFrame 的回调会在每一帧确定执行，属于高优先级任务，而 requestIdleCallback 的回调则不一定，属于低优先级任务。
-不能在 requestIdleCallback 里再操作 DOM，因为它发生在一帧的最后，这样会导致页面再次重绘。DOM 操作建议在 rAF 中进行。
-Promise的resolve(reject)操作也不建议放在里面，会拉长当前帧的耗时。
-能做 数据的分析和上报 预加载资源 检测卡顿 拆分耗时任务(React 中的调度器 Scheduler)
-*/
-requestIdleCallback(myNonEssentialWork, { timeout: 2000 });
-// 任务队列
-const tasks = ['1', '2', '3'];
-function myNonEssentialWork (deadline) {
-  console.log('dl', deadline.timeRemaining());
-  // 如果帧内有富余的时间，或者超时
-  while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && tasks.length > 0) {
-    console.log('dl1', deadline.timeRemaining(), deadline.didTimeout);
-    console.log('执行任务', tasks.shift());
-  }
-  console.log('dl2', deadline.timeRemaining());
-  if (tasks.length > 0) {
-    console.log('dl3', deadline.timeRemaining());
-    requestIdleCallback(myNonEssentialWork);
-  }
-}
-window.addEventListener('load', () => {
-  requestIdleCallback(myNonEssentialWork, { timeout: 5000 });
-  function myNonEssentialWork (deadline) {
-    // console.log('执行任务 1', deadline.timeRemaining(), location.href);
-    while ((deadline.timeRemaining() > 0 || deadline.didTimeout)) {
-      // console.log('执行任务 while', deadline.timeRemaining());
-    }
-  }
-});
-
-```
-
-简易编辑器
-
-```html
-<div class="toolbar">
-  <button class="select">选择</button>
-  <button class="bold">加粗</button>
-</div>
-<div style="height: 200px; border: 1px solid gray;" contenteditable="true">
-  <p>richEditor富文本简化版，这是可编辑的</p>
-  <p contenteditable="false">这是不可编辑的</p>
-</div>
-<script>
-  document.querySelector('.bold').addEventListener('click', () => {
-    let range = window.getSelection().getRangeAt(0);
-    console.log('bold', range);
-    document.execCommand('bold', false, null);
-  });
-</script>
-```
-
-tween 动画
-
-```js
-// https://github.com/gre/bezier-easing
-var EasingFunctions = {
-  // no easing, no acceleration
-  linear: function (t) { return t },
-  // accelerating from zero velocity
-  easeInQuad: function (t) { return t*t },
-  // decelerating to zero velocity
-  easeOutQuad: function (t) { return t*(2-t) },
-  // acceleration until halfway, then deceleration
-  easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
-  // accelerating from zero velocity
-  easeInCubic: function (t) { return t*t*t },
-  // decelerating to zero velocity
-  easeOutCubic: function (t) { return (--t)*t*t+1 },
-  easeOutCubic1: function (pos) { return Math.pow((pos - 1), 3) + 1; },
-  easeOutElastic: function (t) {
-    var p = 0.3;
-    return Math.pow(2,-10*t) * Math.sin((t-p/4)*(2*Math.PI)/p) + 1;
-  },
-  // acceleration until halfway, then deceleration
-  easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
-  easeInOutCubic1: function (pos) {
-    if ((pos /= 0.5) < 1) {
-      return 0.5 * Math.pow(pos, 3);
-    }
-    return 0.5 * (Math.pow((pos - 2), 3) + 2);
-  },
-  // accelerating from zero velocity
-  easeInQuart: function (t) { return t*t*t*t },
-  // decelerating to zero velocity
-  easeOutQuart: function (t) { return 1-(--t)*t*t*t },
-  // acceleration until halfway, then deceleration
-  easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
-  // accelerating from zero velocity
-  easeInQuint: function (t) { return t*t*t*t*t },
-  // decelerating to zero velocity
-  easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
-  // acceleration until halfway, then deceleration
-  easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
-};
-```
-
-drag-drop
-- drag 事件 不支持 ie8、Safari 5.1  ie<=9 只能对 a href="" 、img、文本 添加drag事件。 ie9上通过 selectstart hack方法对任何元素添加事件。 在ie<=8版本上，需要把dragenter/drageover/drop事件绑定到具体的元素上，而不能绑定到document做委托处理。
-- 使用 drag-drop API的优势（相对于用mousedown/mousemove）： 如果拖动元素所在的容器尺寸小，拖动过程产生滚动条、会自动触发滚动条移动。 不用再 clone 出一个要拖动的元素； 不用计算涉及到的元素的位置和尺寸。
-传统拖动做法
-- 在 touchstart / mousedown 中记录起始位置，并开始监听 touchmove touchend / mousemove mouseup
-- 在 touchmove mousemove 中计算当前位置和起始位置之间的 offset，并进行拖拽操作
-- 在 touchend mouseup 中取消监听 touchmove 和 touchstart，并进行释放操作
-
-
 
 ### async
 
@@ -1240,25 +427,47 @@ function isChildOf(child, parent) {
   return false;
 }
 
+// WebComponents Shadow DOM
+/*
+当用户没有与网页进行任何交互 并且也没有动画 requestIdleCallback 执行的时间最长可达到50ms。
+屏幕是 60hz 有渲染时、每帧执行时间16ms（1000ms / 16），剩余空闲时间小于它。
+requestAnimationFrame 的回调会在每一帧确定执行，属于高优先级任务，而 requestIdleCallback 的回调则不一定，属于低优先级任务。
+不能在 requestIdleCallback 里再操作 DOM，因为它发生在一帧的最后，这样会导致页面再次重绘。DOM 操作建议在 rAF 中进行。
+Promise的resolve(reject)操作也不建议放在里面，会拉长当前帧的耗时。
+能做 数据的分析和上报 预加载资源 检测卡顿 拆分耗时任务(React 中的调度器 Scheduler)
+*/
+requestIdleCallback(myNonEssentialWork, { timeout: 2000 });
+// 任务队列
+const tasks = ['1', '2', '3'];
+function myNonEssentialWork (deadline) {
+  console.log('dl', deadline.timeRemaining());
+  // 如果帧内有富余的时间，或者超时
+  while ((deadline.timeRemaining() > 0 || deadline.didTimeout) && tasks.length > 0) {
+    console.log('dl1', deadline.timeRemaining(), deadline.didTimeout);
+    console.log('执行任务', tasks.shift());
+  }
+  console.log('dl2', deadline.timeRemaining());
+  if (tasks.length > 0) {
+    console.log('dl3', deadline.timeRemaining());
+    requestIdleCallback(myNonEssentialWork);
+  }
+}
+window.addEventListener('load', () => {
+  requestIdleCallback(myNonEssentialWork, { timeout: 5000 });
+  function myNonEssentialWork (deadline) {
+    // console.log('执行任务 1', deadline.timeRemaining(), location.href);
+    while ((deadline.timeRemaining() > 0 || deadline.didTimeout)) {
+      // console.log('执行任务 while', deadline.timeRemaining());
+    }
+  }
+});
+
 // 判断当前页面是否在 iframe 里
 if (self != top) {}
 // 禁止别人以 iframe 加载你的页面
 if (window.location != window.parent.location) {
   window.parent.location = window.location;
 }
-
-// 向 iframe 元素里写入 html
-var finalHtml = `<!DOCTYPE html><html>
-<head><meta charset="utf-8" /></head>
-<body><p>文档片段</p><script>alert('iframe script');</script></body>
-</html>`;
-function writeIra(finalHtml) {
-  var ifaDom = ifrElement.contentDocument || ifrElement.contentWindow.document;
-  ifaDom.open();
-  ifaDom.write(finalHtml);
-  ifaDom.close();
-}
-writeIra(finalHtml);
 
 // 跨浏览器的 addEventListener 实现
 function addEventListener(target, eventType, callback) {
@@ -1342,7 +551,7 @@ function ajax(url, success, fail) {
       fail(xhr);
     }
   };
-  xhr.open("GET", url, true);
+  xhr.open('GET', url, true);
   xhr.send();
 }
 
@@ -1377,7 +586,7 @@ function ajaxUploadWithProgress(url, options) {
 }
 ```
 
-### file img canvas
+### file img canvas svg
 
 ```js
 
@@ -1530,7 +739,7 @@ const downloadJson = (jsonData, { filename }) => {
 ```
 
 
-### svg
+------ svg
 
 svg 深入 https://flaviocopes.com/svg/
 - 包括通过 img 或 CSS background-images 引用的 单独 svg 文件，必须要写 XML declaration DOCTYPE 声明。
@@ -1900,7 +1109,7 @@ console.log(cd);
 
 
 
-### 数组
+### 数组 对象 函数 原型
 
 ```js
 // 数组去重
@@ -2060,8 +1269,7 @@ var genArr = Array(10).fill(0).map((e, i) => i + 1);
 ```
 
 
-
-### 对象 函数 原型
+------ 对象 函数 原型
 
 ```js
 // switch 取巧写法
@@ -2415,7 +1623,7 @@ var me = new Person("Nicholas");
 ```
 
 
-### 基本类型
+------ 基本类型
 
 正则
 
@@ -2655,7 +1863,7 @@ console.log(s.len); // 查找其len属性，返回 undefined
 ```
 
 
-
+### .
 
 ### 笔试题
 
@@ -2989,24 +2197,349 @@ Widget.prototype.constructor = Widget
 ```
 
 
-### 小程序 API
-```js
-const { Ali } = window;
-const { isAlipay } = Ali;
-window.AlipayJSBridge;
-document.addEventListener('AlipayJSBridgeReady', callback, false);
-Ali.httpRequest({ url: '', method: 'POST' }, (result) => {});
-Ali.rpc({ operationType: '', requestData: [] }, (result) => {});
-Ali.call('imageViewer', { enablesavephoto: true, images: [], init: index });
-Ali.showLoading(param);
-Ali.hideLoading();
-Ali.showToast({ content: '' });
-Ali.showActionSheet({ content: '' }, (result) => {});
-Ali.popWindow();
-AlipayJSBridge.call('getSystemInfo', { }, (result) => {});
-AlipayJSBridge.call('popWindow');
-AlipayJSBridge.call('setTitle', { title: 'xxx' });
+### TS / node.js
+> 2024
+
+```ts
+export type * as xTypes from 'x-editor'
+export type { default as xTypes } from 'x-editor'
+
+export type ProFormListItemProps = {
+  onAfterAdd?: (...params: any) => any;
+}
+
+// next _document.tsx example
+import Document, { Head, Main, NextScript } from "next/document";
+export default class MyDocument extends Document<{ env: string; }> {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    const { env } = await getXxxConfig(ctx);
+    return { ...initialProps, env };
+  }
+  render() {
+    const { __NEXT_DATA__, env, dangerousAsPath } = this.props;
+    return (
+      <html lang="zh">
+        <Head>
+          <meta charSet="utf-8" />
+        </Head>
+        <body id="cavalvy-container">
+          <Main />
+          <NextScript />
+          body content
+        </body>
+      </html>
+    );
+  }
+}
 ```
+
+基本用法
+
+```ts
+const enum StateEnum {
+  TO_BE_DONE = 0,
+  DOING = 1,
+}
+
+// Arrow function returning an array of numbers
+const getArr2 = (): (string | number)[] => {
+  return [1, '2', 3];
+};
+// arrow function
+const getObj2 = async (): Promise<{ name: string; age: number: [key: string]: any; }> => {
+  return { name: 'Bobby Hadz', age: 30, xx: 'any' };
+};
+// Readonly
+function getTuple(): Readonly<[number, number]> {
+  return [10, 100];
+  // return [10, 100] as const;
+}
+
+// 泛型
+interface GenericInterface<T> {
+  (arg: T): T
+}
+function foo<T> (arg: T): T {
+  return arg
+}
+let output = foo('string') // type of output will be 'string'
+let myFoo: GenericInterface<number> = foo
+myFoo(123)
+
+// 命名空间 types/ajax.d.ts
+declare namespace Ajax {
+  export interface AxiosResponse {
+    data: AjaxResponse
+  }
+  export interface AjaxResponse {
+    code: number,
+    data: object | null | Array<any>,
+    message: string
+  }
+}
+this.axiosRequest({ key: 'idc' }).then((res: Ajax.AjaxResponse) => {
+  console.log(res)
+})
+```
+
+
+------ node.js
+
+2024 mjs 文件
+
+```js
+// const fs = require('fs');
+import path from 'path';
+
+// __dirname is not defined in ES module scope
+// const pkgFile = path.join(__dirname, './packages');
+// console.log('pkgFile: ', pkgFile);
+const cwd = process.cwd();
+const pkgPath = path.join(cwd, 'packages', 'pkg');
+console.log('pkgPath: ', pkgPath);
+console.log('resolve: ', path.resolve(__dirname, './package.json'));
+```
+
+2024 js 文件 import mjs 文件方式
+
+```js
+async function loadModule() {
+  const module = await import('./xx.mjs');
+  console.log('module: ', module);
+}
+loadModule();
+
+const asyncExec = () => {
+  // 注意，不支持 await child_process.exec
+  return new Promise((resolve, reject) => {
+    child_process.exec(
+      // `git name-rev --name-only HEAD`,
+      'git log --pretty=format:"%h - %an - %s" -n 5',
+      { encoding: 'utf-8' },
+      (error, stdout, stderr) => {
+        console.log('exec stdout: ', error, stdout, stderr);
+        error ? reject(error) : resolve(stdout)
+      }
+    );
+  });
+};
+const asyncSpawn = () => {
+  // 如果输出量非常大，exec 的缓冲区可能会溢出。在这种情况下，child_process.spawn 更适合处理大文件或长输出。
+  return new Promise((resolve, reject) => {
+    const child = child_process.spawn(
+      // 使用字符串会报错
+      // 'git log --pretty=format:"%h - %an - %s" -n 5',
+      // 出错提示 Your git status is not clean. Aborting.
+      // 'git', ['status', '--porcelain'],
+      'git', ['log', '--pretty=format:"%h - %an - %s"'],
+      { encoding: 'utf-8' },
+    );
+    // console.log('child: ', child);
+    child.stdout.on('data', (data) => {
+      console.log('data: ', data.toString());
+      resolve();
+      // 处理标准输出并将其转换为字符串
+      // process.stdout.write(data.toString());
+    });
+    child.once('error', (err) => {
+      console.log('err: ', err);
+      reject(err);
+    });
+    // child.on('close', (code) => {
+    child.once('close', (code) => {
+      console.log('close: ', code);
+    });
+  });
+};
+await asyncExec();
+await asyncSpawn();
+
+const execa = require('execa');
+execa.sync('npm', ['version', 'prerelease', '--preid', 'rc', '--no-git-tag-version']);
+execa.sync('cd', ['../../']);
+
+import chalk from 'chalk';
+function printErrorAndExit(message) {
+  console.error(chalk.blue(message));
+  console.log("\x1b[31m This text will be red \x1b[0m");
+  console.log('this is log');
+  process.exit(1);
+}
+printErrorAndExit('直接 node bash-node.mjs 执行此文件、会显示颜色');
+printErrorAndExit('被 bash 直接调用、会显示颜色');
+printErrorAndExit('被 bash 这样 $(node bash-node.mjs) 调用、不会显示颜色');
+
+console.log(os.homedir());
+console.log(process.env.HOME, process.env.HOMEPATH);
+console.log(process.argv, process.execPath, process.uptime());
+process.nextTick(function () {
+  console.log('nextTick callback');
+});
+process.on('exit', function () {
+  process.emit('cleanup');
+});
+// catch ctrl+c event and exit normally
+process.on('SIGINT', function () {
+  process.exit(2);
+});
+```
+
+2024 对 某个目录下 的文件进行索引， 并生成文件名的 html a 标签
+
+```js
+async function createFileIndex(dirPath) {
+  async function getFiles(dir) {
+    const dirents = await readdir(dir, { withFileTypes: true });
+    const files = await Promise.all(dirents.map((dirent) => {
+      const res = resolve(dir, dirent.name);
+      return dirent.isDirectory() ? getFiles(res) : res;
+    }));
+    return Array.prototype.concat(...files);
+  }
+  getFiles(dirPath).then(results => {
+    const html = `<ul>` +
+    results.filter(item => extname(item) === '.html').map(fileOrDirectory =>
+      `<li style="margin: 5px 0;">
+        <a href="https://warmhug.github.io/${fileOrDirectory.replace(__dirname, '')}" target="_top">
+          https://warmhug.github.io/${fileOrDirectory.replace(__dirname, '')}
+        </a>
+      </li>
+      `).join('\n') + `</ul>`;
+
+    writeFile('index.html', `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samples</title>
+  </head>
+  <body>
+    <div style="margin: 5px;">
+      GitHub 地址 <a href="https://github.com/warmhug/" target="_top">https://github.com/warmhug/</a>
+    </div>
+    ${html}
+  </body>
+  </html>`, 'utf8', (err) => {
+      if (err) throw err;
+      console.log('The file has been saved!');
+    });
+  });
+}
+createFileIndex('./samples/');
+```
+
+2022 node server
+
+```js
+var http = require('http');
+var url = require('url');
+var fs = require('fs-extra');
+var path = require('path');
+var port = 9998;
+var jsonContentType = 'application/json; charset=utf-8';
+
+var enumExts = ['jpg', 'jpeg', 'gif', 'png'];
+var local2 = '/Users/hua/Downloads/';
+function handleJoke2(res) {
+  var items = [];
+  var dName;
+  fs.walk(local2).on('data', function (item) {
+    if (item.stats.isDirectory()) {
+      dName = item.path;
+    }
+    var extname = path.extname(dName);
+    // path.basename(fileDir)
+    var ext = extname && extname.substr(1);
+    if (ext && enumExts.indexOf(ext) > -1) {
+    }
+  }).on('end', function () {
+    if (items.length) {
+      res.writeHead(200, {'Content-Type': jsonContentType});
+      res.end(JSON.stringify(items));
+    } else {
+      res.writeHead(404, {'Content-Type': 'text/plain'});
+      res.end('Not found');
+    }
+  })
+}
+http.createServer(function (request, response) {
+  var parsedUrl = url.parse(request.url, true);
+  // var query = require('url').parse(req.url).query;
+  // var parm1 = require('querystring').parse(query).parm1
+  var query = parsedUrl.query;
+  if (query.joke == '1') {
+    var content = fs.readFileSync().toString().split('\n\n');
+    response.writeHead(200, {'Content-Type': jsonContentType});
+    response.end(JSON.stringify(content));
+  }
+  if (query.joke == '2') {
+    handleJoke2(response);
+  }
+}).listen(port);
+console.log('> main server running on port ' + port);
+```
+
+2021 webpack 检测 node_modules 里某个包的 实际路径，并拷贝文件到项目 src 里
+
+```js
+const CopyPlugin = require('copy-webpack-plugin');
+const fs = require('fs')
+const path = require('path')
+const mxgraph = path.resolve(__dirname, 'node_modules/mxgraph')
+// console.log('xxx1', mxgraph);
+let mxReal
+try {
+  mxReal = fs.realpathSync(mxgraph)
+} catch (error) {
+}
+
+// webpack 里 plugin 设置增加 copy 插件
+new CopyPlugin(
+  // [{ from: mxReal + '/javascript/src/', to: 'dest' }]
+  [
+    mxReal + '/javascript/src/',
+    { from: __dirname + '/src/routes/Designer/Editor/images', to: 'images' },
+    { from: __dirname + '/src/routes/Designer/Editor/resources', to: 'resources' }
+  ]
+);
+
+function walk(dir, filter) {
+  var results = []
+  fs.readdirSync(dir).forEach(function(file) {
+    file = dir + '/' + file;
+    var stat = fs.statSync(file)
+    if (stat && stat.isDirectory()) {
+      results = results.concat(walk(file, filter))
+    } else {
+      filter(file) && results.push(file)
+    }
+  });
+  return results
+}
+var temp = walk('/Users/hua/Downloads', function(file) {
+  return /\.html$/.test(file)
+});
+console.log('temp: ', temp);
+
+fs.stat(parm1, function (err, stats) {
+  if (stats.isFile()) {
+    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 200;
+
+    // 创建文件流读取，替代fs.readFile方法
+    var file = fs.createReadStream(parm1);
+    file.on('open', function () {
+      return file.pipe(res);
+    });
+    return file.on('error', function (err) {
+      return console.log(err);
+    });
+  }
+});
+```
+
 
 
 ### algorithm
@@ -3814,8 +3347,55 @@ console.log(sel);
 ```
 
 
+tween 动画
 
-## snippets react
+```js
+// https://github.com/gre/bezier-easing
+var EasingFunctions = {
+  // no easing, no acceleration
+  linear: function (t) { return t },
+  // accelerating from zero velocity
+  easeInQuad: function (t) { return t*t },
+  // decelerating to zero velocity
+  easeOutQuad: function (t) { return t*(2-t) },
+  // acceleration until halfway, then deceleration
+  easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
+  // accelerating from zero velocity
+  easeInCubic: function (t) { return t*t*t },
+  // decelerating to zero velocity
+  easeOutCubic: function (t) { return (--t)*t*t+1 },
+  easeOutCubic1: function (pos) { return Math.pow((pos - 1), 3) + 1; },
+  easeOutElastic: function (t) {
+    var p = 0.3;
+    return Math.pow(2,-10*t) * Math.sin((t-p/4)*(2*Math.PI)/p) + 1;
+  },
+  // acceleration until halfway, then deceleration
+  easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+  easeInOutCubic1: function (pos) {
+    if ((pos /= 0.5) < 1) {
+      return 0.5 * Math.pow(pos, 3);
+    }
+    return 0.5 * (Math.pow((pos - 2), 3) + 2);
+  },
+  // accelerating from zero velocity
+  easeInQuart: function (t) { return t*t*t*t },
+  // decelerating to zero velocity
+  easeOutQuart: function (t) { return 1-(--t)*t*t*t },
+  // acceleration until halfway, then deceleration
+  easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
+  // accelerating from zero velocity
+  easeInQuint: function (t) { return t*t*t*t*t },
+  // decelerating to zero velocity
+  easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
+  // acceleration until halfway, then deceleration
+  easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
+};
+```
+
+
+
+
+### react
 
 
 react input two-way-binding.
@@ -3853,7 +3433,7 @@ class ControlledInput extends React.Component {
 ```
 
 
-### context useReducer
+------ context useReducer
 
 ```js
 import React, { useState, useEffect, useReducer, useContext } from 'react';
@@ -3909,7 +3489,7 @@ export default ({ onClick }) => {
 }
 ```
 
-### react hooks
+------ react hooks
 
 useState 异步回调获取不到最新值 https://www.cnblogs.com/hymenhan/p/14991789.html
 
@@ -4153,7 +3733,7 @@ export default (props) => {
 }
 ```
 
-### animate
+------ animate
 
 ```js
 // "rc-animate": "^2.4.4",
@@ -4202,7 +3782,7 @@ const Index = () => {
 ```
 
 
-### react-router
+------ react-router
 
 ```js
 // "react": "^16.2.0",
@@ -4280,7 +3860,1771 @@ export default class Demo extends React.Component {
 ```
 
 
-### umi.js 2018
+
+## ts/js html/css 小程序/RN
+
+--- 2023
+
+! 是 typescript 非空断言符，解决 ts 类型空提示问题。
+
+void promise 函数返回值类型 `() => Promise<void>`。
+
+ts高级用法 Omit Pick
+```ts
+import { INameProps } from './Name';
+type IDashboardNameProps = {
+  className?: string;
+  style: React.CSSProperties;
+} & Pick<INameProps, 'id' | 'onSaved'>;
+```
+
+[TypesSript 装饰器源码分析](https://github.com/frontend9/fe9-library/issues/226)
+
+[使用 TypeScript 实现依赖注入](https://github.com/frontend9/fe9-library/issues/225)
+
+[如何实现一个 TypeScript 的宏](https://github.com/frontend9/fe9-library/issues/186)
+
+[让 babel 帮你编译 typescript](https://github.com/frontend9/fe9-library/issues/23)
+
+https://github.com/zzj3720 (github/toeverything)
+[conditional type 中的联合类型与 never](https://github.com/frontend9/fe9-library/issues/135)
+[TypeScript专栏](https://www.zhihu.com/column/c_206498766)
+
+
+------ js
+
+- https://evertpot.com/using-top-level-await-is-bc-break/
+
+- 33-js-concepts https://github.com/leonardomso/33-js-concepts
+- 只在行首字符是 `+ - [ ( /` 这5种情况下，加前置分号即可
+- 原型链/闭包(匿名函数)？实现继承？new的原理实现？this指向改变(call/apply/bind)？null/undefined区别？事件代理(委托)？减少事件注册 节省内存。
+- es6 常用哪些特性？ 变量最小作用域 es5 function, es6 let 块级。 var 变量提升(Hoisting)。 Map 和 WeakMap 区别。 Symbol generator。
+- promise 跟 async/await 关系？ async 方法返回 promise 、是 promise 的语法糖。
+- es6 generator？ es6 和 node 的 module 的区别？ fetch、xhr 优劣势
+- ES 与 CommonJS modules 的区别
+- 内存泄漏的几种情况？ https://blog.logrocket.com/escape-memory-leaks-javascript/
+- WeakRef 的用处 https://www.reddit.com/r/Frontend/comments/1ato11w/will_the_event_listeners_be_removed_automatically/
+- 在 es class 中的 箭头函数 比较慢，而且不在 原型链 上  https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1
+- es6 modules 父子 module 的代码执行顺序、class 内外代码执行顺序。
+
+- shim、sham 和 polyfill 之间的区别？ https://github.com/es-shims/es5-shim
+  - es5-shim 完美模拟了所有 ES5 中可以被完美模拟的方法。就是说 ES5 中有些方法，是可以在旧 JS 引擎中完美模拟了，那么 shim 就完美模拟了它们。shim 不局限与浏览器环境，只要 JavaScript 引擎支持，代码即可运行。
+  - es5-sham 只承诺你用的时候代码不会崩溃，至于对应的方法是不是起作用它就不保证了。如果你要用的方法在 shim 中都包含了，那么就不需要 sham。sham 能不引用就不引用。sham 依赖 shim。 IE8：只支持 ES3。
+
+库/框架
+
+- React16 / 17 / 18版本新特性 https://blog.csdn.net/momei1942/article/details/129699873
+- React18: 并发控制的更好更灵活，定时器等异步函数setState批处理、Suspense 流式 html SSR、useTransition 延迟/过渡更新。
+- 看过 框架或库 源码？ react 使用注意事项 https://github.com/mithi/react-philosophies  React 技术揭秘 https://react.iamkasong.com/
+
+- react diff 原理？生命周期？受控组件和非受控组件？父组件和子组件的通信方式？render-props 高阶组件 (代替mixin及ref问题)？
+- react 应用性能优化？列表 key / shouldComponentUpdate / PureComponent (父子组件 props state 不变时不render 为什么不建议用?) / memoization
+- react setState 是同步的还是异步的? 异步。 子组件和父组件 componentDidMount 哪一个先执行？子组件先。
+- prop 的变化 同步到 state 的方法？
+
+- react 渲染器了解一下？ https://juejin.cn/post/6844903753242378248
+- React Fiber 架构 https://xueshiming.cn/2021/05/08/React%20%E4%B9%8B%20Fiber%20%E6%9E%B6%E6%9E%84/
+- React-Fiber 并发模式、区分任务优先级、调度协调 中断/恢复任务，浏览器60fps渲染 10毫秒自己执行 5毫秒空闲时间。
+
+- react 需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，而不要用`Array.isArray(children) / children.forEach`等方法。
+- setState 是异步的 [示例](https://stackoverflow.com/a/45249445/2190503) 会引起不必要的 render。
+- [真实 DOM 和 react 虚 dom 讨论](http://www.zhihu.com/question/31809713)
+  - dom 对象是很庞大的（上边有很多属性），其创建的开销比较大，已有的 dom 对象上做更新开销并不大，众多框架都在围绕此做优化，比如用`key`是否变化来判断对 dom 的操作是 “更新” 还是 “销毁重建”。 dom批量更新：dom操作如，1.删除一个元素，2.增加一个元素，3.在增加的元素上改变一个属性。如果用 dom-api，会有多次 repaints reflows 比较耗性能。 如果放到「虚拟 dom」上操作，会把这三个过程最终的结果，一次更新到实际 dom 树上，只用操作一次实际 dom。 virtual-dom 里一次 digest 中的 diff 只需一次，但是会随着 ui 的规模复杂度，性能损耗严重。
+
+react hooks
+- https://github.com/frontend9/fe9-library/issues/257
+- 不优雅的 React Hooks https://zhuanlan.zhihu.com/p/455317250
+- React Hooks 使用误区 https://zhuanlan.zhihu.com/p/450513902
+- React Hooks 陷阱 https://mp.weixin.qq.com/s?__biz=MzIzMjcxNzE5MA==&mid=2247488097&idx=1&sn=e8a6d71d1c05c8be04c25b32af43fb09
+- useLayoutEffect 和 useEffect 的区别 https://zhuanlan.zhihu.com/p/348701319
+- [useReducer callback](https://github.com/facebook/react/issues/15344)
+
+- react hooks 怎么把 props 里复杂对象（数据请求结果）的实时变化、”完全同步/只是初始化“ 更新到 state 中？
+- react hooks useRef 用途？和“函数组件”外定义的变量区别？(类全局变量) 分别的执行时机？
+- react hooks useMemo useCallback useReducer/redux 应用场景？
+- react hooks useEffect 及其 return 函数的执行时机？子组件先执行？多个时执行顺序？怎么确保 dom 先增加成功 (setTimeout)？
+
+[redux](https://redux.js.org/) 概念
+- 为什么是 企业级前端开发框架？ 实现 双向绑定 的原理？
+- 单双向数据流区别？https://pomb.us/build-your-own-react
+- data-flow, 不可变的数据更新模式 immutable-update-patterns.
+- actions 其实就是 mutations，即 ui 或者 server 的 response.
+- action creator 调用 dispatcher (passive pub-sub systems) 传递 mutations.
+- store 监听 actions 再去 mutate data (只有store能决定怎么更新数据).
+- component 监听 store, 获取需要的数据.
+redux 基本流程
+- 为什么用单一的 store? 子组件 connect 后可使用 store 了？ context。 immutable-js ？ immerjs
+- redux-saga 典型流程:  form 表单提交，触发 FORM_POST action，saga 里 `yield put` POST_SUCCESS 触发 action，改变页面状态或拉取新数据，触发 UI CHANGE 的 action，过程中用 `yield select` 从 state 里选取需要的参数。
+[Reactive programming vs Passive programming](https://vaibhavgupta.me/2017/12/31/reactive-programming-vs-passive-programming/)
+
+
+------ html css
+
+cssinjs https://mp.weixin.qq.com/s/cepGi8Jhe4RnyfNaoN_zfw
+react19 cssinjs 问题 https://juejin.cn/post/7359876671137071156
+探索：业务中推行 tailwindcss 和 emotion，设计上 design token 抽象。
+2024-10 cssinjs
+
+- html 规则检测 https://validator.w3.org 、 http://infohound.net/tidy
+- html head 里的 js css 如何放置  head 里能放什么 https://github.com/joshbuchea/HEAD
+- iframe 有哪些问题 https://afantasy.ninja/2018/07/15/dive-into-iframe
+  - 高度改变麻烦、弹框、iframe 里再嵌套 ifr。
+  - 移动端页面、打开(全屏)嵌入的 iframe 页面，点浏览器返回、返回不到业务页面、需要销毁 iframe。
+  - 浏览器刷新 iframe url 状态丢失、后退前进按钮无法使用。
+  - 里边 弹出框 的位置、难居中，浏览器 resize 时自动居中 更难处理。
+  - 主文档和 iframe 文档如果不同域、免登录处理麻烦，涉及 cookie 透传。
+  - 需要完全重新加载，比较慢。
+  - iframe 自适应高度：给定高度、内部滚动
+- div/span 都是容器元素， p dt 标签里不能有块(block)标签， button 里面不要嵌套 a 标签。
+- img script 的 src、css 的 href 都不能为空。 DOM 的 attribute 和 property 区别。
+- a 伪类需遵循 css2 规范中的 L-V-H-A (a:link visited hover active) 顺序。
+- 没有 css-parent-selector 。 BEM命名方式。  如何提升 CSS 选择器性能 http://www.jianshu.com/p/268c7f3dd7a6
+
+- [anchor-positioning-api](https://developer.chrome.com/blog/anchor-positioning-api?hl=zh-cn)
+- CSS 选择器优先级(id>class>标签>伪类)？伪类和伪元素区别？BFC/IFC 介绍？
+- 浮动以及清除浮动？页面布局方法？flex一维 CSS Grid 二维。元素垂直居中方法？
+- border-box 作用？display/position 作用(absolute会变为块元素)？z-index 在节点 position 值是什么生效(relative/absolute/fixed)？
+- 子元素的 margin-top 设置影响父元素位置？页面兼容性问题？响应式布局怎么实现？
+- CSS优化方法？减少DOM操作，减少重绘和重排，合理使用选择器，减少@import使用。
+- h5高清方案(rem) 优缺点？ css 实现 loading，三角形？ css-module 的作用？ css 样式初始化为了什么？
+- https://www.iconfont.cn/
+- css 时间函数 http://www.smashingmagazine.com/2014/04/15/understanding-css-timing-functions
+- css 长度 https://css-tricks.com/the-lengths-of-css
+  - 绝对长度: px inch cm mm。 rem: 相对 root 的 font-size 大小  em: 基于大写字母 M 的尺寸  ex: 基于 x 字母高度  1vh 等于 1/100 的视口高度
+
+
+browser
+
+- [URL 编码，为什么要编码？](http://anjia.github.io/2015/04/15/jsURIEncode/)
+- 浏览器在自动选择编码方式的时候不会优先根据 html 源码中的所展示的`<meta charset="utf-8" />`代码来决定选择什么编码方式，而是优先根据“响应标头-response header”中的键为“Content-Type”的值来自动选择判断。
+- [ua 检测](https://github.com/ded/bowser) / [特性检测](https://github.com/barisaydinoglu/Detectizr)
+- 浏览器解析和CSS（GPU）动画优化 https://segmentfault.com/a/1190000008015671
+  - css 动画中尽量只使用 transform 和 opacity ，这不会发生重排和重绘。
+  - 有动画的元素样式，给定尺寸、设置为 display block（如果设置 display flex 子元素尺寸会动态变化、影响动画效果）
+- [WebAssembly](https://juejin.im/entry/5b20d09d6fb9a01e242490b1)
+  - 不是一门编程语言，而是一份字节码标准。 各种复杂的计算：图像处理、3D运算(大型 3D 网页游戏)、语音识别、音视频编码解码。区块链合约。
+  - [madewithwebassembly](https://madewithwebassembly.com/)、eBay 的[条形码扫描](https://www.infoq.cn/article/vc*q7psQqWMaVU8igJeD)、 [Google earth web](https://earth.google.com/web/) 版、 [autocad](https://web.autocad.com/login) web 版
+- [PWA](https://developers.google.com/web/progressive-web-apps/)
+  - Service Worker 需要运行于 HTTPS 或本地 localhost 环境，是继 Web Worker 后又一个新的线程。来实现离线页面功能。 Service Worker 是独立于页面的一个运行环境，它在页面关闭后仍可以运行。Web Worker 在页面关闭后不再运行。
+- https://developer.chrome.com/blog/introducing-popover-api/   Web Authentication 在Web上使用Touch ID 和 Windows Hello 登录
+- xss/csrf 原理和防御方法。CORS 的 POST 跨域如何带cookie https://www.jianshu.com/p/13d53acc124f
+- 浏览器 eventLoop 机制 microtask marcotask 执行顺序？setTimeout 宏队列先执行，promise 微队列。
+- 优化：压缩资源、异步加载、预加载、缓存、使用gzip、减少cookie、减少重定向、减少请求数。
+
+- JSONP 的原理以及 cors 怎么设置？跨域的方法有哪些？jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面。
+- web worker 突破同源限制？importScripts。 不好地方:(协程)解决并行计算，数据共享和精确控制线程生命周期方面存在缺陷。
+- SPA 实现方法？产生的问题：切换路由后会把上个路由状态生成的html全部销毁掉，再切回来恢复不到原来的样子。客户端渲染和服务端渲染，哪个快？
+- 移动: 点击穿透/300ms延迟？Fastclick。首频渲染、网络性能？手势库？有没有用过RN PWA？
+- 数据可视化: 3d 编辑器功能？技术点 svg 3dgis canvas webgl，svg 转 webgl 怎么实现？
+
+drag-drop
+- drag 事件 不支持 ie8、Safari 5.1  ie<=9 只能对 a href="" 、img、文本 添加drag事件。 ie9上通过 selectstart hack方法对任何元素添加事件。 在ie<=8版本上，需要把dragenter/drageover/drop事件绑定到具体的元素上，而不能绑定到document做委托处理。
+- 使用 drag-drop API的优势（相对于用mousedown/mousemove）： 如果拖动元素所在的容器尺寸小，拖动过程产生滚动条、会自动触发滚动条移动。 不用再 clone 出一个要拖动的元素； 不用计算涉及到的元素的位置和尺寸。
+传统拖动做法
+- 在 touchstart / mousedown 中记录起始位置，并开始监听 touchmove touchend / mousemove mouseup
+- 在 touchmove mousemove 中计算当前位置和起始位置之间的 offset，并进行拖拽操作
+- 在 touchend mouseup 中取消监听 touchmove 和 touchstart，并进行释放操作
+
+
+简易编辑器
+
+```html
+<div class="toolbar">
+  <button class="select">选择</button>
+  <button class="bold">加粗</button>
+</div>
+<div style="height: 200px; border: 1px solid gray;" contenteditable="true">
+  <p>richEditor富文本简化版，这是可编辑的</p>
+  <p contenteditable="false">这是不可编辑的</p>
+</div>
+<script>
+  document.querySelector('.bold').addEventListener('click', () => {
+    let range = window.getSelection().getRangeAt(0);
+    console.log('bold', range);
+    document.execCommand('bold', false, null);
+  });
+</script>
+```
+
+
+------ 小程序/RN
+
+小程序的渲染层和逻辑层分别由2个线程管理：渲染层的界面使用了 WebView 进行渲染；逻辑层采用 JsCore 线程运行JS脚本。一个小程序存在多个界面，所以渲染层存在多个 WebView 线程，这两个线程的通信会经由微信客户端做中转，逻辑层发送网络请求也经由 Native 转发。
+目的：安全可控，沙箱隔离，限制 DOM 和 BOM 能力。逻辑层和渲染层是独立的，二者不会互相阻塞，因此性能更优（小程序限制了 JS 操作 DOM 的能力，因此不用担心二者的不同步问题）在浏览器网页中，虽然 JS 执行和 UI 渲染也是处于两个线程，但是 JS 线程和 UI 线程是互斥的。
+
+小程序采用的是混合架构，可通过 html 里的 a 标签启动新的 webview 窗口、调用 popWindow 关闭窗口。基本页面元素是 html 渲染，弹窗类 loading toast ActionSheet 和 本地存储、系统或用户信息，使用客户端原生实现。
+
+而 react-native 只是采用 js/html 写法，背后完全是 客户端原生 渲染。
+微信小程序和 RN 的区别：双线程架构，渲染层一个主要是 webview 一个完全 native。
+微信的支付 小程序云等开放API、小程序安全管控。
+
+小程序框架
+- [taro](https://taro.aotu.io/)、[remax](https://github.com/remaxjs/remax)、[alibaba/rax](https://github.com/alibaba/rax)、[flutter](https://github.com/flutter/flutter)。
+- 编译时：约定了一套自己的 DSL ，在编译打包的过程中，利用 babel 工具通过 AST 进行转译，生成符合小程序规则的代码。
+  - 容易出现 BUG、开发限制过多、跟不上 react vue 更新。早期的 Taro 1/2 采用的这种方案。
+- 运行时：在小程序的逻辑层中运行起来 React 或 Vue 的运行时，然后通过适配层，实现自定义渲染器。
+  - 有天然优势，remax taro3 这样实现。
+
+React component -> React Reconciler(调和器、实现了 Diff/Fiber 算法) -> React Renderer(可以是dom也可以是js对象等)。
+跨端小程序框架 remax taro3 自己实现了一套可以在 React 中用的，且能渲染到小程序页面的自定义渲染器。
+在 react reconciler resetAfterCommit 函数中、调用小程序的 setData 方法。
+小程序环境中，不支持直接创建DOM、仅支持模板渲染，用递归模板的方式，用相对静态的小程序模板语言实现了动态的模板渲染的特性。
+
+小程序 API
+```js
+const { Ali } = window;
+const { isAlipay } = Ali;
+window.AlipayJSBridge;
+document.addEventListener('AlipayJSBridgeReady', callback, false);
+Ali.httpRequest({ url: '', method: 'POST' }, (result) => {});
+Ali.rpc({ operationType: '', requestData: [] }, (result) => {});
+Ali.call('imageViewer', { enablesavephoto: true, images: [], init: index });
+Ali.showLoading(param);
+Ali.showToast({ content: '' });
+Ali.showActionSheet({ content: '' }, (result) => {});
+AlipayJSBridge.call('popWindow');
+AlipayJSBridge.call('setTitle', { title: 'xxx' });
+AlipayJSBridge.call('getSystemInfo', { }, (result) => {});
+```
+
+
+## 监控 性能 质量 测试
+
+------ 监控 性能 质量 测试
+
+https://httparchive.org/reports/page-weight
+语言性能 jsperf / benchmarks https://jsben.ch/browse
+[heavy tasks on the main thread](https://github.com/astoilkov/main-thread-scheduling)
+
+Headless BI https://cube.dev/
+https://github.com/GoogleChromeLabs/quicklink
+https://superset.apache.org/
+
+ICBU前端性能度量 https://mp.weixin.qq.com/s/XAdNOovCQxh5xuGVOSEz3w
+
+https://web.dev/articles/vitals?hl=zh-cn
+[Web vitals](https://www.cnblogs.com/constantince/p/15237915.html)、
+[thresholds](https://web.dev/i18n/en/defining-core-web-vitals-thresholds/)、
+[Chrome的First Paint触发的时机探究](https://cloud.tencent.com/developer/article/1124484)、
+[window.onload vs document.onload](https://stackoverflow.com/questions/40193553/load-event-on-script-with-async-and-or-defer)
+
+[如何根治 Script Error.](https://mp.weixin.qq.com/s/6v_X0vtM5EZThF0odwJmTw)
+[JavaScript Errors Handbook](https://github.com/mknichel/javascript-errors/blob/master/README.md)、
+[如何捕获前端错误](https://mp.weixin.qq.com/s/E51lKQOojsvhHvACIyXwhw)、[搞定前端错误捕获和上报](https://juejin.cn/post/7031876097390149645)、[错误监控总结](https://segmentfault.com/a/1190000014672384)
+
+为什么大厂前端监控都在用GIF做埋点？ https://mp.weixin.qq.com/s?__biz=MzAxODE4MTEzMA==&mid=2650099077&idx=1&sn=813d2c96cd940dc95b0f47585b989c2f
+
+AEM [表单分析](https://img.alicdn.com/imgextra/i3/O1CN01x1xSNj26XMy1xUikf_!!6000000007671-0-tps-2934-1678.jpg)
+AEM: 稳定性(脚本/接口/资源异常)、流畅性(加载/卡顿/动画掉帧)、用户流量(pv uv 活跃用户 新用户/点击率 点击热点 / 停留黏性/来源去向/设备)、行为分析(页面流/操作流/留存跳失率/访问链路/表单分析)、满意度(问卷/反馈/录屏/主观分析)。告警/多维指标(用户纬度年龄性别籍贯)/自定义看板/乐高搭建报表页。
+
+[chrome-performance-devtool](https://github.com/Sanotsu/web-beginner/blob/master/documents/11-others/web-base-chrome-performance-devtool.md)
+Google [lighthouse](https://developers.google.com/web/tools/lighthouse/)、类似服务 [web.dev/measure](https://web.dev/measure)、[webpagetest](https://www.webpagetest.org/)、[pagespeed insights](https://developers.google.com/speed/pagespeed/insights/)
+
+arms / quick a+ / spm / aplus / retcode / clue。
+
+
+性能和体验
+弹窗 modal 里高度需要设置、内容长时“内滚动”。 一行多列 card 卡片，每个卡片 高度需要设置成一样。
+某个操作 触发多次 ajax 请求、再 setState 页面，导致卡顿？ 一个页面有多个“富文本实例”同时初始化、比较耗时？导致页面卡顿？
+
+测试
+CI/CD、JS 覆盖率工具 [istanbul](https://istanbul.js.org/)。测试-漏测率。 阿里MTC无线测试中心、蚂蚁云测平台[Solomon]
+基础理论: [前端测试体系建设与最佳实践](https://mp.weixin.qq.com/s?__biz=MzI5MjYyODYyNQ==&mid=2247483987&idx=1&sn=132aea5d5185a1e4fa2fab5037a2fb3e)、[测试金字塔](https://martinfowler.com/bliki/TestPyramid.html)
+[codecov.io](https://codecov.io/) 覆盖率分析对比工具 支持所有语言，对 GitHub commit 的覆盖率做记录、前后对比。
+[代码测试覆盖率分析](https://blog.rsuitejs.com/2017/08/20/test-coverage/)
+Statements 与 Lines 的区别：一行可能有多个语句
+[百分百测试覆盖率真的有意义吗？](https://www.zhihu.com/question/29528349) 各种 corner cases(比如除0、IO error handling) 很难做到 100% 覆盖。 覆盖率数据只能代表你测试过哪些代码，不能代表你是否测试好这些代码。 不能盲目追求代码覆盖率，而应该想办法设计更多更好的案例，哪怕多设计出来的案例对覆盖率一点影响也没有。
+
+质量
+[iceworks-doctor](https://marketplace.visualstudio.com/items?itemName=iceworks-team.iceworks-doctor)
+[vscode-codemetrics](https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-codemetrics)
+[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)
+[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)
+[研发效能度量引发的血案](https://mp.weixin.qq.com/s/h9zIg2e8iHn3qgxlUGObbQ)、[10 倍程序员神话](https://www.simplethread.com/the-10x-programmer-myth/)、[代码质量](https://stackoverflow.blog/2021/10/18/code-quality-a-concern-for-businesses-bottom-lines-and-empathetic-programmers/)
+
+
+## 生成 搭建 文档/图
+
+------ 生成 搭建
+
+https://docmost.com/
+
+[阿里低代码引擎LowCodeEngine正式开源](https://mp.weixin.qq.com/s/rQ-X9OBFRvhI16KrWwIT6w)
+[官网](https://lowcode-engine.cn/)、[github](https://github.com/alibaba/lowcode-engine)
+
+https://www.wix.com/
+https://soloist.ai/
+
+[无代码nocobase](https://cn.nocobase.com/) [博客](https://blog-cn.nocobase.com/posts/nocobase-opensource-income-3years/)
+
+[网易云音乐低代码体系建设思考与实践](https://mp.weixin.qq.com/s/9yo-Au3wwsWErBJfFjhxUg)
+
+[从实现原理看LowCode](https://zhuanlan.zhihu.com/p/452251297)
+
+https://github.com/imcuttle/mometa
+[百度amis](https://baidu.github.io/amis/)
+https://aisuda.bce.baidu.com/amis
+
+AECP 开发平台架构 https://img.alicdn.com/imgextra/i2/O1CN01VFIoNq1E0PCIklFol_!!6000000000289-2-tps-2482-1410.png
+
+[2020/01/13/the-no-code-delusion](https://www.alexhudson.com/2020/01/13/the-no-code-delusion/)、[无代码编程介绍](https://mp.weixin.qq.com/s/eKvSxOvSyEZEr3BLloCXdw)
+[antd-lowcode](http://g.alicdn.com/code/npm/@ali/antd-lowcode/0.5.1/example/index.html)
+
+Markdown + 卡片 [可视化搭建](https://zhuanlan.zhihu.com/p/164558106)、
+宜搭、[云凤蝶](https://www.yunfengdie.com/home)、[阿里云外网建站](https://ac.aliyun.com/jianzhan)。微软 Power [Platform](https://yuque.antfin-inc.com/chenyu/articles/skei6i)。AWS [honeycode](https://www.honeycode.aws/)、[mendix](https://www.mendix.com/)。
+
+[SaaS（科技）行业导航](http://www.allsaas.cn/)、SaaS 平台：[氚云](https://h3yun.com/index.php?g=Chuanyun&m=Scene&a=index)、[搭搭云](https://www.dadayun.cn/)、[明道云](https://blog.mingdao.com/13061.html)、[appsheet](https://www.appsheet.com/)、[fibery](https://fibery.io)、[openchakra](https://openchakra.app/)、[tumult](https://tumult.com/)(YC投资)、
+[grapesjs](https://grapesjs.com/)、[noflojs](https://noflojs.org/)、[pagedraw](https://pagedraw.io/)、Google Web Designer (类似 Dreamweaver) 2013 发布 2017 停止更新。
+
+[What's Salesforce?](https://tryretool.com/blog/salesforce-for-engineers/) 、Salesforce [Lightning](https://www.salesforce.com/cn/campaign/lightning)
+
+云上[编排](https://blog.csdn.net/devcloud/article/details/93175186)([cloudcraft](https://app.cloudcraft.co/)/阿里[ros](https://cn.aliyun.com/product/ros)/华为云[aos](https://www.jianshu.com/p/2301a1729fcc)/[Terraform](https://blog.csdn.net/yejingtao703/article/details/80574363)/[PAD图](https://baike.baidu.com/item/PAD%E5%9B%BE))、[图编排(](https://www.atatech.org/articles/170866)[相关](https://www.atatech.org/articles/174875/))
+
+GUI 研发：[umi-ui](https://umijs.org/guide/umi-ui.html)、[angular-console](https://angularconsole.com/)
+
+表单: [formily](https://github.com/alibaba/formily)、[build forms from JSON Schema](https://github.com/mozilla-services/react-jsonschema-form)、[react-final-form](https://github.com/final-form/react-final-form)、[AForm模型驱动生成表单](http://xiehuiqi220.github.io/AForm/doc/book/index.html)。
+
+
+------ 低代码 2021
+
+低代码平台：源码不可维护 git diff 不起作用。
+
+物料(模板、页面、区块、基础组件、业务组件、布局组件)
+
+区块（Block）：一系列业务组件、布局组件等组合而成的代码片段，不对外提供可配置的属性；区块内部具备完整的内部样式、事件、生命周期管理、状态管理、数据流转机制，能独立存在和运行，通过代码片段的复制实现跨页面、跨应用的快速复用，保障功能和数据的正常。
+模板（Template）：特定垂直业务领域内的业务组件、区块可组合为单个页面，或者是再配合路由组合为多个页面集，统称为模板。
+
+Microsoft Power Apps 中，页面的生产过程是由字段的布局来决定的，字段对应的组件可以切换。在 Mendix、OutSystems 中。页面虽然是基于模型来生产的，但整体开发体验，依然是面向页面和组件视角的。组件可以绑定字段。
+从前端对低代码提效本质的分析来看，可视化搭建本质上是通过可视化手段降低了前端开发的上手门槛，但开发思路和源码开发基本是一样的。其提高开发效率的主要手段是，通过丰富的静态模板让页面开发少写一些代码。没有元数据的支持，其对开发效率的提升至多是线性的，而我们需要的是数量级的提升。
+由于模型元数据驱动和可视化搭建在本质思路上的不同，在可视化搭建基础上，集成模型驱动的能力，会让整个产品的复杂性增加，产品定位不清晰，扩展性差。与其这样，不如从0开始打造一个纯净的模型驱动低代码开发工具。
+
+[阿里低代码引擎LowCodeEngine正式开源](https://mp.weixin.qq.com/s/rQ-X9OBFRvhI16KrWwIT6w)
+[官网](https://lowcode-engine.cn/)、[github](https://github.com/alibaba/lowcode-engine)
+
+[总体](https://img.alicdn.com/imgextra/i4/O1CN01z4bl431OOoSsB0Fgl_!!6000000001696-0-tps-2647-1048.jpg)
+
+[引擎图](https://img.alicdn.com/imgextra/i1/O1CN01rYYbMH1KKSEUlOB3B_!!6000000001145-2-tps-1196-736.png):
+- 入料引擎（Materialin Engine）Material for Schema [架构图](https://img.alicdn.com/imgextra/i3/O1CN01ySybed1u7TAlCEmgI_!!6000000005990-2-tps-1698-467.png)
+- 编排引擎（Choreography Engine）Schema to Schema [架构图](https://img.alicdn.com/imgextra/i1/O1CN01BV9MmX26om0c3PECA_!!6000000007709-2-tps-1542-829.png)
+- 渲染引擎（Rendering Engine）Schema to UI [架构图](https://img.alicdn.com/imgextra/i3/O1CN01u0oISH1tUXVQ8V8Wu_!!6000000005905-2-tps-1834-536.png)
+- 出码引擎（Codeout Engine）Schema to Code [架构图](https://img.alicdn.com/imgextra/i1/O1CN01rvvk6H1X433D49JOc_!!6000000002869-2-tps-1382-690.png)。
+
+schema 基础协议规范
+
+```js
+{
+  "version": "1.0.0",      //当前协议版本号
+  "componentsMap": [{      //组件描述
+    "componentName": "Button",
+    "package": "alife/next",
+    "version": "1.0.0",
+    "destructuring": true,
+    "exportName": "Select",
+    "subName": "Button",
+  }],
+  "componentsTree": [{
+    "componentName": "Page",   //单个页面。枚举类型 Page|Block|Component
+    "fileName": "Page1",
+    "meta": {          //页面元信息
+      "title": "首页",    //页面标题描述
+      "router": "/",     //页面路由
+      "spmb": "abef21",  //spm B位
+    },
+    "props": {},
+    "defaultProps": {   // 默认props：  选填 仅用于定义低代码业务组件的默认属性 固定对象
+      "name": "xxx"
+    },
+    "css": "body {font-size: 12px;} .table { width: 100px;}",
+    "state": {                       // 初始state： 选填 对象类型/变量表达式
+      "btnText": "submit",                     // 默认数据值： 选填 变量表达式
+      "num": 8,
+    },
+    "lifeCycles": {                   //生命周期:          选填 对象类型
+      "didMount": {
+        "type": "JSExpression",
+        "value": "function() {        //生命周期方法：      选填 函数类型\
+            console.log('did mount');\
+        }",
+      },
+      "willUnmount": {
+        "type": "JSExpression",
+        "value": "function() {\
+          console.log('will unmount');\
+        }"
+      }
+    },
+    "methods": {                     // 自定义方法对象：     选填 对象类型
+      "getNum": {
+        "type": "JSExpression",
+        "value": "function(a, b){\
+                return a + b;\
+              }"
+      }
+    },
+    "dataSource": {                  // 数据源对象：选填  对象类型
+      "list": [{                          // 数据请求列表    必填  数组类型
+        "id": "list",                // 单个数据请求id标识    必填  字符串类型
+        "isInit": true,              // 是否为初始数据             必填     布尔类型/变量表达式
+        // 建议改个名字，比如 auto | loadOnInit
+        "type": "fetch/mtop/jsonp",  //请求类型   必填    字符串类型
+        "options": {                //请求类型对应参数  必填  对象类型
+          "uri": "",                      //请求地址        必填  字符串/变量表达式
+          "params": {},                //请求参数       选填   字符串/变量表达式
+          "method": "GET",             //请求方法              必填   字符串/变量表达式
+          "isCors": true,              //是否支持跨域,   对应credentials = 'include'     选填  布尔
+          "timeout": 5000,             //超时时间单位ms     选填   数字类型 单位ms
+          "headers": {}                //请求header参数  选填   请求头信息
+        },
+        "dataHandler": { //异步请求回调： 选填  函数类型
+          "type": "JSExpression",
+          "value": "function(data, err) {} "
+        }
+      }],
+      "dataHandler": {  // 所有初始异步数据接口执行完成后的回调   选填 函数类型
+        "type": "JSExpression",
+        "value": "function(dataMap) { }",
+      }
+    },
+    "children": [{
+      "componentName": "Button",
+      "props": {
+        "text": {
+          "type": "JSExpression",
+          "value": "getNum(state.num, state.num2) + '万'"
+        }
+      },
+      "condition": {
+        "type": "JSExpression",
+        "value": "state.num > state.num2"
+      }
+    },{
+      "componentName": "Div",
+      "props": {
+        "className": "",
+        "text": {
+          "type": "JSExpression",
+          "value": "i18n['i18n-jwg27yo4']"
+        }
+      },
+      "condition": {                     // 函数类型属性：选填 函数类型
+        "type": "JSExpression",
+        "value": "!!this.state.isshow",  // 渲染条件： 选填 根据表达式结果判断是否渲染物料 默认值true
+      },
+      "loop": [],                        // 循环渲染数据：选填 根据数据循环渲染物料 默认不进行循环渲染；
+      "loopArgs": ["item", "index"],     // 循环迭代对象、索引名称 选填
+      "children": [{
+        "componentName": "Button",
+        "props": {
+          "prop1": 1234, // 简单 json 数据
+          "prop2": [{   // 简单 json 数据
+            "label": "选项1",
+            "value": 1
+          }],
+          "prop3": [{
+            "name": "myName",
+            "rule": {
+              "type": "JSExpression",
+              "value": "/\w+/i"
+            }
+          }],
+          "valueBind": { // 变量绑定
+            "type": "JSExpression",
+            "value": "this.state.user.name"
+          },
+          "onClick": { // 动作绑定
+            "type": "JSExpression",
+            "value": "function(e) { console.log(e.target.innerText) }",
+          },
+          "onClick2": { // 动作绑定2
+            "type": "JSExpression",
+            "value": "this.submit",
+          },
+        },
+      }]
+    }],
+  }],
+  "utils": [{
+    "name": "clone",
+    "type": "npm",
+    "content": {
+      "package": "lodash",
+      "version": "0.0.1",
+      "exportName": "clone",
+      "subName": "",
+      "destructuring": false,
+      "main": "/lib/clone"
+    }
+  }, {
+    "name": "beforeRequestHandler",
+    "type": "function",
+    "content": {
+      "type": "JSFunction",
+      "value": "function(){\n ... \n}"
+    }
+  }],
+  "constants": {
+    "ENV": "prod",
+    "DOMAIN": "xxx.alibab.com"
+  },
+  "config": {  //当前应用配置信息
+    "sdkVersion": "1.0.3",  //渲染模块版本
+    "historyMode": "hash",  // 浏览器路由：brower  哈希路由：hash
+    "targetRootID": "J_Container",
+    "layout": {
+      "componentName": "BasicLayout",
+      "props": {
+      	"logo": "...",
+        "name": "测试网站"
+      },
+    },
+    "theme": {
+      "package": "@alife/theme-fusion",
+      "version": "^0.1.0",
+      "primary": "#ff9966"
+    }
+  },
+  "i18n": {
+    "zh-CN": {
+      "i18n-jwg27yo4": "你好",
+    },
+    "en-US": {
+      "i18n-jwg27yo4": "Hello",
+    }
+  }
+}
+```
+
+区块级API（实现区块级内部的上下文，数据流，状态管理）
+
+```js
+this.state
+this.setState()
+this.dataSourceMap[oneRequest.id]: {
+  load(params), status, data, error
+}
+this.reloadDataSource()
+this.xxx()
+```
+
+页面级api（实现页面级内部的上下文，数据流，状态管理，从而实现区块之间的通信）
+
+```js
+this.page
+this.page.state
+this.page.setState()
+this.page.props
+this.page.xxx()
+this.page.dataSourceMap
+this.page.reloadDataSource()
+```
+
+低代码业务组件 API (开发一个低代码业务组件需要用到的API，实现内部的上下文，数据流，状态管理)
+
+```js
+this.component
+this.component.state
+this.component.setState()
+this.component.props
+this.component.xxx()
+this.component.dataSourceMap
+this.component.reloadDataSource()
+```
+
+获取循环数据对象 api (获取在循环场景下的数据对象)
+
+```js
+this.item
+this.index
+```
+
+
+
+------ 文档 / 图
+
+https://affine.pro/ (字节刘义)
+
+2020-11 孟方(游圣) [aliyun/cadt](https://www.aliyun.com/product/developerservices/cadt)
+
+Roam Research [介绍](https://www.zhihu.com/question/384453977)、[介绍1](https://baijiahao.baidu.com/s?id=1669749949965240303)、[foam](https://foambubble.github.io/foam/)
+
+https://github.com/thinkerchan/notion2md
+​[Notion 编辑器原理](https://zhuanlan.zhihu.com/p/359122473)、[腾讯在线 Excel 技术](https://mp.weixin.qq.com/s/f1vwzuPryc8ag6nd5Ngr5A)
+[语雀 实时保存 方案](https://klab.yuque.com/docs/share/0e3ee249-d977-492b-82f2-6b44d26bd4af) (平侠/遇春 2021-01)、[语雀后端技术](https://mp.weixin.qq.com/s/VM61gkZuYYqE4pVhpba3nQ)、[隆昊《富文本编辑器的技术演进》](https://myslide.cn/slides/21863)、[有道云笔记富文本编辑器技术演进](https://mp.weixin.qq.com/s/9gDI1r9aAu6dHJhXg34eIg)。
+
+[飞书在线文档协同](https://mp.weixin.qq.com/s?__biz=MzkzNTIwNTAwOA==&mid=2247496795&idx=1&sn=5edf65ebf8609ada7981a9a804b072d3)、
+实时协作技术 [ot-vs-crdt](https://www.tiny.cloud/blog/real-time-collaboration-ot-vs-crdt/) / [xi-editor-CRDTs](https://xi-editor.io/docs/rope_science_08.html) / [are-crdts-suitable](https://blog.kevinjahns.de/are-crdts-suitable-for-shared-editing/)、[vs code 多人协作](https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/connectivity)、[CKEditor 多人协作](https://ckeditor.com/collaborative-editing/)、[automerge](https://github.com/automerge/automerge)、[crdt](https://wiki.nikitavoloboev.xyz/distributed-systems/crdt)。
+
+[文档协同的三元结构-浩初](https://www.yuque.com/docs/share/92faca9c-2162-4fe2-974d-193164650b11)、[resume生成](https://github.com/visiky/resume)
+
+- 阿里云[媒体管理](https://help.aliyun.com/document_detail/63273.html)、[微软](https://support.microsoft.com/en-us/office/embed-a-presentation-in-a-web-page-or-blog-19668a1d-2299-4af3-91e1-ae57af723a60)、[Google/微软](https://gist.github.com/tzmartin/1cf85dc3d975f94cfddc04bc0dd399be)、Google [示例](https://docs.google.com/viewer?embedded=true&url=http%3A%2F%2Fhomepages.inf.ed.ac.uk%2Fneilb%2FTestWordDoc.doc)、转换 [sheetson](https://sheetson.com/)
+- 生成/查看 PPT: [PptxGenJS](https://github.com/gitbrent/PptxGenJS)、[apache_poi_ppt](https://www.w3cschool.cn/apache_poi_ppt/apache_poi_ppt_presentation.html)(java)、[nodeppt](https://github.com/ksky521/nodeppt)。[ViewerJS](https://github.com/webodf/ViewerJS)、[office sdk](https://www.pdftron.com/office-sdk/office-document-viewer/)。
+
+微软: [office](https://products.office.com/zh-cn/home) ([task](https://techcommunity.microsoft.com/t5/microsoft-365-blog/connecting-tasks-experiences-across-microsoft-365/ba-p/1522069))、[teams](https://teams.microsoft.com/)
+
+Google: [gsuite](https://gsuite.google.com/) ([google-forms](https://docs.google.com/forms/u/0/)/[教程](https://youtu.be/RoA65-vLV_0)) [alerts](https://www.google.com/alerts) [classroom](https://classroom.google.com/h)
+
+[notion](https://www.notion.so/)、[craft.do](https://www.craft.do/)、[airtable](https://airtable.com/)、[quip](https://quip.com/about/product)、[coda.io](https://coda.io/t/Welcome-to-Coda_tvbBdpE72Lq#)、slack。 [wolai](https://www.wolai.com/) ([介绍](https://www.zhihu.com/question/407132273/answer/1352638849))。 [mathigon](https://mathigon.org/)(互动教程)。
+
+腾讯文档 [docs.qq.com](https://docs.qq.com/desktop/)、头条 [larksuite](https://www.larksuite.com/) ([lark 出海](https://zhuanlan.zhihu.com/p/58585005))、[teambition](https://www.teambition.com/)、[wps](https://www.wps.cn/) (稻壳模板[docer](http://www.docer.com/))、[xiezuocat](https://xiezuocat.com/#/)(AI纠错)、[sheetui](https://sheetui.com/)(表格转网页)、[Luckysheet](https://github.com/mengshukeji/Luckysheet)、[handsontable](https://handsontable.com/)、[prezi](https://prezi.com/dashboard/next/#/presentations)、[milanote](https://app.milanote.com/1KeUXu1ElqNVrw/home)、
+
+产品设计工具: 白板([mural](https://mural.co/)、[miro](https://miro.com/))、原型([xiaopiu](https://www.xiaopiu.com)、[xiaopiu/prd](https://www.xiaopiu.com/prd)、[justinmind](https://www.justinmind.com/))、[知乎](https://www.zhihu.com/question/23004570)([invision](https://www.invisionapp.com/)、[modao](https://modao.cc/)、[会议桌](https://www.huiyizhuo.com/))、[流程图和图表](https://zhuanlan.zhihu.com/p/111990866)、在线[培训工具](https://segmentfault.com/a/1190000021793283)。
+
+其他: [mubu](https://mubu.com/)、[slides.com](https://slides.com/)、[ppt.baomitu](https://ppt.baomitu.com/)、[zoho](https://www.zoho.com/)、[visme](https://www.visme.co/templates/)、[deckdeckgo](https://deckdeckgo.com/)、[witeboard](https://witeboard.com/)、[wireflow](https://wireflow.co/)、[presenta](https://play.presenta.cc/#s0)。
+[batnoter](https://github.com/batnoter/batnoter)
+https://evernote.com
+
+
+------ 画图 (web/客户端)
+
+如何画好一张架构图？ https://www.atatech.org/articles/173778
+流程图  https://baike.baidu.com/item/%E6%B5%81%E7%A8%8B%E5%9B%BE
+八种常见的业务设计和架构模型 https://www.sohu.com/a/384776040_246648
+B端产品设计3大流程图 http://www.woshipm.com/pd/3873765.html
+海兔设计系统 DSM https://yuque.antfin-inc.com/afx-es/data-ai/weekly-2020-05-16
+https://online.visual-paradigm.com/diagrams/templates/brainstorming/
+软件设计/业务设计/流程图/架构图/UX设计/BPMN/脑图
+
+https://tldraw.dev/
+[SVG-to-Canvas (canvas-to-SVG) Parser](https://github.com/fabricjs/fabric.js)
+
+[skeditor](https://github.com/skeditor/skeditor) [canvaskit-wasm](https://zhuanlan.zhihu.com/p/432454443)
+
+[figma](https://www.figma.com/) ([FigmaToCode](https://github.com/bernaferrari/FigmaToCode))
+[figma 技术](https://madebyevan.com/figma/) / [figma c++](https://madebyevan.com/figma/building-a-professional-design-tool-on-the-web/) / [figma 插件技术](https://zhuanlan.zhihu.com/p/357724347)
+
+[react-sketchapp](https://github.com/airbnb/react-sketchapp)
+
+[drawio](https://github.com/jgraph/drawio)([mxgraph](https://github.com/jgraph/mxgraph))、[cloudskew](https://www.cloudskew.com/)、[diagram-js](https://github.com/bpmn-io/diagram-js)、[excalidraw](https://github.com/excalidraw/excalidraw)、[draw2d](https://github.com/freegroup/draw2d)([demo](http://freegroup.github.io/draw2d_js.app.shape_designer/))、[plantuml](https://plantuml.com/zh/)、[planttext](https://www.planttext.com/)、[diagram.codes](https://www.diagram.codes/)、[jsplumb](https://github.com/jsplumb/jsplumb)([jsplumb-vs-mxgraph](https://www.npmtrends.com/jsplumb-vs-mxgraph))、[mermaid-js](https://github.com/mermaid-js/mermaid)、[nomnoml](https://github.com/skanaar/nomnoml)、[visjs](https://github.com/visjs)([timeline](https://visjs.github.io/vis-timeline/examples/timeline/))、[react-diagrams](https://github.com/projectstorm/react-diagrams)、[roughjs](https://roughjs.com/)、[rete.js/](https://rete.js.org/#/)[flume](https://flume.dev/)/[nodered](https://nodered.org/)(可视化节点)、[diagrams](https://github.com/mingrammer/diagrams)([graphviz](https://www.graphviz.org/))、[vscode-drawio](https://github.com/hediet/vscode-drawio)、[text-to-diagram](https://smusamashah.github.io/text-to-diagram)、[isoflow](https://isoflow.io/)、[reactflow](https://reactflow.dev/)、[diagram-maker](https://github.com/awslabs/diagram-maker)。
+
+平台/端: [processon](https://www.processon.com/)、visio、mindnode lite、[visual-paradigm](https://online.visual-paradigm.com/diagrams/features/aws-architecture-diagram-tool/)、[ithoughts](https://www.toketaware.com/ithoughts-osx)、[gliffy](https://www.gliffy.com/)、[terrastruct](https://terrastruct.com/)、[edrawsoft](https://www.edrawsoft.cn/)、[freedgo](https://www.freedgo.com/)、[websequencediagrams](https://www.websequencediagrams.com/)、[chartmage](http://chartmage.com/intro.html)、[thebrain](https://www.thebrain.com/)、[asciiflow](https://asciiflow.com/#/)([textik](https://textik.com/#9fe9a0bacdcf4a9a))、[omnigraffle](https://www.omnigroup.com/omnigraffle/)、[flowchart](https://flowchart.fun/)、[photopea](https://www.photopea.com/)​、[PPTist](https://github.com/pipipi-pikachu/PPTist)
+
+收费: [gojs](https://gojs.net/latest/samples/index.html)、[jointjs](https://www.jointjs.com/)、[jsplumbtoolkit](https://jsplumbtoolkit.com/)、[yworks](https://www.yworks.com/products/yfiles/demos)、[mindfusion-diagram](https://mindfusion.eu/javascript-diagram.html)
+
+系统: [drawio-aws-cloudcraft](https://www.diagrams.net/blog/drawio-aws-cloudcraft)、([placeholder](https://www.diagrams.net/blog/placeholder-scope)、[mermaid](https://www.diagrams.net/blog/mermaid-diagrams)、[network](https://www.diagrams.net/blog/network-diagrams)、[org](https://www.diagrams.net/blog/org-charts))
+
+
+
+
+## 工程/工具
+
+### SLO/SLI 标准化体系
+> 2024-06 ~ 12
+
+研发流程
+- 敏捷迭代, 交付管理 WBS, 并行需求 都想先做自己的, 部分需求 后端全栈.
+- 优化: 仓库 monorepo 改造(基建+部分业务), 统一流水线.
+- 监控
+  - 性能体系化: 3s体验战役, 技术方案统一(js大小), 性能指标.
+  - 监控体系化智能化: 埋点和用户分析, 线上(sdk)线下(lighthouse)错误和性能监控一体化, AIOps/LLM, SLO体系, 自动指定代码cr人, 组织视图.
+
+研发平台
+- brook 需求管理, 流水线, 研发效能度量.
+- 工程化程度: 单测 CI/CD git 工具, GitHub action 协作方式。
+- 质量工具: [jscpd/重复代码](https://github.com/chinanf-boy/copy-paste-check/blob/master/src/duplicated-code.ts) 检测, deadcode, 单测, e2e.
+
+研发资源
+- 效率工具: [代码定位插件](https://github.com/zh-lx/code-inspector), 接口代理自动配置.
+- 标准Prd文档生成器(原型设计工具), 组件自动生成. 拼图 imgcook lowcode 插件.
+- [云原生应用市场](https://hub.grapps.cn/)
+
+工具成熟度
+- 看起来单点零散 增强体系化 产品化程度 开箱即用.
+- 工具的易用和完善度: 业务团队的基础工具，很难按 文档说明 一次性 的就能做好跑起来。 产物不一致、本地没问题 线上有问题。
+
+技术成熟度 / 架构
+- 组件设计经验？ 弹窗的 visible 应该在哪儿维护？
+- 代码可维护性提升方法？ 与优秀代码的差距？ 重复代码。 编程范式？(函数式与OO)  S.O.L.I.D 原则：S：单一职责 O：开闭 L：里氏替换 I：接口隔离 D：依赖倒置。
+- 设计模式：工厂模式、观察者模式、MVC。
+
+参考
+> [研发阶段](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*z-C8SpqQo08AAAAAAAAAAABjARQnAQ) [蚂蚁](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*jRrGSYNyLqIAAAAAAAAAAABjARQnAQ)
+> https://developer.apple.com/icloud/telemetry/
+
+
+### monorepo
+
+优势
+- 快速解决公共问题: 构建工具问题, 合规治理问题, 统一发布, 统一多环境同步.
+- 共享: 代码直接调用/复制粘贴/AI自动生成(饼), 踩坑经验共享, 一次性项目配置 不需要脚手架.
+- 研发基准: 更高效促进依赖的 工具和组件升级, 更容易制定标准 推行和实践标准, 拔高下限 提升上限.
+- 研发可观测(指标/日志/跟踪): 技术栈分布/研发效能/SLO-SLI. 通过统一工具更智能地兜底或测试, review环节更严格.
+
+收益: 效率提升 >20%, 研发质量和稳定性提升 >30%, 跨团队协作更容易 SRE 进行专项支持.
+
+顾虑点
+- 误改动问题: 工具可解决,可分配人和改动的目录文件权限,在流水线里做卡点.
+- 版本关联升级问题: 能提醒改动带来的影响, 只有极特殊情况不需要关联 也能轻松解除.
+- 权限问题: 保密项目/代码 仍按传统多仓库做法, 其他情况以 monorepo 思维优先.
+- 代码泄露问题: 不管什么形式 都不能彻底解决 故意的泄露问题 (防君子不防小人).
+- 已有项目迁移问题: npm包几乎无额外工作量, 项目node版本区别 能兼容 但建议改造.
+
+
+monorepo 大版本同步开发，bugfix/feature 代码复用、git checkout cherry-pick 、git 冲突。
+
+[bit 介绍](https://juejin.cn/post/6844903872108953607) https://github.com/mcuking/blog/issues/88
+[将 50 万个文件放在一个 Git 存储库中](https://www.infoq.cn/article/tomhtgpmuy4oqhpvf0w1)
+https://www.51cto.com/article/759432.html
+
+https://github.com/changesets/changesets  https://juejin.cn/post/7024827345059971080
+
+2022 monorepo (one code base)
+* [monorepo.tools](https://monorepo.tools/)
+* [monorepo-vs-polyrepo](https://github.com/joelparkerhenderson/monorepo-vs-polyrepo)
+* [Awesome-monorepo](https://github.com/korfuri/awesome-monorepo)
+* [advantages of monorepo](https://medium.com/@suman.maity112/is-it-the-era-of-mono-repo-671e6dee387)
+* [Misconceptions about Monorepos](https://blog.nrwl.io/misconceptions-about-monorepos-monorepo-monolith-df1250d4b03c)
+https://github.com/facebook/react/
+https://github.com/vuejs/core/
+https://github.com/angular/angular
+
+
+### 构建
+
+[JPlag](https://github.com/jplag/JPlag) 相似度检查 原理
+https://chatgpt.com/share/677e48dd-63b8-8008-b7d2-83c00c030fe8
+
+不可行
+- 完全不修改
+- 修改了注释内容
+- 修改了函数名和部分变量名
+- 交换了部分函数调用的顺序
+- 更改代码逻辑中的部分条件判断
+- 改变代码结构，将主函数分解成多个小函数
+- 调整部分使用的数据结构
+- 彻底更换实现方式，使用不同的数据结构和逻辑
+- 功能完全不相关的其它代码
+可行:
+- 改变代码结构，将主函数分解成多个小函数
+
+[convert react class based apps to functional/hooks?](https://www.reddit.com/r/reactjs/comments/o6djp7/is_there_any_automatic_tool_to_convert_react/)
+
+https://transform.tools/
+https://github.com/airbnb/ts-migrate
+https://github.com/reactjs/react-codemod  https://github.com/facebook/jscodeshift
+https://astexplorer.net/
+
+
+- webpack babel
+  - [Babel 插件原理](https://github.com/frontend9/fe9-library/issues/154)
+  - [webpack sideEffect](https://github.com/frontend9/fe9-library/issues/33)
+  - Webpack 5 module federationtion 联邦模块 https://juejin.cn/post/6844904187147321352
+- lint & actions
+  - lint 工具: ESLint Prettier pretty-quick husky. 使用 ESLint 检查代码逻辑错误。使用 Prettier 格式化代码. eslint-config-prettier：关闭 ESLint 中与 Prettier 冲突的格式规则。 eslint-plugin-prettier：将 Prettier 的格式检查集成到 ESLint 中.
+  - https://github.com/ant-design/ant-design/blob/master/.github/PULL_REQUEST_TEMPLATE_CN.md
+  - https://github.com/react-component/rc-test/blob/main/.github/workflows/main.yml
+  - dependabot vercel [coderabbitai](https://github.com/apps/coderabbitai)(Summary by CodeRabbit) socket-security codecov github-actions cloudflare-workers-and-pages
+    - https://github.com/react-component/select/pull/1080
+    - https://github.com/react-component/select/pull/1074
+    - https://github.com/react-component/select/pull/1079
+    - https://github.com/react-component/segmented/pull/242
+    - https://github.com/react-component/tree-select/pull/586
+    - https://github.com/react-component/picker/pull/886
+    - https://github.com/ant-design/ant-design-mobile/pull/6776
+- changelog & compatible upgrade
+  - [Changelog Generator](https://github.com/orhun/git-cliff)
+  - https://github.com/ant-design/compatible
+  - https://github.com/ant-design/codemod-v4
+- 工具
+  - 获取浏览器 cookie https://github.com/thewh1teagle/rookie
+  - [代理库](https://www.npmjs.com/package/https-proxy-agent) [翻译api](https://github.com/matheuss/google-translate-api) [各种 web-servers](https://gist.github.com/willurd/5720255)
+  - [isomorphic-git](https://isomorphic-git.org/en/) [jsfuck 代码混淆](http://www.jsfuck.com/) / [frNatural language detectionanc](https://github.com/wooorm/franc)
+- 其他
+  - https://www.rspack.dev  https://modernjs.dev/guides/get-started/tech-stack.html
+  - gulp 手册 http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C1.pdf  http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C2.pdf
+  - https://github.com/ant-tool/atool-build [解读](https://github.com/frontend9/fe9-library/issues/32)
+
+业务脚手架 2021
+- 研发平台: 阿里def / 蚂蚁雨燕 / [DevOps平台-onedev](https://github.com/theonedev/onedev) / 大禹
+- 内置含 BU 特色的组件，基于“开源脚手架”定制，既提升效率又有开放性，是较好的选择。
+- 微前端: 微应用注册、路由管控(统一菜单/权限)、发布版本管控、发布灰度控制、多环境(日常/预发/线上)、预加载、应用组件。 子应用样式丢失。
+- request 组件: csrf-token 处理、gateway domain 网关域名、登录、返回异常、返回json结果格式化、上传/下载。
+- jwt https://www.zhihu.com/question/301253397/answer/547887208  http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/
+- API 管理平台 生成工具, 提高前后端联调效率. [google 的 API 设计指南](https://google.aip.dev/general) RESTful GraphQL.
+- API 数据mock/前后端: [postman](https://www.getpostman.com/) [paw](https://paw.cloud/) [hoppscotch](https://hoppscotch.io/)  [mockjs](https://github.com/nuysoft/Mock)  [swagger](https://swagger.io/) / [json-server](https://github.com/typicode/json-server)  [miragejs](https://miragejs.com/).
+- BFF: 多端适配/聚合裁剪数据，额外的部署资源及运维成本，集合 GraphQL https://insights.thoughtworks.cn/use-graphql-build-bff-in-microservices
+
+
+### 基本库
+
+misc
+- 图表: [amcharts](http://www.amcharts.com/demos/) / antv [L7地图](https://l7.antv.vision/zh)
+- 编辑器/IDE: [awesome editors](https://github.com/JefMari/awesome-wysiwyg)
+  - IDE: [coding.腾讯](https://coding.net/) / [stackblitz](https://stackblitz.com/) / [gitpod](https://www.gitpod.io/) https://bi.cool/bi
+  - web-Excel / [sheetjs Excel 解析](https://sheetjs.com/) / [moveable](https://github.com/daybrush/moveable)
+  - [slate](https://github.com/ianstormtaylor/slate) / [trix](https://github.com/basecamp/trix) / [tui-editor](https://ui.toast.com/tui-editor/) / [craft.js](https://github.com/prevwong/craft.js) / [stylojs](https://stylojs.com/)
+- 截图: dom-to-image / html2canvas / [各设备截图服务](https://screendump.techulus.com/) / 录制回放 [rrweb](https://github.com/rrweb-io/rrweb)
+- 日历: [react-big-calendar](https://github.com/jquense/react-big-calendar) / [fullcalendar](https://fullcalendar.io/) / [webix/scheduler](https://webix.com/scheduler/) / [tui.calendar](https://github.com/nhn/tui.calendar)
+- 文件管理器: [file-manager](https://js.plus/products/file-manager) / [dhtmlxFileManager](https://dhtmlx.com/docs/products/dhtmlxFileManager/) / [syncfusion/file-manager](https://www.syncfusion.com/blogs/post/introducing-new-javascript-file-manager-control.aspx) / [webix/filemanager](https://webix.com/filemanager/) https://github.com/filebrowser/filebrowser
+- 营销/游戏/大屏[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)
+- 垂直: https://togetherjs.com  [wiki.js](https://wiki.js.org/)  UA 检测 https://github.com/Lissy93/web-check
+
+框架
+
+- [umijs](https://umijs.org/)  https://github.com/umijs/umi  [蚂蚁前端框架和工程化](https://github.com/sorrycc/blog/issues/85)  qiankun [子应用嵌套](https://github.com/umijs/qiankun/issues/960)  https://github.com/umijs/father
+
+功能库
+
+- react hooks
+  - [zeit/swr](https://github.com/zeit/swr)
+  - [react-use](https://github.com/streamich/react-use)
+  - https://usehooks.com/
+- form/table
+  - [react-hook-form](https://react-hook-form.com/) 和 [zod](https://zod.dev/)
+  - [tanstack/table](https://tanstack.com/table), [react-data-grid](https://github.com/adazzle/react-data-grid) / [react-grid-layout](https://github.com/STRML/react-grid-layout)
+- pop弹窗: https://github.com/floating-ui/floating-ui  https://popper.js.org/react-popper/v2/ 被 material-ui 和 shadcn 等多个库依赖.
+- 独立功能: [react-virtualized](https://github.com/bvaughn/react-virtualized) / 分步指引 tour [shepherd](https://github.com/shipshapecode/shepherd) / [driver.js](https://github.com/kamranahmedse/driver.js) / form-builder FormRender.
+
+基础 UI 组件
+
+- [tailwindcss](https://github.com/tailwindcss/tailwindcss)
+  - [shadcn/ui](https://ui.shadcn.com/)(2023-05开源)
+  - [Chakra UI](https://v2.chakra-ui.com/)(2019-09开源) / [Mantine](https://mantine.dev/)(2021-03开源)
+  - [Adobe](https://react-spectrum.adobe.com/) / [上海 geist-ui](https://github.com/geist-org/geist-ui)
+- [material-ui](https://mui.com/material-ui) [base-ui](https://mui.com/base-ui/)
+- [github-primer](https://primer.style/) / [Semantic UI](https://semantic-ui.com/)
+- https://ant.design
+  - https://github.com/react-component / 字节 arco-design semi-design
+  - https://procomponents.ant.design/
+
+
+
+
+## FE 整理 suffer
+
+
+[antd tree-shaking](https://github.com/ant-design/ant-design/issues/23988)
+
+### pro-components 2024-07~10
+
+------ 流水线(pipeline/ci/cd)
+
+问题：现在的方案、针对“单包/单项目”的开发，没有考虑到这种大型联合开发的场景，另外在功能的扩展性和产品细节等方面、存在不少优化空间。
+需求：解决 monorepo 组件开发，对每个子包 有统一规范并需要强制Check的 情况。
+
+流水线问题
+
+- 自定义
+  - 不能像是 GitHub action 一样，能完全自定义流水线。不支持自动生成 PR 供合并。
+  - 默认运行 npm i，没考虑 pnpm 等工具，node 版本可选的少。
+- 比如公共的 release / test 分支是由 feat1 2 3 合并而成，但流水线里没有提供 合并进来 分支名 信息。
+  - 需求：在 feature 分支合并到 release 时，在 release 流水线里 想拦截检查 feature 分支是否规范：比如 commit message 规范性，是否 rebase 过 master，是否 commit 数量过多，是否修改了被保护的代码 等。
+  - 现状：只能在 feature 分支流水线里检查，可以设置卡点 当 feature 流水线运行失败、则不能合并到 release 或 test 分支。
+  - 问题：feature 分支代码是一周前的、一周前 feature 流水线运行结果也是成功的，这一周里 master 分支已经有很多新提交、但 feature 也没有跟 master 产生冲突、所以会自动和 master 代码合并起来生成 release 分支。但此时的 feature 分支没有 rebase 过最新的 master 不符合预期的规范。
+  - 解法：一是在合并到 release 时，feature 流水线先自动运行一遍。更好的是在 release 流水线里提供合并进来的各个 feature 分支名、自定义脚本 检查这些 feature 分支是否都符合预期的要求。
+- 使用 lerna 时、需要人工 配置模板，迁移或新建项目 不了解这个。
+- 内置的 扫描过时风险依赖、安全检查 等任务不支持 loglevel 设置，影响查日志效率。
+  - 不支持 内置任务 与 用户任务 的 log 文件拆分。
+  - 成功时就提示个成功 就行、失败了再显示具体日志，不要一直都是显示一大堆。
+  - 或者能 支持统一或单独配置 loglevel (silly verbose silent)。
+  - 自定义的关键 log 信息，全被其他无用的 log 淹没了。协作同学、对这个流水线不熟悉，根本看不懂哪里是对的 哪里是错的。
+- 不支持给 gitlab 打 annotated tags, 不支持 灵活调用 打 tag 的脚本。
+  - 容器内不注入git的ssh key 。拉代码容器的key不会暴露给其他容器。
+- 推送代码和权限
+  - 安全要求、不能推送代码到 gitlab，也不支持在 feature 流水线里 推代码。
+  - 使用者对 gitlab 代码只有 读权限、没有 写权限。
+- npm 包管理平台 搜不到包, 但 npm view xx 能搜到.
+
+项管平台 brok 问题
+
+- 各 feature 分支合并代码到 test 或 release，不支持检测是否 rebase 和 squash 代码。
+- release 构建或发布成功的节点，不支持配置 通知人和群。
+- 某个服务只能在某个brok项目使用。
+- 右上角新建按钮、只能建项目 不能建任务直接，希望能基于 已有的项目、直接能 新建任务。
+
+
+------ monorepo
+
+monorepo 忽略 samples 子目录设置:
+
+- 在根目录的 pnpm-workspace.yaml 或 package.json 的 workspaces 里排除掉 samples 子目录.
+- 在 samples 目录有 package.json 和 .npmrc 文件时, `npm config ls` 表现正确, 可选在 samples 目录下 增加 pnpm-workspace.yaml 文件.
+- 在 samples 子目录的 .npmrc 里 设置 `recursive-install=false` 避免 `pnpm i` 时候被根目录的 workspace 干扰.
+
+```sh
+"workspaces": [
+  "packages/*",
+  "pkgs-*/*",
+  "!samples/**",
+],
+```
+
+
+------ lerna
+
+[lerna commands](https://lerna.js.org/docs/api-reference/commands)
+[lerna实践](https://warmhug.github.io/2024/08/06/lerna-usage.html)
+lerna version 命令除了能 自动升级版本号，还能 自动生成 changelog 文档，自动给 gitlab 打 tag。
+
+更新 “有变更的包” 自身版本号 & 依赖的其他子包的版本号，修改 package.json 文件
+
+```js
+/**
+利用 lerna exec + npm version 命令:
+能升级每个包本身的 version 但其 dependencies 的 version 需要额外处理。
+可以使用 pnpm up 命令，但升级后的 包的版本号为 "xxx": "workspace:0.1.3" 类似这样，
+需要 lerna/npm publish 命令再次处理。
+*/
+await Promise.all(versionInfo.map(async ({ name, newVersion }) => {
+  return await exec('node',[
+    [lernaCli], 'exec', '--scope', name, '--', `pnpm version ${newVersion} --workspaces=false --no-git-tag-version --allow-same-version=true`
+  ], { shell: false });
+}));
+
+// lerna version 只能根据当前文件的版本号升级，当前文件可能版本老旧
+const lernaArgs = () => [
+  '--message', `chore(release): auto version latest`, '--no-push',
+  '--loglevel', 'silly', '--no-commit-hooks', '--yes',
+  '--include-merged-tags', '--exact',
+];
+await exec('node',[
+    [lernaCli], 'version', 'prerelease', '--preid', npmTag, ...lernaArgs(),
+    '--git-tag-command', `git tag -a %s -f -m 流水线打标签%s`,
+  ],
+  { shell: false },
+);
+
+// 流水线提供的能直接打 tag 并推送到 gitlab 上的工具， 但 不建议业务使用
+const proj = 'fe/pro-components';
+await exec('./gitw', [
+  '--company', 'xxx', '--option', 'tag', '--repo', proj, '--tag', tagName,
+  '--branch', PACKMAN_PUBLISH_BRANCH,
+]);
+const gitwTag = `./gitw --company xxx --option tag --repo ${proj} --tag %s --branch ${PACKMAN_PUBLISH_BRANCH}`;
+await exec('node',[
+  [lernaCli], 'version', 'patch', ...lernaArgs(), '--conventional-commits',
+  '--git-tag-command', gitwTag,
+  ],
+  { shell: false },
+);
+```
+
+总结
+
+- lerna 子包之间互相依赖
+  - 配置文件 lerna.json 的 `"version": "independent"` 模式，不强制同步所有子包的版本:比如 A子包依赖B子包 B没有更新 A有更新，A子包的 package.json 不会修改 它依赖的B子包的版本号。
+  - 利用了 pnpm 的 `--link-workspace-packages=true` 设置，比如 A子包依赖B子包 B子包本地版本号为1.1.1(npm上不存在此版本号) 如果A子包dep里的B子包版本号也写死为1.1.1，则B子包如果有变更、使用 `lerna changed` 就会显示 B A 子包都会有变化，默认都会升级版本号。
+  - 在 lerna publish / version / changed 设置 `--include-merged-tags` 会检测 master 外的其他分支发布的 release tags。公司通常为 feature / test / pre-release / release 研发模式、在分支上发布很常见，建议加上。
+  - 在 lerna publish / version / changed 设置 `--scope` 不起作用 https://github.com/lerna/lerna/issues/1556
+  - 构建时需包含依赖 `lerna run build --include-dependencies --concurrency 4` (最大并发数为4) 要使用 concurrency 不要使用 parallel 参数 会忽略 dependencies 之间的构建先后顺序 导致构建出错。
+  - 子包怎么更新自身依赖 https://github.com/lerna/lerna/issues/2142
+- lerna 根据什么检测变更
+  - 如果你的项目使用了规范化的提交信息（例如，使用 commitizen 和 cz-lerna-changelog），Lerna 可以更准确地检测变更，因为它会根据提交信息中的标签来识别影响的包。
+  - `lerna ls --since master` [since文档](https://lerna.js.org/docs/api-reference/commands#--since-ref) changed 不支持 since 参数
+  - 如果 lerna publish 失败，使用 lerna publish from-git 重新发布，不用改版本号。
+  - [lerna 发包原理浅析](https://zhuanlan.zhihu.com/p/392438222) lerna changed 判断如果没有 tag，则认为全部的包都需要发布。
+- lerna 仅支持 git annotated tags:
+  - [tag问题](https://juejin.cn/post/7114538970339344420)
+  - 如果 lerna publish 打 tag 的 commit 被 squash，但 tag 仍然存在，会导致 lerna changed 检测错误。 pro-components commit/f3900b2e89dda3186223fbd09330d8306dd46576
+  - https://lerna.js.org/docs/troubleshooting#publish-command
+  - https://github.com/lerna/lerna/issues/1357#issuecomment-438162152
+  - 如果是 annotated 使用 git show tag_name 会看到包含 tagger 标记
+  - 或者使用 git tag -v tag_name 不出现 error: cannot verify a non-tag object
+- lerna version 不支持 dry-run、lerna lite 支持 https://github.com/lerna/lerna/issues/51#issuecomment-2293358836
+- lerna ERR! EUNCOMMIT Working tree has uncommitted changes
+  - 如果是 M pnpm-lock.yaml 则确保开发阶段使用的 pnpm 版本一致
+  - 如果是其他文件，使用 from-git 或 git commit https://github.com/lerna/lerna/issues/1591
+- lerna 项目存在 相同的 pkgName 不同的大版本 1x 2x 3x 怎么管理
+  - 加入 project.json 文件, 内容为 { "name": "pkgName@1.x" } 或 { "name": "pkgName@2.x" }
+
+
+------ 版本问题
+
+确保依赖版本始终同步的一种常用方法是，在 package.json 中为工作区包的依赖项指定严格的版本号，而不是 ^ 或 ~ 这样的语义版本号范围。这样做可以避免依赖更新时出现的意外问题。
+
+lockfile 出现合并冲突，主流的包管理工具都支持运行依赖安装命令（npm install/yarn/pnpm install）来自动解决冲突。
+在 主分支 上合入 开发分支（git merge feat-branch），theirs 指的就是开发分支，ours 指的是主分支，如果两个分支同时更新同一模块的版本号、对 lockfile 进行合并的策略:
+- npm：深合并，并以当前分支（ ours ）的为准
+- yarn：浅合并，并以目标分支（theirs）的为准
+- pnpm：深合并，以版本号大的为准 (认为 新版本出现的问题会比旧版本更少)
+  - 关注直接依赖 搜素 specifiers 的版本变更，对于直接依赖引入的间接依赖，自动升级出错的概率较小（一旦出错影响的不只一个项目），且 review 成本太高，选择信任社区。
+  - 支持在每个分支中生成锁文件 https://github.com/pnpm/pnpm/pull/4475 。
+  - [@types/react 18.3.5 bug](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/70418) 在 package.json 设置 resolutions 锁定版本。
+
+对于应用项目来说，可以直接使用固定版本；但是对于类库项目，不推荐固定版本，有以下原因：
+- 依赖该类库的应用项目无法充分复用依赖：比如 ^1.0.0 和 ^1.1.0 可以合并成 ^1.1.0）
+- 类库项目的间接依赖出现安全漏洞时，无法通过重新安装依赖直接修复
+- 锁定直接依赖的版本也不完全有效，丢失 lock 后，直接依赖的间接依赖还是会进行升级，进而导致 BREAKING CHANGE
+- 锁版本 就得信任其他依赖不会出现问题（听天由命）
+- 尽量由开发流程保证，有冲突就复测，并做好充足的人工 review
+
+在开发一个 npm包 时，你的 npm包 是需要被其他仓库依赖的，由于扁平安装机制，如果你锁定了依赖包版本，你的依赖包就不能和其他依赖包共享同一 semver 范围内的依赖包，这样会造成不必要的冗余。所以我们不应该把package-lock.json 文件发布出去（ npm 默认也不会把 package-lock.json 文件发布出去）。
+
+npm 包的主版本号为 0 时，会被认为是一个不稳定版本，主版本号和次版本号都为 0: ^0.0.z、~0.0.z 都被当作固定版本，主版本号为 0: ^0.y.z 表现和 ~0.y.z 相同，只保持修订号为最新版本。
+1.0.0 的版本号用于界定公共 API，对外部发布一个正式版本的npm包时，把它的版本标为1.0.0。
+
+pre-release 预发布版本号的排序规则是：
+不同预发布版本类型之间 alpha < beta < rc < release（即稳定版本，没有预发布标识符）。
+同一预发布版本类型下，数字越大，版本越新，例如 1.0.0-alpha.1 < 1.0.0-alpha.2。
+比如 rc-0..n > beta-0..n > alpha-2..
+
+
+------ git 冲突
+
+Git 合并出现冲突的原因在于 两个分支版本对一个文件的同一区域 做了修改。
+如果是不同区域，Git 会尝试自动合并（auto-merge，默认策略）解决冲突。
+
+自动合并规则 (比如对 配置文件A(.npmrc) 的第12行 做修改):
+> origin 和 origin1 是只有 .npmrc 等配置文件 有差异的 两个代码库 (用于部署到不同环境)，除了配置文件外 其他文件内容相同。
+- origin/master 文件A 的第3行 后只有 2行 内容。
+- origin1/master 文件A 的第3行 后有 5行 内容，并和 origin/master 文件A 的 后2行 内容完全不同。
+- 当前在 origin/master 分支，需要合并 origin1/master 分支，运行 `git merge -X ours origin1/master --no-commit` 后 自动解决了冲突。
+- 此时合并结果为：前两行(相同) + origin1文件A后5行 + origin文件A的第三行(有改动)和后2行。会发现 origin文件A后2行 不是想要的内容。
+
+由此看来 git 自动合并冲突的方法是“不安全”的。还有比如 package.json 的 dependencies 里,
+
+```sh
+# 操作 https://stackoverflow.com/a/930495/2190503
+git stash push lock.yaml  # 暂存 lock 文件，使用当前 lock 文件
+git checkout --ours "*lock*" # 使用 当前或目标(--theirs) 的 lock 文件
+# 在 .gitattributes 文件里配置 当 pnpm-lock.yaml 出现冲突时，将以当前分支为准
+pnpm-lock.yaml merge=ours
+```
+
+多分支合并冲突原因：
+- 代码差异过大：1.x 和 master 在文件结构、功能模块等方面差异较多。
+- 历史变更未同步：master 分支的某些改动未在 1.x 中体现。
+- 文件删除或重命名：1.x 和 master 对同一文件的操作不同步。
+- 如果 1.x 和 master 需要长期共存，定期同步两者的改动，避免分支差异积累到难以处理的程度。
+
+
+------ iframe 内页面操作父页面dom (不同域名)
+
+问题：文档网站域名是 https://pro.xx.net 使用 iframe 引用了 https://cdn.xx.com/dist/index.html 这个放在cdn上的静态html页面（css/js也是放在cdn上）也就是文档的实际内容。
+页面里的链接需要改变 URL 的 hash 地址，但这两个域名 完全不同、无法直接改变 pro.xx.net 这个 URL 的参数。几种方案:
+- [window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
+  - 注意收发消息的时机，比如需要等页面 onload
+- [html proxy](https://juejin.cn/post/7174065483014995981) 会有 csp 等问题，不建议使用。
+- 微前端 更复杂的方案。
+
+跨域和同源政策:
+> https://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html
+- 同源: 协议、域名、端口都要相同；如果不同源，则 dom 和 storage 无法读取、Ajax 不能发送。
+- 使用 document.domain (已被废弃)，要求“一级域名”必须要一样、否则不行，设置后端口变为null。
+  - 能规避同源政策，两个网页可以共享Cookie、能够**互相获取和操作**对方的 dom 元素。
+  - 但是 LocalStorage 和 IndexDB 无法通过这种方法共享。
+- 设置 cors headers 解决的是 Ajax 问题，不能解决跨域 iframe 和父页面之间 dom 操作问题。
+
+```js
+// dumi 设置为 history: { type: 'hash' } 模式, 应用内链接改变 URL 的 hash:
+// 但不会触发 window 自己绑定的 hashchange 事件, dumi 提供的 钩子函数 onRouteChange 会被触发, 为什么?
+window.addEventListener('hashchange', (evt) => {
+  console.log('evt ifr: ', evt.newURL, evt.oldURL, location.hash);
+});
+```
+
+------ antd
+
+antd5 [发布日志](https://github.com/ant-design/ant-design/issues/38671)  https://www.yuque.com/ant-design/ant-design/cy5nfvdo8oidvwmz
+- less到cssvar和design-token，不需要按需加载插件，使用day.js
+- [releases/tag/5.0.0](https://github.com/ant-design/ant-design/releases/tag/5.0.0)
+- [迁移 less 到 cssinjs](https://ant-design.github.io/antd-style/zh-CN/guide/migrate-less-codemod)
+
+antd4 [发布日志](https://github.com/ant-design/ant-design/issues/21656)
+- 暗色主题 无边框组件 图标按需加载 form/table重做 内置虚拟滚动
+- [antd 3.x-stable](https://github.com/ant-design/ant-design/tree/3.x-stable)
+
+
+------ less/css
+
+- [postcss](https://github.com/postcss/postcss): 处在 css 预处理器 less scss 等流程之后，解析 css 为 ast，并有 Autoprefixer 等知名插件。
+- antd-style 只能和 antd@5 配合使用 https://github.com/ant-design/antd-style/issues/156
+
+[less Playground](https://lesscss.org/less-preview)
+[analyze-css](https://www.projectwallace.com/analyze-css)
+```less
+// dumi dark theme
+@dark-selector: ~[data-prefers-color="dark"];
+.some-container {
+  color: #fff;
+  @{dark-selector} & {
+    color: #000;
+  }
+}
+```
+
+------ pnpm i 报错
+
+pnpm install 时 esbuild 报错
+
+```sh
+.../esbuild@0.21.5/node_modules/esbuild postinstall$ node install.js
+xxx/node_modules/.pnpm/esbuild@0.21.5/node_modules/esbuild/install
+throw new Error(`Expected ${JSON.stringify(versionFromPackageJSON)}
+Error: Expected "0.21.5" but got "0.23.1"
+at xxx/node_modules/.pnpm/esbuild@0.21.5/node_modules/esbuild
+Node.js v18.20.4
+node_modules/.pnpm/node-sass@4.14.1/node_modules/node-sass: Running install script...
+ELIFECYCLE Command failed with exit code 1.
+```
+
+在 package.json 里对 esbuild 包设置 pnpm resolutions/overrides 都没用 https://github.com/evanw/esbuild/issues/3800 ，
+发现 k.j 源的包信息、缺少了 `optionalDependencies` 部分 (原因猜测是 esbuild 这一个版本号有问题 修复后覆盖发包 而不是正常的升级版本号)，实际原因是 k.j 源“限制了字段长度”，把 optionalDependencies 字段删除了。负责的同学去掉了这个限制、这个问题被解决。但又出现以下新的报错:
+
+```sh
+.../node_modules/node-sass postinstall$ node scripts/build.js
+node_modules/.pnpm/node-gyp@3.8
+gyp ERR! configure error
+gyp ERR! stack Error: Command failed: /usr/local/bin/python3.10 -c import sys; print "&s.%s.&s"
+gyp ERR! cwd .../node_modules/.pnpm/node-sass@4.14.1/
+gyp ERR! node -v v18.20.4
+gyp ERR! node-gyp -v 3.8.0
+gyp ERR! not ok
+Build failed with error code: 1
+```
+
+这个错跟 [node-sass](https://www.npmjs.com/package/node-sass/v/8.0.0) 有关:
+sass-loader需要用node-gyp构建，node18需要最低node-sass 8.0 版本。
+
+在项目根目录使用 `npm ls node-sass` 查到 `style-loader@2.0.0 -> sass-loader@8.0.2 -> node-sass@4.14.1` 即 style-loader 依赖的依赖 含有 node-sass 4 版本，和 node18 环境不搭配。
+
+解决方法: 在 package.json 里对 node-sass 包设置 resolutions/overrides 为固定的 `node-sass@8.x` 。
+
+另外解决方法: 在 install 时 ignore-scripts 绕过，但这个方法无法在 npmrc 文件里做配置。
+
+```sh
+pnpm i --ignore-scripts esbuild@0.21.4
+pnpm i --ignore-scripts node-sass@4.14.1
+```
+
+
+------ 打包构建
+
+[father](https://github.com/umijs/father) 和 dumi
+- father 4 Bundle 模式使用 Webpack 作为构建核心，Bundless 模式支持 esbuild、Babel 及 SWC 三种构建核心。
+- father 4 打包成 umd 产物时，lessLoader 设置 `math: 'always'` 配置项 https://github.com/umijs/father/issues/514#issuecomment-2222842879
+  - [webpack chain 用法](https://juejin.cn/post/6947851867422621733)
+- [father 2.x](https://github.com/umijs/father/tree/v2.9.0) 基于 [rollupjs](https://rollupjs.org/) 构建，采用 babel插件 编译 js/ts、采用 [rollup-plugin-postcss](https://github.com/egoist/rollup-plugin-postcss) 编译 less/css (不支持less配置项)。利用 [docz](https://www.docz.site/) 生成网站。
+- dumi 设置非根目录 [publicPath](https://github.com/umijs/dumi/issues/849)
+
+[rollup，vite以及webpack比较与介绍](https://juejin.cn/post/7097493230572273700)
+- rollup 与 webpack 都是基于JavaScript依赖系统的一个打包构建工具，他们的共同点很多。 Rollup 默认打包为 ES6 格式、依靠插件生成 CommonJS 和 AMD 代码，静态分析代码中的 import 并排除任何未实际使用的代码。 Rollup 构建速度明显快于 webpack，生成的代码量很小。
+- 不过在应用开发层面讲，如果开发一个Web应用webpack要比rollup有更大的优势，因为其天然继承了devServer以及hmr，这使得开发者可以快速的对应用进行调试开发。 Rollup 更加适合插件开发，而webpack更加适合应用开发。
+- vite 号称是下一代的打包构建工具，主要体现在他从开发环境到生产环境的构建速度都能比webpack提升很多倍，原因就在于基于 rollup 和 esbuild 两个基础构建工具上。利用浏览器对ESM模块的支持，通过babel解决兼容性。将应用中的模块区分为 依赖 和 源码 两类，Vite使用esbuild预构建依赖、构建速度快 10-100 倍。在浏览器请求源码时、根据 router 按需以 原生 ESM方式提供 源码。利用 HTTP 头来加速整个页面的重新加载，源码模块的请求会根据 304 Not Modified 进行协商缓存，而依赖模块请求则会通过 Cache-Control: max-age=31536000,immutable 进行强缓存，因此一旦被缓存它们将不需要再次请求。
+- vite 在生产环境打包也使用的 rollup，在预购建依赖的时候使用 esbuild。
+- esbuild 使用 go 编写，发挥多线程多核优势，不使用 AST。所以一些通过 AST 处理代码的 babel插件没有很好的方法过渡到 esbuild 中。
+
+概述
+- 转译器：将一门高级语音转译为另一种高级语言，如 ts 转译为 js、es6 转译为 es5 等等。 用js/ts实现的 babel、tsc 其他语言实现的 esbuild（go）、swc（rust）。
+  - [esbuild](https://esbuild.github.io/) 不提供 AST 操作能力，一些需要操作 AST 的 babel 插件无法与之兼容。有两大功能，分别是 bundler 与 minifier，其中 bundler 用于代码编译，类似 babel-loader、ts-loader；minifier 用于代码压缩，类似 terser。
+  - SWC 设计为与 babel 插件体系相兼容，因此可以在许多现有的 babel 配置下无缝替换，提升构建速度。
+- 打包器：将项目中的各种文件如 png、sass、json 等等打包成想要的结果。
+  - 一类是通过监听源代码变化然后重新构建项目将打包后的代码推送到浏览器的传统模式 如 Webpack、 rollup、 [parcel](https://parceljs.org/) 。
+  - 另一类是通过浏览器的原生 module 来实现动态打包的 bundleless 模式 如 [vite](https://vite.dev/) 、 [snowpack](https://www.snowpack.dev/) 他们都依赖 esbuild 。
+  - Bundle vs Bundleless（代表就是webpack VS vite）。 webpack 等工具会把代码打包成 Bundle 文件，而 vite 则是依赖原生的 ESM 来实现，虽然在生产环境仍然要打包。 在生产环境中发布未打包的 ESM 仍然效率低下（即使使用 HTTP/2）。为了在生产环境中获得最佳的加载性能，最好还是将代码进行 tree-shaking、懒加载和 chunk 分割（以获得更好的缓存）。
+- gulp 强调的是前端开发的工作流程，通过配置一系列的task，定义执行顺序，来让gulp执行。 webpack 侧重模块打包，我们可以把开发中的所有资源（图片、js文件、css文件等）都看成模块，通过loader（加载器）和plugins（插件）对资源进行处理，打包成符合生产环境部署的前端资源。 对于 gulp 来说模块化不是他强调的东西，而 webpack 更强调模块化开发，而文件压缩合并、预处理等功能，不过是他附带的功能。
+
+
+### 基础组件库 调研 2024 11-27 ~ 12-
+
+- [Best 19 React UI Component Libraries of 2024](https://prismic.io/blog/react-component-libraries)
+- [2023 流行 UI 库](https://www.builder.io/blog/25-plus-ui-component-libraries)
+- [全新的 React 组件设计理念 Headless UI](https://mp.weixin.qq.com/s/1SlLWmZmQch0W3WSqlc4GA)
+https://juejin.cn/post/7160223720236122125
+- [react hooks有必要分离 ui 和业务逻辑吗？](https://www.zhihu.com/question/561700319/answer/2739674649)
+
+
+选择
+
+- [我放弃 antd 的理由](https://juejin.cn/post/7234893047284416570)
+- [“未来的”组件库的调研和思考](https://juejin.cn/post/7085533349725437989)
+- [TailwindCSS 国内有哪些公司在业务上使用了](https://www.zhihu.com/question/510330196/answer/3523414557)
+- https://zhuanlan.zhihu.com/p/694048244
+- https://medium.com/@nirbenyair/headless-components-in-react-and-why-i-stopped-using-ui-libraries-a8208197c268
+- https://nickb.dev/blog/decapitation-a-migration-from-antd-to-headless-story/
+- https://medium.com/@chaitanya99j/why-unstyled-component-libraries-are-the-ying-yang-of-design-choices-for-react-537dfa080a65
+- https://www.subframe.com/blog/how-headless-components-became-the-future-for-building-ui-libraries
+
+- https://blog.logrocket.com/shadcn-ui-adoption-guide/
+- https://www.chintristan.io/blog/shadcn-ui-hype-or-substance
+- https://www.kilerd.me/you-need-shadcn-ui/
+- https://www.reddit.com/r/reactjs/comments/1eqcv6q/shadcn_vs_parkui_vs_chakra_ui_which_componentui/
+- https://codeparrot.ai/blogs/material-ui-vs-shadcn
+
+- https://www.reddit.com/r/nextjs/comments/18e65wc/shadcnui_seems_abandoned_should_i_still_use_it/
+- [put 2000+ hours into the context menu](https://www.youtube.com/watch?v=lY-RQjWeweo&t=1395s)
+
+- https://github.com/rewindui/rewindui
+- https://www.reddit.com/r/reactjs/comments/tjka8o/chakra_ui_vs_mantine/
+- https://magicui.design/blog/mantine-vs-chakra
+- 偏右 漫谈 Material Design & Ant Design https://juejin.cn/post/6844903542411493383
+
+--- shadcn-ui
+
+- [cva](https://cva.style/) / [tailwind-variants](https://www.tailwind-variants.org/)
+- [cva vs tailwind-variants](https://dev.to/webdevlapani/cva-vs-tailwind-variants-choosing-the-right-tool-for-your-design-system-12am)
+- [Tailwind CSS + cva 实现样式变体组件](https://juejin.cn/post/7290802328722276352)
+
+- https://www.reddit.com/r/reactjs/comments/16anhxn/is_it_me_or_is_react_table_a_convoluted_option/
+
+- https://github.com/MrBr/antd-zod
+- https://blog.csdn.net/fudebao/article/details/137536527
+- https://github.com/jsun969/react-hook-form-antd
+- https://github.com/iDouglasD/react-hook-form-antd
+
+https://www.shadcnblocks.com/
+
+https://manupa.dev/blog/anatomy-of-shadcn-ui
+
+https://www.51cto.com/article/778949.html
+
+通过"复制粘贴"到你的项目中。这种设计方式颠覆了传统组件库的设计理念，但它的好处是更容易控制代码，决定组件的构建和样式。最大的灵活性和控制力. 考虑面向未来和先进性，如果项目注重快速定制化和紧跟现代 CSS 框架发展趋势，Shadcn/ui 是不错的选择.
+公司的项目，以 npm 为核心的组件库还是有很多价值的，也许 AntD 会有一些问题，但围绕团队建设贴合业务的小组件库是有必要的。复用能保证同一个坑，一个团队不用踩 10 遍.
+不再需要业务组件库?
+
+https://go.lightnode.com/zh/tech/shadcn-ui
+
+React社区对于UI库的选择呈现出逐年变化的态势。从几年前的Material UI，到Semantic UI/Ant Design，再到Chakra UI和Mantine UI，最终在去年，焦点集中在了shadcn/UI上。尽管这些选择都基于设计和可用性的考量，但shadcn/UI却展现出了独特之处。
+shadcn/UI 成为了一个广受欢迎的UI库，它创新性地将Tailwind作为核心组件（与CSS变量并驾齐驱）进行主题定制，以达成高度自定义的设计目标。与常规的安装方式不同，shadcn/UI不是作为Node包来安装，而是直接复制粘贴到项目中，使开发者能够自由调整组件以满足独特需求。
+CSS-in-JS解决方案（如Styled Components和Emotion）这些方案依赖于客户端/浏览器执行JavaScript来生成CSS，增加了性能负担。相比之下，新兴的CSS-in-JS解决方案（如StyleX）通过编译为实用优先的CSS，有效解决了这一问题。目前，无头UI库（如Radix与shadcn/UI）和实用优先的CSS（如Tailwind）已经崭露头角，而未来还可能涌现出更多如vanilla-extract、PandaCSS、CVA等替代品.
+https://www.51cto.com/article/781853.html
+
+将组件代码直接添加到项目中能够实现较高的自主控制程度。我们可以根据需要添加所需的样式和交互功能。对于某些情况来说，这样做确实可以提高效率，并降低代码的耦合度。举个例子，之前我使用过一个组件库，想要监听某个组件内的滚动，但是该组件并没有提供相应的方法，因此需要修改代码变得非常麻烦。这可能也是shadcn/ui组件库受到大量关注的原因之一，它具备这种灵活性。
+https://juejin.cn/post/7320525947249803283
+
+Calendar 组件选用 React DayPicker；Chart 组件选用 Recharts；
+密码输入组件选用了 input-otp；提示组件选用了 Sonner；抽屉组件选用了 Vaul。
+可能作者从一开始就没有考虑为纯粹的组件使用者们提供服务，而是为组件开发者提供了维护的便利。因此，如果我们站在组件使用者的角度来看，确实容易得出和自己不适配的结论。
+https://wxad.design/abc/shadcn
+
+--- antd
+
+https://github.com/refinedev/refine
+https://github.com/ant-design/sunflower
+
+https://github.com/ant-design/ant-design-mobile/issues/6704
+https://github.com/ant-design/ant-design-mobile/pull/6739
+https://github.com/ant-design/ant-design-mobile/issues/6503
+新功能 https://github.com/react-component/tree-select/pull/596
+https://github.com/react-component/tree-select/pull/576
+性能 https://github.com/react-component/tree/issues/798
+https://github.com/react-component/tree/pull/867
+个性化怎么解决? https://github.com/react-component/select/pull/1081
+https://github.com/react-component/picker/pull/402
+
+Semantic DOM https://github.com/ant-design/ant-design/discussions/40221
+sx prop https://github.com/ant-design/ant-design/discussions/40934
+variant https://github.com/ant-design/ant-design/discussions/49700
+variant 来源 https://m2.material.io/design/color/the-color-system.html
+新组件 https://github.com/ant-design/ant-design/issues/49126
+原子组件 类似shadcn ui https://github.com/ant-design/ant-design/issues/51222
+tailwindcss版本的antd https://github.com/ant-design/ant-design/discussions/51817
+antd inspired by Tailwind CSS https://github.com/ant-design/ant-design/issues/24033
+
+--- Material ui
+[Material Design 3](https://m3.material.io/) 中文版 https://www.yuque.com/advancedux/xr6e1n
+谷歌设计系统 Material Design 改版成 Material You 后，变化有多大？ https://zhuanlan.zhihu.com/p/450105902
+[material-web](https://github.com/material-components/material-web)
+谷歌 Material Design 的文本框为什么没人用？ https://zhuanlan.zhihu.com/p/436327750
+畅谈React material-ui的样式方案 https://zhuanlan.zhihu.com/p/261695780
+Material Design 好看和好用吗？https://www.zhihu.com/question/49180577/answer/1868829834
+
+[base-ui规划](https://mui.com/blog/base-ui-2024-plans/)
+[Base UI customization API](https://github.com/mui/base-ui/discussions/157)
+[antd vs mui](https://www.zhihu.com/question/496182225/answer/2942982608)
+
+MUI 中 variant API 的命名直接来源于 Material Design 规范，旨在提供组件的不同视觉风格。这个设计哲学强调语义化和一致性，同时为开发者提供高度的灵活性和可扩展性。
+variant 是一个设计模式术语，用于描述组件的一种风格变体。其他系统中的类似命名：
+- Bootstrap 使用类似的概念（如 btn-primary，btn-secondary）。
+- Tailwind CSS 通过修饰类（如 bg-blue-500, border-gray-300）实现变体功能。
+- “Variant” 是 Material Design 的具体实现。
+
+
+
+### 组件“构建和文档”工具选型 2024-11-14
+
+文档工具
+
+* [https://docusaurus.io/](https://docusaurus.io/) 推荐
+* [https://www.gatsbyjs.com](https://www.gatsbyjs.com) 比较复杂
+* [https://www.docz.site/](https://www.docz.site/) 基于 GatsbyJS
+* [https://storybook.js.org/](https://storybook.js.org/) 比较复杂 较难定制
+
+其他
+* [https://github.com/hexojs/hexo](https://github.com/hexojs/hexo) 中国台北？
+* [https://mkdocs.org](https://mkdocs.org) 基于Python
+* [https://gohugo.io](https://gohugo.io) 基于 Go
+* [https://jekyllrb.com](https://jekyllrb.com) 基于 Ruby 适合个人博客
+* gitbook (老旧) [https://docsify.js.org](https://docsify.js.org) / VuePress (vue技术栈)
+* [dumi](https://d.umijs.org/) gh-pages
+
+打包构建工具
+
+https://cn.rollupjs.org/
+https://webpack.js.org/
+https://www.parceljs.cn/
+
+- 转译器：babel, tsc, [esbuild](https://esbuild.github.io/) (go语言 不使用 ast 兼容性差些), swc (rust 兼容 babel 插件)
+- 打包器：webpack(应用打包) parcel (零配置) rollup (组件打包) [vite](https://vite.dev/)(不合规？bundleless) [snowpack](https://www.snowpack.dev/) (bundleless)
+
+其他
+[umijs/father](https://github.com/umijs/father) Bundle 模式使用 Webpack 作为构建核心，Bundless 模式支持 esbuild、Babel 及 SWC 三种构建核心。
+
+
+### pintu 2024-06
+
+体验问题: avi 对图的大小限制、下载大图时进度提示、重复点击和并发问题、下载低质量(宽高和分辨率不变)图片。
+
+设计稿 设计倍率:
+[摹客](https://help.mockplus.cn/p/504) 插件，可以自动匹配特定的尺寸为 2x 倍率、其他尺寸为 1x 倍率，可以手动修改指定。[摹客demo](https://app.mockplus.cn/app/z1pw7JNhn/develop/design/mmHsUz9q0)
+蓝湖 待调研。
+
+相关:
+- [蓝湖](https://lanhuapp.com/)、[摹客](https://www.mockplus.cn/)、[moonvy](https://moonvy.com/)
+- [缩小png](https://tinypng.com/) [changeDPI](https://github.com/shutterstock/changeDPI)
+
+--- sketch 插件
+
+https://developer.sketch.com/plugins
+[Sketch 插件开发实践](https://segmentfault.com/a/1190000020920371)
+
+Sketch 和 Figma 插件都不支持 XMLHttpRequest 导致上传图片时 无法监听上传进度
+fetch 只能监听下载进度 https://juejin.cn/post/7253969759191023675
+https://forum.figma.com/t/cannot-make-a-post-request-in-figma-plugin/25039
+
+[skpm](https://github.com/skpm/skpm) 通过 polyfill 方式支持 fetch FormData 如下代码
+https://github.com/skpm/skpm/blob/master/packages/builder/src/utils/webpackConfig.js
+```js
+new webpack.ProvidePlugin({
+   fetch: require.resolve('sketch-polyfill-fetch'),
+   FormData: require.resolve('sketch-polyfill-fetch/lib/form-data'),
+   Promise: require.resolve('@skpm/promise'),
+}),
+```
+
+浏览器/node等环境的 宿主 判断如下，但 sketch 插件的宿主跟这些都不同
+```js
+// https://github.com/ladjs/superagent/blob/master/src/client.js
+let root;
+if (typeof window !== 'undefined') {
+  // Browser window
+  root = window;
+} else if (typeof self === 'undefined') {
+  // Other environments
+  console.warn('non-browser environment');
+  root = this;
+} else {
+  // Web Worker
+  root = self;
+}
+```
+
+
+------ pintu WebGL 图像查看器
+
+能支持超大图 不卡顿。 https://www.photopea.com/ (Facebook [私信](https://www.facebook.com/photopea))
+
+- [sketch demo](https://www.sketch.com/s/a00a5b36-d81a-4a55-8e78-ffac2894d292)
+- [figma demo](https://www.figma.com/design/dknmxVeJpnOq5aD0K9WvUa/test?node-id=0-1&t=qfDYyfOJPjQe4SDo-0)
+
+figma 不支持插入 大于 4096px 的图片，会被裁剪和降低清晰度，参考[文档](https://help.figma.com/hc/en-us/articles/360040028034-Add-images-and-videos-to-design-files)。
+
+canvas 模糊问题：
+[antialiasing](https://stackoverflow.com/questions/17861447/html5-canvas-drawimage-how-to-apply-antialiasing)
+[canvas-blur](https://medium.com/wdstack/fixing-html5-2d-canvas-blur-8ebe27db07da)
+[lines-are-blurry](https://stackoverflow.com/questions/8696631/canvas-drawings-like-lines-are-blurry)
+[canvas drawimage blurry](https://stackoverflow.com/questions/31910043/html5-canvas-drawimage-draws-image-blurry)
+[higher-dpi-graphics-with-html5-canvas](https://stackoverflow.com/questions/14488849/higher-dpi-graphics-with-html5-canvas)
+[sketch points-vs-pixels](https://www.sketch.com/support/sketch-features/mac-app/points-vs-pixels/)
+[Optimizing_canvas](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas)
+
+查看支持度: chrome://gpu  chrome://settings/system (图形加速)  https://get.webgl.org/
+注意：
+- 如果电脑只有一个显卡，比如 mac mini（m系列芯片）、Windows台式机、部分低配笔记本电脑，需要在 Chrome 浏览器设置里开启“图形加速”功能。
+- Chrome 图形加速开启方法：手动打开“设置-系统”、或在浏览器地址栏输入`chrome://settings/system`，勾选“使用图形加速功能”，重启浏览器。
+- Intel 电脑一般都有双显卡。
+- 外接显示器没有GPU。因此，图形渲染由主 CPU 完成。
+- 开启图形加速，可能使 Chrome cpu 占用一直高于 100%、风扇噪音大。
+
+参考
+- https://webglfundamentals.org/webgl/lessons/webgl-image-processing.html
+- https://webglfundamentals.org/webgl/lessons/webgl-2d-scale.html
+- https://webgl2fundamentals.org/webgl/lessons/webgl-cross-platform-issues.html
+- https://elhigu.github.io/canvas-image-tiles/
+- https://fengyuanchen.github.io/cropperjs/
+- https://pettor.github.io/app-pixi-image-editor
+- https://github.com/pixijs/pixijs/issues/6372
+- https://css-tricks.com/building-an-images-gallery-using-pixijs-and-webgl/
+- https://github.com/openseadragon/openseadragon
+
+- canvas engines 性能测试 https://benchmarks.slaylines.io/webgl.html
+- WebGL vs WebGPU https://www.infoq.cn/article/QwAwharqAwdrAgtCoXQv
+- 360 viewer https://github.com/y-fujii/zuho
+- 360 viewer https://github.com/Experience-Monks/360-image-viewer
+- 医学图像查看 https://github.com/niivue/niivue
+- https://www.wenjiangs.com/docs/webgl-docs-zh
+- https://stackoverflow.com/questions/21603350/is-there-any-reason-for-using-webgl-instead-of-2d-canvas-for-2d-games-apps
+- https://gamedev.stackexchange.com/questions/7927/should-i-use-textures-not-sized-to-a-power-of-2
+
+不是 webgl 实现的 https://github.com/konvajs/konva
+
+
+### 测试 2024-02-16
+
+自动化测试 https://github.com/puppeteer/puppeteer / https://www.selenium.dev/
+https://livebook.manning.com/book/unit-testing/chapter-1/
+我们为什么需要单元测试？ https://mp.weixin.qq.com/s/F60MjrCnNsFmZV9jT75AVg
+
+TDD(Test-Driven Development)很强大，但不一定适用所有的团队，推广难度很大，学习曲线很高。
+TDD事实上由两个方面组成：测试先行，以及演进式设计；测试先行是非常重要的工程实践，做不到TDD，可以做到测试先行。在Kent Beck的经典名著《解析极限编程》中，提到：尽早测试，经常测试，自动测试！测试先行的本质能力要求是接口的设计能力——能否清晰的定义出设计单元的边界。
+什么是有效的单元测试？一味追求代码覆盖率，往往写出无效的单元测试。一个测试应当只检查一件事。避免条件逻辑。不要写永不失败的测试。避免冗余测试。避免Mock不确定的依赖：时间、随机数、并发性、基础设施、现存数据、持久化、网络等等。
+可测试的代码和设计：使用new要当心；避免构造函数中包含逻辑；避免复杂的私有方法；组合优于继承；可测试的代码是否违背了SOLID中的开闭原则？可测试的代码就是解耦了的代码；可测试的代码帮助我们实现更好的抽象。
+在实现测试金字塔时，你也应该牢记这两条基本法则：
+1. 如果一个更高层级的测试发现了一个错误，并且底层测试全都通过了，那么你应该写一个低层级测试去覆盖这个错误；
+2. 竭尽所能把测试往金字塔下层赶；
+任何测试，如果它的运行速度不快，结果不稳定，或者要用到被测试单元的一个或多个真实依赖，就是集成测试。 集成测试不够稳定，运行时间长等问题，如果不做隔离，日常开发浪费时间和精力维护，最后导致开发人员不再信任测试。
+把单元测试当成是“一等公民”，在Code Review的过程中，互相学习、分享最佳实践，消除无效的单元测试。
+愿意主动增加单元测试来保护自己的代码，那么单元测试这件事就算比较成功了。
+关于单元测试这件事，我觉得最重要永远是写单元测试的人，优秀的团队文化非常重要，没有什么能够真正衡量单元测试做的好坏，有的只是程序员的职业操守。
+<如何写出有效的单元测试> https://mp.weixin.qq.com/s/U6z-sjb29luOI3E6pE9kMw
+
+TDD 更适合配合单元测试，更适合通用组件/工具函数和纯函数库，比如 lodash、aHooks、ant-design等。
+BDD(Behavior-Driven Development) BDD思想就是写单元测试就像写产品需求，而不关心内部逻辑，每一个用例阅读起来就像一篇文档。更适合配合集成测试，测试关键业务流程代码。
+- 因为以功能性的集成测试为主，因此不是那么关注每个函数功能，测试覆盖率比较低
+- 难保证代码质量，没有 TDD 那么严格的保证代码质量，极端边界条件难覆盖
+<内网>
+
+测试金字塔的历史可以追溯到2009年。随着技术的快速发展，人们在应对不同的开发需求时，也可能需要不同的测试模型。由Kent C. Dodds提出的测试奖杯(https://twitter.com/kentcdodds/status/960723172591992832)就是一种针对前端开发所构建的测试模型。与金字塔相比，单元测试处于次要地位，而且可以被ESLint和JSHInt等静态测试工具所取代。它们通过扫描代码，便可发现诸如：使用了不安全的语句、或未遵守变量命名规则等潜在问题。
+https://www.testingjavascript.com/
+<测试金字塔模型全解析> https://www.easemob.com/news/8530  英文 https://dzone.com/articles/the-testing-pyramid-how-to-structure-your-test-sui
+
+覆盖率是金字塔的核心，底层是最宽的，象征着UT覆盖率应该是最高的，越往上越低，这一点大家都能达成共识。但是有一点需要注意的是，每网上一层应该是对下面一层覆盖率的一个补充。简单说集成测试应该聚焦于UT不好覆盖的场景或者UT采用mock方式测试的场景，而顶层的UI自动化应该聚焦于整个流程的集成测试，覆盖集成测试和UT难以覆盖到的场景。
+<测试金字塔是什么> https://juejin.cn/post/7216626919772225573
+
+唯一可以真正验证应用程序可行性的测试，只有E2E测试。因为它需要用线上真实的数据进行测试，所以它不仅涉及到前端，还涉及到后端。除了E2E外的测试方式都是通过Mock数据来实现。
+你的应用程序在与最终用户（浏览器）相同的环境中做测试，这意味着更高的置信度。即使你只编写一个 UI 测试，它给你带来的置信度也比一百个单元测试更多。
+你日常工作中接触的大多数项目都是小到中等规模的，它们最适合进行 UI 测试。UI 测试是一个通用术语，我们必须将其分为端到端测试和 UI 集成测试。
+<刚开始接触前端测试？那就从金字塔顶端开始吧！> https://www.infoq.cn/article/ei01kymcs0v2fo1r4srg
+
+E2E 把整个系统当作一个黑盒，测试人员模拟真实用户在浏览器中操作 UI，测试在真实浏览器环境运行测试。
+E2E 测试一般是由 QA 测试工程师来做。稍小的项目可能根据测试用例（excel）操作一遍就完了，稍大一点的会写一些自动化测试的代码。
+前端可能会为核心的、主要的或稳定的业务流程写 E2E，不过占据的测试比例要小很多，主要目的是：便于给 PM（产品经理） 展示业务流程，便于修改 Bug 之后的回归测试。
+
+完成E2E测试的最佳时间是开发过程接近尾声时。 这是因为客户使用的大部分功能都在软件中，这意味着端到端测试涵盖了用户将体验到的程序的所有必要方面。
+单元测试检查一段代码的具体单元，如单个函数和程序中两个不同函数之间的孤立连接。单元测试可以更快，但其缺点是不能完全模拟用户体验。
+较大的组织往往有单独的测试和开发团队，保持这两个机构相互独立，以便不对E2E测试的结果引入任何偏见。
+在可能的情况下，让没有开发过特定功能的人去测试它。 这在可能的情况下消除了固有的偏见，并使端到端的测试尽可能地准确。
+规模较小的独立开发者，如首次开发应用的开发者或预算限制较多的开发者自己完成E2E测试。
+在可能的情况下，多人完成测试并重复测试是最理想的，因为它提供了额外的确定性，无论是自动还是人工结果。
+端到端测试的调试过程更加复杂，因为自动测试返回的 “失败 “信息不太可能是问题的具体原因。开发人员需要进一步调查以解决问题，特别是在没有整合具体错误信息的情况下。
+响应速度 一些E2E测试的重点是确保系统快速返回有效的结果。
+UAT测试是用户验收测试的意思，是一种测试形式，不是由开发团队的人完成，而是由目标受众的成员完成。
+端到端测试仅仅是对软件的分析，以及它如何有效地工作，系统测试还包括对它所运行的硬件和一些固件的评估，如操作系统，它与之互动。
+通过人工端到端测试过程的主要好处之一是你自己看到所有的潜在问题，注意到计算机可能看不到的软件缺陷。然而，与实现测试过程自动化相比，这个过程可能相对缓慢。
+较小的项目可以由一个团队手动进行彻底的测试，梳理代码中的任何错误，并立即将其记下。相反，较大的项目根本无法手动测试，需要大量的软件测试自动化。
+<端到端测试 – 深入了解E2E测试类型、流程、方法、工具等> https://www.zaptest.com/end-to-end-testing-deep-dive-into-e2e-test-types-process-approaches-tools-more
+https://www.zaptest.com/zh-hans/%E7%AB%AF%E5%88%B0%E7%AB%AF%E6%B5%8B%E8%AF%95-%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3e2e%E6%B5%8B%E8%AF%95%E7%B1%BB%E5%9E%8B%E3%80%81%E6%B5%81%E7%A8%8B%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E5%B7%A5
+
+质量不等于测试。质量不是被测试出来的。虽然质量不是被测出来的，但同样有证据可以表明，未经测试也不可能开发出有质量的软件。
+把开发过程和测试融合在一起----开发和测试必须同时开展。写一段代码就立刻测试这段代码，完成更多的代码就做更多的测试。
+最适合做测试的角色是开发人员而不是测试人员，质量更像是一种预防行为而不是检测行为。在google, 测试的目标是判断这种预防行为是否正常工作。质量是开发过程中的问题，而不是测试问题。
+测试工程师会转型为测试设计。少量的测试设计师快速地规划出测试范围、风险热图和应用程序的漫游路线。测试工程师会转变成像安全工程师这样的专家型角色，或者编程测试活动的管理者，而那些具体的测试活动则由其他人来完成。
+<Google软件测试之道>
+
+质量保障的追求不是发现所有的bug、解决所有的风险，而是确保即使触发了bug也不会带来恶劣的影响，在此基础上力求去发现尽可能多的bug  -> bug 触发概率降到尽可能低 -> 触发bug后带来的损失降到尽可能小。
+<测试八年｜对业务测试人员的一些思考> https://mp.weixin.qq.com/s/LQqYwrL2EDJBg5S00E3vaA
+
+研究了代码质量后，开发速度提高了 2 倍，bug 减少了 15 倍
+https://mp.weixin.qq.com/s/2FXkUE2OttMHUSwbf3JDgw
+
+
+
+### APM 2022
+
+Typical SLOs: Slow queries.  High/low CPU utilization.  Disk usage, IOPS.  API response time.  Errors, faults, and retries.   These are internal-facing signals.
+SLI、SLO和SLA，一文彻底搞懂 https://blog.csdn.net/lquarius/article/details/120244396
+SLI设计思考 https://bytedance.feishu.cn/wiki/wikcnZ32QDudTo9Lg7gpbItyIpg
+
+智能功能：智能报警、相似 issues 检测/推荐、波动归因、尖刺过滤。
+智能报警：当“js错误数”在“过去5分钟”超过“上下界”2次 触发报警，采用敏感度“宽松”策略、忽略尖刺或数据跌0的脏数据。
+
+clickhouse 堆积、导致指标跌0。https://clickhouse.com/
+物化视图是查询结果集的一份持久化存储，所以它与普通视图完全不同，而非常趋近于表。“查询结果集”的范围很宽泛，可以是基础表中部分数据的一份简单拷贝，也可以是多表join之后产生的结果或其子集，或者原始数据的聚合指标等等。所以，物化视图不会随着基础表的变化而变化，所以它也称为快照（snapshot）。如果要更新数据的话，需要用户手动进行，如周期性执行SQL，或利用触发器等机制。
+物化视图不够智能，ClickHouse Projection 可以看作是一种更加智能的物化视图。
+
+Slardar平台数据堆积问题：
+越来越多的数据上报也给slardar带来了沉重的负担，堆积问题愈发严重。
+而数据堆积也对于报警的准确性、数据准确性都带来了极大的危害，目前已经发生了多次由于数据堆积导致用户接收到大量无效告警和无法正常排查业务问题等案例。
+目前slardar的app上报数据大致可以分为四类，sesion数据、crash数据、exception数据和打点数据。数据写入没有划分权重，分级不明确，如打点数据，由于事件数据、自定义打点数据上报量突增或者依赖的存储如redis故障等原因，导致所有数据都产生堆积。业务方常常不感知到自己上报量已经过大。堆积问题的排查较为困难，无法快速排查问题。
+
+categories_keys属于datahouse里拿的，只有clickhouse里拿的才能过滤。
+
+Hive 离线数据、表申请。
+hive是小时级别数据，所以想确认一下是不是有open api能够实时查询。
+Hive 白屏在哪个表  哪个字段来判断？
+数据堆积问题？ DataHouse / ClickHouse 滞后或丢数据。
+数据验证平台有数据，看板无数据。
+
+
+* 功能全面：包含 前端、客户端、后端监控、数据库、云监控 等。
+* 都有 dashboard、指标查询、三方库集成、拨测 等通用功能。
+* Events 的含义 几乎都一样。 Alerts 告警 做法比较类似。
+2022-08 Datadog Newrelic Sentry 共同特点
+
+如何选择 APM 工具 [https://www.infoq.cn/article/rRRJcT6zeECqrQd97196](https://www.infoq.cn/article/rRRJcT6zeECqrQd97196)
+2022-07
+
+例如: 北京今天35度，南京今天30度。我们可以理解为北京，南京是城市维度(可枚举)，而度数为指标(不可枚举)。
+统计 75 分位数据：从好到坏的第75%分位。
+pct95 https://www.zhihu.com/question/20575291
+Pct 90 等含义 https://cloud.tencent.com/developer/article/1891918
+基础知识：图表类型、数据分析初步、数据/指标不准确、不同版本平台pv差别大、
+2022-07
+
+
+
+### 竞品调研 issue管理 2022-10~07
+
+国内有类似Pagerduty的通告服务吗？ https://www.zhihu.com/question/32084832
+视频演示 https://www.pagerduty.com/weekly-demo/
+事件 https://support.pagerduty.com/docs/incidents
+事件和报警 https://support.pagerduty.com/docs/alerts
+AIOps 事件归类处理 https://www.pagerduty.com/platform/aiops/event-intelligence/ 、 https://support.pagerduty.com/docs/event-intelligence
+2022-10 PagerDuty
+
+AIOps https://www.youtube.com/watch?v=UYNygjTY4xw
+AIOps 是什么 https://www.bigpanda.io/blog/what-are-aiops-platforms/
+Incidents 详情 https://docs.bigpanda.io/docs/the-incidents-tab
+术语警报 https://docs.bigpanda.io/docs/glossary-alert
+事件管理控制台 https://www.bigpanda.io/our-product/incident-360-console/
+根因分析 https://www.bigpanda.io/our-product/root-cause-analysis/
+事件聚合方法 https://www.bigpanda.io/our-product/open-box-machine-learning/
+在高度复杂和动态的 IT 环境中，这意味着清理、准备和丰富具有丰富操作和拓扑上下文的警报数据有效负载。如果没有这种丰富性，AIOps 驱动的工具在消除 IT 噪音、发现问题的根本原因以及自动执行手动事件管理任务方面的能力将受到限制。 In highly complex and dynamic IT environments, this means cleansing, preparing... https://www.bigpanda.io/our-product/event-enrichment-engine/
+BigPanda 的 Root Cause Changes 从所有主要变更管理、CI/CD、编排和变更审计工具中提取数据，利用 Open Box Machine Learning 的强大功能将这些变更与它们导致的事件实时关联起来，从而使团队能够快速解决事件和/或回滚更改。Ingesting data from all major change management, CI/CD...  https://www.bigpanda.io/our-product/root-cause-changes/
+由于一次中断通常会跨十几个或更多工具触发数十个甚至数百个警报，因此您的 IT 运营团队可以专注于对一个事件进行故障排除，而不是将时间浪费在 60 个看似不同但相关的事件上。 DevOps 团队采用 CI/CD 实践并不断发布新功能。由于发布速度对于 DevOps 团队来说至关重要，因此他们每周评估数千次更改的风险是不切实际的。这使得 IT Ops 团队争先恐后地弄清楚发生中断时发生了什么变化。 https://www.bigpanda.io/solutions/devops-and-sre/
+超过 80% 的 IT 事件是由具有意外后果的更改引起的。 https://www.bigpanda.io/solutions/application-modernization/
+一位 BigPanda 的客户曾经说过，“如果我们的公司着火了，我们知道 BigPanda 会和我们一起拿着消防水带。”  If our company were on fire, we know BigPanda would be there holding the firehose with us.” https://www.bigpanda.io/services/
+2022-10 Bigpanda
+
+什么是事件管理 https://www.datadoghq.com/blog/incident-response-with-datadog/、 https://www.datadoghq.com/knowledge-center/incident-management/
+Monitor as a service https://mp.ofweek.com/cloud/a656714325227
+含义：APM是服务端、RUM 是前端和客户端
+apm 模块的 trace 概念和 sentry 的类似 https://docs.datadoghq.com/tracing/glossary/
+Slardar 数据探索 参考 https://docs.datadoghq.com/real_user_monitoring/browser/data_collected/
+Datadog 能成为最大的云监控厂商吗 https://zhuanlan.zhihu.com/p/360756250
+报警 Status & History 实时 显示当前是否在报警。 报警能力强：能给 events https://app.datadoghq.com/event/explorer 和 rum新错误 https://docs.datadoghq.com/real_user_monitoring/error_tracking/explorer/ (最底部) 设置报警。
+2022-08~09 Datadog
+
+New Relic 整体介绍: https://www.zhihu.com/question/27069676/answer/2491052603 、https://segmentfault.com/a/1190000014353747
+New Relic 可观测平台调研 https://zhuanlan.zhihu.com/p/516337057
+可观测性成熟度 https://docs.newrelic.com/docs/new-relic-solutions/observability-maturity/introduction/
+报警策略和工作流 https://docs.newrelic.com/docs/new-relic-solutions/get-started/implementation-guide-alerting-proactive-solutions/
+2022-08~09 New Relic
+
+Traces, Transactions, and Spans https://docs.sentry.io/product/sentry-basics/tracing/distributed-tracing/
+
+- issues & events：在相同地方产生的异常会被归纳为一个「Issue」，每次在这个地方产生的异常叫做「Event」。
+- event：直译是”事件”, 是可操作数据的基本单位. 每一次日志输出就产生一个event. event并不一定就是错误, 如果日志记录级别设置很低, 那么后台会产生很多的event, 所以正确的设置日志级别很重要。
+- alerts digest & limit：默认 Sentry 的 alerts 会发送邮件。当一个 issue 产生或者一组 issue 产生时，项目相关的成员都会收到邮件。但是并不是每次 issue 有更新就会产生 alert 。考虑到用户也不希望被一箩筐的报警邮件给轰炸，因为过多相当于没有， Sentry 除了对重复的报警进行抑制，还会追加一段时间内更新 issue 的摘要（digest）到下一个报警，这样，用户邮件上接收到的信息会充分压缩，不用苦恼于过多的邮件。
+- 更多亮点：敏感信息过滤，release版本跟踪，关键字查找，受影响用户统计，权限管理等。
+- 不是日志的替代品 Sentry 的目的是为了让我们专注于系统与程序的异常信息，目的是提高排查问题的效率，日志事件的量到达一个限制时甚至丢弃一些内容。官方也提倡正确设置 Sentry 接收的日志 level 的同时，用户也能继续旧的日志备份。
+- 不是排查错误的万能工具 Sentry 是带有一定策略的问题分析工具，以样本的形式展示部分原始日志的信息。信息不全面的同时，使用过程中也可能出现 Sentry 聚合所带来的负面影响，特别是日志记录质量不够的情况下。 不是传统监控的替代品。
+
+APM系统主要注重应用层的行为分析，收集的更多是运营方向的数据。而Sentry所做的是收集应用底层代码的崩溃信息，便于排查代码异常。
+后端和脚本用Python内置的日志模块记录程序中间状态，同时也将两者的输出重定向到指定文件, 以获取未捕获的异常信息。无法第一时间感知错误：脚本日志的拉取不是实时的，web端用户的反馈也往往存在滞后。错误信息的获取相对低效：用户反馈和邮件告警包含的错误信息非常有限，最终都不得不在大量的日志中上下翻看关联的信息。可能还需要在测试环境下给代码埋点多获取一些中间变量数据，给定位问题带来很多麻烦。
+2022-07-19
+
+
+### 2023 ~ 2022
+
+代码写的要优美(卷)：分块用class类、赋值用lodash set。
+
+代码坑：代码目录结构层级深。公共组件或公共状态复杂且难找。未用到的代码没删除，后期涉及到改动也不敢轻易删。
+
+代码以前正常、现在不正常，如果前端没有改动，那就是后端数据变更导致。比如 布尔 判断这种情况、前端这么写：
+`obj.id ? update() : create()`; 后端的 id 数据变更后存在 number 0 时，前端代码逻辑即出错。这就是 js 的弱类型导致的问题。
+
+tailwindcss 的 text-danger 等 className 使用。
+
+
+------ 2022-01~04
+
+arm aem 对任何请求（包括图片）都做埋点，导致业务接口被阻塞，页面性能下降一倍。采用合并、延迟上报埋点方式，把所有打点请求都延迟推入单独的队列维护，当页面完全加载完成后再从队列中依次取出数据进行上报。下掉非必要埋点。
+
+- 一个组件里 点击触发请求、返回成功或失败，设置 isSuccess 的布尔值。另一个组件 需要监听 成功和重新点击 的状态，即 重新点击 isSuccess 不能为 true，但上次点击后 已经把它设置为了 true 怎么解决？
+- useEffect 里监听的 多个状态、互相有影响，怎么解决？分别写 useEffect。
+- antd 多层弹窗嵌套需要设置 [getPopupContainer](https://img.alicdn.com/imgextra/i3/O1CN01uK3oLs1dJyW9Y1sZJ_!!6000000003716-0-tps-1234-1166.jpg)
+
+react-big-calendar 日历组件支持自定义的 EventWrapper 子组件，业务场景中 EventWrapper 组件需要根据某个业务 prop 调用接口获取数据。但 EventWrapper 可能会被 react-big-calendar 加载卸载或重复渲染很多次(次数不可控)，而只用在“第一次加载或卸载再加载”时调用接口一次即可。此时 useEffect 的监听 该怎么写？
+
+```js
+// EventWrapper 组件
+const { param1, param2, mode } = props;
+useEffect(() => {
+  if (mode === 'a') {
+    fetchData({ param1, param2 })
+  }
+  // 怎么确保只请求一次，同时监听 prop 变化？
+}, []);
+```
+
+
+### 2021 ~ 2020 周日报
+
+remaxjs 2021-08
+
+- 导入函数不能这样 `import _ from 'lodash';` 而要这样 `import groupBy from 'lodash/groupBy';` (踩坑0.5h+)，遇到这类错误无法定位、调试困难。
+- 样式：单位要 x2、box-sizing 要设置到相应位置，伪元素无法定位。
+- 元素：span 标签有嵌套时不起作用、样式不正确，i 标签等更多 html 标签不支持。
+- 组件：
+   - 功能不强：Picker 不支持两列，Tabs 功能和样式不好用，类似pc上 tooltip 的 Tips 组件位置难设置，有些组件 slot 必须要用 View 不灵活。
+   - 封装不完善，FlexItem 不支持设置 className、没有 Row Col 等便捷组件。
+- 图表组件 g2 不起作用，antd、react-dom 等引用内容要移除。
+- 迁移额外成本：很多地方都要修改，架构调整(找到pc各模块代码、删减/重新组织)。
+- 小程序：picker 和 optionsSelect 的使用场景区别？mobile table design patterns 用列表代替表格。
+
+
+navigator.geolocation  gts周日报需求，需要定位功能。
+
+定位技术：GPS定位技术、基站定位技术、利用Wifi在小范围内定位。
+GPS定位搜索卫星初次定位时间过长而略显不便。另外，卫星信号覆盖不好时，比如室内，会导致无法定位。
+手机定位的原理 https://www.sohu.com/a/76257016_335896
+
+问题：
+2021-09 Chrome 浏览器在 4G 热点和家里 WiFi 环境下，不会执行 getCurrentPosition 公司 WiFi 可以。网络翻墙问题。
+如图 https://gw.alicdn.com/imgextra/i4/O1CN01c6wdMl1OuPlbjec3c_!!6000000001765-2-tps-1112-518.png
+最优方案、使用 高德或百度 封装的定位功能，避开 googleapis 被墙的问题。
+
+2012-01 三星gt-i9003(安卓2.3.5)、中兴ZTE-U880(安卓2.2.2) 浏览器不执行 getCurrentPosition 也没有是否允许定位的提示框弹出。
+
+```js
+if ("geolocation" in navigator) {
+navigator.geolocation.getCurrentPosition((position) => {
+   console.log('geolocation', position);
+},
+(error) => {
+   console.log('geolocation error', error);
+   if (error.PERMISSION_DENIED) {
+      console.log('未开启定位权限');
+   }
+   if (error.POSITION_UNAVAILABLE) {
+      // 在 Chrome 浏览器里，因为被墙、会返回 Network location provider at 'https://www.googleapis.com/ :ERR_TIMED_OUT.
+      console.log('至少有一个内部位置源返回一个内部错误');
+   }
+   if (error.TIMEOUT) {
+      console.log('超时');
+   }
+},
+{
+   timeout: 1000 * 15,
+   // enableHighAccuracy: true, // 设为 true 移动端通过 gps 定位、费电
+   // maximumAge: 1000 * 15, // 返回 15 秒内的 缓存位置，默认为 0
+}
+);
+} else {
+/* geolocation IS NOT available */
+}
+```
+
+- waterfall 瀑布流 内容顺序 难保证 https://segmentfault.com/q/1010000009117246/
+- flex 顺序正确的 布局 https://jessieji.com/2019/pure-css-masonry
+- 多列 https://segmentfault.com/a/1190000017866549
+
+周日报遗留问题：
+dashboard 数据边界细节很多。
+复制文字+多个图片、分别上传多个图片。
+保存过期、前端存。大表格崩溃、大小极限。 编辑页 id 输错、结果处理。
+一次性复制进去、还是会弹出事项选择框。导入上一篇 事项匹配错误。
+断网再连上、报标题不能为空。新版日志编辑器：选中报错、任务样式问题。
+
+- beforeunload 事件里有 ajax 等不到返回、页面就会关闭，怎么解决？
+- 使用 `DOMParser().parseFromString(xml, 'text/xml');`解析 xml 时、需要把 xml 里的 `&` 等特殊符号 转义为 `&amp;` 不然会解析错误；参考 解答[一](https://stackoverflow.com/questions/17423495/how-to-solve-ampersand-conversion-issue-in-xml)、[二](https://stackoverflow.com/questions/11555890/how-to-parse-xml-with-special-character-specifically-for-ampersand)。
+- 使用 `https://localhost` 或 umi 报 Disconnected from the devServer, trying to reconnect... 提示、设置 `chrome://flags/#allow-insecure-localhost` 能暂时解决。
+- Chrome 无法访问非受信证书页面，方法1: 在页面上手工输入 `thisisunsafe` 。方法2: 打开 `chrome://net-internals/#hsts`在 Delete domain security policies 里删除相应域名。
+- blocked:mixed-content 在 HTTPS 页面上有 HTTP 的请求，会被 Chrome 阻止、统一改为 HTTPS 即可。参考 [fixing-mixed-content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/fixing-mixed-content?hl=zh-cn)
+- 绑定 host 访问 https 时 (`https://localhost`)、Chrome 可能会有 ERR_CERT_AUTHORITY_INVALID 证书错误，解决 [方法一](https://segmentfault.com/a/1190000021843971)、[方法二](https://blog.csdn.net/xujing19920814/article/details/53966948)。
+
+- react 不会触发 keydown 事件，需要设置 focus 或 tabIndex="1"
+- web excel 缺点：数据量大时页面死掉。
+- 下载文件不能直接可点击下载，需要设置 csrf token 来避免安全问题。
+- [大规格文件的上传优化](https://aotu.io/notes/2020/05/12/file-upload/index.html)
+
+antd
+- Table 伸缩列 [bug多](https://github.com/ant-design/ant-design/commit/84c65582c71c66df9744177d337cfd3d4ce1a713)、性能[差](https://github.com/ant-design/ant-design/issues/28214)。
+- Menu 和 Modal `<Menu.Item onClick={doSth} />` 里放子组件、子组件里有 `<Modal onCancel={cancel} />` 弹窗，cancel 事件会触发 menu item 的 click 事件；弹窗里嵌套弹窗问题。
+- Select 组件
+   - 下拉框和选择框样式分别自定义场景：比如 `mode="multiple"`、`labelInValue`、`options` 的 label 为定制的 jsx 时，可使用 `Select.Option` 组件 + `optionLabelProp="label"` 组合来避免 `onChange` 参数里的 label 是 jsx 、也能让选择框里 选项样式 能自定义。
+   - 无尽列表翻页 [issues/12406](https://github.com/ant-design/ant-design/issues/12406)
+   - 搜索框和单选选择框合并 [0.12 效果](https://012x.ant.design/components/select/#demo-search)、[1.x修改](https://github.com/ant-design/ant-design/issues/1390)、1.0 [changelog](https://github.com/ant-design/ant-design/issues/1050)
+   - 数据项有重复时 会乱跳，如视频：[mp4](https://gw.alipayobjects.com/os/rmsportal/GxGqYTHnIXRioQTbtkok.mp4)
+- Upload 组件
+   - 多文件合并到一个 xhr 里上传 [issues/8579](https://github.com/ant-design/ant-design/issues/8579)
+   - 使用内部的 UploadList 来[自定义进度条显示位置](https://github.com/ant-design/ant-design/issues/8387)
+   - umi-request 基于 fetch 实现、不支持显示上传文件的进度，而 axios 可以支持。
+   - 使用`beforeUpload`来限制上传文件大小、`customRequest`自定义上传接口和上传进度。
+- Upload 上传文件/夹 (参考 语雀 或 teambition 上传资源)
+   - 上传的文件或文件夹、都会存在一个`fileList`列表里，文件属性`webkitRelativePath`的值存在时、表示上传的是文件夹里的文件。`onChange`会在上传状态(上传中、已完成、失败等)变化时调用。
+   - 多次点上传按钮时、可根据`fileList`里每个条目的`uid`标记来区分新旧。两次上传同一个文件夹时、需要 分别创建不同的文件夹名，比如后缀加上(1)。
+   - 需要等待 所有文件都上传后 (即状态都是 done) 并且至少有一个文件上传成功，再创建目录。
+   - 前端根据每个文件的`webkitRelativePath`值，循环构造出多层 文件夹 的层级数据，传给后端。
+   - 后端一般需要起“异步”的任务、创建各级文件夹，前端轮询异步任务状态、判断是否成功。
+   - 大文件分片上传和断点续传[原理](https://segmentfault.com/a/1190000040309502)，需要使用 oss 提供的 sdk。
+   - 文件夹里包含超过 300 个小文件，上传起始会卡顿、上传失败的文件优先显示、上传过程并发数的浏览器限制。
+- Popover 和 Tooltip 组件，children 如果不是元素、而是 {props.children} 不起作用。
+
+redux / umi
+
+- 框架的“双向绑定”意思是 view -> state -> view 变化的绑定，而不是 state1 <-> state2 变化的绑定、同样功能的 state 只用定义一个、有多个就会导致 state 变更检测的死循环。
+- umi 某个 router 多处复用方案 [umi/1830](https://github.com/umijs/umi/issues/1830)、[umi/4569](https://github.com/umijs/umi/issues/4569)
+- subscriptions 怎么获取到 model 中的 state [issues/1600](https://github.com/dvajs/dva/issues/1600)
+- 多个请求并行发起 [redux-saga/issues/1800](https://github.com/redux-saga/redux-saga/issues/1800)、[redux-saga/pull/759](https://github.com/redux-saga/redux-saga/pull/759)、[dva/issues/1009](https://github.com/dvajs/dva/issues/1009)
+- 如何请求多个数据源并渲染？如[图](https://img.alicdn.com/imgextra/i4/O1CN0150J8CS26jHFosJFF4_!!6000000007697-2-tps-476-266.png)
+
+后端
+
+- 2021-03-01 用户导入200万条数据、Java堆打爆 虚拟机退出、数据库连接满。
+- 2020-07~10 账号、权限、越权漏洞、上传文件不成功、丢文件。
+- 2020-04 vm修改了、刷新页面可能不会更新，因为有缓存、要重启机器。
+
+
+### 2019 以前
+
+------ 大安全移动业务开发 2019-02
+
+- 熄屏时 JS 倒计时变慢 
+- H5软键盘兼容方案 [https://segmentfault.com/a/1190000018959389](https://segmentfault.com/a/1190000018959389)
+- iOS 9.1 以下系统的 WKWebView 在 302 后的 document 地址可能不变更。
+   - 比如当前域 (mobileic.alipay.com) 有相对地址的 post 请求 `ajax({ url: './verify.json', method: 'post' })`，但是这个页面是由 上个域 (securitycore.alipay.com) 的页面 302 跳转过来的，最终拼接出来的 ajax url 地址是上个域的 `securitycore.alipay.com/verify.json`导致错误，所以 post url 建议换成绝对地址。
+- antd-mobile Carousel 在 iPhone 7/8 上有些情况下，卡住不会滚动、斜着滑动(同时导致页面上下滑动)时卡顿。[ant-design-mobile/issues?utf8=%E2%9C%93&q=is%3Aissue+carousel](https://github.com/ant-design/ant-design-mobile/issues?utf8=%E2%9C%93&q=is%3Aissue+carousel)
+- Input 输入框 被键盘遮挡
+   - 更多 [讨论和解法](https://juejin.im/post/59d74afe5188257e8267b03f)，部分 安卓机型 比如 moto 暂时无法解决。
+- Android 4 白屏: `Set``Promise``Symbol` 未定义错误
+- iOS webview 里 https 页面引入 http 的 js/css 不能加载？需要统一使用 https 协议。
+- iOS 9 不支持 箭头函数
+
+
+------ [前端九部](https://github.com/frontend9/fe9-library)
+https://www.yuque.com/fe9/basic/zw24qu
+
+- [菜单溢出自动收起](https://github.com/frontend9/fe9-library/issues/48)
+- [在线换主题](https://github.com/frontend9/fe9-library/issues/59)
+- [js中关于base64](https://github.com/frontend9/fe9-library/issues/280)
+- [任意两个数加减](https://github.com/frontend9/fe9-library/issues/217)
+- [JavaScript 精度问题](https://github.com/frontend9/fe9-library/issues/141)
+- [Node.js里面import和require](https://github.com/frontend9/fe9-library/issues/141)
+- [深浅拷贝](https://github.com/frontend9/fe9-library/issues/93)
+- [如何解析一个ip地址](https://github.com/frontend9/fe9-library/issues/3)
+- [手写递归下降](https://github.com/frontend9/fe9-library/issues/10)
+- [让你的程序更可读](https://github.com/frontend9/fe9-library/issues/36)
+- [Clean Code 阅读总结](https://github.com/frontend9/fe9-library/issues/70)
+- [重构 - 改善代码的各方面问题](https://github.com/frontend9/fe9-library/issues/228)
+- [前端中后台页面的配置化](https://github.com/frontend9/fe9-library/issues/125)
+- [可控组件？不可控组件？](https://github.com/frontend9/fe9-library/issues/195)
+- [ZForm](https://github.com/zzj3720/ZForm)
+- https://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html
+
+
+------ G2/G6 问题 2018
+
+- [G2] 时间横坐标在 mac 能显示 24 小时、正常，在 win7 上只能显示 12 小时。
+- [G6] 绘制每个元素，都要自己设置 大小、填充、边框？挨个绘制多个元素时：要获取前一个元素的位置 + 当前元素尺寸，手工重新定位？
+- [G6] API 文档没法搜索：支持哪些属性设置、文档难查找。比如 label 的 text 居中怎么设置？
+- [G6] fixView: autoZoom 和 maxZoom: 2 会有兼容性问题
+   - mac chrome 71 图不会自动居中，出现在左上角。
+   - win7 chrome 55 看起来正常，但此浏览器版本太旧。
+- [G6] 图表疑似绘制两次？
+
+
+------ umi.js 2018
 
 ```js
 // umi.js config
@@ -4423,7 +5767,7 @@ export default class App extends PureComponent {
 ```
 
 
-### antd / mobile
+------ antd / mobile
 
 ```js
 import React from 'react';
@@ -4468,2058 +5812,351 @@ if ('addEventListener' in document) {
 ```
 
 
+------ web api 2016
+
+rest
+- [介绍-入门](http://www.cnblogs.com/artech/p/restful-web-api-02.html)
+- [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
+- [理解本真的REST架构风格](http://www.infoq.com/cn/articles/understanding-restful-style)、[如何设计好的RESTful API？](http://www.infoq.com/cn/articles/how-to-design-a-good-restful-api)
+- [hateoas](http://timelessrepo.com/haters-gonna-hateoas)
+- [RESTful API的十个最佳实践](http://www.cnblogs.com/xiaoyaojian/p/4612503.html)
+- [最佳实践](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
+- [Google/Facebook/GitHub等设计对比](http://blog.octo.com/en/design-a-rest-api/)
+- [jsonapi](http://jsonapi.org/format/) - [jsonapi中文](http://jsonapi.org.cn/format/)
+
+[来自于PayPal的RESTful API标准](https://segmentfault.com/a/1190000005924733) /
+[Microsoft/api-guidelines](https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md)
+
+[What does “state transfer” in Representational State Transfer (REST) refer to?](https://stackoverflow.com/questions/4603653/what-does-state-transfer-in-representational-state-transfer-rest-refer-to)
+
+通过 url 来设计系统的结构。根据 REST，每个 url 都代表一个 resource，而整个系统就是由这些 resource 组成的。因此，如果 url 是设计良好的，那么系统的结构就也应该是设计良好的。REST 允许我们通过 url 设计系统，就像 Test Driven Development 允许我们使用 testcase 设计 class 接口一样。使用 REST 的关键是如何抽象资源，抽象得越精确，对 REST 的应用就越好。
+
+- 使用名词而不是动词，使用名词的复数形式。（一些非CRUD操作如login/logout，可以用动词，方便理解）
+- Get方法和查询参数不应该改变资源状态。GET PUT和DELETE方法是幂等方法。
+- 假如资源连接到其它资源，则使用子资源形式`GET /cars/711/drivers/4`，但cars和drivers可以是并列的资源。
+- 有一种url形式，它对应到程序中的继承关系：`/products/books`，也可以`/books`单独作为顶层接口。
+- 为集合提供过滤、排序、字段选择以及分页
+  - 过滤：为所有字段或者查询语句提供独立的查询参数：`GET /cars?color=red Returns a list of red cars`
+  - 排序：允许跨越多字段的正序或者倒序排列：`GET /cars?sort=-manufactorer,+model`
+  - 字段选择：一些情况下，我们只需要在列表中查询几个有标识意义的字段，我们不需要从服务端把所有字段的值都请求出来，所以需要支持API选择查询字段的能力，这也可以提到网络传输性能和速度：`GET /cars?fields=manufacturer,model,id,color`
+  - 使用offset和limit来获取固定数量的资源结果，当其中一个参数没有出现时，应该提供各自的默认值，比如默认取第一页，或者默认取20条数据：`GET /cars?offset=10&limit=5 取第三页的5条数据`
+  - 使用自定义的头X-Total-Count发回给调用段实际的资源数量。
+- 使用HTTP状态码处理错误
+  - 200 – OK – 一切正常
+  - 201 – OK – 新资源已经被创建
+  - 204 – OK – 资源删除成功
+  - 304 – 没有变化，客户端可以使用缓存数据
+  - 400 – Bad Request – 调用不合法，确切的错误应该在error payload中描述，例如：“JSON 不合法 ”
+  - 401 – 未认证，调用需要用户通过认证
+  - 403 – 不允许的，服务端正常解析和请求，但是调用被回绝或者不被允许
+  - 404 – 未找到，指定的资源不存在
+  - 422 – 不可指定的请求体 – 只有服务器不能处理实体时使用，比如图像不能被格式化，或者重要字段丢失。
+  - 500 – Internal Server Error – 标准服务端错误，API开发人员应该尽量避开这种错误
+
+- 无状态通信（Stateless）：通信的会话状态（Session State）应该全部由客户端负责维护。应该注意区别应用的状态和连接协议的状态。HTTP连接是无状态的（也就是不记录每个连接的信息），而REST传输会包含应用的所有状态信息。通讯本身的无状态性可以让不同的服务器的处理一系列请求中的不同请求，提高服务器的扩展性。
+- 充分利用好HTTP缓存是RESTful API可伸缩性的根本。HTTP协议是一个分层的架构，从两端的user agent到origin server之间，可以插入很多中间组件。而在整个HTTP通信链条的很多位置，都可以设置缓存。HTTP协议内建有很好的缓存机制，可以分成过期模型和验证模型两套缓存机制。
+
+根据[richardson模型](http://martinfowler.com/articles/richardsonMaturityModel.html), REST架构的成熟度有3个等级:
+
+- Level 0 POX (这个就不算REST了)
+- Level 1 Resources:  解决了Level 0 接口的问题, 使得各种资源有了自己相应的URI,虽然仍然是POX的交互方式, 但是每一个接口都更加紧凑和内聚, 相应的容易维护起来.
+- Level 2 Http verbs:  这一级别使用http verbs来对各种资源进行crud操作, 使得应用程序的接口更加的统一, 语义更加明确.
+- Level 3 Hypermedia Controls:
+  - RESTful的架构本意是"在符合架构原理的前提下，理解和评估以网络为基础的应用软件的架构设计，得到一个功能强、性能好、适宜通信的架构。" 这个世界上规模最大的, 耦合度最低, 最稳定的, 性能最好的分布式网络应用是什么? 就是WEB本身. 规模,稳定,性能都不用说了. 为什么说耦合度低呢? 想一想每个人上网的经历, 你几乎不需要任何培训就可以上一个新的网络购物平台挑选商品,用信用卡付款,邮寄到自己家里.把网站的程序想像成一个状态机, 用户在一系列状态转换中完成自己的目标. 这中间的每一步, 应用程序都告诉你当前的状态和可能的下一步操作, 最终引导用户从挑选商品,挑选更多商品,到支付页面,到输入信用卡信息,最终完成付费,到达状态机的终点.这种 service discoverablility 和 self-documenting 就是 level 3 想解决的问题 在这里面, 告诉用户当前状态以及各种下一步操作的东西, 比如链接, 按钮等等, 就是Hypermedia Controls. Hypermedia Controls 就是这个状态机的引擎. Level 3 的REST架构就是希望能够统一这一类的 Hypermedia Controls, 赋予他们标准的, 高度可扩展的标准语义及表现形式, 使得甚至无人工干预的机器与机器间的通用交互协议边的可能. 比如你可以告诉一个通用的购物客户端, "给我买个最便宜的xbox", 客户端自动连上google进行搜索, 自动在前10个购物网站进行搜索, 进行价格排序, 然后自动挑选最便宜的网站, 进行一系列操作最终完成用信用卡付费, 填写个人收件地址然后邮寄. 这些都依赖于Hypermedia Controls带来的这种 service discoverablility 和 self-documenting。
+
+资源、子资源、相关资源，都能通过「links」关联，达到从一个资源找到相关资源(links列出URL)，或者直接 embedded 相关资源。
+
+业务实例
+
+> 其他：[github](http://api.github.com/)、[instagram](https://instagram.com/developer/)、
+[白宫API规范](https://github.com/WhiteHouse/api-standards)
+> [React.js and Spring Data REST: Part 1 - Basic Features](https://spring.io/blog/2015/09/01/react-js-and-spring-data-rest-part-1-basic-features)、[React.js and Spring Data REST: Part 2 - Hypermedia](http://spring.io/blog/2015/09/15/react-js-and-spring-data-rest-part-2-hypermedia)，包含_links、_embedded、Paging、Sorting 很完善的rest库。
+
+具体到业务中的表现就是“embedded resources”，代码中的实现方式是在一些标记@RestResource注解的bean中(model)的一些属性上加入@Relation注解(自定义的注解)，并设置相应的loader用来加载相关资源，然后写具体的loader来实现功能。
+
+目前只在业务中的一部分实现了这个功能，前端能通过拼接参数获得关联资源(也能exclude掉不需要的数据字段)，实例如`http://xx?e=xx&_xfields=title&_embedded=category,category.types,type,rank,status`，通过改变`_xfields / _embedded`会得到不同结果，其实这样已经带来了不少便利。当然如果像github-API一样把关联资源子资源等的link-uri的给出，那么也就产生了在线API文档，少了些找文档的问题。
+
+如果不用这样的@Relation注解实现、Java怎么处理这个问题呢？一般是要设置不少`多余的`model，如父子资源各有一个model，当需要一起用的时候，又要设置新的合并起来的model。或者会形成很多map数据结构的层层嵌套，导致代码耦合难以阅读。
+
+- [Apollo Data Stack](http://docs.apollostack.com/)
+- [How to build a GraphQL server](https://medium.com/apollo-stack/tutorial-building-a-graphql-server-cddaa023c035#.gdvn0fb8v)
+- [Swagger 及 API 管理](https://www.linkedin.com/pulse/swagger-%E5%8F%8A-api-%E7%AE%A1%E7%90%86%E7%AE%80%E4%BB%8B-minglei-tu)
 
 
-## snippets TS node
+[Falcor](http://netflix.github.io/falcor/)
 
-### TS
-> 2024
+不同于传统REST API，它只提供唯一的一个端点。有了它，开发者不再需要向不同的服务器端点请求不同的数据，而是向同一个端点请求不同的模型数据。服务器端可以识别请求参数，并由Falcor Router调用恰当的router函数。也就是说，Falcor提供了一个更加直观的API，就是开发者的数据模型。这可以确保服务器永远不会返回不必要的模型数据，节省了带宽。Falcor客户端还可以使用缓存数据为连续的请求提供服务，减少服务器响应时间。
 
-```ts
-export type * as xTypes from 'x-editor'
-export type { default as xTypes } from 'x-editor'
+- [Demand driven architecture（CQRS/Falcor）](http://www.javacodegeeks.com/2015/10/transcending-rest-and-rpc.html)
+- rpc优却点：低延迟，数据量小；不可缓存(手动管理)，紧耦合
+- rest优却点：可缓存，松耦合；高延迟，数据量大
+- 两者结合:
+  - one model everywhere
+  - The data is the API
+- You can convert any JSON object into a JSON Graph in two steps:
+  - Move all objects to a unique location within the JSON object
+  - Replace all other occurrences of the object with a Reference to that object’s unique location
 
-export type ProFormListItemProps = {
-  onAfterAdd?: (...params: any) => any;
-}
-
-// next _document.tsx example
-import Document, { Head, Main, NextScript } from "next/document";
-export default class MyDocument extends Document<{ env: string; }> {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    const { env } = await getXxxConfig(ctx);
-    return { ...initialProps, env };
-  }
-  render() {
-    const { __NEXT_DATA__, env, dangerousAsPath } = this.props;
-    return (
-      <html lang="zh">
-        <Head>
-          <meta charSet="utf-8" />
-        </Head>
-        <body id="cavalvy-container">
-          <Main />
-          <NextScript />
-          body content
-        </body>
-      </html>
-    );
-  }
-}
-
-// Arrow function returning an array of numbers
-const getArr2 = (): (string | number)[] => {
-  return [1, '2', 3];
-};
-// arrow function
-const getObj2 = async (): Promise<{ name: string; age: number: [key: string]: any; }> => {
-  return { name: 'Bobby Hadz', age: 30, xx: 'any' };
-};
-// Readonly
-function getTuple(): Readonly<[number, number]> {
-  return [10, 100];
-  // return [10, 100] as const;
-}
-```
-
-> 2023
-
-! 是 typescript 非空断言符，解决 ts 类型空提示问题。
-
-void promise 函数返回值类型 `() => Promise<void>`。
-
-ts高级用法 Omit Pick
-```ts
-import { INameProps } from './Name';
-type IDashboardNameProps = {
-  className?: string;
-  style: React.CSSProperties;
-} & Pick<INameProps, 'id' | 'onSaved'>;
-```
+- 他希望编写优雅、易读的代码。在用户界面上查找和修改数据要直观，最好是开发者只需要考虑自己的数据模型，而不用关心可用的API端点。
+- 他希望可以消除由传统REST API所导致的不必要的请求和响应开销。
+- 他还希望用一种更好的方法取代难以维护和改进的传统REST API。
 
 
+[GraphQL](https://github.com/facebook/graphql)
 
-### node.js
+GraphQL is Facebook's [graph API](https://developers.facebook.com/docs/graph-api)
+（[How to get lots of data from the Facebook Graph API with just one request - Optimizing request queries to the Facebook Graph API](https://www.sammyk.me/optimizing-request-queries-to-the-facebook-graph-api)）。
+[基于 GraphQL 的产品](https://www.reindex.io/)。
+
+- [GraphQL - The Good and the Bad](https://scotch.io/tutorials/graphql-the-good-and-the-bad)
+- [GraphQL is the King. Long Live the King!](https://medium.com/@scbarrus/graphql-is-the-king-long-live-the-king-r-i-p-rest-cf04ce38f6c#.avmpteg2j)
+- [Introducing Relay and GraphQL译](http://segmentfault.com/a/1190000002570887)
+- [文档](http://graphql.org/docs/getting-started/) / [graphql-js](https://github.com/graphql/graphql-js)
+- [From REST to GraphQL](https://blog.jacobwgillespie.com/from-rest-to-graphql-b4e95e94c26b#.e3re515s5)
+- [From REST to GraphQL-](https://news.ycombinator.com/item?id=10365555)
+
+GraphQL is essentially the one [API Gateway](http://microservices.io/patterns/apigateway.html) to rule them all. And then you add Relay on top of it to build up the exact query you want.
+
+- GraphQL Returns Only the Data You Request. 请求什么返回什么
+- GraphQL Returns Data in the Same Shape You Requested It. 返回的数据结构和请求结构一致
+- GraphQL Sends a Single Request to the API and Returns a Single Response. 把同时发出的多个请求合并为一个，返回一个请求结果集合，并自动拆分到不同的组件里
 
 
-2024 mjs 文件
+------ scroll
 
-```js
-// const fs = require('fs');
-import path from 'path';
+- 模拟滚动
+  - iScroll 并没有监听原生`onscroll`事件，而是用 touch 事件模拟浏览器原生滚动效果。
+  - 缺点：模拟的滚动结束后，不会自然触发“浏览器原生的滚动”，类似需求不容易满足。
+- touch 事件 和 手势
+  - 在某个元素的 touchmove 事件里如果有 e.preventDefault() 则会阻止包括 body 的整个页面滚动。
+  - 手势是使用 touch 事件实现的，比如 https://github.com/hammerjs/hammer.js 。
+  - 走马灯、下拉刷新、上拉刷新、Swipeable-Tabs、iOS swipe-to-show-actions 等都需要基于一个良好的“手势”库来实现。
+- 原生 scroll 事件问题
+  - ios 上 scroll 事件，只在 scroll 结束时触发（ios < 8），安卓会一直触发。
+  - iOS < 8 pauses painting during scrolling.
+  - 滚动过程中要「fixed标题栏」，在惯性滚动过程中不会触发 scroll 事件。
+  - [iOS 与 惯性滚动](https://fe.ele.me/momentum-scrolling-on-ios/)
 
-// __dirname is not defined in ES module scope
-// const pkgFile = path.join(__dirname, './packages');
-// console.log('pkgFile: ', pkgFile);
-const cwd = process.cwd();
-const pkgPath = path.join(cwd, 'packages', 'pkg');
-console.log('pkgPath: ', pkgPath);
-console.log('resolve: ', path.resolve(__dirname, './package.json'));
-```
+移动端 scroll 事件只在滚动结束时触发，用 touchmove 事件代替。
 
-2024 https://github.com/npm/node-semver 使用
+scrollTop/Left 变化会 多触发一次 scroll 事件。参考
+https://stackoverflow.com/questions/1386696/make-scrollleft-scrolltop-changes-not-trigger-scroll-event
 
-```js
-// const semver = require('semver');
-import semver from 'semver';
 
-await test();
-async function test() {
-  const testVersions = [
-    // '0.9.8', '0.9.9', '0.9.10',
-    '0.9.10-beta', '0.9.0-beta', '0.9.0-beta.1',
-    // '0.9.9-beta', '0.9.9-beta.1',
-    // '0.9.9-alpha.2', '0.9.9-alpha.3', '0.9.9-rc',
-  ];
-  console.log(
-    'filter versions',
-    testVersions.filter(v => semver.gte(v, '0.9.0-beta')),
-    testVersions.filter(v => semver.satisfies(v, '>=0.9')),
-    testVersions.filter(v => semver.satisfies(v, '>=0.9.0-beta')),
-  );
-
-  const gtMinors = testVersions.filter(v => semver.gte(v, '0.9.0-beta.4') && v.startsWith('0.9'));
-  console.log('gtMinors: ', gtMinors);
-  console.log('semver.maxSatisfying: ', semver.maxSatisfying(testVersions, '0.9.*'));
-  console.log('semver.maxSatisfying: ', semver.maxSatisfying(testVersions, '0.9.*', { includePrerelease: true }));
-  console.log('semver.maxSatisfying: ', semver.maxSatisfying(testVersions, '0.10.*'));
-  console.log('semver.maxSatisfying: ', semver.maxSatisfying(testVersions, '0.10.*', { includePrerelease: true }));
-
-  console.log('sort: ', semver.sort(testVersions));
-
-  console.log('prerelease: ', semver.prerelease('1.2.3'));
-  console.log('prerelease: ', semver.prerelease('1.2.3-beta.1'));
-
-  console.log('major: ', semver.inc('1.2.3-beta.1', 'major'));
-  console.log('minor: ', semver.inc('1.2.3-beta.1', 'minor'));
-  console.log('patch: ', semver.inc('1.2.3-beta.1', 'patch'));
-  console.log('premajor: ', semver.inc('1.2.3-beta.1', 'premajor'));
-  console.log('preminor: ', semver.inc('1.2.3-beta.1', 'preminor'));
-  console.log('prepatch: ', semver.inc('1.2.3-beta.1', 'prepatch'));
-  console.log('prerelease', semver.inc('1.2.3', 'prerelease', 'beta'));
-  console.log('prerelease beta: ', semver.inc('1.2.3-beta', 'prerelease', 'beta'));
-  console.log('prerelease alpha: ', semver.inc('1.2.3-beta', 'prerelease', 'alpha'));
-  console.log('prerelease beta0: ', semver.inc('1.2.3-beta.0', 'prerelease', 'beta'));
-  console.log('prerelease alpha: ', semver.inc('1.2.3-beta.0', 'prerelease', 'alpha'));
-  console.log('major: ', semver.major('1.2.3-beta.0'));
-  console.log('minor: ', semver.minor('1.2.3-beta.0'));
-  console.log('semver.valid', semver.valid('1.2.3-beta.20+aseds'));
-  console.log('semver.parse build: ', semver.parse('1.2.3-beta.20+aseds'));
-  console.log('semver.parse build: ', semver.parse('1.2.3+afebuild'));
-  console.log('semver.parse build inc: ', semver.inc('1.2.3+afebuild', 'patch'));
-  console.log('semver.parse build inc: ', semver.inc('1.2.3-beta+afebuild', 'patch'));
-  console.log('semver.parse canary build inc: ', semver.inc('1.2.3-canary.20240924.1', 'patch'));
-}
-```
-
-2024 js 文件 import mjs 文件方式
+------ touch
 
 ```js
-async function loadModule() {
-  const module = await import('./xx.mjs');
-  console.log('module: ', module);
+// -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+/* touch 和 mouse 事件 执行顺序
+  Android: touchstart -> touchend -> mouseenter -> mousemove -> mousedown -> mouseup -> click
+  iOS: touchstart -> touchend -> mouseenter -> mousemove
+  iOS 上如果注册了 mousemove 或 mouseenter 那么 mouse down up 事件不会触发。
+  touchMove 只在 touchstart 元素上触发；mouseMove 在当前鼠标位置上触发。
+  touch 结束后不会触发 mouseleave 需要再点击一下元素外边 才会触发。
+*/
+// http://zeptojs.com/zepto.js
+var startTime, m = false;
+function log(msg) {
+  $('body').append('<div>' + (new Date().getTime() - startTime) + ': ' + msg + '</div>');
 }
-loadModule();
-
-const asyncExec = () => {
-  // 注意，不支持 await child_process.exec
-  return new Promise((resolve, reject) => {
-    child_process.exec(
-      // `git name-rev --name-only HEAD`,
-      'git log --pretty=format:"%h - %an - %s" -n 5',
-      { encoding: 'utf-8' },
-      (error, stdout, stderr) => {
-        console.log('exec stdout: ', error, stdout, stderr);
-        error ? reject(error) : resolve(stdout)
-      }
-    );
-  });
-};
-const asyncSpawn = () => {
-  // 如果输出量非常大，exec 的缓冲区可能会溢出。在这种情况下，child_process.spawn 更适合处理大文件或长输出。
-  return new Promise((resolve, reject) => {
-    const child = child_process.spawn(
-      // 使用字符串会报错
-      // 'git log --pretty=format:"%h - %an - %s" -n 5',
-      // 出错提示 Your git status is not clean. Aborting.
-      // 'git', ['status', '--porcelain'],
-      'git', ['log', '--pretty=format:"%h - %an - %s"'],
-      { encoding: 'utf-8' },
-    );
-    // console.log('child: ', child);
-    child.stdout.on('data', (data) => {
-      console.log('data: ', data.toString());
-      resolve();
-      // 处理标准输出并将其转换为字符串
-      // process.stdout.write(data.toString());
-    });
-    child.once('error', (err) => {
-      console.log('err: ', err);
-      reject(err);
-    });
-    // child.on('close', (code) => {
-    child.once('close', (code) => {
-      console.log('close: ', code);
-    });
-  });
-};
-await asyncExec();
-await asyncSpawn();
-
-const execa = require('execa');
-execa.sync('npm', ['version', 'prerelease', '--preid', 'rc', '--no-git-tag-version']);
-execa.sync('cd', ['../../']);
-
-import chalk from 'chalk';
-function printErrorAndExit(message) {
-  console.error(chalk.blue(message));
-  console.log("\x1b[31m This text will be red \x1b[0m");
-  console.log('this is log');
-  process.exit(1);
-}
-printErrorAndExit('直接 node bash-node.mjs 执行此文件、会显示颜色');
-printErrorAndExit('被 bash 直接调用、会显示颜色');
-printErrorAndExit('被 bash 这样 $(node bash-node.mjs) 调用、不会显示颜色');
-
-console.log(os.homedir());
-console.log(process.env.HOME, process.env.HOMEPATH);
-console.log(process.argv, process.execPath, process.uptime());
-process.nextTick(function () {
-  console.log('nextTick callback');
-});
-process.on('exit', function () {
-  process.emit('cleanup');
-});
-// catch ctrl+c event and exit normally
-process.on('SIGINT', function () {
-  process.exit(2);
+$('#test').bind('click', function () {
+  log('click');
+}).bind('mousedown', function (e) {
+  e.preventDefault();
+  startTime = startTime || new Date().getTime();
+  m = true;
+  log('mousedown');
+}).bind('mousemove', function (e) {
+  e.preventDefault();
+  log('mousemove');
+  if (!m) return;
+  log('mousemove con');
+}).bind('mouseup', function () {
+  m = false;
+  log('mouseup');
+}).bind('mouseenter', function() {
+  log('mouseenter');
+}).bind('mouseleave', function() {
+  log('mouseleave');
+}).bind('touchstart', function () {
+  startTime = new Date().getTime();
+  log('touchStart');
+}).bind('touchmove', function (e) {
+  e.preventDefault();
+  log('touchMove');
+}).bind('touchend', function () {
+  log('touchEnd');
 });
 ```
 
-2024 对 某个目录下 的文件进行索引， 并生成文件名的 html a 标签
+touch-action: manipulation;
+touch-action: none;
+指针事件 (Pointer Events)：是一个新的 web 事件系列，相应的规范旨在使用一个单独的事件模型，
+对所有输入类型，包括鼠标 (mouse)、触摸 (touch)、触控 (stylus) 等，进行统一的处理。
+例如，你可以只去监听一个元素的 pointerdown 事件，无需分别监听其 touchstart 和 mousedown 事件。
+有一个和点击延迟直接相关的实现 —— 一个名为 touch-action 的新 CSS 属性。
+根据规范，touch-action 属性决定 “是否触摸操作会触发用户代理的默认行为。这包括但不限于双指缩放等行为”。
+touch-action 的默认值为 auto，将其置为 none 即可移除目标元素的 300 毫秒点击延迟。
+IE 11+ 可以用 touch-action: manipulation; 属性来阻止元素的双击缩放。
+
+------ [fastclick](https://github.com/ftlabs/fastclick)
+
+Touch事件穿透，click事件被执行了两次：一次是touchend我们手动执行，一次是系统自建的click，这就是传说中的鬼点击 ghost-click 。
+在 touchend 处阻止浏览器默认事件，避免 鬼点击，iOS 有效，android 无效。
 
 ```js
-async function createFileIndex(dirPath) {
-  async function getFiles(dir) {
-    const dirents = await readdir(dir, { withFileTypes: true });
-    const files = await Promise.all(dirents.map((dirent) => {
-      const res = resolve(dir, dirent.name);
-      return dirent.isDirectory() ? getFiles(res) : res;
-    }));
-    return Array.prototype.concat(...files);
-  }
-  getFiles(dirPath).then(results => {
-    const html = `<ul>` +
-    results.filter(item => extname(item) === '.html').map(fileOrDirectory =>
-      `<li style="margin: 5px 0;">
-        <a href="https://warmhug.github.io/${fileOrDirectory.replace(__dirname, '')}" target="_top">
-          https://warmhug.github.io/${fileOrDirectory.replace(__dirname, '')}
-        </a>
-      </li>
-      `).join('\n') + `</ul>`;
-
-    writeFile('index.html', `
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samples</title>
-  </head>
-  <body>
-    <div style="margin: 5px;">
-      GitHub 地址 <a href="https://github.com/warmhug/" target="_top">https://github.com/warmhug/</a>
-    </div>
-    ${html}
-  </body>
-  </html>`, 'utf8', (err) => {
-      if (err) throw err;
-      console.log('The file has been saved!');
-    });
-  });
+// #d1, #d2 {width: 100%; height: 50px;position: absolute;z-index: 1;top: 0; left: 0;}
+// #d1 {background-color: blue; color: #fff;}
+// #d2 {background-color: red;color: #fff; width: 60%; height: 70px;}
+// d2 在 d1 上边
+var touchStartTime = 0;
+var d1 = document.getElementById('d1');
+var d2 = document.getElementById('d2');
+function hideD2() { d2.style.display = 'none'; }
+function log(text) {
+  var console = document.getElementById('console');
+  console.innerHTML += '<br />' + text;
 }
-createFileIndex('./samples/');
+d1.addEventListener('touchstart', function () {
+  log('blue div: touchstart');
+})
+d1.addEventListener('touchend', function () {
+  log('blue div: touchend');
+})
+d1.addEventListener('click', function () {
+  log('blue div: click');
+})
+d2.addEventListener('touchstart', function () {
+  touchStartTime = new Date().getTime();
+  log('red div: touchstart');
+  // hideD2();
+})
+d2.addEventListener('touchend', function () {
+  log('red div: touchend, ' + (new Date().getTime() - touchStartTime));
+  hideD2();
+})
+d2.addEventListener('click', function () {
+  log('red div: click, ' + (new Date().getTime() - touchStartTime));
+  // hideD2();
+})
 ```
 
-2022 node server
+设置 `<meta name="viewport" content="width=device-width, initial-scale=1">` 后，Chrome 32+ on Android 和 iOS 10 都不会再有 300ms 延迟，可以不使用 fastclick。
 
 ```js
-var http = require('http');
-var url = require('url');
-var fs = require('fs-extra');
-var path = require('path');
-var port = 9998;
-var jsonContentType = 'application/json; charset=utf-8';
-
-var enumExts = ['jpg', 'jpeg', 'gif', 'png'];
-var local2 = '/Users/hua/Downloads/';
-function handleJoke2(res) {
-  var items = [];
-  var dName;
-  fs.walk(local2).on('data', function (item) {
-    if (item.stats.isDirectory()) {
-      dName = item.path;
-    }
-    var extname = path.extname(dName);
-    // path.basename(fileDir)
-    var ext = extname && extname.substr(1);
-    if (ext && enumExts.indexOf(ext) > -1) {
-    }
-  }).on('end', function () {
-    if (items.length) {
-      res.writeHead(200, {'Content-Type': jsonContentType});
-      res.end(JSON.stringify(items));
-    } else {
-      res.writeHead(404, {'Content-Type': 'text/plain'});
-      res.end('Not found');
-    }
+// https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js
+window.addEventListener('load', function() {
+  var logId = 0;
+  var tsTime;
+  document.getElementById('btn').addEventListener('touchstart', function() {
+    tsTime = new Date().getTime();
+    // console.log(tsTime)
   })
-}
-http.createServer(function (request, response) {
-  var parsedUrl = url.parse(request.url, true);
-  // var query = require('url').parse(req.url).query;
-  // var parm1 = require('querystring').parse(query).parm1
-  var query = parsedUrl.query;
-  if (query.joke == '1') {
-    var content = fs.readFileSync().toString().split('\n\n');
-    response.writeHead(200, {'Content-Type': jsonContentType});
-    response.end(JSON.stringify(content));
-  }
-  if (query.joke == '2') {
-    handleJoke2(response);
-  }
-}).listen(port);
-console.log('> main server running on port ' + port);
-```
-
-2021 webpack 检测 node_modules 里某个包的 实际路径，并拷贝文件到项目 src 里
-
-```js
-const CopyPlugin = require('copy-webpack-plugin');
-const fs = require('fs')
-const path = require('path')
-const mxgraph = path.resolve(__dirname, 'node_modules/mxgraph')
-// console.log('xxx1', mxgraph);
-let mxReal
-try {
-  mxReal = fs.realpathSync(mxgraph)
-} catch (error) {
-}
-
-// webpack 里 plugin 设置增加 copy 插件
-new CopyPlugin(
-  // [{ from: mxReal + '/javascript/src/', to: 'dest' }]
-  [
-    mxReal + '/javascript/src/',
-    { from: __dirname + '/src/routes/Designer/Editor/images', to: 'images' },
-    { from: __dirname + '/src/routes/Designer/Editor/resources', to: 'resources' }
-  ]
-);
-
-function walk(dir, filter) {
-  var results = []
-  fs.readdirSync(dir).forEach(function(file) {
-    file = dir + '/' + file;
-    var stat = fs.statSync(file)
-    if (stat && stat.isDirectory()) {
-      results = results.concat(walk(file, filter))
-    } else {
-      filter(file) && results.push(file)
-    }
-  });
-  return results
-}
-var temp = walk('/Users/hua/Downloads', function(file) {
-  return /\.html$/.test(file)
-});
-console.log('temp: ', temp);
-
-fs.stat(parm1, function (err, stats) {
-  if (stats.isFile()) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.statusCode = 200;
-
-    // 创建文件流读取，替代fs.readFile方法
-    var file = fs.createReadStream(parm1);
-    file.on('open', function () {
-      return file.pipe(res);
-    });
-    return file.on('error', function (err) {
-      return console.log(err);
-    });
-  }
-});
+  document.getElementById('btn').addEventListener('click', function() {
+    // console.log(new Date().getTime())
+    document.getElementById('log').innerHTML =
+      logId++ + ' 点击延迟：' + (new Date().getTime() - tsTime);
+  })
+  FastClick.attach(document.body);
+}, false);
 ```
 
 
-
-
-
-
-## 领域
-
-### js
-
-- https://evertpot.com/using-top-level-await-is-bc-break/
-
-- 33-js-concepts https://github.com/leonardomso/33-js-concepts
-- 只在行首字符是 `+ - [ ( /` 这5种情况下，加前置分号即可
-- 原型链/闭包(匿名函数)？实现继承？new的原理实现？this指向改变(call/apply/bind)？null/undefined区别？事件代理(委托)？减少事件注册 节省内存。
-- es6 常用哪些特性？ 变量最小作用域 es5 function, es6 let 块级。 var 变量提升(Hoisting)。 Map 和 WeakMap 区别。 Symbol generator。
-- promise 跟 async/await 关系？ async 方法返回 promise 、是 promise 的语法糖。
-- es6 generator？ es6 和 node 的 module 的区别？ fetch、xhr 优劣势
-- ES 与 CommonJS modules 的区别
-- 内存泄漏的几种情况？ https://blog.logrocket.com/escape-memory-leaks-javascript/
-- WeakRef 的用处 https://www.reddit.com/r/Frontend/comments/1ato11w/will_the_event_listeners_be_removed_automatically/
-- 在 es class 中的 箭头函数 比较慢，而且不在 原型链 上  https://medium.com/@charpeni/arrow-functions-in-class-properties-might-not-be-as-great-as-we-think-3b3551c440b1
-- es6 modules 父子 module 的代码执行顺序、class 内外代码执行顺序。
-
-- shim、sham 和 polyfill 之间的区别？ https://github.com/es-shims/es5-shim
-  - es5-shim 完美模拟了所有 ES5 中可以被完美模拟的方法。就是说 ES5 中有些方法，是可以在旧 JS 引擎中完美模拟了，那么 shim 就完美模拟了它们。shim 不局限与浏览器环境，只要 JavaScript 引擎支持，代码即可运行。
-  - es5-sham 只承诺你用的时候代码不会崩溃，至于对应的方法是不是起作用它就不保证了。如果你要用的方法在 shim 中都包含了，那么就不需要 sham。sham 能不引用就不引用。sham 依赖 shim。 IE8：只支持 ES3。
-
-库/框架
-
-- React16 / 17 / 18版本新特性 https://blog.csdn.net/momei1942/article/details/129699873
-- React18: 并发控制的更好更灵活，定时器等异步函数setState批处理、Suspense 流式 html SSR、useTransition 延迟/过渡更新。
-- 看过 框架或库 源码？ react 使用注意事项 https://github.com/mithi/react-philosophies  React 技术揭秘 https://react.iamkasong.com/
-
-- react diff 原理？生命周期？受控组件和非受控组件？父组件和子组件的通信方式？render-props 高阶组件 (代替mixin及ref问题)？
-- react 应用性能优化？列表 key / shouldComponentUpdate / PureComponent (父子组件 props state 不变时不render 为什么不建议用?) / memoization
-- react setState 是同步的还是异步的? 异步。 子组件和父组件 componentDidMount 哪一个先执行？子组件先。
-- prop 的变化 同步到 state 的方法？
-
-- react 渲染器了解一下？ https://juejin.cn/post/6844903753242378248
-- React Fiber 架构 https://xueshiming.cn/2021/05/08/React%20%E4%B9%8B%20Fiber%20%E6%9E%B6%E6%9E%84/
-- React-Fiber 并发模式、区分任务优先级、调度协调 中断/恢复任务，浏览器60fps渲染 10毫秒自己执行 5毫秒空闲时间。
-
-- react 需要遍历或修改 children，要使用`React.Children.forEach / React.Children.map` 方法，而不要用`Array.isArray(children) / children.forEach`等方法。
-- setState 是异步的 [示例](https://stackoverflow.com/a/45249445/2190503) 会引起不必要的 render。
-- [真实 DOM 和 react 虚 dom 讨论](http://www.zhihu.com/question/31809713)
-  - dom 对象是很庞大的（上边有很多属性），其创建的开销比较大，已有的 dom 对象上做更新开销并不大，众多框架都在围绕此做优化，比如用`key`是否变化来判断对 dom 的操作是 “更新” 还是 “销毁重建”。 dom批量更新：dom操作如，1.删除一个元素，2.增加一个元素，3.在增加的元素上改变一个属性。如果用 dom-api，会有多次 repaints reflows 比较耗性能。 如果放到「虚拟 dom」上操作，会把这三个过程最终的结果，一次更新到实际 dom 树上，只用操作一次实际 dom。 virtual-dom 里一次 digest 中的 diff 只需一次，但是会随着 ui 的规模复杂度，性能损耗严重。
-
-react hooks
-- 不优雅的 React Hooks https://zhuanlan.zhihu.com/p/455317250
-- React Hooks 使用误区 https://zhuanlan.zhihu.com/p/450513902
-- React Hooks 陷阱 https://mp.weixin.qq.com/s?__biz=MzIzMjcxNzE5MA==&mid=2247488097&idx=1&sn=e8a6d71d1c05c8be04c25b32af43fb09
-- useLayoutEffect 和 useEffect 的区别 https://zhuanlan.zhihu.com/p/348701319
-- [useReducer callback](https://github.com/facebook/react/issues/15344)
-
-- react hooks 怎么把 props 里复杂对象（数据请求结果）的实时变化、”完全同步/只是初始化“ 更新到 state 中？
-- react hooks useRef 用途？和“函数组件”外定义的变量区别？(类全局变量) 分别的执行时机？
-- react hooks useMemo useCallback useReducer/redux 应用场景？
-- react hooks useEffect 及其 return 函数的执行时机？子组件先执行？多个时执行顺序？怎么确保 dom 先增加成功 (setTimeout)？
-
-[redux](https://redux.js.org/) 概念
-- 为什么是 企业级前端开发框架？ 实现 双向绑定 的原理？
-- 单双向数据流区别？https://pomb.us/build-your-own-react
-- data-flow, 不可变的数据更新模式 immutable-update-patterns.
-- actions 其实就是 mutations，即 ui 或者 server 的 response.
-- action creator 调用 dispatcher (passive pub-sub systems) 传递 mutations.
-- store 监听 actions 再去 mutate data (只有store能决定怎么更新数据).
-- component 监听 store, 获取需要的数据.
-redux 基本流程
-- 为什么用单一的 store? 子组件 connect 后可使用 store 了？ context。 immutable-js ？ immerjs
-- redux-saga 典型流程:  form 表单提交，触发 FORM_POST action，saga 里 `yield put` POST_SUCCESS 触发 action，改变页面状态或拉取新数据，触发 UI CHANGE 的 action，过程中用 `yield select` 从 state 里选取需要的参数。
-[Reactive programming vs Passive programming](https://vaibhavgupta.me/2017/12/31/reactive-programming-vs-passive-programming/)
-
-
-### html css
-
-cssinjs https://mp.weixin.qq.com/s/cepGi8Jhe4RnyfNaoN_zfw
-react19 cssinjs 问题 https://juejin.cn/post/7359876671137071156
-探索：业务中推行 tailwindcss 和 emotion，设计上 design token 抽象。
-2024-10 cssinjs
-
-- html 规则检测 https://validator.w3.org 、 http://infohound.net/tidy
-- html head 里的 js css 如何放置  head 里能放什么 https://github.com/joshbuchea/HEAD
-- iframe 有哪些问题 https://afantasy.ninja/2018/07/15/dive-into-iframe
-  - 高度改变麻烦、弹框、iframe 里再嵌套 ifr。
-  - 移动端页面、打开(全屏)嵌入的 iframe 页面，点浏览器返回、返回不到业务页面、需要销毁 iframe。
-  - 浏览器刷新 iframe url 状态丢失、后退前进按钮无法使用。
-  - 里边 弹出框 的位置、难居中，浏览器 resize 时自动居中 更难处理。
-  - 主文档和 iframe 文档如果不同域、免登录处理麻烦，涉及 cookie 透传。
-  - 需要完全重新加载，比较慢。
-  - iframe 自适应高度：给定高度、内部滚动
-- div/span 都是容器元素， p dt 标签里不能有块(block)标签， button 里面不要嵌套 a 标签。
-- img script 的 src、css 的 href 都不能为空。 DOM 的 attribute 和 property 区别。
-- a 伪类需遵循 css2 规范中的 L-V-H-A (a:link visited hover active) 顺序。
-- 没有 css-parent-selector 。 BEM命名方式。  如何提升 CSS 选择器性能 http://www.jianshu.com/p/268c7f3dd7a6
-
-- [anchor-positioning-api](https://developer.chrome.com/blog/anchor-positioning-api?hl=zh-cn)
-- CSS 选择器优先级(id>class>标签>伪类)？伪类和伪元素区别？BFC/IFC 介绍？
-- 浮动以及清除浮动？页面布局方法？flex一维 CSS Grid 二维。元素垂直居中方法？
-- border-box 作用？display/position 作用(absolute会变为块元素)？z-index 在节点 position 值是什么生效(relative/absolute/fixed)？
-- 子元素的 margin-top 设置影响父元素位置？页面兼容性问题？响应式布局怎么实现？
-- CSS优化方法？减少DOM操作，减少重绘和重排，合理使用选择器，减少@import使用。
-- h5高清方案(rem) 优缺点？ css 实现 loading，三角形？ css-module 的作用？ css 样式初始化为了什么？
-- https://www.iconfont.cn/
-- css 时间函数 http://www.smashingmagazine.com/2014/04/15/understanding-css-timing-functions
-- css 长度 https://css-tricks.com/the-lengths-of-css
-  - 绝对长度: px inch cm mm。 rem: 相对 root 的 font-size 大小  em: 基于大写字母 M 的尺寸  ex: 基于 x 字母高度  1vh 等于 1/100 的视口高度
-
-
-browser
-
-- [URL 编码，为什么要编码？](http://anjia.github.io/2015/04/15/jsURIEncode/)
-- 浏览器在自动选择编码方式的时候不会优先根据 html 源码中的所展示的`<meta charset="utf-8" />`代码来决定选择什么编码方式，而是优先根据“响应标头-response header”中的键为“Content-Type”的值来自动选择判断。
-- [ua 检测](https://github.com/ded/bowser) / [特性检测](https://github.com/barisaydinoglu/Detectizr)
-- 浏览器解析和CSS（GPU）动画优化 https://segmentfault.com/a/1190000008015671
-  - css 动画中尽量只使用 transform 和 opacity ，这不会发生重排和重绘。
-  - 有动画的元素样式，给定尺寸、设置为 display block（如果设置 display flex 子元素尺寸会动态变化、影响动画效果）
-- [WebAssembly](https://juejin.im/entry/5b20d09d6fb9a01e242490b1)
-  - 不是一门编程语言，而是一份字节码标准。 各种复杂的计算：图像处理、3D运算(大型 3D 网页游戏)、语音识别、音视频编码解码。区块链合约。
-  - [madewithwebassembly](https://madewithwebassembly.com/)、eBay 的[条形码扫描](https://www.infoq.cn/article/vc*q7psQqWMaVU8igJeD)、 [Google earth web](https://earth.google.com/web/) 版、 [autocad](https://web.autocad.com/login) web 版
-- [PWA](https://developers.google.com/web/progressive-web-apps/)
-  - Service Worker 需要运行于 HTTPS 或本地 localhost 环境，是继 Web Worker 后又一个新的线程。来实现离线页面功能。 Service Worker 是独立于页面的一个运行环境，它在页面关闭后仍可以运行。Web Worker 在页面关闭后不再运行。
-- https://developer.chrome.com/blog/introducing-popover-api/   Web Authentication 在Web上使用Touch ID 和 Windows Hello 登录
-- xss/csrf 原理和防御方法。CORS 的 POST 跨域如何带cookie https://www.jianshu.com/p/13d53acc124f
-- 浏览器 eventLoop 机制 microtask marcotask 执行顺序？setTimeout 宏队列先执行，promise 微队列。
-- 优化：压缩资源、异步加载、预加载、缓存、使用gzip、减少cookie、减少重定向、减少请求数。
-
-- JSONP 的原理以及 cors 怎么设置？跨域的方法有哪些？jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面。
-- web worker 突破同源限制？importScripts。 不好地方:(协程)解决并行计算，数据共享和精确控制线程生命周期方面存在缺陷。
-- SPA 实现方法？产生的问题：切换路由后会把上个路由状态生成的html全部销毁掉，再切回来恢复不到原来的样子。客户端渲染和服务端渲染，哪个快？
-- 移动: 点击穿透/300ms延迟？Fastclick。首频渲染、网络性能？手势库？有没有用过RN PWA？
-- 数据可视化: 3d 编辑器功能？技术点 svg 3dgis canvas webgl，svg 转 webgl 怎么实现？
-
-
-### 小程序/RN
-
-小程序的渲染层和逻辑层分别由2个线程管理：渲染层的界面使用了 WebView 进行渲染；逻辑层采用 JsCore 线程运行JS脚本。一个小程序存在多个界面，所以渲染层存在多个 WebView 线程，这两个线程的通信会经由微信客户端做中转，逻辑层发送网络请求也经由 Native 转发。
-目的：安全可控，沙箱隔离，限制 DOM 和 BOM 能力。逻辑层和渲染层是独立的，二者不会互相阻塞，因此性能更优（小程序限制了 JS 操作 DOM 的能力，因此不用担心二者的不同步问题）在浏览器网页中，虽然 JS 执行和 UI 渲染也是处于两个线程，但是 JS 线程和 UI 线程是互斥的。
-
-小程序采用的是混合架构，可通过 html 里的 a 标签启动新的 webview 窗口、调用 popWindow 关闭窗口。基本页面元素是 html 渲染，弹窗类 loading toast ActionSheet 和 本地存储、系统或用户信息，使用客户端原生实现。
-
-而 react-native 只是采用 js/html 写法，背后完全是 客户端原生 渲染。
-微信小程序和 RN 的区别：双线程架构，渲染层一个主要是 webview 一个完全 native。
-微信的支付 小程序云等开放API、小程序安全管控。
-
-小程序框架
-- [taro](https://taro.aotu.io/)、[remax](https://github.com/remaxjs/remax)、[alibaba/rax](https://github.com/alibaba/rax)、[flutter](https://github.com/flutter/flutter)。
-- 编译时：约定了一套自己的 DSL ，在编译打包的过程中，利用 babel 工具通过 AST 进行转译，生成符合小程序规则的代码。
-  - 容易出现 BUG、开发限制过多、跟不上 react vue 更新。早期的 Taro 1/2 采用的这种方案。
-- 运行时：在小程序的逻辑层中运行起来 React 或 Vue 的运行时，然后通过适配层，实现自定义渲染器。
-  - 有天然优势，remax taro3 这样实现。
-
-React component -> React Reconciler(调和器、实现了 Diff/Fiber 算法) -> React Renderer(可以是dom也可以是js对象等)。
-跨端小程序框架 remax taro3 自己实现了一套可以在 React 中用的，且能渲染到小程序页面的自定义渲染器。
-在 react reconciler resetAfterCommit 函数中、调用小程序的 setData 方法。
-小程序环境中，不支持直接创建DOM、仅支持模板渲染，用递归模板的方式，用相对静态的小程序模板语言实现了动态的模板渲染的特性。
-
-
-### 监控 & 性能
-
-https://httparchive.org/reports/page-weight
-语言性能 jsperf / benchmarks https://jsben.ch/browse
-[heavy tasks on the main thread](https://github.com/astoilkov/main-thread-scheduling)
-
-Headless BI https://cube.dev/
-https://github.com/GoogleChromeLabs/quicklink
-https://superset.apache.org/
-
-ICBU前端性能度量 https://mp.weixin.qq.com/s/XAdNOovCQxh5xuGVOSEz3w
-
-https://web.dev/articles/vitals?hl=zh-cn
-[Web vitals](https://www.cnblogs.com/constantince/p/15237915.html)、
-[thresholds](https://web.dev/i18n/en/defining-core-web-vitals-thresholds/)、
-[Chrome的First Paint触发的时机探究](https://cloud.tencent.com/developer/article/1124484)、
-[window.onload vs document.onload](https://stackoverflow.com/questions/40193553/load-event-on-script-with-async-and-or-defer)
-
-[如何根治 Script Error.](https://mp.weixin.qq.com/s/6v_X0vtM5EZThF0odwJmTw)
-[JavaScript Errors Handbook](https://github.com/mknichel/javascript-errors/blob/master/README.md)、
-[如何捕获前端错误](https://mp.weixin.qq.com/s/E51lKQOojsvhHvACIyXwhw)、[搞定前端错误捕获和上报](https://juejin.cn/post/7031876097390149645)、[错误监控总结](https://segmentfault.com/a/1190000014672384)
-
-为什么大厂前端监控都在用GIF做埋点？ https://mp.weixin.qq.com/s?__biz=MzAxODE4MTEzMA==&mid=2650099077&idx=1&sn=813d2c96cd940dc95b0f47585b989c2f
-
-AEM [表单分析](https://img.alicdn.com/imgextra/i3/O1CN01x1xSNj26XMy1xUikf_!!6000000007671-0-tps-2934-1678.jpg)
-AEM: 稳定性(脚本/接口/资源异常)、流畅性(加载/卡顿/动画掉帧)、用户流量(pv uv 活跃用户 新用户/点击率 点击热点 / 停留黏性/来源去向/设备)、行为分析(页面流/操作流/留存跳失率/访问链路/表单分析)、满意度(问卷/反馈/录屏/主观分析)。告警/多维指标(用户纬度年龄性别籍贯)/自定义看板/乐高搭建报表页。
-
-[chrome-performance-devtool](https://github.com/Sanotsu/web-beginner/blob/master/documents/11-others/web-base-chrome-performance-devtool.md)
-Google [lighthouse](https://developers.google.com/web/tools/lighthouse/)、类似服务 [web.dev/measure](https://web.dev/measure)、[webpagetest](https://www.webpagetest.org/)、[pagespeed insights](https://developers.google.com/speed/pagespeed/insights/)
-
-arms / quick a+ / spm / aplus / retcode / clue。
-
-性能和体验
-弹窗 modal 里高度需要设置、内容长时“内滚动”。 一行多列 card 卡片，每个卡片 高度需要设置成一样。
-某个操作 触发多次 ajax 请求、再 setState 页面，导致卡顿？ 一个页面有多个“富文本实例”同时初始化、比较耗时？导致页面卡顿？
-
-
-### 质量 & 测试
-
-测试
-CI/CD、JS 覆盖率工具 [istanbul](https://istanbul.js.org/)。测试-漏测率。 阿里MTC无线测试中心、蚂蚁云测平台[Solomon]
-基础理论: [前端测试体系建设与最佳实践](https://mp.weixin.qq.com/s?__biz=MzI5MjYyODYyNQ==&mid=2247483987&idx=1&sn=132aea5d5185a1e4fa2fab5037a2fb3e)、[测试金字塔](https://martinfowler.com/bliki/TestPyramid.html)
-[codecov.io](https://codecov.io/) 覆盖率分析对比工具 支持所有语言，对 GitHub commit 的覆盖率做记录、前后对比。
-[代码测试覆盖率分析](https://blog.rsuitejs.com/2017/08/20/test-coverage/)
-Statements 与 Lines 的区别：一行可能有多个语句
-[百分百测试覆盖率真的有意义吗？](https://www.zhihu.com/question/29528349) 各种 corner cases(比如除0、IO error handling) 很难做到 100% 覆盖。 覆盖率数据只能代表你测试过哪些代码，不能代表你是否测试好这些代码。 不能盲目追求代码覆盖率，而应该想办法设计更多更好的案例，哪怕多设计出来的案例对覆盖率一点影响也没有。
-
-质量
-[iceworks-doctor](https://marketplace.visualstudio.com/items?itemName=iceworks-team.iceworks-doctor)
-[vscode-codemetrics](https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-codemetrics)
-[jsinspect](https://github.com/danielstjules/jsinspect)、[jscpd](https://github.com/kucherenko/jscpd)
-[代码圈复杂度Cyclomatic Complexity](http://kaelzhang81.github.io/2017/06/18/%E8%AF%A6%E8%A7%A3%E5%9C%88%E5%A4%8D%E6%9D%82%E5%BA%A6/)
-[研发效能度量引发的血案](https://mp.weixin.qq.com/s/h9zIg2e8iHn3qgxlUGObbQ)、[10 倍程序员神话](https://www.simplethread.com/the-10x-programmer-myth/)、[代码质量](https://stackoverflow.blog/2021/10/18/code-quality-a-concern-for-businesses-bottom-lines-and-empathetic-programmers/)
-
-git 三板斧
-一板基础斧 add，commit，pull/push，checkout，revert
-二板合作斧 merge，rebase，stash，cherry-pick
-三板优雅斧 commit --amend，rebase -i
-
-
-### 生成 & 搭建
-
-https://www.wix.com/
-https://soloist.ai/
-
-[无代码nocobase](https://cn.nocobase.com/) [博客](https://blog-cn.nocobase.com/posts/nocobase-opensource-income-3years/)
-
-[阿里低代码引擎LowCodeEngine正式开源](https://mp.weixin.qq.com/s/rQ-X9OBFRvhI16KrWwIT6w)
-[官网](https://lowcode-engine.cn/)、[github](https://github.com/alibaba/lowcode-engine)
-
-[网易云音乐低代码体系建设思考与实践](https://mp.weixin.qq.com/s/9yo-Au3wwsWErBJfFjhxUg)
-
-[从实现原理看LowCode](https://zhuanlan.zhihu.com/p/452251297)
-
-https://github.com/imcuttle/mometa
-
-AECP 开发平台架构 https://img.alicdn.com/imgextra/i2/O1CN01VFIoNq1E0PCIklFol_!!6000000000289-2-tps-2482-1410.png
-
-[2020/01/13/the-no-code-delusion](https://www.alexhudson.com/2020/01/13/the-no-code-delusion/)、[无代码编程介绍](https://mp.weixin.qq.com/s/eKvSxOvSyEZEr3BLloCXdw)
-[antd-lowcode](http://g.alicdn.com/code/npm/@ali/antd-lowcode/0.5.1/example/index.html)
-
-Markdown + 卡片 [可视化搭建](https://zhuanlan.zhihu.com/p/164558106)、
-宜搭、[云凤蝶](https://www.yunfengdie.com/home)、[阿里云外网建站](https://ac.aliyun.com/jianzhan)。微软 Power [Platform](https://yuque.antfin-inc.com/chenyu/articles/skei6i)。AWS [honeycode](https://www.honeycode.aws/)、[mendix](https://www.mendix.com/)。
-
-[SaaS（科技）行业导航](http://www.allsaas.cn/)、SaaS 平台：[氚云](https://h3yun.com/index.php?g=Chuanyun&m=Scene&a=index)、[搭搭云](https://www.dadayun.cn/)、[明道云](https://blog.mingdao.com/13061.html)、[appsheet](https://www.appsheet.com/)、[fibery](https://fibery.io)、[openchakra](https://openchakra.app/)、[百度amis](https://baidu.github.io/amis/#/docs/getting-started)、[tumult](https://tumult.com/)(YC投资)、
-[grapesjs](https://grapesjs.com/)、[noflojs](https://noflojs.org/)、[pagedraw](https://pagedraw.io/)、Google Web Designer (类似 Dreamweaver) 2013 发布 2017 停止更新。
-
-[What's Salesforce?](https://tryretool.com/blog/salesforce-for-engineers/) 、Salesforce [Lightning](https://www.salesforce.com/cn/campaign/lightning)
-
-云上[编排](https://blog.csdn.net/devcloud/article/details/93175186)([cloudcraft](https://app.cloudcraft.co/)/阿里[ros](https://cn.aliyun.com/product/ros)/华为云[aos](https://www.jianshu.com/p/2301a1729fcc)/[Terraform](https://blog.csdn.net/yejingtao703/article/details/80574363)/[PAD图](https://baike.baidu.com/item/PAD%E5%9B%BE))、[图编排(](https://www.atatech.org/articles/170866)[相关](https://www.atatech.org/articles/174875/))
-
-GUI 研发：[umi-ui](https://umijs.org/guide/umi-ui.html)、[angular-console](https://angularconsole.com/)
-
-表单: [formily](https://github.com/alibaba/formily)、[build forms from JSON Schema](https://github.com/mozilla-services/react-jsonschema-form)、[react-final-form](https://github.com/final-form/react-final-form)、[AForm模型驱动生成表单](http://xiehuiqi220.github.io/AForm/doc/book/index.html)。
-
-AI图转码: 西安交大[设计图转代码](https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247489854&idx=1&sn=4828d5d36c3becdf8b1f46490b5ce708)、[Microsoft Sketch2Code](https://github.com/Microsoft/ailab/tree/master/Sketch2Code)、[sketch2code](https://azure.microsoft.com/en-us/blog/turn-your-whiteboard-sketches-to-working-code-in-seconds-with-sketch2code)、[pix2code](https://github.com/tonybeltramelli/pix2code)、[Screenshot-to-code](https://github.com/emilwallner/Screenshot-to-code)。
-
-AI Design: Google [AutoDraw](https://www.autodraw.com/) (原理[介绍](https://research.googleblog.com/2017/04/teaching-machines-to-draw.html))、鲁班、[sketch-rnn](https://github.com/tensorflow/magenta/blob/master/magenta/models/sketch_rnn/README.md)、[机器作艺术画](https://robotart.org/artworks/)、设计与人工智能[系列报告](http://sheji.ai/#/?_k=twxxpk)、[lobe.ai 生成表情](https://lobe.ai/)。
-
-AI 编码/代码推荐: [为什么难](https://www.outsystems.com/blog/posts/ai-machine-learning-future-low-code/)、Facebook [Aroma](https://code.fb.com/developer-tools/aroma/)、[Would-AI-be-able-to-write-code](https://www.quora.com/Would-AI-be-able-to-write-code)。
-imgcook(控件识别) / dumbo / 闲鱼UI2Code / 视觉稿还原比对-蒙娜丽莎。
-
-JS 实现神经网络、[天猫精灵](https://open.bot.tmall.com/)、机器人工厂、阿里文娱 [AI 视频智能](https://ailab.youku.com/#/)、JS IM / [botui](https://github.com/moinism/botui)
-
-
-低代码平台：源码不可维护 git diff 不起作用。
-物料(模板、页面、区块、基础组件、业务组件、布局组件)
-
-区块（Block）：一系列业务组件、布局组件等组合而成的代码片段，不对外提供可配置的属性；区块内部具备完整的内部样式、事件、生命周期管理、状态管理、数据流转机制，能独立存在和运行，通过代码片段的复制实现跨页面、跨应用的快速复用，保障功能和数据的正常。
-模板（Template）：特定垂直业务领域内的业务组件、区块可组合为单个页面，或者是再配合路由组合为多个页面集，统称为模板。
-
-Microsoft Power Apps 中，页面的生产过程是由字段的布局来决定的，字段对应的组件可以切换。在 Mendix、OutSystems 中。页面虽然是基于模型来生产的，但整体开发体验，依然是面向页面和组件视角的。组件可以绑定字段。
-从前端对低代码提效本质的分析来看，可视化搭建本质上是通过可视化手段降低了前端开发的上手门槛，但开发思路和源码开发基本是一样的。其提高开发效率的主要手段是，通过丰富的静态模板让页面开发少写一些代码。没有元数据的支持，其对开发效率的提升至多是线性的，而我们需要的是数量级的提升。
-由于模型元数据驱动和可视化搭建在本质思路上的不同，在可视化搭建基础上，集成模型驱动的能力，会让整个产品的复杂性增加，产品定位不清晰，扩展性差。与其这样，不如从0开始打造一个纯净的模型驱动低代码开发工具。
-
-
-低代码 2021
-
-[引擎](https://img.alicdn.com/imgextra/i1/O1CN01rYYbMH1KKSEUlOB3B_!!6000000001145-2-tps-1196-736.png):
-入料引擎（Materialin Engine）Material for Schema [架构图](https://img.alicdn.com/imgextra/i3/O1CN01ySybed1u7TAlCEmgI_!!6000000005990-2-tps-1698-467.png)；编排引擎（Choreography Engine）Schema to Schema [架构图](https://img.alicdn.com/imgextra/i1/O1CN01BV9MmX26om0c3PECA_!!6000000007709-2-tps-1542-829.png)；渲染引擎（Rendering Engine）Schema to UI [架构图](https://img.alicdn.com/imgextra/i3/O1CN01u0oISH1tUXVQ8V8Wu_!!6000000005905-2-tps-1834-536.png)；出码引擎（Codeout Engine）Schema to Code [架构图](https://img.alicdn.com/imgextra/i1/O1CN01rvvk6H1X433D49JOc_!!6000000002869-2-tps-1382-690.png)。
-
-https://img.alicdn.com/imgextra/i4/O1CN01z4bl431OOoSsB0Fgl_!!6000000001696-0-tps-2647-1048.jpg
-
-schema 基础协议规范
+------ webview
 
 ```js
-{
-  "version": "1.0.0",      //当前协议版本号
-  "componentsMap": [{      //组件描述
-    "componentName": "Button",
-    "package": "alife/next",
-    "version": "1.0.0",
-    "destructuring": true,
-    "exportName": "Select",
-    "subName": "Button",
-  }, {
-    "componentName": "CustomInput",
-    "package": "@ali/custom",
-    "version": "1.0.0",
-    "main": "/lib/input",
-    "destructuring": true,
-    "exportName": "Input"
-  }],
-  "componentsTree": [{
-    "componentName": "Page",   //单个页面。枚举类型 Page|Block|Component
-    "fileName": "Page1",
-    "meta": {          //页面元信息
-      "title": "首页",    //页面标题描述
-      "router": "/",     //页面路由
-      "spmb": "abef21",  //spm B位
-    },
-    "props": {},
-    "defaultProps": {   // 默认props：  选填 仅用于定义低代码业务组件的默认属性 固定对象
-      "name": "xxx"
-    },
-    "css": "body {font-size: 12px;} .table { width: 100px;}",
-    "state": {                       // 初始state： 选填 对象类型/变量表达式
-      "btnText": "submit",                     // 默认数据值： 选填 变量表达式
-      "num": 8,
-      "num2": 5
-    },
-    "lifeCycles": {                   //生命周期:          选填 对象类型
-      "didMount": {
-        "type": "JSExpression",
-        "value": "function() {        //生命周期方法：      选填 函数类型\
-            console.log('did mount');\
-        }",
-      },
-      "willUnmount": {
-        "type": "JSExpression",
-        "value": "function() {\
-          console.log('will unmount');\
-        }"
-      }
-    },
-    "methods": {                     // 自定义方法对象：     选填 对象类型
-      "testFunc": { //自定义方法： 选填 函数类型
-        "type": "JSExpression",
-        "value": "function() {             \
-            console.log('test func');\
-          }"
-      },
-      "getNum": {
-        "type": "JSExpression",
-        "value": "function(a, b){\
-                return a + b;\
-              }"
-      }
-    },
-    "dataSource": {                  // 数据源对象：选填  对象类型
-      "list": [{                          // 数据请求列表    必填  数组类型
-        "id": "list",                // 单个数据请求id标识    必填  字符串类型
-        "isInit": true,              // 是否为初始数据             必填     布尔类型/变量表达式
-        // 建议改个名字，比如 auto | loadOnInit
-        "type": "fetch/mtop/jsonp",  //请求类型   必填    字符串类型
-        "options": {                //请求类型对应参数  必填  对象类型
-          "uri": "",                      //请求地址        必填  字符串/变量表达式
-          "params": {},                //请求参数       选填   字符串/变量表达式
-          "method": "GET",             //请求方法              必填   字符串/变量表达式
-          "isCors": true,              //是否支持跨域,   对应credentials = 'include'     选填  布尔
-          "timeout": 5000,             //超时时间单位ms     选填   数字类型 单位ms
-          "headers": {}                //请求header参数  选填   请求头信息
-        },
-        "dataHandler": { //异步请求回调： 选填  函数类型
-          "type": "JSExpression",
-          "value": "function(data, err) {} "
-        }
-      }],
-      "dataHandler": {  // 所有初始异步数据接口执行完成后的回调   选填 函数类型
-        "type": "JSExpression",
-        "value": "function(dataMap) { }",
-      }
-    },
-    "children": [{
-      "componentName": "Button",
-      "props": {
-        "text": {
-          "type": "JSExpression",
-          "value": "getNum(state.num, state.num2) + '万'"
-        }
-      },
-      "condition": {
-        "type": "JSExpression",
-        "value": "state.num > state.num2"
-      }
-    },{
-      "componentName": "Div",
-      "props": {
-        "className": "",
-        "text": {
-          "type": "JSExpression",
-          "value": "i18n['i18n-jwg27yo4']"
-        }
-      },
-      "condition": {                     // 函数类型属性：选填 函数类型
-        "type": "JSExpression",
-        "value": "!!this.state.isshow",  // 渲染条件： 选填 根据表达式结果判断是否渲染物料 默认值true
-      },
-      "loop": [],                        // 循环渲染数据：选填 根据数据循环渲染物料 默认不进行循环渲染；
-      "loopArgs": ["item", "index"],     // 循环迭代对象、索引名称 选填
-      "children": [{
-        "componentName": "Button",
-        "props": {
-          "prop1": 1234, // 简单 json 数据
-          "prop2": [{   // 简单 json 数据
-            "label": "选项1",
-            "value": 1
-          }, {
-            "label": "选项2",
-            "value": 2
-          }],
-          "prop3": [{
-            "name": "myName",
-            "rule": {
-              "type": "JSExpression",
-              "value": "/\w+/i"
-            }
-          }],
-          "valueBind": { // 变量绑定
-            "type": "JSExpression",
-            "value": "this.state.user.name"
-          },
-          "onClick": { // 动作绑定
-            "type": "JSExpression",
-            "value": "function(e) { console.log(e.target.innerText) }",
-          },
-          "onClick2": { // 动作绑定2
-            "type": "JSExpression",
-            "value": "this.submit",
-          },
-        },
-      }]
-    }],
-  }],
-  "utils": [{
-    "name": "clone",
-    "type": "npm",
-    "content": {
-      "package": "lodash",
-      "version": "0.0.1",
-      "exportName": "clone",
-      "subName": "",
-      "destructuring": false,
-      "main": "/lib/clone"
-    }
-  }, {
-    "name": "beforeRequestHandler",
-    "type": "function",
-    "content": {
-      "type": "JSFunction",
-      "value": "function(){\n ... \n}"
-    }
-  }],
-  "constants": {
-    "ENV": "prod",
-    "DOMAIN": "xxx.alibab.com"
-  },
-  "config": {  //当前应用配置信息
-    "sdkVersion": "1.0.3",  //渲染模块版本
-    "historyMode": "hash",  // 浏览器路由：brower  哈希路由：hash
-    "targetRootID": "J_Container",
-    "layout": {
-      "componentName": "BasicLayout",
-      "props": {
-      	"logo": "...",
-        "name": "测试网站"
-      },
-    },
-    "theme": {
-      //for Fusion use dpl defined
-      "package": "@alife/theme-fusion",
-      "version": "^0.1.0",
-      //for Antd use variable
-      "primary": "#ff9966"
-    }
-  },
-  "i18n": {
-    "zh-CN": {
-      "i18n-jwg27yo4": "你好",
-    },
-    "en-US": {
-      "i18n-jwg27yo4": "Hello",
-    }
+document.write('<pre>');
+document.writeln(navigator.userAgent);
+var isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/i.test(navigator.userAgent);
+document.writeln('is iOS: ', isIOS);
+
+var isWebView = typeof navigator !== 'undefined' && /(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i.test(navigator.userAgent);
+document.writeln('is WebView: ', isWebView);
+
+// https://stackoverflow.com/questions/28795476/detect-if-page-is-loaded-inside-wkwebview-in-javascript
+if (navigator.platform.substr(0,2) === 'iP') {
+  //iOS (iPhone, iPod or iPad)
+  var lte9 = /constructor/i.test(window.HTMLElement);
+  var nav = window.navigator, ua = nav.userAgent, idb = !!window.indexedDB;
+  if (ua.indexOf('Safari') !== -1 && ua.indexOf('Version') !== -1 && !nav.standalone){
+    //Safari (WKWebView/Nitro since 6+)
+    document.writeln('is UIWebView: false. is Safari');
+  } else if ((!idb && lte9) || !window.statusbar.visible) {
+    //UIWebView
+    document.writeln('is UIWebView: true');
+  } else if ((window.webkit && window.webkit.messageHandlers) || !lte9 || idb){
+    //WKWebView
+    document.writeln('is WKWebView: true');
   }
 }
 ```
 
-区块级API（实现区块级内部的上下文，数据流，状态管理）
+浏览器内核区别：手机系统官方浏览器、Chrome、UC、QQ、android控件里的webview、自己开发的APP里引用的 Webview，内核都不一样。
 
-```js
-this.state
-this.setState()
-this.dataSourceMap[oneRequest.id]: {
-  load(params), status, data, error
-}
-this.reloadDataSource()
-this.xxx()
-```
 
-页面级api（实现页面级内部的上下文，数据流，状态管理，从而实现区块之间的通信）
+------ 2013-08 兼容性问题
+- IE8及以下，ajax请求地址和参数相同时，会在一段事件内，读取浏览器缓存的ajax返回文件数据，而不去重新请求。-- 解决：请求参数加时间戳
+- JSON.stringify 只支持IE8\9\10标准文档模式，考虑到文档设置有兼容性视图模式（IE67模式）需要对此方法做兼容（参考json2.js）
+- input、textarea的blur事件中删改页面元素，会影响作用区域周围的元素事件处理。例如：点提交btn，先触发了blur事件，改变btn周围的元素，使得btn位置变动，此时btn的事件处理函数不会触发，再点才可触发。
+- IE8里在某个元素上设置`background: transparent;`，给此元素添加事件，并不会触发事件，像click mousedown事件
+- IE9什么原因能导致input file框点击没反应？
 
-```js
-this.page
-this.page.state
-this.page.setState()
-this.page.props
-this.page.xxx()
-this.page.dataSourceMap
-this.page.reloadDataSource()
-```
 
-低代码业务组件 API (开发一个低代码业务组件需要用到的API，实现内部的上下文，数据流，状态管理)
+------ 2012
 
-```js
-this.component
-this.component.state
-this.component.setState()
-this.component.props
-this.component.xxx()
-this.component.dataSourceMap
-this.component.reloadDataSource()
-```
+[Template-Engine-Chooser!](http://garann.github.io/template-chooser/)
+模板引擎一般需要：预编译，运行时两个阶段。
 
-获取循环数据对象 api (获取在循环场景下的数据对象)
+- [mustache](https://github.com/janl/mustache.js) --不能预编译，轻逻辑，有各种语言(eg. java)版本
+- [Hogan](https://github.com/twitter/hogan.js) -- mustache的编译器，使用基本没问题
+- [handlebars](http://handlebarsjs.com/) -- 有runtime版本，基本能保证高性能；有扩展支持if else等，
+- [artTemplate](https://github.com/aui/artTemplate?source=c) -- 国内出品，特性比较全面；有预编译工具；但是- 模板语法不通用，没有服务端语言支持。
+- [ejs](http://embeddedjs.com/) --有些古老，使用不便
 
-```js
-this.item
-this.index
-```
 
+------ 2011
+- https://www.cnblogs.com/huajs/
+- http://images.cnblogs.com/cnblogs_com/bluedream2009/201609/o_mm.jpg
+- https://os.alipayobjects.com/rmsportal/EylTaSCtqXQRiTK.jpg
+- 2011.5.11google首页动画 - 现代舞先驱玛莎·葛兰姆 117 周年诞辰
+- [html5 snooker club](http://www.codeproject.com/Articles/217626/Html-Snooker-Club)
+- [粒子系统](http://spielzeugz.de/html5/liquid-particles.html)
+- [simulation of a cube that rotates](http://stackoverflow.com/questions/1401311/could-someone-explain-the-math-behind-how-this-cube-rotating-script-works?tab=active#tab-top)
+- [三维旋转矩阵](http://wenku.baidu.com/view/58b1f64cf7ec4afe04a1df73.html)
 
+`$('xx').data()` 使用地方 - [jQuery.data](http://www.cnblogs.com/silin6/p/jQuery_data.html)
+在实际应用中我们要给我们的 DOM 添加数据，如果我们给一个 DOM 添加的数据太多的话，会存在循环引用的风险，例如我们添加的数据恰好引用了这个 DOM 元素，就会存在内存的泄露。
+jquery 使用了数据缓存的机制就解决或者说避免这一问题。在 DOM 上扩展了一个属性 expando，数据都存在了 $.cache 中，利用 expando 这个属性建立 DOM 和缓存对象之间的联系。无论我们添加多少的数据都会存储在缓存对象中，而不是直接挂在 DOM 上。
+es6 WeakMap 解决类似问题。
 
-### 文档 / 在线 office
 
-2022-02 本杰 《协同文档工作机制简介》 https://mp.weixin.qq.com/s/BtoM_4Gy5v4I0okpMukATg
-[活文档](https://mp.weixin.qq.com/s/Tkc_eisDB3SFwWLaWktB2Q)、2020-11 孟方(游圣) [aliyun/cadt](https://www.aliyun.com/product/developerservices/cadt)
 
-Roam Research [介绍](https://www.zhihu.com/question/384453977)、[介绍1](https://baijiahao.baidu.com/s?id=1669749949965240303)、[foam](https://foambubble.github.io/foam/)
 
-https://github.com/thinkerchan/notion2md
-​[Notion 编辑器原理](https://zhuanlan.zhihu.com/p/359122473)、[腾讯在线 Excel 技术](https://mp.weixin.qq.com/s/f1vwzuPryc8ag6nd5Ngr5A)
-[语雀 实时保存 方案](https://klab.yuque.com/docs/share/0e3ee249-d977-492b-82f2-6b44d26bd4af) (平侠/遇春 2021-01)、[语雀后端技术](https://mp.weixin.qq.com/s/VM61gkZuYYqE4pVhpba3nQ)、[隆昊《富文本编辑器的技术演进》](https://myslide.cn/slides/21863)、[有道云笔记富文本编辑器技术演进](https://mp.weixin.qq.com/s/9gDI1r9aAu6dHJhXg34eIg)。
 
-[飞书在线文档协同](https://mp.weixin.qq.com/s?__biz=MzkzNTIwNTAwOA==&mid=2247496795&idx=1&sn=5edf65ebf8609ada7981a9a804b072d3)、
-实时协作技术 [ot-vs-crdt](https://www.tiny.cloud/blog/real-time-collaboration-ot-vs-crdt/) / [xi-editor-CRDTs](https://xi-editor.io/docs/rope_science_08.html) / [are-crdts-suitable](https://blog.kevinjahns.de/are-crdts-suitable-for-shared-editing/)、[vs code 多人协作](https://docs.microsoft.com/en-us/visualstudio/liveshare/reference/connectivity)、[CKEditor 多人协作](https://ckeditor.com/collaborative-editing/)、[automerge](https://github.com/automerge/automerge)、[crdt](https://wiki.nikitavoloboev.xyz/distributed-systems/crdt)。
 
-[文档协同的三元结构-浩初](https://www.yuque.com/docs/share/92faca9c-2162-4fe2-974d-193164650b11)、[resume生成](https://github.com/visiky/resume)
 
-- 阿里云[媒体管理](https://help.aliyun.com/document_detail/63273.html)、[微软](https://support.microsoft.com/en-us/office/embed-a-presentation-in-a-web-page-or-blog-19668a1d-2299-4af3-91e1-ae57af723a60)、[Google/微软](https://gist.github.com/tzmartin/1cf85dc3d975f94cfddc04bc0dd399be)、Google [示例](https://docs.google.com/viewer?embedded=true&url=http%3A%2F%2Fhomepages.inf.ed.ac.uk%2Fneilb%2FTestWordDoc.doc)、转换 [sheetson](https://sheetson.com/)
-- 生成/查看 PPT: [PptxGenJS](https://github.com/gitbrent/PptxGenJS)、[apache_poi_ppt](https://www.w3cschool.cn/apache_poi_ppt/apache_poi_ppt_presentation.html)(java)、[nodeppt](https://github.com/ksky521/nodeppt)。[ViewerJS](https://github.com/webodf/ViewerJS)、[office sdk](https://www.pdftron.com/office-sdk/office-document-viewer/)。
 
-微软: [office](https://products.office.com/zh-cn/home) ([task](https://techcommunity.microsoft.com/t5/microsoft-365-blog/connecting-tasks-experiences-across-microsoft-365/ba-p/1522069))、[teams](https://teams.microsoft.com/)
 
-Google: [gsuite](https://gsuite.google.com/) ([google-forms](https://docs.google.com/forms/u/0/)/[教程](https://youtu.be/RoA65-vLV_0)) [alerts](https://www.google.com/alerts) [classroom](https://classroom.google.com/h)
+# .
+# 装机/工具
 
-[notion](https://www.notion.so/)、[craft.do](https://www.craft.do/)、[airtable](https://airtable.com/)、[quip](https://quip.com/about/product)、[coda.io](https://coda.io/t/Welcome-to-Coda_tvbBdpE72Lq#)、slack。 [wolai](https://www.wolai.com/) ([介绍](https://www.zhihu.com/question/407132273/answer/1352638849))。 [mathigon](https://mathigon.org/)(互动教程)。
+> 2021 ~ 2024 自动化 work and life !
 
-腾讯文档 [docs.qq.com](https://docs.qq.com/desktop/)、头条 [larksuite](https://www.larksuite.com/) ([lark 出海](https://zhuanlan.zhihu.com/p/58585005))、[teambition](https://www.teambition.com/)、[wps](https://www.wps.cn/) (稻壳模板[docer](http://www.docer.com/))、[xiezuocat](https://xiezuocat.com/#/)(AI纠错)、[sheetui](https://sheetui.com/)(表格转网页)、[Luckysheet](https://github.com/mengshukeji/Luckysheet)、[handsontable](https://handsontable.com/)、[prezi](https://prezi.com/dashboard/next/#/presentations)、[milanote](https://app.milanote.com/1KeUXu1ElqNVrw/home)、[logseq](https://github.com/logseq/logseq)、
+https://apps.apple.com  https://music.apple.com
 
-产品设计工具: 白板([mural](https://mural.co/)、[miro](https://miro.com/))、原型([xiaopiu](https://www.xiaopiu.com)、[xiaopiu/prd](https://www.xiaopiu.com/prd)、[justinmind](https://www.justinmind.com/))、[知乎](https://www.zhihu.com/question/23004570)([invision](https://www.invisionapp.com/)、[modao](https://modao.cc/)、[会议桌](https://www.huiyizhuo.com/))、[流程图和图表](https://zhuanlan.zhihu.com/p/111990866)、在线[培训工具](https://segmentfault.com/a/1190000021793283)。
+[Run shortcuts from the command line](https://support.apple.com/en-gb/guide/shortcuts-mac/apd455c82f02/mac)
+`shortcuts run 获取时间/list`
 
-其他: [mubu](https://mubu.com/)、[slides.com](https://slides.com/)、[ppt.baomitu](https://ppt.baomitu.com/)、[zoho](https://www.zoho.com/)、[visme](https://www.visme.co/templates/)、[deckdeckgo](https://deckdeckgo.com/)、[witeboard](https://witeboard.com/)、[wireflow](https://wireflow.co/)、[presenta](https://play.presenta.cc/#s0)。
-[batnoter](https://github.com/batnoter/batnoter)
-https://evernote.com
+[Bookmarklet](https://en.wikipedia.org/wiki/Bookmarklet)
+- https://make-bookmarklets.com/
+- 需要保存为书签 `javascript:(function(){var baseUrl="https://web.archive.org/web/*/",urlmod=document.URL;window.location.href=baseUrl+urlmod;}());`
 
-
-### 画图 (web/客户端)
-
-https://tldraw.dev/
-[SVG-to-Canvas (canvas-to-SVG) Parser](https://github.com/fabricjs/fabric.js)
-
-[skeditor](https://github.com/skeditor/skeditor) [canvaskit-wasm](https://zhuanlan.zhihu.com/p/432454443)
-
-[figma](https://www.figma.com/) ([FigmaToCode](https://github.com/bernaferrari/FigmaToCode))
-[figma 技术](https://madebyevan.com/figma/) / [figma c++](https://madebyevan.com/figma/building-a-professional-design-tool-on-the-web/) / [figma 插件技术](https://zhuanlan.zhihu.com/p/357724347)
-
-[react-sketchapp](https://github.com/airbnb/react-sketchapp)
-
-[drawio](https://github.com/jgraph/drawio)([mxgraph](https://github.com/jgraph/mxgraph))、[cloudskew](https://www.cloudskew.com/)、[diagram-js](https://github.com/bpmn-io/diagram-js)、[excalidraw](https://github.com/excalidraw/excalidraw)、[draw2d](https://github.com/freegroup/draw2d)([demo](http://freegroup.github.io/draw2d_js.app.shape_designer/))、[plantuml](https://plantuml.com/zh/)、[planttext](https://www.planttext.com/)、[diagram.codes](https://www.diagram.codes/)、[jsplumb](https://github.com/jsplumb/jsplumb)([jsplumb-vs-mxgraph](https://www.npmtrends.com/jsplumb-vs-mxgraph))、[mermaid-js](https://github.com/mermaid-js/mermaid)、[nomnoml](https://github.com/skanaar/nomnoml)、[visjs](https://github.com/visjs)([timeline](https://visjs.github.io/vis-timeline/examples/timeline/))、[react-diagrams](https://github.com/projectstorm/react-diagrams)、[roughjs](https://roughjs.com/)、[rete.js/](https://rete.js.org/#/)[flume](https://flume.dev/)/[nodered](https://nodered.org/)(可视化节点)、[diagrams](https://github.com/mingrammer/diagrams)([graphviz](https://www.graphviz.org/))、[vscode-drawio](https://github.com/hediet/vscode-drawio)、[text-to-diagram](https://smusamashah.github.io/text-to-diagram)、[isoflow](https://isoflow.io/)、[reactflow](https://reactflow.dev/)、[diagram-maker](https://github.com/awslabs/diagram-maker)。
-
-平台/端: [processon](https://www.processon.com/)、visio、mindnode lite、[visual-paradigm](https://online.visual-paradigm.com/diagrams/features/aws-architecture-diagram-tool/)、[ithoughts](https://www.toketaware.com/ithoughts-osx)、[gliffy](https://www.gliffy.com/)、[terrastruct](https://terrastruct.com/)、[edrawsoft](https://www.edrawsoft.cn/)、[freedgo](https://www.freedgo.com/)、[websequencediagrams](https://www.websequencediagrams.com/)、[chartmage](http://chartmage.com/intro.html)、[thebrain](https://www.thebrain.com/)、[asciiflow](https://asciiflow.com/#/)([textik](https://textik.com/#9fe9a0bacdcf4a9a))、[omnigraffle](https://www.omnigroup.com/omnigraffle/)、[flowchart](https://flowchart.fun/)、[photopea](https://www.photopea.com/)​、[PPTist](https://github.com/pipipi-pikachu/PPTist)
-
-收费: [gojs](https://gojs.net/latest/samples/index.html)、[jointjs](https://www.jointjs.com/)、[jsplumbtoolkit](https://jsplumbtoolkit.com/)、[yworks](https://www.yworks.com/products/yfiles/demos)、[mindfusion-diagram](https://mindfusion.eu/javascript-diagram.html)
-
-系统: [drawio-aws-cloudcraft](https://www.diagrams.net/blog/drawio-aws-cloudcraft)、([placeholder](https://www.diagrams.net/blog/placeholder-scope)、[mermaid](https://www.diagrams.net/blog/mermaid-diagrams)、[network](https://www.diagrams.net/blog/network-diagrams)、[org](https://www.diagrams.net/blog/org-charts))
-
-
-
-
-## 工程/工具
-
-### SLO/SLI 标准化体系
-> 2024-06 ~ 12
-
-研发流程
-- 敏捷迭代, 交付管理 WBS, 并行需求 都想先做自己的, 部分需求 后端全栈.
-- 优化: 仓库 monorepo 改造(基建+部分业务), 统一流水线.
-- 监控
-  - 性能体系化: 3s体验战役, 技术方案统一(js大小), 性能指标.
-  - 监控体系化智能化: 埋点和用户分析, 线上(sdk)线下(lighthouse)错误和性能监控一体化, AIOps/LLM, SLO体系, 自动指定代码cr人, 组织视图.
-
-研发平台
-- brook 需求管理, 流水线, 研发效能度量.
-- 工程化程度: 单测 CI/CD git 工具, GitHub action 协作方式。
-- 质量工具: [jscpd/重复代码](https://github.com/chinanf-boy/copy-paste-check/blob/master/src/duplicated-code.ts) 检测, deadcode, 单测, e2e.
-
-研发资源
-- 效率工具: [代码定位插件](https://github.com/zh-lx/code-inspector), 接口代理自动配置.
-- 标准Prd文档生成器(原型设计工具), 组件自动生成. 拼图 imgcook lowcode 插件.
-- [云原生应用市场](https://hub.grapps.cn/)
-
-工具成熟度
-- 看起来单点零散 增强体系化 产品化程度 开箱即用.
-- 工具的易用和完善度: 业务团队的基础工具，很难按 文档说明 一次性 的就能做好跑起来。 产物不一致、本地没问题 线上有问题。
-
-技术成熟度 / 架构
-- 组件设计经验？ 弹窗的 visible 应该在哪儿维护？
-- 代码可维护性提升方法？ 与优秀代码的差距？ 重复代码。 编程范式？(函数式与OO)  S.O.L.I.D 原则：S：单一职责 O：开闭 L：里氏替换 I：接口隔离 D：依赖倒置。
-- 设计模式：工厂模式、观察者模式、MVC。
-
-参考
-> [研发阶段](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*z-C8SpqQo08AAAAAAAAAAABjARQnAQ) [蚂蚁](https://gw.alipayobjects.com/mdn/security_c/afts/img/A*jRrGSYNyLqIAAAAAAAAAAABjARQnAQ)
-> https://developer.apple.com/icloud/telemetry/
-
-### monorepo
-
-monorepo 大版本同步开发，bugfix/feature 代码复用、git checkout cherry-pick 、git 冲突。
-
-[bit 介绍](https://juejin.cn/post/6844903872108953607) https://github.com/mcuking/blog/issues/88
-[将 50 万个文件放在一个 Git 存储库中](https://www.infoq.cn/article/tomhtgpmuy4oqhpvf0w1)
-https://www.51cto.com/article/759432.html
-
-https://github.com/changesets/changesets
-https://juejin.cn/post/7024827345059971080
-[Changelog Generator](https://github.com/orhun/git-cliff)
-
-2022 monorepo (one code base)
-* [monorepo.tools](https://monorepo.tools/)
-* [monorepo-vs-polyrepo](https://github.com/joelparkerhenderson/monorepo-vs-polyrepo)
-* [Awesome-monorepo](https://github.com/korfuri/awesome-monorepo)
-* [advantages of monorepo](https://medium.com/@suman.maity112/is-it-the-era-of-mono-repo-671e6dee387)
-* [Misconceptions about Monorepos](https://blog.nrwl.io/misconceptions-about-monorepos-monorepo-monolith-df1250d4b03c)
-https://github.com/facebook/react/
-https://github.com/vuejs/core/
-https://github.com/angular/angular
-https://github.com/nodejs/node
-
-
-### 构建
-
-- roolup 和 webpack 主要不同
-- https://www.rspack.dev  https://modernjs.dev/guides/get-started/tech-stack.html
-- Webpack 5 module federationtion 联邦模块 https://juejin.cn/post/6844904187147321352
-- 其他
-  - lint 工具: ESLint Prettier pretty-quick husky. 使用 ESLint 检查代码逻辑错误。使用 Prettier 格式化代码. eslint-config-prettier：关闭 ESLint 中与 Prettier 冲突的格式规则。 eslint-plugin-prettier：将 Prettier 的格式检查集成到 ESLint 中.
-  - [代理库](https://www.npmjs.com/package/https-proxy-agent) [翻译api](https://github.com/matheuss/google-translate-api) [各种 web-servers](https://gist.github.com/willurd/5720255)
-  - [isomorphic-git](https://isomorphic-git.org/en/) [jsfuck 代码混淆](http://www.jsfuck.com/) / [frNatural language detectionanc](https://github.com/wooorm/franc)
-  - gulp 手册 http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C1.pdf  http://p.tb.cn/rmsportal_127_gulp_E6_89_8B_E5_86_8C2.pdf
-
-文档工具
-* [https://docusaurus.io/](https://docusaurus.io/) 推荐
-* [https://www.gatsbyjs.com](https://www.gatsbyjs.com) 比较复杂
-* [https://www.docz.site/](https://www.docz.site/) 基于 GatsbyJS
-* [https://storybook.js.org/](https://storybook.js.org/) 比较复杂 较难定制
-* [https://github.com/hexojs/hexo](https://github.com/hexojs/hexo) 中国台北？
-* [https://mkdocs.org](https://mkdocs.org) 基于Python
-* [https://gohugo.io](https://gohugo.io) 基于 Go
-* [https://jekyllrb.com](https://jekyllrb.com) 基于 Ruby 适合个人博客
-* gitbook (老旧) [https://docsify.js.org](https://docsify.js.org) / VuePress (vue技术栈)
-* [dumi](https://d.umijs.org/) gh-pages
-
-业务脚手架 2021
-- 研发平台: 阿里def / 蚂蚁雨燕 / [DevOps平台-onedev](https://github.com/theonedev/onedev) / 大禹
-- 内置含 BU 特色的组件，基于“开源脚手架”定制，既提升效率又有开放性，是较好的选择。
-- 微前端: 微应用注册、路由管控(统一菜单/权限)、发布版本管控、发布灰度控制、多环境(日常/预发/线上)、预加载、应用组件。 子应用样式丢失。
-- request 组件: csrf-token 处理、gateway domain 网关域名、登录、返回异常、返回json结果格式化、上传/下载。
-- jwt https://www.zhihu.com/question/301253397/answer/547887208  http://blog.leapoahead.com/2015/09/07/user-authentication-with-jwt/
-- API 管理平台 生成工具, 提高前后端联调效率. [google 的 API 设计指南](https://google.aip.dev/general) RESTful GraphQL.
-- API 数据mock/前后端: [postman](https://www.getpostman.com/) [paw](https://paw.cloud/) [hoppscotch](https://hoppscotch.io/)  [mockjs](https://github.com/nuysoft/Mock)  [swagger](https://swagger.io/) / [json-server](https://github.com/typicode/json-server)  [miragejs](https://miragejs.com/).
-- BFF: 多端适配/聚合裁剪数据，额外的部署资源及运维成本，集合 GraphQL https://insights.thoughtworks.cn/use-graphql-build-bff-in-microservices
-
-
-### 基本库
-
-misc
-- 图表: [amcharts](http://www.amcharts.com/demos/) / antv [L7地图](https://l7.antv.vision/zh)
-- 编辑器/IDE: [awesome editors](https://github.com/JefMari/awesome-wysiwyg)
-  - IDE: [coding.腾讯](https://coding.net/) / [stackblitz](https://stackblitz.com/) / [gitpod](https://www.gitpod.io/) https://bi.cool/bi
-  - web-Excel / [sheetjs Excel 解析](https://sheetjs.com/) / [moveable](https://github.com/daybrush/moveable)
-  - [slate](https://github.com/ianstormtaylor/slate) / [trix](https://github.com/basecamp/trix) / [tui-editor](https://ui.toast.com/tui-editor/) / [craft.js](https://github.com/prevwong/craft.js) / [stylojs](https://stylojs.com/)
-- 截图: dom-to-image / html2canvas / [各设备截图服务](https://screendump.techulus.com/) / 录制回放 [rrweb](https://github.com/rrweb-io/rrweb)
-- 日历: [react-big-calendar](https://github.com/jquense/react-big-calendar) / [fullcalendar](https://fullcalendar.io/) / [webix/scheduler](https://webix.com/scheduler/) / [tui.calendar](https://github.com/nhn/tui.calendar)
-- 文件管理器: [file-manager](https://js.plus/products/file-manager) / [dhtmlxFileManager](https://dhtmlx.com/docs/products/dhtmlxFileManager/) / [syncfusion/file-manager](https://www.syncfusion.com/blogs/post/introducing-new-javascript-file-manager-control.aspx) / [webix/filemanager](https://webix.com/filemanager/) https://github.com/filebrowser/filebrowser
-- 营销/游戏/大屏[多媒体](https://www.yuque.com/books/share/6487738a-085c-4a82-98b3-834f87859a2a)
-- 垂直: https://togetherjs.com  [wiki.js](https://wiki.js.org/)  UA 检测 https://github.com/Lissy93/web-check
-
-框架
-
-- [umijs](https://umijs.org/)  https://github.com/umijs/umi  [蚂蚁前端框架和工程化](https://github.com/sorrycc/blog/issues/85)  qiankun [子应用嵌套](https://github.com/umijs/qiankun/issues/960)  https://github.com/umijs/father
-
-功能库
-- react hooks
-  - [zeit/swr](https://github.com/zeit/swr) https://usehooks.com/
-- virtualized: [react-virtualized](https://github.com/bvaughn/react-virtualized)
-- 分步指引 tour: [shepherd](https://github.com/shipshapecode/shepherd) / [driver.js](https://github.com/kamranahmedse/driver.js)
-- grid: [react-data-grid](https://github.com/adazzle/react-data-grid) / [react-grid-layout](https://github.com/STRML/react-grid-layout)
-- form builder / FormRender.
-
-基础 UI 组件
-
-- [tailwindcss](https://github.com/tailwindcss/tailwindcss) [shadcn/ui](https://ui.shadcn.com/)(2023-05)
-  - [base-ui](https://mui.com/base-ui/)
-  - [Chakra UI](https://v2.chakra-ui.com/)(2019-09) / [Mantine](https://mantine.dev/)(2021-03)
-  - https://tanstack.com/table/v8  https://react-hook-form.com/  https://popper.js.org/react-popper/v2/
-- [material-ui](https://github.com/mui/material-ui) https://ant.design / 字节 arco-design semi-design / [Semantic UI](https://semantic-ui.com/) / [Adobe](https://react-spectrum.adobe.com/) / [上海 geist-ui](https://github.com/geist-org/geist-ui)
-
-
-
-
-
-
-
-
-
-#
-# AI
-
-## 使用
-
-
------- 2024-11
-
-很多 react UI 组件库都有 variant 属性, 为什么这么命名, 作用是什么 作用都一样吗
-chrome 插件 popup 页面, 怎么区分是在 新 tab 打开, 还是 弹窗里打开?
-https://chatgpt.com/share/674d2c48-8c94-8008-aca4-0ae4cc13eaa7
-
-shadcn/ui ant-design material-ui 现状综合看哪个好、应该怎么选择？
-基于哪个做二次开发比较好，成本怎么样？
-需要面向未来、有一定先进性，应该怎么选?
-想从 antd 迁移到新的 react 组件库, 要求 api 尽量一致或者改造成本低, 哪个新组件库符合要求?
-https://chatgpt.com/share/6749ea04-8f08-8008-9f30-132d8ec8071d
-
-在 macOS 系统上、使用 bash 写一个函数，自动地每天上午 11点50分 拷贝文件 a.md 的内容到一个新文件 _backup/datetime_a.md 中，每隔三天的 上午11点49分、清空 b.log 和 c.log 文件的内容。运行前后需要发出通知。
-把 备份的文件, 只保留 5 个最新的, 其余旧的删除.
-https://chatgpt.com/share/674539a5-4d50-8008-9cce-a950f4a2354b
-
-在macOS用户目录下的 .zshrc 里写一个函数，判断是否已运行命令 ttyd -W -a zsh >> "$z_log" 2>&1 & 如果未运行过、则运行一次，如果已运行、则进一步判断：如果调用者是 ttyd 、则根据 http://localhost:7681/?arg=/Users/hua/.zshrc&arg='echo "aa"' 这个 URL 运行 arg 参数里的 echo 等任意自定义命令。
-https://chatgpt.com/share/6742e267-f3a0-8008-bda3-6b1b6bbce601
-
-js工具库代码最新版本是 3.x，但需要修复很久之前的 1.x 版本的 bug，当前只有 master 分支，怎么用 git 管理老版本的代码升级？
-LTS（长期支持）策略 详解。
-如果是 monorepo 项目，应该采用什么策略？
-在老的 1.x 分支上拉了代码做改动，合并到 master 产生了大量冲突，怎么解决？
-怎么在 git 提交历史中插入一个提交？
-怎么把 某个 commit 改动的文件，应用到另一个分支上、但不携带改动之前的历史信息。
-以上合并方式是什么？把改动的文件内容全覆盖，还是对改动的某些行进行交集合并，删除的文件或内容怎么处理？
-`git checkout <commit-hash> -- <file-path>` 如果有多个 file 需要分别添加吗，有更快的方法吗？
-https://chatgpt.com/share/673dd191-0d74-8008-a826-16844c0b9bb5
-
-
------- 2024-06~09
-
-git 有很多 commit，一次性合并所有提交记录
-git rebase autosquash 更详细用法
-https://chatgpt.com/share/674ab367-c974-8008-9cdb-410303f51fe4
-
-修改调试 VS Code 插件代码
-https://chatgpt.com/share/674ab3ee-34c8-8008-b4bb-12ec48e8b2d6
-
-mac系统的 Apache 怎么配置 localhost 同时支持 https http
-能不配置 apache2/extra 里的文件吗
-https://chatgpt.com/share/674ab45e-27a8-8008-b1bb-04c8bf5e444e
-
-clash 配置指定域名用指定 dns 解析
-https://chatgpt.com/share/671762b0-e55c-8008-bf27-b762cf930059
-
-
-bash 查找 packages 目录下二级 目录里存在的所有 config.ts congfig.tsx config.js 和 config 目录，排除掉 node_modules 目录。不查找子路径。查找结果 存放到数组里。
-```sh
-result=($(find packages/*/src -maxdepth 1 -type f \( -name "config.ts" -o -name "config.tsx" -o -name "config.js" \) -not -path "*/node_modules/*" -o -type d -name "config" -not -path "*/node_modules/*"))
-```
-
-帮我写 Chrome 插件代码，实现这样的功能：选中一些标签页、把他们的 URL以有序数组形式 存储到 chrome storage 里、同时关闭这些标签页，通过 popup  页面的一个按钮、从数组里恢复打开标签页，并把这些标签页移动到其他已存在标签页的后边。
-
-使用 html modal 元素写一个类似 bootstrap 的 modal 功能，抽象成 js 组件、把 css 注入进去。
-把类改为使用函数写法。
-防止多次调用时，多次生成样式和元素。
-返回 打开 关闭 toggleModal 的函数。
-把 openModalBtn 元素放到 js 里。
-把 modal-content 和 close-btn 也放到 js 里去。
-
-npm version 怎么自动升级 monorepo 的 子包依赖版本号
-pnpm 只检查并保持 workspaces 内部包 的最新版本，写成 bash 脚本
-
-bash 处理 git ls-remote --tags origin 和 git tag -l 获取到的字符串列表，并正则匹配到字符串里 refs/tags/ 之后的部分
-
-豆包+通义千问: 使用 yq 判断 如果rules 里不存在 aaa，则前置插入aaa
-
-Chrome Native Messaging 使用 bash 文件的 shebang 地址有问题，怎么让 /usr/local/bin 和 /usr/bin 都能互相调用
-
-
-## 场景
-
-https://columns.ai/chatgpt
-
-https://chromeai.org/
-https://gpt4o.so/
-https://github.com/fifteen42/localhostai
-
-https://www.cursor.com/
-https://aichatru.ru/en
-https://chat100.ai/zh-CN
-https://github.com/guanguans/ai-commit
-https://github.com/guoriyue/LangCommand
-https://www.opkfc.com/list
-
-综合/模型厂商
-https://chatgpt.com  https://gemini.google.com/
-https://www.doubao.com/chat/  https://kimi.moonshot.cn
-https://tongyi.aliyun.com/qianwen/  https://duckduckgo.com/?q=DuckDuckGo&ia=chat
-https://www.meta.ai/  https://llama3.dev/  https://www.perplexity.ai/  https://chathub.gg/
-
-代码生成 对话式
-https://githubnext.com/projects/github-spark
-https://bolt.new/
-
-代码生成 https://www.ancodeai.com  https://github.com/abi/screenshot-to-code
-网易-海豹D2C https://music.163.com/st/seal
-字节 编程助手 https://www.marscode.com 海外 https://www.coze.com
-https://www.ruanyifeng.com/blog/2024/10/coze.html
-
-生成 AI 应用
-https://www.wordware.ai/
-https://mp.weixin.qq.com/s/qdXnBoMV4u2r-abUSnFReA
-https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web
-
-智能客服/知识库问答
-https://beta.character.ai
-antd机器人 Peter Cat https://mp.weixin.qq.com/s/PnHVc1_yBPu2HiA2En9cAg
-https://github.com/1Panel-dev/MaxKB
-https://github.com/cs-lazy-tools/ChatGPT-On-CS
-
-支付宝 https://tbox.alipay.com/
-阿里 B2B 个人采购代理 https://www.accio.com/
-音乐 https://lamucal.ai/
-
-手机助手
-https://github.com/Skythinker616/gpt-assistant-android
-https://github.com/X-PLUG/MobileAgent
-2023
-
-百度大脑 http://ai.baidu.com/ 微软 https://azure.microsoft.com/en-us/services/cognitive-services/ 、阿里 PAI (数据采集，数据处理，特征工程，建模，预测服务) xNN、AliNN
-蚂蚁：分布式学习和系统：智能客服；Parameter Server架构；美国组：自然语言处理；推荐营销；小助手；商业产品架构：金融类，量化理财因子发现，金融知识图谱；AI 平台部：达尔文测试系统；底层的GPU，FPGA开发调度系统阿尔卑斯。
-2017
-
-
-
-## 学习
-
-https://github.com/luban-agi/Awesome-AIGC-Tutorials
-
-AI算法和传统算法的区别在于：
-1.学习能力：AI算法具有学习能力，可以根据经验和数据自我改进，而传统算法则需要人为指导。
-2.处理复杂问题：AI算法可以处理复杂的问题，如图像识别、语音识别等，而传统算法则很难处理这样的问题。
-3.通用性：AI算法具有通用性，可以应用于多个领域，而传统算法则只适用于特定领域。
-4.计算复杂度：AI算法的计算复杂度较高，需要大量的计算资源，而传统算法则具有较低的计算复杂度。
-传统算法是：输入数据和规则，产生结果。人工智能是：输入数据和结果，产生规则。
-传统算法需要算法设计者的专业能力（数据结构+算法+经验），而人工智能需要的是大量的数据和计算力，进行规则的输出。
-普通算法：一个操作流程，扔个输入数据进去，最后会输出个结果。写普通算法之前已经知道对应的问题是如何求解的。经常关注算法的正确性(或者近似性能)如何、效率如何。机器学习算法：不仅是操作流程，一般还会和一个模型以及一个优化目标函数关联，把模型的输入数据和模型的输出数据(训练数据集)都扔进去，最后得到模型的具体样子(模型参数)，或者说是数据的分布“规律”。用机器学习解决的问题往往事先不知道该如何找到最优解(模型的真实样子)，只能是通过大量数据来“猜测”一下。经常关注模型训练效率如何、模型质量如何。
-传统算法以代码形式获取一些输入和一些逻辑，并为您提供输出。这些都是确定的没有预测成分。此输出取决于算法中描述的步骤（代码）。
-人工智能算法同时接受输入和输出，并使用预测模式开发逻辑，当它基于该逻辑接收到新输入时，它将为您提供新输出。
-2024-03 普通算法和AI算法区别
-
-作为一个计算机专业相关的人员（程序猿），无论你从事什么方向（前端、后端、机器学习等），最最基础的就是对排序和查找的算法原理理解与实现。如果连这个还没有烂熟于心，随手就来的话，只能说明你的发展比较堪忧，因为这个是最最初级但也是显示该专业的最最扎实基础的部分，所以本人专门详细整理了十大排序算法及七大查找算法。
-二分查找法的思想看上去非常简单，不过实现起来需要注意很多的细节。值得一提的是，二分查找的思想在 1946 年被 John Mauchly 提出，直至 1962 年，才出现了第一个没有 bug 的二分查找算法的实现，中间整整隔了 16 年 ：）。
-2024-02-29
-
-基于邻域的算法是推荐系统中最基本的算法，该算法不仅在学术界得到了深入研究，而且在 业界得到了广泛应用。基于邻域的算法分为两大类，一类是基于用户的协同过滤算法，另一类是基于物品的协同过滤算法。
-基于用户的协同过滤算法是推荐系统中最古老的算法。可以不夸张地说，这个算法的诞生标 志了推荐系统的诞生。该算法在1992年被提出，并应用于邮件过滤系统，1994年被 GroupLens用于新闻过滤。在此之后直到2000年，该算法都是推荐系统领域最著名的算法。
-2020-02-15《推荐系统实践》 项亮
-
-推荐系统：[microsoft/recommenders](https://github.com/microsoft/recommenders)、[NicolasHug/Surprise](https://github.com/NicolasHug/Surprise)、[NirantK/awesome-project-ideas](https://github.com/NirantK/awesome-project-ideas)、[guoguibing/librec](https://github.com/guoguibing/librec)、[grahamjenson/list_of_recommender_systems](https://github.com/grahamjenson/list_of_recommender_systems)、[Magic-Bubble/RecommendSystemPractice](https://github.com/Magic-Bubble/RecommendSystemPractice)
-[三步搭建基础分析框架](http://www.woshipm.com/data-analysis/821704.html)、Lookup表(维度表)和数据表(事实表)，一般是Lookup表在上,数据表在下。
-2020
-
-2019-11 https://magi.com/
-2019-10 https://github.com/ownthink/KnowledgeGraphData / https://www.ownthink.com/
-
-[我要做一个什么样的程序员](http://blog.csdn.net/skyflying2012/article/details/41790899)
-[算法工程师](https://www.zhihu.com/question/23869208)：算法牛逼了就能进化到科学家，别的牛逼了只能是工程师。
-2019-05
-
-2019 <无法理解高等数学怎么办> 知乎 https://www.zhihu.com/question/24066773/answer/80124451
-
-https://blog.csdn.net/han_xiaoyang/article/details/50759472
-https://developers.google.com/machine-learning/crash-course/
-https://academy.microsoft.com/en-us/professional-program/tracks/artificial-intelligence/
-https://cn.udacity.com/course/deep-learning--ud730
-机器学习入门 https://zhuanlan.zhihu.com/p/24339995 、http://www.cnblogs.com/subconscious/p/4107357.html 、 https://github.com/memect/hao/blob/master/awesome/machine-learning-guide.md
-深度学习 https://github.com/exacity/deeplearningbook-chinese
-https://ai.googleblog.com 李飞飞TED https://www.youtube.com/watch?v=40riCqvRoMs   斯坦福 vision lab http://vision.stanford.edu/
-SIFT算法详解 http://blog.csdn.net/zddblog/article/details/7521424
-[Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
-2017 学习路线
-
-自然语言处理（NLP）：常用算法 crf，hmm，gbdt 。自然语言理解是认知智能的核心，也是人工智能里最难的问题。自然语言理解的最大难点在于人类语言的多样性和歧义性。
-两大经典难题——机器翻译&自动问答。词嵌入技术和神经网络语言模型这两种自然语言处理中常见的深度学习技术。
-图像相关问题有深度学习、推荐相关问题有专门的推荐算法、安全相关问题有异常检测模型等。
-https://nlp.stanford.edu/projects/glove/
-2017
-
-当我们处理现实世界中的数据时， 数据并不会以格式规范的特征向量的形式呈现在我们面前。 相反，呈现给我们的数据是数据库记录、 协议缓冲区或其他任何形式。 我们必须从各种各样的数据源中提取数据， 然后再根据这些数据创建特征向量。 现在，从原始数据中提取特征的过程称为特征工程。 实践中，机器学习从业人员将大约75%的时间花在特征工程方面了； 特征就是我们要的东西。
-https://developers.google.com/machine-learning/crash-course/representation/video-lecture
-2017
-
-学习过程与推理过程是紧密相连的，学习中使用的推理方法称为学习策略。学习策略主要分为三大类型：搜索型策略（如状态空间法、A*算法、BP 算法）、构造型策略（如多层反馈神经网络的 FP 学习和综合算法）、规划型策略（如支持向量机）。依据这三大学习策略，又可细分为几种基本学习方法，分别是机械学习（记忆学习、只是最简单记录）、传授学习（指导式或指点学习）、演绎学习（演绎推理）、归纳学习（又分为实例学习、观察与发现学习）和类比学习。人类学习往往同时使用多种策略。
-学习类型主要包括四种：监督学习（也称为监督训练或有教师学习，神经网络和决策树最常采用监督学习作为训练的技术）、无监督学习（类似于聚类）、半监督学习（利用标注样本和未标注样本进行训练和分类）、强化学习（使用学习激励函数，如棋类游戏通过强化学习一遍遍玩、最后会变得超越人类棋手）。
-机器学习算法：人工神经网络、决策树、高斯过程、线性判别分析、K 近邻算法、支持向量机、最大期望（EM）算法、贝叶斯网络、马尔可夫随机域、流形机器学习、增强学习、多实例学习、ranking 学习、数据流学习、主成分分析（PCA）、独立成分分析（ICA）、聚类分析、覆盖算法、集成学习、马尔可夫链-蒙特卡罗方法。
-这种从大量的函数结果和自变量反推回函数表达式的过程就是回归。v=gt 就是线性回归的方法。
-2017
-
-机器学习：收敛 ROC 曲线 AUC 欠拟合 过拟合 (监督/非监督学习  聚类 随机森林 KNN SVM )
-神经元 (线性 非线性 多维 线代 牛顿法 偏导数 微积分 梯度下降，激励函数Softmax和Sigmoid，损失函数 交叉熵 MSE 最小平方差)  bp网络  CNN (卷积 池化 LeNet5 )  RNN (LSTM) GAN (图片生成)
-2017《白话深度学习与Tensorflow》
-
-八皇后问题，标准差，加权均值，众数 中位数，欧氏距离，曼哈顿距离，同比和环比，抽样，高斯分布，泊松分布，伯努利分布，信息论，香农公式，信息熵，向量和维度，矩阵，上卷和下钻，线性回归，拟合，残差分析 最小二乘法，过拟合 欠拟合，聚类 k-means算法，孤立点，余弦相似度，朴素贝叶斯，决策树，随机森林，隐马尔可夫模型，前向算法，svm，遗传算法，apriori算法，支持度和置信度，k近邻算法，ANN，
-2017《白话大数据与机器学习》
-
-数据类型：定量的「区间（日历日期、温度）、比率（质量、长度、计数）」或定性的「标称（邮编、雇员ID、性别）、序数（矿石硬度、街道号码）」。定性和定量之间的差别，是数据值之间是否有比值和联系。
-数据集可以看做「数据对象」的集合，数据对象也叫记录、点、向量、模式、事件、案例、样本、观测或实体。数据对象用一组刻画对象基本特性（如物体质量或事件发生时间）的「属性」描述，属性也叫做变量、特性、字段、特征或维。
-数据集的一般特性：维度、稀疏性、分辨率。
-数据质量：数据挖掘要对数据质量问题检测和纠正（数据清理），使用可以容忍低质量数据的算法。
-测量和收集方面的数据质量问题：测量误差问题有噪声、伪像、偏倚、精度和准确率。数据质量问题：离群点、遗漏、不一致的值、重复数据、数据时效性和相关性。
-完全消除噪声是困难的，所以关注「鲁棒算法」即在噪声干扰下也能产生可以接受的结果。
-理想情况下，数据集附有描述数据的文档，文档的质量好坏决定它是支持还是干扰其后的分析。
-数据预处理：技术：聚集、抽样、维规约、特征子集选择、特征创建、离散化和二元化、变量变换。
-数据预处理的一个重要动机就是减少维度，称为「维规约」(降维)。随着数据维度增加，数据在它所占据的空间中越来越稀疏，这意味着没有足够的数据对象来创建模型。
-维规约的一些最常见方法是使用线性代数技术，将数据由高维空间投影到低纬空间，例如主成分分析（PCA）、奇异值分解（SVD）技术。
-根据数据联系分析数据：相似性和相异性的度量。两个对象之间的邻近度是两个对象对应属性之间的邻近度函数。这包括相关和欧几里得距离度量，以及 Jaccard 和余弦相似性度量。
-{poor, fair, ok, good, wonderful} 产品质量
-2016-11-02《数据挖掘导论》 范明 范宏建 译
-
-语音识别的基本原理：语音输入→预处理→特征提取→训练→模式库→模式识别→语音识别结果
-在人工智能和智能系统的研究过程中，人们已开发出许多专用和通用的程序设计语言。大多数人工智能系统都采用 PROLOG 和 LISP 语言。
-2015-03-08《人工智能基础》
-
-
-## 资讯
-
-
-就算你不是学计算机的，我也特别建议你至少要搞懂五个AI的基本概念：神经网络、深度学习、监督学习、强化学习、参数。懂点AI的基本原理，就像戴上了透视眼镜，能让你发现行业中隐藏的真正机会。
-做模型，是少数人的游戏。为什么？因为它，实在是太烧钱了。做基础模型太烧钱，普通人很难参与其中。但如果我还是很想参与，怎么办？为它提供数据。
-智能来袭，怎么办？
-作为个人用户，我建议你从看新闻，走向开始用，走向多探索，成为“票友级”玩家。
-但如果，你想借助AI创业，我建议你学原理，懂具身，装模型，训数据，找方案，成为“职业级”选手。
-而如果，你想改变世界，我建议你做模型，甚至改范式，做真正的“大师级”研究。
-我不知道，10年后替代我们的，是不是AI。但我知道，明天就要替代我们的，是比我们更会用AI的人。
-所谓的全球化，就是在每个国家的本地化。
-在海外扎根的中国勇士们，你们辛苦了。你们的探索，让后来的中国人少走很多弯路。你们的勇气，为后来的中国人点亮一盏盏灯。中国的大航海时代，正在到来。所以，我们也会一直在路上。
-2024-10-26 刘润年度演讲2024：进化的力量
-
-微软开源 OmniParser 纯视觉 GUI 智能体：让 GPT-4V 秒懂屏幕截图，可操控手机 / 电脑
-2024-10
-
-2022年10月，ChatGPT推出前的一个月，MiniMax就上线了Talkie的前身，一款能直接对话的AI智能体产品，名为Glow。2023年6月，继Glow在国内试水后，Talkie就成了MiniMax内部第一款“第一天就出海”的产品。
-而在这个时间点，出海，还尚未成为AI行业的共识。
-MiniMax的高明之处在于，相较于市面上不少为了秀“AI肌肉”的产品——时至今日，这个现象依然普遍存在——Talkie的内核并不是AI，而是将功夫下在了产品定位和用户体验上。
-“Talkie其实不是一款AI应用，它是一款陪伴游戏。”一名大厂AI产品经理对《智能涌现》评价，“从结果来看，Talkie并不是一款为了展示AI功能的应用，AI功能只是让它陪伴的属性发挥得更好。”
-陪伴属性，在很大程度上，决定了Talkie会拥有绝佳的用户粘性。
-“Talkie的产品逻辑和‘养娃’（陪伴式玩偶），还有《旅行青蛙》是一样的。” “AI的作用，是让产品随着用户使用时长越长，创建人物给出的反馈也就越‘懂你’。”
-2024-10 https://mp.weixin.qq.com/s/CHFrdrpePxINZHFOJuiEfQ
-
-黄仁勋人形机器人、工厂数字孪生，点菜机器人。2024-03-25 GTC 2024 黄仁勋主题演讲
-
-
-Anthropic Claude 比 ChatGPT 更擅长讲笑话  https://www.geekpark.net/news/319648
-
-中国电信发布千亿参数“星辰”语义大模型：12 个行业试商用，明年 4 月开源。
-据中国电信表示，“星辰”语义大模型包含首批试商用的 12 个行业大模型，分别为星辰教育大模型、基层治理大模型、政务服务大模型、应急大模型、医保大模型、交通大模型、住建大模型、金融大模型、神农一号大模型、出行大模型、旅游导览大模型、矿山大模型。
-2023-11
-
-开发AI项目的过程中，我的时间 80% 都花在了UI设计上。AI 似乎是最简单的部分，如何把一个花了两个小时搭好的 demo 变成可发布在生产环境的产品，才是最难的事情，而这部分工作量与 AI 无关。
-AI既可以是 feature（功能），也可以是产品，目前边界是模糊的。与其死磕融入或创造「新工作流」，或许不如直接卖「新工作」。
-如果要验证AI是否在假设场景的价值，不要忌讳先做成「wrapper」。要快速搭建出可用的工具型产品，验证市场。
-OpenAI 的联合创始人 Andrej Karpathy 在他的「软件 3.0」理论中提出的：让产品能够获得「理解」和「生成」的能力。能否利用现有的任何技术，设计出一套能实时产生交互数据并能反馈于最终效果和体验的模型。这里面最成功的案例莫非 Github Copilot 了。记得在某期播客中，产品初期的负责人曾说过，最美妙的地方在于用户是与产品本身实时在交互，交互的过程（删掉或保留代码）和结果（代码和程序）就是对模型最直接的反馈。
-这种新兴产品模型的出现，或许就能打破「壁垒不在数据，而在客户」的残酷事实，因为公司售卖的不再是软件，不再是服务，而是一份「工作」（或一个人头）。
-传统软件或现有 SaaS 公司，今年为止最大的主题便是「Copilot」，包括微软，Adobe 等，本质上是将 AI「设计」成一位副驾驶，来优化或增强人类现有工作流和效率。
-创业公司还在入场阶段。无论「Copilot」类产品，还是直接提供完整「工作」的服务，都能在各类场景中找到商业价值。
-以按照账号订阅的商业模式可能会更快过渡到与按使用量或计件方式的融合，既然最终交付的是一份文档，一张设计图甚至一次诊断服务，那么就应该按照实际「生产」数量计费，更符合商业规则。
-2023-11 GPTs大爆发后，AI创业者该如何进场？ https://mp.weixin.qq.com/s/m8jiAfQ8hx4DjJ8ErLWIOA
-
-随着小扎越来越倾向于将AI融入Meta的应用程序之中，Meta AI的关注点也随之缩小——解散了那些不以产品为导向的研究，比如蛋白质折叠。
-2023-09
-
-
-车牌识别 对雨雪雾天、泥浆遮挡 不行，ETC 没问题。
-2019-05 智慧法务白皮书。
-2019-05 微软 AR 远程办公。
-2019-05 Google Nest Hub Max 不仅具有声纹识别功能，还能进行人脸识别。除了声音之外，用户也可以通过手势来控制它。比如在来电话时，只需要朝着它抬起手，它就会自动暂停音乐。
-
-pepper机器人 情感陪护机器人。猎豹服务接待机器人。
-日本的ASIMO机器人，已经研制了30年，至今不能走向家用，据说成本高达80万美金。
-波士顿动力的机器人，可以做漂亮的后空翻，波士顿动力被Google公司都卖掉了。
-
-机械臂：未来重复性工作都应该交给工业机器人来完成，调酒泡茶叠衣服，煮饭拖地送快递。
-
-OCR 技术：身份证是全国统一的，格做7式单一，字体固定，字符间距固定，算法上，是OCR中相对简单的一种。
-脑电波穿戴设备，意念控制。仿生鱼机器人。
-3D打印，手机模块化，情感机器人，喝啤酒机器人。
-
-智能硬件: 做单品投资价值不大，低端产品泛滥（手环之类），有没有一个点特别强能形成技术壁垒，供应链管理不好出货良率不高损失大。
-做一个单品智能硬件 只是做一个生意，很多人都可以做，没有壁垒，对vc/pe来说没有投资价值，只是可以做个生意。
-
-医疗器械投资：高端器械靠进口，新疗法: 家庭用医疗设备，移动医疗，大数据医疗服务，无创血糖检测，只用一滴血四小时内快速检测30项指标，早期癌症诊断，医生之间交流平台。
-
-微博央视：中国机器人峰会。健康镜（镜子看起色、舌苔）、残疾人/老人帮扶机器人。
-Google 的用机器学习做 评论框输入提示，砌墙机器人、端菜机器人、各种对话机器人。
-情绪识别：哭着说话 哭腔识别，厉声说话 批评识别，撒娇，兴奋，激动，低沉，忧郁。 
-
-家庭机器人、洗衣服 晾衣服 收衣服 拖地。会扫地、收衣服、晾衣服、当收纳箱、唱歌、跳舞 的全智能洗衣机。
-机器人聊天助手（做到手机系统里）：根据每个人的性格/说话风格，训练出个性不同的机器人；自动回复微信，对不同的人用不同的说话方式/说话语气；成为一个人完整一生的知心伴侣，可以通过机器人听到自己3岁时说的话、心里的想法。
-
-当前的机器智能产业，过于重视人与机器的交互，而忽视了机器与机器的交互。而后者才是更重要的事情。因为人与机器的交互依然是回到了信息化系统的老路上去，而机器与机器的自动协同，则是在进一步将智能系统的价值实现规模放大。
-时至今日，云计算依然有被管道化的危险，就像运营商被互联网内容提供商管道化一样，未来云计算厂商也可能会被智能厂商管道化。因为云计算和大数据都不是智能。
-2019-07-09 阿里云-GTS-A组 吴翰清 《世界需要什么样的智能系统》 
-https://mp.weixin.qq.com/s?__biz=MjM5NzA4ODc0MQ==&mid=2648628801&idx=1&sn=91761179b95b108cf964885dddab1cef
-
-独家专访院士张钹：AI奇迹短期难再现 深度学习技术潜力已近天花板 
-2019-05-26 https://mp.weixin.qq.com/s/MrnIr2SgB0NdgsBImuTKXQ
-
-纯养着一些科学家发论文，这事BAT做不出来，也做不长久。十几年前的微软研究院，Yahoo研究院做过，Google现在也做着，可是不纯粹，Deepmind算个特烧钱的例外吧。同样是烧钱，Deepmind虽然也烧，可是烧得全球都看见了，一看看好几年，讲AI，必讲AlphaGo，宣传效果不知道比一般会议的赞助高到哪里去，谈AI不讲AlphaGO，简直不能好好地谈笑风生。
-Jeff Dean的成功难以复制。
-2019-01 《如何看待张潼老师离职腾讯》 https://www.zhihu.com/question/307359849
-
-
-2018-04-11 医疗/可食用药物机器人。
-
-2018 AI/教育
-腾讯智慧教育：
-孩子走到龙华教科院附属小学大门，站在通道入口，人脸识别装置就自动为他们打开门；教室里安装着全息投影设备，老师不用再插拔U盘，而是可以直接调用云端的教学资源；师生凭借一张脸就可以取餐、借体育器材、借书购物；而每一个学生的点滴成绩都一丝不苟地汇总在后台用来对 Ta 进行综合评价；教育局的主控屏幕上，实时显示着全区各个学校师生的出勤、学习、办公统计数据。
-《腾讯进军教育：一半战火，一半田园诗》 https://mp.weixin.qq.com/s/88XD06c-xWie24n5MhhmuQ
-
-钉钉“数智化”教育六大趋势 http://news.iresearch.cn/yx/2019/05/291831.shtml
-钉钉 未来校园 http://www.sohu.com/a/300466263_691021
-
-虽然国内开始引入先进的 STEAM 教育，且已经发布了面向中小学生的人工智能教材，但是从整体来看，尚处在 AI 教育的劣势。据测算，美国 K12 阶段约有 67.5% 的孩子已接受在线编程教育。以全球最主要的少儿编程语言 Scratch 的统计数据为例，美国市场的渗透率最高，达 44.80%，英国为 9.31%，中国仅为 0.96%。相比国外，我国编程教育的普及率仍然较低。
-2018-05-21
-
-2019-06 早教班、2 万块钱十几节课。
-2019-03 中国移动与腾讯合作开发校讯通 https://www.xxt.cn/
-2019-02 教育产业的未来是智能公司 https://mp.weixin.qq.com/s/CzOh61M6xjjqdsVNpV3A9w
-2019-02 小学生扫脸进出校门，家长接送。
-2018-12 乐高早教班，编程成为江苏浙江高考要求。MIT 少儿编程平台 https://scratch.mit.edu/
-2018-07 全外教篮球培训
-2018-04 ar ai 助力教育
-
-再者是尽早面向领域，面向人和业务。AI本身只是工具，它的抽象性并不能让其成为各个领域的灵丹妙药。 如果不能和AI专家在深度上竞争，就在业务领域专精深挖，拥有比业务人员更好的数据敏感度，成为跨界专家。现在已经有大量AI+金融， AI+医疗，AI+体育的成功案例。 人能熟悉领域背后的数据，背后的人性，这是机器短时间内无法代替的，跨界带来的组合爆炸，也许暗含着危机中的机会吧。
-笔者同样处在迷茫期，有想法和见解的朋友欢迎留言。最后感慨一下，同样是80后，年龄相差无几，有人已是副总裁，有人带了几个人的小团队，有人还在基层苦苦挣扎，轨迹在毕业时分叉，几年后早已沧海桑田。
-2018-10-08 《算法工程师的危机》
-
-技术方向，讲3个比较重要的东西：图推理引擎、加密与隐私保护的机器学习、对抗性学习。图推理引擎，讲的是假如企业与企业间关联，企业与人，人与device关联，怎么综合推理这种关联，比如人传人红包。
-第三个是对抗性学习，金融产业本身就是对抗性的，以前是人和机器较量，以后专业团队就会出现专业的手段。总结而言，核心是要把我们的机器学习平台做出金融特色，在图，安全，对抗，及AutoML等方向做出深度，同时要好用，以便推进我们的业务与技术系统智能化。
-2018-06-08 漆远 《蚂蚁AI现状及发展》
-
-天猫精灵不仅仅是一个音箱，而是承载着我们对整个智能音箱、对整个机器智能的深入思考。得出的结论是：要想做到真正的机器智能，必须要做到云端一体。云就是我们的大脑，是机器智能的云端，它具有人类意图的理解和反馈的能力。端就是我们的交互入口，它直接和人类交互，就如同人的眼耳鼻舌身。端是云的呈现形式和交互入口，云是端的思维和意志，端云一体不可分割。
-我们认为下一个超级APP可能不是一个单纯的软件，在机器智能时代，下一个超级APP就是一个云端一体的AI入口。也是基于这样的思考，我们做一款天猫精灵。
-我们需要在AI核心技术上构建有深度、全链路、多模态的关键技术栈。重点是产出低成本、易复制的智能家居AI方案，帮助一方自有硬件和三方家电巨头接入，去迅速的做大智能家居IoT终端数量。阿里巴巴可以以标杆硬件品类为“手段”，达到建设平台的“目的”，使得硬件可以很容易的接入。
-2018-04-09 《内部》
-
-基于谷歌的开源和特定行业数据，完全可以颠覆bat或所谓的中型公司. 在垂直领域深挖, 找到机会。
-那种能发明算法的，不带引号的顶级人才确实是不多见的，那种人确实有天分，坦白讲，努力也未必能做到。但是能使用和实现算法，甚至做微创新发明的人却大有人在，并没有那么神秘，那么高不可攀，只要肯钻研。
-2018 《内部》
-
-
-
-人群监控系统能够时实分析出整个场景中有多少人，每一点上人的密度，每个进出口的人的数量，或者是各种逆向流动等特殊情况，都能够监控。大家都知道上海外滩发生过大规模的践踏事件，假如外滩有我们这套系统，那次悲剧完全是可以避免的。
-在对视频结构化以后，我们在每个城市都可以有上百万的监控摄相头，但没有那么多的人力来筛选。那么，我们可以通过视频对人、车和非机动车进行监测和标注，包括对人的性别、体貌特征、车型、车牌、颜色等等进行监测。它可以自动监测出在什么时段，在什么位置，一个有着什么样具体特征的人出现等等信息。
-我们用两个人上传到网络的照片可以分析出这两个人的表情、距离、方向，彼此之间的关系是信任的，还是依赖的。这些技术的用处是什么呢？其中的一个应用是大数据征信。比如我发现你跟一个非常高端的人士有一张合影，你的信誉值就有可能会提高。而如果你跟罪犯有着密切的关系，那么如果我是银行，是不会把钱借给你的。
-2017 《内部》
-
-雷鸣对话漆远：人工智能驱动的金融生活服务 http://www.iqiyi.com/w_19rtzsr6hd.html
-Phd 永久大脑损伤。创业做企业读 phd 不是必要的。
-人生处处有惊喜，很多时候预料不到。人生计划不一定可靠。
-AI 已经娱乐化。从今日头条来学习科技其实是挺悲催的。
-智能化是整个人类的大方向。
-但人人都张口讲加强学习/对抗学习，就像时尚一样，这样不好，其实都经历了很长时间发展。
-2017-06-01
-
-谷歌设计了一种AI算法来分析视网膜图像并以此识别糖尿病视网膜病变的特征。
-谷歌AI算法在肿瘤局部化检查的精确度可达89%，这一数值已经超过了经训练有素的人类病理学家73%的成绩。据称，借助谷歌AI算法的肿瘤局部化检查可以准确定位癌症肿瘤的位置。
-2017-05-02 《谷歌AI商业化又进一步：快速辨别糖尿病视网膜病变 可检测乳腺癌》
-https://www.cnbeta.com/articles/tech/608491.htm
-
-[AI讲堂]《从Rokid聊人工智能》分享嘉宾：Misa（前阿里M工作室负责人，rokid机器人创始人）时间：2017年4月18号 http://zhongce.sina.com.cn/report/view/716/ 、 https://www.jibo.com/
-
-截至2015年底,美国家庭智能扫地机器人渗透率为16%,国内沿海地区智能扫地机器人的渗透率则为4%~5%,内陆地区的渗透率则低至0.5%。与智能扫地机器人形成互补品和替代品的产品分别是洗衣机和吸尘器,而在中国家庭中,洗衣机的渗透率已经接近90%,家用吸尘器的渗透率达到了30%~40%。
-云智能是大趋势可以说, i Robot打起的专利战开启了扫地机器人的新赛场,而全球争霸战,才刚刚开起。有人说,科技的发展,让人类的很多幻想都成为现实。比如说“田螺姑娘”—一人类总是幻想这样的画面，自己在外工作,贤惠隐形的田螺姑娘在家里操持家务，通过搭载云智能的扫地机器人就是这样一个“田螺姑娘”,即便远隔千里也能自如操控家务事。而在清洁性能上,单一的只能完成吸尘工作的扫地机器人已经满足不了国内用户的需求。研究发现近70%的中国消费者更倾向于选择把扫和拖都交给机器人,扫拖一体的机型就成为首选。
-2017-04 《扫地机器人 市场》
-
-情感为什么是可计算的？李笛认为，这取决于对情感的定义。
-图灵测试的本质的，是看机器人像不像人，而不是能不能正确回答问题。图灵测试的本质是测量计算机系统是否具有感性生物学特征，而不是测量它是不是一个专家系统。
-小冰的技术核心围绕“情感计算框架”展开。我们问小冰，现在几点了。小冰会回答：“为什么自己不看表？” 这是情感计算的一个“套路”。李笛说，难道我们的技术无法让小冰告诉你几点吗，Long-tail就是这样的。我当然能告诉你现在几点。但是我为什么要告诉你？这是情感计算框架要解决的重要问题。
-CPS，对话处理轮次（一次对话平均能够往复多少轮），小冰的 CPS 平均是 23，行业内的平均水平是1.5 和 2.5。通常认为，在CPS达到 23 的时候，随着对话的进展，用户会有新的需求被拉动。就是聊着聊着我们有新的想法。
-让机器人去完成叫外卖这些工作，总会有一些完不成的比例，即便它做得再好。失败几次后，用户就会觉得自己很傻。我干嘛非得逼着自己跟机器人对话呢？我们很多AI领域里的产品经理是在想象用户需求。
-情感计算里非常重要的事是注重如何激发新的需求，而不是在你已经有了需求以后，非得逼着自己去找聊天机器人完成。李笛说：“那样就是为了技术而技术，为了产品而产品了。所以，无论是国内外的大型企业，还是大量初创企业在虚拟助理的开发上，面临的最主要的问题是这个。”
-2017-03-03 《微软小冰之父李笛：对话式AI泡沫明显，数据和用量是硬伤》 https://36kr.com/p/5065676
-
-在2015年底面世后，谷歌的TensorFlow和微软的Cognitive Toolkit从零开始一举跃升为该领域的领军产品。虽然在亚马逊和其他厂商的支持下，MXNet也取得了强劲的增长，但Theano和Keras主要活跃在Python的世界中。与此同时，其他更老也更成熟的框架，例如Caffe、DL4J和Torch已逐渐被后浪拍死在沙滩上。 
-2017-02-02 《2016 机器学习大盘点》 https://www.infoq.cn/article/2016-machine-learning-market-part02
-
-自2006年Hinton提出神经网络新的训练方法起，深度学习发展迅速，促使人工智能在图像、语音、自然语言处理等多个领域有了实质性的突破，达到产业应用标准。
-2016-12-15 《谷歌大脑养成记：从识别猫到突破性机器翻译》 http://www.jiqizhixin.com/article/1991
-2016-10-18 《人工智能的七大常见误解》 https://m.aliyun.com/yunqi/articles/61778?from=singlemessage&isappinstalled=1
-2016-09 Google Allo
-2016-03 《AlphaGo的分析》 https://zhuanlan.zhihu.com/p/20607684
-
-
-
-区块链
-
-- [万字长文畅聊：区块链、元宇宙、Web3、数字货币，泡沫之下的时代大幕正在缓缓升起](https://mp.weixin.qq.com/s/HpHSvQKRlKE42XXrLTl9_g)
-- [Web3进行时 – 崩溃、融合与新生](https://mp.weixin.qq.com/s/09WJf08EUpAf3tlwtb73jw)
-- [Valist Relies on IPFS and Filecoin to Move Software from Web2 to Web3 | IPFS Blog & News](https://blog.ipfs.io/2021-12-07-building-web3-valist/)
-2019
-- 书《白话区块链》
-- [Web3思想简史——致真正的区块链创业者](https://mp.weixin.qq.com/s/j25jWK2S8qJwDyfhdv1hCw)
-- Block.one推出社交媒体应用Voice，并发行Voice token。
-- Facebook 数字货币：缘起、意义和后果。
-- [从经济模型角度看比特币和以太坊存在的问题](https://segmentfault.com/a/1190000019407268)
-2017
-- [50亿美元的空气：ICO疯狂史](https://36kr.com/p/5088662)
-- [【TED】对未来产生影响最大的科技](https://open.163.com/movie/2016/9/P/1/MC0Q7LQR3_MC0Q97OP1.html)
-应用:
-多方信用链？控制资金。
-解决问题：生鲜店一夜全部倒闭，会员费不退、拖欠员工工资。装修公司倒闭，不赔业务违约金、拖欠员工工资。
-IP 知识产权保护，steemit，yoyow， 分布式云盘storj。
-银行结算清算。 开放支付网络 瑞波。 IPFS 星际文件系统。 公证防伪溯源。
-供应链金融：降低资金成本、提高商业效率。 可编程社会。
-
-技术 [以太坊](https://ethereum.org/)
-以太币，智能合约、自定义合约编程 支持图灵完备的开发语言。安全多方计算+密钥管理。
-中心化和去中心化，双花问题，分布式共识，补偿，奖励，哈希难题 不可更改性，电子签名，非对称加密技术。
-技术问题：软分叉与硬分叉，51%攻击，轻钱包的易攻击性，私钥丢失，重放攻击 交易延展性，代码漏洞。
-
-
-
-
-
-
-
-
-# bash
-
-- Unix 遵循的原则是 KISS (Keep it simple, stupid) do one thing and do it well。
-- Linux 严格区分大小写。所有内容以文件形式保存，包括硬件。如：键盘 /dev/stdin 显示器 /dev/stdout
-- Linux 不靠扩展名区分文件类型，靠权限区分。（.gz .tgz .sh等文件扩展名只是为了方便管理员查看）
-- shell 是一个命令行解释器。shell 是壳，kernel 是内核。shell 把用户敲进去的命令、翻译为 linux 内核能识别的语言。
-- sh: Bourne Shell 的缩写，可以说是目前所有 Shell 的祖先。 bash : Bourne Again Shell 的缩写，是 sh 的一个进阶版本。[Zsh 和 Bash 的不同](https://xshell.net/shell/bash_zsh.html)
-- [vim 键盘图](https://zos.alipayobjects.com/rmsportal/MOPJrAnojdFvAToZkESi.gif) vi编辑器使用color-scheme `:colo desert` 或者 配置 `~/.vimrc` 为 `colo desert` + `syntax on` 。
-- 不同平台安装包 macOS `brew install jq` Ubuntu/Debian `sudo apt-get install jq` CentOS/Fedora `sudo yum install jq`
-
-## 语法/基础
-
-```sh
-#!/bin/bash
-# bash 文件 想在 mac 上双击可执行(调用系统terminal)，需要去掉文件后缀名。
-# bash 处理复杂数据：在 Bash 3 中，不能直接在函数内部引用或修改外部数组。
-
-# 一个脚本调用另一个脚本里的函数
-bash ./scripts/script.sh # 这么做无效
-[ -s "./scripts/script.sh" ] && \. "./scripts/script.sh"
-
-# 命令行 或 npm script 执行 bash 脚本里的函数
-source script.sh && fn_name
-bash script.sh && fn_name
-bash script.sh fn_name  # 需要在脚本里 $1 为 fn_name 时手动执行一下
-bash -c '. script.sh && fn_name'
-zsh -c "source script.sh; fn_name"
-
-type fn_name
-type -a node / pwd
-
-echo * xxx # 其中的 * 是特殊字符、需要处理。
-
-# 用双引号包括变量，能保留换行
-str="{
-"a": "b"
-}"
-
-local str="long...\
-实际不换行"
-local str1="第一行
-第二行"
-local num=1
-local num="$num"2  # 或 num=${num}2
-local new_msg="Merged $(($num-1)) $((${num}-1)) commits"
-echo $str $str1 $num $new_msg
-
-local blank_path="/Applications/Google\" \"Chrome.app/Contents/MacOS/Google\" \"Chrome"
-local blank_path=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
-local blank_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-local escaped_blank_path=${blank_path////\\/}
-echo $escaped_blank_path
-printf "这是要写入文件的内容\n"
-
-# 设置默认值
-default_value="default"
-# 使用参数扩展来获取值，若无则用默认值
-value="${1:-$default_value}"
-
-# 数组
-myArray=("apple" "banana" "cherry")
-myArray+=("element1" "element2" "element3")
-newMyArray=("${myArray[@]}")
-echo "${myArray[0]}"
-echo "${myArray[1]}"
-echo "${myArray[@]}"
-# 遍历输出
-for item in "${myArray[@]}"; do echo "$item"; done
-
-cd /path/to/dir || { echo "路径无效"; exit 1; }
-data_str="master-"$(date +"%Y%m%d-%H%M%S")
-
-# 输入输出  使用 eval 不安全，也难解决命令参数 含有空格和引号 的情况
-eval "ls -l" >> "/tmp/a_log.txt"
-eval "ls -l" 2>&1 | tee -a "/tmp/a_log.txt"
-(exec eval "ls -l" 2>&1 | tee -a "/tmp/a_log.txt") >/dev/null
-eval "$command" >> "$file" 2>&1
-
-# 读取用户输入
-read -n1 -rsp $'Press any key to exit...\n'
-read answer
-if [[ $answer = "" ]] || [[ $answer = "y" ]]; then
- echo "do sth"
-else
- echo You quite
-fi
-
-# 兼容 bash 和 zsh 颜色和换行
-# 依赖特定 Shell 的转义序列  (Zsh 的一些插件和配置 可能会影响换行的显示效果)
-echo -e "\033[31mRed text\033[0m"
-echo -e "Line 1\nLine 2"
-
-# 使用 tput 命令，不依赖特定 Shell 的转义序列
-RED=$(tput setaf 1)
-RESET=$(tput sgr0)
-echo "${RED}Red text${RESET}"
-# 检测不同的 shell 分别设置
-if [ -n "$BASH_VERSION" ]; then
-  RED='\033[31m'
-  RESET='\033[0m'
-elif [ -n "$ZSH_VERSION" ]; then
-  RED='%F{red}'
-  RESET='%f'
-fi
-echo "${RED}Red text${RESET}"
-```
-
-函数的返回值和错误处理
-
-```sh
-function hl() {
-  if [ $# -eq 0 ]; then
-    echo "Usage: $0 xx"
-    return 1
-  fi
-}
-first_function() {
-  return "$1"  # 返回传入的参数作为状态码
-}
-second_function() {
-  first_function "$1" || return 1  # 如果 first_function 失败，立即返回 1
-  echo "first_function succeeded, continuing..."
-  return $?  # 直接返回 first_function 的状态码
-}
-second_function 0  # 传入 0
-second_function 1  # 传入 1
-echo "Return value of second_function: $?"
-
-my_function() {
-  return 1  # 模拟失败
-}
-my_function
-if [ $? -ne 0 ]; then
-  echo "Error: Function failed!"
-  exit 1  # 或者根据需要退出脚本
-fi
-# command && success_action: 当 command 成功时执行 success_action
-# command || failure_action: 当 command 失败时执行 failure_action
-my_function || echo "Function failed!"
-get_message() {
-  echo "Hello, World!"
-}
-check_status() {
-  if [ "$1" -eq 1 ]; then
-    return 0  # 成功
-  else
-    return 1  # 失败
-  fi
-}
-# 错误处理
-trap 'echo "Error occurred on line $LINENO"; exit 1' ERR
-message=$(get_message)
-echo "Message: $message"
-check_status 0 && echo "Status check passed" || echo "Status check failed"
-echo $? # 获取 函数 return 返回值
-# 使用 set -e 会使脚本在任何命令返回非零状态时立即退出
-set -e
-check_status 0
-echo "This will run because check_status passed."
-check_status 2  # 这会导致脚本退出，因为 set -e 会触发
-echo "This won't be displayed."
-```
-
-后台运行命令 & 和 nohup
-
-```sh
-# 注意  & 会随着 terminal 的关闭 而自动停止运行
-/path/to/xx.sh >> /path/to/log.txt 2>&1 &
-ttyd -W -a zsh >> log.txt 2>&1 &
-
-nohup sleep 100 &
-# 最后一个后台运行进程的 PID
-echo $!
-echo $! > "flag_file.log"
-
-# nohup 不会随着 terminal 的关闭而停止、会在 系统关闭 时停止运行
-nohup echo "Hello World"
-my_command='echo "Hello World" && sleep 30'
-nohup bash -c "$my_command" > output.log
-nohup bash -c 'echo "Hello World" && sleep 30' > output.log
-# 临时文件
-echo 'echo "Hello World" && sleep 30' > /tmp/my_script.sh
-chmod +x /tmp/my_script.sh
-nohup /tmp/my_script.sh > output.log
-# 如果不需要输出日志，可以将其重定向到 /dev/null
-nohup bash -c 'your_command_here' > /dev/null 2>&1 &
-```
-
-
-## 场景
-
-工具函数
-
-```sh
-datef() {
-  local fmt="${1:-"%Y_%m_%d-%H_%M_%S"}"
-  local output=$(date "+$fmt")
-  echo "[$output]"
-  # date "+$fmt"
-}
-# datef "%Y-%m-%d"
-
-nohup_with_newlines() {
-  local command="$1"
-  local logfile="${2:-output.log}"
-  echo -e "\n\n" >> "$logfile"
-  nohup bash -c "$command" >> "$logfile" 2>&1 &
-}
-nohup_with_newlines 'echo "This is a test command"' "output.log"
-```
-
-定期删除日志
-
-```sh
-log_files=("$z_log" "${z_log}_nohup")
-cleanup_old_logs() {
-  local log_dir=$(dirname "${log_files[0]}")
-  local max_logs=10 # 最多保留 10 个轮换日志
-  local old_logs
-  old_logs=$(ls -t "$log_dir"/*_rotated_* 2>/dev/null | tail -n +$((max_logs + 1)))
-  if [[ -n "$old_logs" ]]; then
-    echo "$old_logs" | while read -r old_log; do
-      rm -f "$old_log"
-      echo "Deleted old log file: $old_log" >> "$z_log"
-    done
-  else
-    echo "No old logs to clean up." >> "$z_log"
-  fi
-}
-clear_logs() {
-  echo "run scheduled_tasks (clear_logs)" >> "$z_log"
-  for log_file in "${log_files[@]}"; do
-    if [[ -f "$log_file" ]]; then
-      if lsof "$log_file" > /dev/null 2>&1; then
-        local rotated_file="${log_file}_rotated_$(date '+%Y-%m-%d_%H-%M-%S')"
-        mv "$log_file" "$rotated_file"
-        touch "$log_file"
-        echo "File $log_file was in use. Rotated to $rotated_file." >> "$z_log"
-      else
-        > "$log_file"
-      fi
-    else
-      echo "File $log_file does not exist, skipping..." >> "$z_log"
-    fi
-  done
-  # 清理旧的轮换日志
-  cleanup_old_logs
-}
-```
-
-运行命令 检查进程 如果不存在 则用 nohup 启动命令 存在则运行 command_query 自定义命令
-可以放在 zshrc 中，用在 ttyd 时比较方便
-
-```sh
-command_query="$1"
-run_command() {
-  local flag_file="$HOME/z_run_command"
-  local x_command="$1"
-  local x_command_flag="$2"
-  echo "run by USER: $USER" >> "$z_log"
-  echo "run by whoami: $(whoami)" >> "$z_log"
-  local ppid=$(ps -p $PPID -o comm=)
-  echo "called by: $ppid (PID: $PPID)" >> "$z_log"
-  local parent_cmd=$(ps -p $PPID -o args=)
-  echo "Full caller: $parent_cmd" >> "$z_log"
-  echo "called from terminal: $(tty)" >> "$z_log"
-  echo "called with arguments: $@" >> "$z_log"
-  # echo "Caller process info (lsof -p $ppid):" >> "$z_log"
-  # lsof -p $PPID >> "$z_log"
-
-  local pid=$(ps aux | grep -w "$x_command" | grep -v grep | awk '{print $2}')
-  local pid1=$(pgrep -u "$USER" -f "$x_command_flag")
-  echo "whether running?: $pid" >> "$z_log"
-  # 只能输出第一行
-  echo "whether running1?: $pid1" >> "$z_log"
-  # 输出多行
-  echo "$pid1" | while read -r spid; do
-    echo "running Instance PID: $spid" >> "$z_log"
-  done
-
-  # 通过环境变量防止递归调用 跳过处理
-  # if [[ -n "$x_command_RUNNING" ]]; then
-  #   echo "return function" >> "$z_log"
-  #   return
-  # fi
-  # export x_command_RUNNING=1
-
-  if [[ "$ppid" == "$x_command_flag" ]]; then
-    echo "command_query: $command_query" >> "$z_log"
-    zsh -c "$command_query"
-  fi
-  # 检查标志文件是否存在
-  if [[ -f "$flag_file" ]] && ps -p "$(cat "$flag_file")" > /dev/null 2>&1; then
-    echo "$x_command_flag is already running" >> "$z_log"
-    return
-  fi
-  # 启动命令
-  echo "run command by nohup: $x_command" >> "$z_log"
-  nohup zsh -c "$x_command" >> "$z_log" 2>&1 &
-  # 记录 后台命令的 PID 注意要用 >
-  echo $! > "$flag_file"
-}
-run_command "ttyd -W -a zsh" "ttyd"
-# http://localhost:7681/?disableLeaveAlert=true&arg=/Users/hua/.zshrc&arg=top
-# http://localhost:7681/?disableLeaveAlert=true&arg=/Users/hua/.zshrc&arg=echo aa
-# 支持多实例
-# run_command "ttyd -p 9999 -W -a zsh" "ttyd"
-# http://localhost:9999/?disableLeaveAlert=true&arg=/Users/hua/.zshrc&arg=top
-```
-
-2024 base64 加解密敏感词
-
-```sh
-input_string="your string to encode"
-encoded_string=$(echo -n "$input_string" | base64)
-decoded_string=$(echo -n "$encoded_string" | base64 --decode)
-```
-
-2024 系统监控
-
-```sh
-threshold=80
-partition="/dev/sda1"
-usage=$(df -h | grep "$partition" | awk '{print $5}' | sed 's/%//')
-if [[ "$usage" -gt "$threshold" ]]; then
-  echo "Disk usage on $partition is above $threshold%"
-  # Add code to handle high disk usage
-fi
-
-# 持续显示进程信息
-while true; do
-  clear
-  ps aux | awk '{print $2, $3, $11}' | sort -k2 -nr | head -n 10
-  sleep 2
-done
-```
-
-2014 ssh 登录 ssh & scp
-
-```sh
-scp -r ~/Downloads/build/ root@118.31.47.xx:/home/admin/nginx/
-ssh root@118.31.47.xx xyxyxy
-cd /home/admin/nginx/
-cp -r ./build ./build-back1
-
-echo "进行 xx 操作 \n\r" \
-&& cd ~/my/work/project/xx \
-&& spm build && spm deploy \
-# 对引号进行转义
-expect -c "spawn ssh admin@xx.net
-expect \"password:\"
-send \"password22\r\"
-send \"cd ccbin && ./ccupdate.sh \n\"
-interact "
-```
-
-
-## ps/base
-
-```sh
-# Process status
-ps -ax
-ps aux | grep xx.sh  # 列出正在运行的脚本进程
-ps aux | grep "xx" | grep -v grep  # 排除 grep 本身的进程
-ps -ef | grep ttyd
-ps -ef | grep adb  # 有时候 adb devices 没反应 需要杀掉进程重启
-
-pgrep -x 'ClashX'  # 获取应用的 pid
-pgrep -f "ttyd zsh"  # -f 匹配完整的命令行
-pgrep -f "ttyd -t disableLeaveAlert=true zsh"  # 参数解析后不一样 这里匹配不到
-pgrep -f "ttyd zsh"> /dev/null  # 只返回输出码
-pgrep -fx "ttyd -p 9999 -W -a zsh"
-pgrep -u "$USER" -f "ttyd"
-pgrep -u "$USER" -fx "ttyd -p 9999 -W -a zsh"
-
-lsof "$z_log"
-# z_log 文件正被进程 ttyd 打开, 文件描述符 1w 和 2w 表明它正在被用作标准输出和标准错误的重定向.
-# 这时候 z_log 文件不能被其他进程 以 > 方式 写入内容, 改为 truncate -s 0 "$z_log" 处理.
-# COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
-# ttyd    1245  hua    1w   REG    1,6  16 65909077 /Users/hua/xx/z_log
-# ttyd    1245  hua    2w   REG    1,6  16 65909077 /Users/hua/xx/z_log
-
-lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
-kill 3747(进程id)  # 杀掉后台进程
-kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
-kill -9 *pid*  # 强制杀掉进程
-```
-
-
-```sh
-env / w / who / whoami / tty / last / nettop / nslookup / mtr -r
-printenv HOME  # 打印环境变量
-echo "system: $HOME $PATH $SHELL"
-
-# ls 命令默认只显示文件名
-ls $HOME/bin  # 一般不存在
-ls /usr/bin  # 有 env
-ls /usr/local/bin  # 有 node npm npx
-ls -d $PWD/*
-ls -la
-ls -l "$z_log"  # 查看文件是否有 读写权限，如无 运行 chmod u+rw "$z_log"
-
-cat "$z_log"
-rm -rf xx # rm 删除不存在的文件或目录 不会报错
-mkdir -p ~/inner/aa && touch $_/file.txt  # 创建目录并能生成文件
-
-history 10 # 列出10条
-more filename # 一页一页的显示档案内容.
-head/tail -n 20 ~/.zsh_history  # 只看 头/尾 几行(默认10行)
-mv fname rename / cat -n fname
-say hello / ln -s source_file dist
-
-open -a Activity\ Monitor # 打开活动监视器 或者 "Activity Monitor"
-top # 或 top -o cpu 按 q 退出.  man top
-timeout 3600 some-command
-
-# 系统任务在 /etc/crontab 或 /etc/cron.d/ 目录，需要管理员权限
-# crontab 文件一般位于 /var/at/tabs/<username> 或 /var/cron/tabs/<username> 不建议直接改
-crontab -l  # 查看当前的 crontab 内容
-crontab -e  # 编辑 cron 配置 保存后 cron 会自动加载和应用
-sudo launchctl list | grep cron  # 检查 cron 服务是否正常运行
-# 如果未启动
-sudo launchctl load -w /System/Library/LaunchDaemons/com.vix.cron.plist
-```
-
-crontab -e 脚本内容示例
-
-```sh
-# 立即运行任务
-* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
-# 接下来的 1 分钟和 2 分钟执行
-* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
-*/2 * * * * zsh -ic 'scheduled_tasks clear_logs' >> ~/cron_test.log 2>&1
-# 50 11 * * * /bin/bash -c 'source ~/.zshrc; scheduled_tasks backup'
-# 每天上午 11:50 执行备份
-50 11 * * * zsh -ic 'scheduled_tasks backup' >> xxx/z_log 2>&1
-# 每隔三天上午 11:49 清空日志文件
-49 11 */3 * * zsh -ic 'scheduled_tasks clear_logs' >> xxx/z_log 2>&1
-```
-
-
-## 文件/目录
-
-```sh
-# 同步文件和目录
-# 报错 cp: --exclude=a.txt is not a directory
-cp -r test/* test1 --exclude=a --exclude='a.txt'
-# 加引号 避免路径中间有空格
-# 报错 cp: illegal option -- -
-cp -r --exclude=a --exclude='a.txt' test/* test1
-
-# 会排除掉 所有子目录 含有的同名 a.txt 文件
-rsync -av --exclude='a.txt' --exclude='a/' test/ test1
-# 在目标端删除源端不存在的文件
-rsync -av --exclude='a.txt' --delete --dry-run test/ test1
-rsync --version  # v2 不支持通配符
-# 使用 .rsync-filter 文件配置
-rsync -avF .rsync-filter test/ test1
-
-# 创建一个临时目录用于存储 other-branch 的文件
-mkdir /tmp/other
-diff -r . /tmp/other
-diff -rq . /tmp/other  # -q 只报告哪些文件不同
-diff -r --exclude=".git" . /tmp/other
-# 使用 --exclude="{.git,.svn}" 好像不正确
-diff -r --exclude=".git" --exclude=".svn" dir1 dir2
-diff -r --exclude=".git" dir1 dir2 dir3 > diff_output.txt
-diff -r --exclude=".git" --exclude="node_modules" pro-components pro-componentsk > diff_output.txt
-
-grep -rn 'grep' *  # 以 字符串 grep 来搜索 当前目录及子目录 的所有文件内容
-grep grep$ she*.md  # 以 正则表达式 grep$ 来搜索 当前目录下 文件名匹配 she*.md 的内容
-grep -r --include=\*.{cpp,h} pattern ./
-grep -r --exclude-dir=node_modules pattern ~/
-
-find . -name '*bash*'
-find . -name "*.js" -not -path "*node_modules*" -not -path "*js-css-html*"
-find . -name '*.DS_Store' -type f -delete   # 删除某目录及子目录下的 .DS_Store 文件
-# find / -mmin -5   # 查找在系统中最后5分钟里修改过的文件(modify time)
-
-# 如果文件存在则追加内容，否则创建并写入内容
-# [ -f "$file" ] && echo "$content" >> "$file" || echo "$content" > "$file"
-printf '\n%.0s' {1..10} >> $file
-
-# unix diff 使用
-function diff_gitignore() {
-  gitignore=()
-  GITIGNORE_FILE=".gitignore"
-  if [ ! -f "$GITIGNORE_FILE" ]; then
-    echo ".gitignore file not found in the current directory!"
-    exit 1
-  fi
-  while IFS= read -r line; do
-    # 移除行首尾的空白字符
-    stripped_line=$(echo "$line" | tr -d '[:space:]')
-    # 跳过空行和以 '#' 开头的注释行
-    if [ -n "$stripped_line" ] && [ "${stripped_line:0:1}" != "#" ]; then
-      # echo "$stripped_line"
-      gitignore+=("--exclude=$line")
-    fi
-  done < "$GITIGNORE_FILE"
-  # echo "${gitignore[@]}"
-  for item in "${gitignore[@]}"; do echo "$item"; done
-  # diff 的 exclude 参数 不认识 .gitignore 文件里的 **/**/es/** 这种写法
-  # diff -rq --exclude=.git --exclude=**/**/es/** . /tmp/pro-components > diff.txt
-}
-
-# 获取当前路径和父路径
-# echo "$(dirname $(/bin/pwd))"
-# echo "$(basename $(/bin/pwd))"
-current_path=$(/bin/pwd)
-get_parent_dir() {
-  local current_dir=$(basename "$current_path")
-  local parent_dir="${current_path%$current_dir}"
-  echo $parent_dir
-}
-parent_dir=$(get_parent_dir)
-```
 
 
 ## node npm
+
+https://www.npmjs.com/package/npm-check
+https://www.npmjs.com/package/depcheck
 
 ```sh
 # [npm源](http://registry.npmjs.org/esbuild/0.21.4)
@@ -6540,13 +6177,15 @@ npx lerna publish prerelease --preid rc --dist-tag rc
 npx lerna publish from-git --preid rc --dist-tag rc
 npx lerna publish from-package
 
-npx lerna ls --since="master"
+npx lerna ls --since="master" --loglevel=verbose
 npx lerna ls --include-merged-tags
 npx lerna ls --since --include-merged-tags
 npx lerna exec --since --include-merged-tags -- ls -la
 npx lerna exec --include-merged-tags --concurrency 1 -- "pwd && ls -la"
-npx lerna exec --scope @afe/pro-form -- pnpm version 0.1.5-alpha.0 --no-git-tag-version
+npx lerna exec --scope @ant-design/pro-form -- pnpm version 0.1.5-alpha.0 --no-git-tag-version
 
+npm install --verbose > install.log
+pnpm install --loglevel debug | tee install.log
 npx pnpm install
 npx npm install
 
@@ -6564,22 +6203,22 @@ pnpm add package-name --filter workspace-name --link-workspace-packages=true
 
 # 注意 pnpm outdated 是检测 lock文件(不是package.json) 里的依赖版本号 是否过时
 pnpm outdated -r
-pnpm outdated "@afe/pro-*" --filter "@afe/pro-form" --json
+pnpm outdated "@ant-design/pro-*" --filter "@ant-design/pro-form" --json
 # pnpm up package-name --filter workspace-name
-pnpm up "@afe/pro-*" --filter "@afe/pro-form" --latest
+pnpm up "@ant-design/pro-*" --filter "@ant-design/pro-form" --latest
 
-pnpm up -r @afe/pro-form@0.2.0  # 更新不存在的版本号会报错
-# 更新 包的版本号为 "@afe/pro-form": "workspace:0.1.3"
-pnpm up -r "@afe/pro-*"  # 加 --workspace 作用一样
+pnpm up -r @ant-design/pro-form@0.2.0  # 更新不存在的版本号会报错
+# 更新 包的版本号为 "@ant-design/pro-form": "workspace:0.1.3"
+pnpm up -r "@ant-design/pro-*"  # 加 --workspace 作用一样
 # 升级到 npm latest 指定的版本
 # 如果 workspace 内部包 版本号大于npm最新版 则使用内部包版本号
-pnpm up -r "@afe/pro-*" --latest
-pnpm up -r "@afe/pro-*@beta"  # 升级到 beta rc
+pnpm up -r "@ant-design/pro-*" --latest
+pnpm up -r "@ant-design/pro-*@beta"  # 升级到 beta rc
 pnpm Patching dependencies
 
 pnpm install --ignore-engines --ignore-platform
-pnpm view @afe/pro-card --json --registry http://comm
-npm view @huajs/lerna-demo1 --registry https://registry.npmjs.org
+pnpm view @huajs/lerna-demo1 --json --registry https://registry.npmjs.org
+pnpm dist-tag add @huajs/demo latest --registry=https://registry.npmjs.org
 
 pnpm ls -r --json # 等效 npx lerna ls --graph
 pnpm ls -r --depth -1 --json  # 等效 npx lerna ls --long 换成 npm 不行
@@ -6593,6 +6232,7 @@ npm root -g
 which npm/node  # 查看本地安装的模块
 
 # npx 用法
+# npx 会自动在项目的 node_modules/.bin 目录中查找可执行文件
 npx ls  # 等同于 ls
 npx mocha --version
 npx http-server
@@ -6600,6 +6240,11 @@ npx http-server
 npx --ignore-existing http-server
 # https://code.visualstudio.com/api/get-started/your-first-extension
 npx --package yo --package generator-code -- yo code
+
+pnpx create-react-app@next ./my-app
+pnpm dlx create-react-app@next ./my-app
+pnpm --package=yo --package=generator-webapp dlx yo webapp --skip-install
+pnpm --package cowsay --package lolcatjs -c dlx 'echo "hi pnpm" | cowsay | lolcatjs'
 
 npm exec -- node -e 'console.log(process.env)'
 
@@ -6611,75 +6256,16 @@ npm i --registry https://registry.npmmirror.com
 npm i --registry https://registry.npmjs.org
 ```
 
-查找某个 npm group 下所有包的 dependencies 里包含的指定依赖
-
-```sh
-#!/bin/bash
-function create_package_json() {
-  # package_json_str='{
-  #   "name": "pkg_name",
-  #   "version": "1.0.0"
-  # }'
-  # echo $package_json_str > package.json
-
-  local default_deps="{}"
-  local deps="${1:-$default_deps}"
-  # echo "deps: $deps"
-
-  json=$(jq -n --argjson deps "$deps" '{
-  "name": "pkg_name",
-  "version": "1.0.0",
-  dependencies: $deps
-}')
-  # echo "json: $json"
-  echo $json > package.json
-}
-# create_package_json
-# exit
-
-function search_dep() {
-  # 先运行 sudo npm cache clean --force 能避免 npm error code EEXIST 错误
-  local result_file="log.txt"
-
-  local default_group="@ant-design"
-  local default_registry="https://registry.npmmirror.com"
-  local default_search_name="react"
-  local default_search_size=300
-  local group="${1:-$default_group}"
-  local registry="${2:-$default_registry}"
-  local search_name="${3:-$default_search_name}"
-  local search_size="${4:-$default_search_size}"
-
-  local pkgs=$(npm search $group --json --registry=$registry --searchlimit=$search_size)
-  # echo "pkgs: $pkgs"
-  local all_deps=$(echo "$pkgs" | jq -r '[.[] | {(.name): .["dist-tags"].latest}] | add')
-  create_package_json "$all_deps"
-  # return
-
-  local pkg_names=$(npm search $group --json --registry=$registry --searchlimit=$search_size | jq -r '.[].name')
-  echo "list: $pkg_names"
-  for pkg_name in $pkg_names; do
-    local deps=$(npm view $pkg_name dependencies --json --registry=$registry)
-    # search_result=$(jq --arg name "$search_name" -r '.[$name]' <<< "$deps")
-    search_result=$(jq -r '."'$search_name'"' <<< "$deps")
-    echo "
-pkg_name: $pkg_name
-dependencies: $deps" >> $result_file
-    if [ -n "$search_result" ]; then
-      echo "search_result: $search_name $search_result
-      " >> $result_file
-    fi
-  done
-}
-search_dep
-```
-
-
 
 ## git 操作
 
-[git](https://github.com/git/git)
-.git/hooks/query-watchman
+[git](https://github.com/git/git) .git/hooks/query-watchman
+
+git 三板斧
+
+- 一板基础斧 add，commit，pull/push，checkout，revert
+- 二板合作斧 merge，rebase，stash，cherry-pick
+- 三板优雅斧 commit --amend，rebase -i
 
 ```sh
 # https://github.com/paulirish/git-open
@@ -6764,7 +6350,7 @@ git reflog  # 撤销 reset 时 找到撤销前的 commit_id 再 git reset 即可
 git tag v1.0  # 给当前分支最新 commit 打 tag
 git tag v1.0 commit_id  # 给当前分支 某个 commit_id 打 tag
 # 打 annotated tags
-git tag -v @afe/pro-xx@0.1.9-beta.0
+git tag -v @ant-design/pro-xx@0.1.9-beta.0
 git tag -a 0.0.1 -m 'Release version 0.0.1'
 git push [origin] --tags    # 推送所有标签到服务器
 git push origin --delete tag_name
@@ -6791,322 +6377,6 @@ test -x "$GIT_DIR/hooks/pre-commit" &&
 # 业内成熟的 GIT 分支模型 https://cloud.githubusercontent.com/assets/36899/7315642/015f534c-eaa2-11e4-9882-b7cc7535fb72.png
 # GitHub Issues blog https://gitblog.io/
 ```
-
-/.git/hooks/pre-commit 脚本
-
-```sh
-# yorkie 2.0.0
-command_exists () {
-  command -v "$1" >/dev/null 2>&1
-}
-if command_exists forever; then
-  echo 'MY_Info: forever has been installed'
-fi
-has_hook_script () {
-  [ -f package.json ] && cat package.json | grep -q "\"$1\"[[:space:]]*:"
-}
-# OS X and Linux only
-load_nvm () {
-  # If nvm is not loaded, load it
-  command_exists nvm || {
-    export NVM_DIR="$1"
-    [ -s "$1/nvm.sh" ] && . "$1/nvm.sh"
-  }
-}
-run_nvm () {
-  # If nvm has been loaded correctly, use project .nvmrc
-  command_exists nvm && [ -f .nvmrc ] && nvm use
-}
-# Check if pre-commit is defined, skip if not
-has_hook_script pre-commit || exit 0
-export PATH="$PATH:/usr/local/bin:/usr/local"
-# Try to load nvm using path of standard installation
-load_nvm /Users/hua/.nvm
-run_nvm
-# Export Git hook params
-export GIT_PARAMS="$*"
-# Run hook
-node "./node_modules/yorkie/src/runner.js" pre-commit || {
-  echo
-  echo "pre-commit hook failed (add --no-verify to bypass)"
-  exit 1
-}
-```
-
-添加删除 remote repo
-
-```sh
-# 如果原来没有 kj 这里 remove 会报错 # fatal: No such remote: 'kj'
-# git remote remove kj
-local kj_remote=$(git config --get remote.kj.url)
-[[ -z "$kj_remote" ]] && git remote add kj $kj_git
-git remote -v
-git fetch kj master || { echo "fetch kj 失败"; exit 1; }
-```
-
-获取 git log 的 第一条 最后一条 总数 等信息，放到 bash 数组里
-
-```sh
-branch_name="$1"
-if [ -z "$1" ]; then
-  # 设为 current_branch
-  branch_name=$(git symbolic-ref --short HEAD)
-fi
-echo $branch_name
-
-all_commits_num=$(git rev-list --count HEAD)
-all_commits=$(git log $branch_name --format=%H:%an:%s)
-all_commits=$(git log $branch_name --pretty=%H)
-latest_commit=$(git log $branch_name -1 --pretty=%H)
-skip_latest_commit=$(git log --skip=1 --pretty=%H)
-first_commit=$(git log $branch_name --reverse --skip=1 $latest_commit --pretty=%H | head -n 1)
-first_commit=$(git rev-list --max-parents=0 HEAD)
-echo $latest_commit
-echo $first_commit
-
-declare -a commits_info
-
-# 使用 while 循环读取 git log 输出，并将信息追加到数组中
-while IFS= read -r line; do
-  commits_info+=("$line")
-done < <(echo "$all_commits")
-
-echo "commits count: "${#commits_info[@]}
-
-for info in "${commits_info[@]}"; do
-  if [[ "$info" != "$first_commit" ]]; then
-    echo "$info"
-    # echo "${info%%:*}, ${info#*:}"
-    # do sth
-    # git cherry-pick $info
-  else
-    echo first_commit: "$first_commit"
-  fi
-done
-```
-
-检查是否是 git 仓库
-
-```sh
-# directory_path="/path/to/directory"
-# git -C "$directory_path" rev-parse --is-inside-work-tree > /dev/null 2>&1
-is_git_repo=0
-if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-  is_git_repo=1
-  echo -e "\033[31mgit status:\033[0m
-  "$(git status)
-else
-  echo "当前不是 git 仓库"
-fi
-if [ "$is_git_repo" != "1" ]; then
-  echo "不是 git 仓库"
-  exit 1
-fi
-```
-
-删除 git 仓库的 tag
-
-```sh
-remote_tags=$(git ls-remote --tags origin)
-remote_tags=$(git ls-remote --tags origin | awk '{print $2}' | sed 's#refs/tags/##')
-remote_tags=$(git ls-remote --tags origin | sed 's/.*refs\/tags\/\(.*\)/\1/')
-local_tags=$(git tag -l)
-# local_tags=$(git tag -l | sed -n 's/.*\///p')
-function process_tags() {
-  # if [[ $tag_info =~ refs/tags/(.+) ]]; then
-  #   tag=${BASH_REMATCH[1]}
-  # fi
-  for tag_info in $1; do
-    tag=$tag_info
-    echo "Matched tag: $tag"
-    # git tag -d "$tag"
-    # git push origin --delete "$tag"
-  done
-}
-process_tags "$remote_tags"
-process_tags "$local_tags"
-
-# 先 git tag -l > tags.txt
-# 再运行本脚本
-while read -r line; do
-  git tag -d "$line"
-  # git push origin --delete "$line"
-done < tags.txt
-```
-
-git 修改 master~当前分支，所有commit里面非合规 email username
-
-```sh
-git fetch origin master:master
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-echo "正在处理当前分支: $CURRENT_BRANCH"
-git update-ref -d refs/original/refs/heads/$CURRENT_BRANCH 2>/dev/null || true
-# 使用git filter-branch来修改历史
-git filter-branch -f --msg-filter 'sed -e "s/pinduoduo//g" -e "s/pdd//g"' -- master..HEAD
-git filter-branch -f --env-filter '
-    OLD_EMAIL_PATTERN="pinduoduo|pdd_waterdrop_bot"  # 要替换的邮箱的正则表达式
-    NEW_EMAIL=""        # 新的邮箱地址
-    NEW_NAME=""        # 新的邮箱地址
-    if echo "$GIT_AUTHOR_EMAIL" | grep -q -E "$OLD_EMAIL_PATTERN"
-    then
-        export GIT_AUTHOR_EMAIL="$NEW_EMAIL"
-    fi
-    if echo "$GIT_COMMITTER_EMAIL" | grep -q -E "$OLD_EMAIL_PATTERN"
-    then
-        export GIT_COMMITTER_EMAIL="$NEW_EMAIL"
-    fi
-    if echo "$GIT_AUTHOR_NAME" | grep -q -E "$OLD_EMAIL_PATTERN"
-    then
-        export GIT_AUTHOR_NAME="$NEW_NAME"
-    fi
-    if echo "$GIT_COMMITTER_NAME" | grep -q -E "$OLD_EMAIL_PATTERN"
-    then
-        export GIT_COMMITTER_NAME="$NEW_NAME"
-    fi
-' -- master..HEAD
-echo "修改完成!"
-```
-
-git 压缩提交
-
-```sh
-# 备份分支
-function backup_branch() {
-  if [ -z "$1" ]; then
-    echo "请输入要备份的分支名"
-    return 1
-  fi
-  local bk_branch_name=backup-$1
-  local branch_exists=$(git branch | grep "$bk_branch_name")
-  if [ -n "$branch_exists" ]; then
-    echo -e "
-    备份分支名 $bk_branch_name 已存在 请运行命令删除或改名
-      git branch -D $bk_branch_name
-    "
-    return 1
-  else
-    # 做备份
-    git checkout -b "${bk_branch_name}"
-  fi
-}
-# 压缩分支的提交  使用 /bin/zsh 执行，不然显示有问题
-function commits_squash() {
-  local feature_branch="$1"
-  local base_branch="$2"
-  if [ -z "$1" ]; then
-    local feature_branch=$(git symbolic-ref --short HEAD)
-  fi
-  if [ -z "$2" ]; then
-    local base_branch="origin/master"
-  fi
-  # echo "参数 $1 $2 , $feature_branch $base_branch"
-
-  local gitStatus=$(git status --porcelain)
-  if [ "$gitStatus" != "" ]; then
-    echo "Your git status is not clean"
-    return 1
-  fi
-
-  backup_branch $feature_branch || return 1
-  git pull
-
-  echo "\033[32m
-  合并 ${feature_branch} 成一个 commit，并归集所有待合并 commit 的 messages
-  \033[0m"
-  git checkout "${feature_branch}"
-
-  calc_commits_num $base_branch $feature_branch
-  local commits_num=$calc_commits_num_result
-  echo $commits_num
-
-  # 如果只有一个 commit，则无需合并
-  if [ $commits_num -lt 2 ]; then
-    echo "\033[32m
-    只有一个提交，不需要压缩
-    \033[0m"
-    return 0
-  fi
-
-  # 收集所有待合并 commits 的 message
-  local commits_message=""
-  for ((i = commits_num - 1 ; i >= 0 ; i--)); do
-    # MESSAGE=$(git log --format=%s HEAD~${i} -1)
-    MESSAGE=$(git log --format='%h - %an - %ad %n %s' HEAD~${i} -1)
-    commits_message+="${MESSAGE}
-
-  "
-  done
-  local new_message="📦 chore: Squashed ${commits_num} commits:
-
-  ${commits_message}"
-
-  echo -e "\033[32m 请确认是否合并这些commits (y/n) : \033[0m"
-  printf $new_message
-
-  read answer
-  [[ $answer = "n" ]] && return 1
-
-  # 恢复到 base 分支的 最后一次提交
-  git reset --soft $(git rev-parse HEAD~$commits_num)
-  git add --all
-  git commit -am "${new_message}"
-
-  echo "
-  建议再手动运行 git commit --amend 额外添加 commit 注释
-  提交 git push --force-with-lease
-  "
-  # git log
-  # git push origin "${feature_branch}" --force-with-lease
-}
-```
-
-2024-07 获取分支名
-
-```sh
-cd "$(git rev-parse --show-toplevel || echo .)"
-branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD) && echo ${branch}
-```
-
-2016 自动 commit push
-
-```sh
-function commit() {
-  # printf "\n"
-  echo "\033[32m git op (y/n)?  \033[0m"
-  read git_op
-  [[ $git_op = "n" ]] && exit
-  BASEDIR=$(dirname $0)
-  ## echo $BASEDIR
-  cd $BASEDIR
-  echo "\033[32m git status \033[0m"
-  git st
-  echo "\033[32m git add -A \033[0m"
-  git add -A
-  echo "\033[32m git ci \033[0m"
-  git ci -a -m 'autocommit'
-  echo "\033[32m git push \033[0m"
-  git push
-  read -p "Press Return to Close..."
-}
-```
-
-
-
-
-
-
-
-# 装机
-> 2021 ~ 2024 自动化 work and life !
-
-https://apps.apple.com  https://music.apple.com
-
-[Run shortcuts from the command line](https://support.apple.com/en-gb/guide/shortcuts-mac/apd455c82f02/mac)
-`shortcuts run 获取时间/list`
-
-[Bookmarklet](https://en.wikipedia.org/wiki/Bookmarklet)
-- https://make-bookmarklets.com/
-- 需要保存为书签 `javascript:(function(){var baseUrl="https://web.archive.org/web/*/",urlmod=document.URL;window.location.href=baseUrl+urlmod;}());`
 
 
 ## macOS 设置
@@ -7156,22 +6426,64 @@ sudo mount -uw /  # 挂载系统分区为可写
 /sbin/mount -uw /
 mount | grep /  # 查看系统挂载状态
 
+
 csrutil status # 查看状态
 csrutil disable # 关闭 sip 关机、按住电源键(非m1按下`Cmd R`) 选择实用工具->终端
-# 内置应用文件(夹)是 Read-only 删除 隐藏应用图标 都不行
+# 内置应用文件(夹) 是 Read-only 删除/隐藏 应用图标 都不行
 sudo chflags hidden /System/Applications/Home.app
 sudo rm -rf /System/Applications/Chess.app
-sudo rm -rf /Applications/Image Capture.app
 sudo rm -rf /Applications/Mail.app
-sudo rm -rf /Applications/Photo Booth.app
-sudo rm -rf /Applications/Stocks.app
-sudo rm -rf /Applications/Tips.app
-sudo rm -rf /Applications/Videos.app
+# Videos.app  Tips.app  Stocks.app  Photo Booth.app  Image Capture.app
+
+# ls 命令默认只显示文件名
+ls /usr/bin  # 有 env
+ls /usr/local/bin  # 有 node npm npx
+ls -d $PWD/*
+ls -la
+ls -l "$z_log"  # 查看文件是否有 读写权限，如无 运行 chmod u+rw "$z_log"
+
+cat "$z_log"
+rm -rf xx # rm 删除不存在的文件或目录 加上 -f 不会报错
+mkdir -p ~/inner/aa && touch $_/file.txt  # 创建目录并能生成文件
+
+history 10 # 列出10条
+more filename # 一页一页的显示档案内容.
+head/tail -n 20 ~/.zsh_history  # 只看 头/尾 几行(默认10行)
+mv fname rename / cat -n fname
+say hello / ln -s source_file dist
+
+open -a Activity\ Monitor # 打开活动监视器 或者 "Activity Monitor"
+top # 或 top -o cpu 按 q 退出.  man top
+timeout 3600 some-command
+
+# 系统任务在 /etc/crontab 或 /etc/cron.d/ 目录，需要管理员权限
+# crontab 文件一般位于 /var/at/tabs/<username> 或 /var/cron/tabs/<username> 不建议直接改
+crontab -l  # 查看当前的 crontab 内容
+crontab -e  # 编辑 cron 配置 保存后 cron 会自动加载和应用
+sudo launchctl list | grep cron  # 检查 cron 服务是否正常运行
+# 如果未启动
+sudo launchctl load -w /System/Library/LaunchDaemons/com.vix.cron.plist
 ```
+
+crontab -e 脚本内容示例
+
+```sh
+# 立即运行任务
+* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
+# 接下来的 1 分钟和 2 分钟执行
+* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
+*/2 * * * * zsh -ic 'scheduled_tasks clear_logs' >> ~/cron_test.log 2>&1
+# 50 11 * * * /bin/bash -c 'source ~/.zshrc; scheduled_tasks backup'
+# 每天上午 11:50 执行备份
+50 11 * * * zsh -ic 'scheduled_tasks backup' >> xxx/z_log 2>&1
+# 每隔三天上午 11:49 清空日志文件
+49 11 */3 * * zsh -ic 'scheduled_tasks clear_logs' >> xxx/z_log 2>&1
+```
+
 
 ## 软件
 
-- AppCleaner / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / Smoothscroll / ngrok inlets(GitHub) / webtorrent-desktop / https://snapdrop.net / https://archive.org/web / https://github.com/CrossPaste/crosspaste-desktop
+- AppCleaner / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / Smoothscroll / ngrok inlets(GitHub) / webtorrent-desktop / https://snapdrop.net / https://archive.org/web / https://github.com/CrossPaste/crosspaste-desktop / [hammerspoon](https://www.hammerspoon.org/)
 
 - xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF(pdf编辑) / any-video-converter(在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
 - 下载器 https://github.com/imputnet/cobalt  https://www.fastdownload.io
@@ -7180,22 +6492,22 @@ sudo rm -rf /Applications/Videos.app
   - Subtitle Edit / Aegisub / Subtitle Workshop / HandBrake / FFmpeg
 - 大模型 openai/whisper 为视频生成字幕文件 https://github.com/buxuku/VideoSubtitleGenerator
 - 语音转文字 https://www.zaixianai.cn/voiceToText  https://github.com/openai/whisper
+- [测网速](https://fast.com)  https://archive.org
+- 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
 
-markdown 表情 :+1: :smile: :smiley: :laughing:
-- https://emojispark.com/
-- 可直接复制 https://emoji8.com/zh-hans/
-- [emoji-cheat-sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
-- [Emoji Unicode Tables](http://www.unicode.org/emoji/charts/full-emoji-list.html)
-- [asciiart](https://asciiart.website) [figlet](http://www.figlet.org/examples.html) [text-to-ascii-art](https://www.asciiart.eu/text-to-ascii-art)
-[学英语](https://earthworm.cuixueshe.com/)
-https://www.logo.surf/
-
-欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
+手机/Windows
+- Android软件: MX播放器(VLC不能播放加密文件)  微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker(收费), easytouch, anywhere。
+- Android 反编译 apk 工具：apktool / dex2jar / jd-gui / http://www.javadecompilers.com
+- iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
+- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
+- 支持 Mac + Win 读写的U盘格式: exFAT FAT32 NTFS(软件 ntfstool / ParagonNTFS )
 
 文件传输
+https://github.com/WCY-dt/EasyTransfer
 https://snapdrop.net/ (速度快 最方便， mac 上 edge 浏览器不可用、使用 chrome 浏览器)
 https://easychuan.cn/  https://www.wenshushu.cn/  https://github.com/schollz/croc
 Mac smb 文件共享(速度约1M/s较慢): 在需要共享文件的 Mac 上打开「系统偏好设置-共享-文件共享」会显示类似 smb://192.168.1.9 的共享地址。在另一台 Mac 上打开访达，在菜单栏选择「前往-连接服务器」。在 iPhone 或 iPad 打开「文件」App，点击右上角选项图标，选择「连接服务器」。 另外搭建 ftp 服务器共享文件。
+
 
 web shell [ttyd](https://github.com/tsl0922/ttyd) 基于 xtermjs
 ```sh
@@ -7207,6 +6519,7 @@ ttyd -W -a -t disableLeaveAlert=true zsh # http://localhost:7681/?&arg=aa&arg=bb
 ttyd -p 9999 -W -a ./test.sh  # http://localhost:9999/?arg=./test.sh&arg=aa
 # 命令不能被 ttyd 直接运行 https://github.com/tsl0922/ttyd/issues/1031
 ```
+
 
 LaunchAgents
 - `launchctl load/unload ~/Library/LaunchAgents/com.hua.autorun.plist` 加载卸载 plist 文件
@@ -7234,19 +6547,11 @@ LaunchAgents
 - https://github.com/Supervisor/supervisor/issues/1514
 
 
-## 手机 / 虚拟机
-- Android软件: MX播放器(VLC不能播放加密文件)  微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker(收费), easytouch, anywhere。
-- Android 反编译 apk 工具：apktool / dex2jar / jd-gui / <http://www.javadecompilers.com/> (在线工具)
-- iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
-- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
-
-- 支持 Mac + Win 读写的U盘格式: exFAT FAT32 NTFS(软件 ntfstool / ParagonNTFS )。
-- virtualbox win7 [如图](https://gw.alipayobjects.com/zos/rmsportal/auNTgeEEHVFfWklRjRsK.png)、在家里网络正常，但很奇怪在公司内网不能连接？  https://github.com/Pyenb/macOS-ISOs
-- [虚拟机里的 win 键盘是用的 ctrl 键](https://forums.virtualbox.org/viewtopic.php?f=8&t=63567&hilit=keyboard)
-- 2024-04 [Win系统安装盘](https://zhuanlan.zhihu.com/p/273305963)、系统[下载地址](https://hellowindows.cn/)，电脑开机(按F12)设置U盘优先启动。
-
 谷歌账号在注册的时候就确定了关联的国家与地区，属于哪个国家地区和当时注册ip手机环境有关系。以下是查看当前 Google 账号的归属地方法：登录 Google 账号，打开 Google 搜索首页 点击 首页右下角 条款  在新页面显示出 国家/地区版本：香港
 2024-11-14
+
+[Win系统安装盘](https://zhuanlan.zhihu.com/p/273305963)、系统[下载地址](https://hellowindows.cn/)，电脑开机(按F12)设置U盘优先启动。
+2024-04
 
 光猫设置：电脑先连上网线(Mac需要USB转网线接口)，打开“网络偏好设置”确认“Apple USB以太网转接器”已连接，可以打开百度测试。浏览器打开 192.168.1.1 填写 username=useradmin userpwd=p4!3nkGM 登录成功，找到“网络”打开“WLAN2.4G网络配置”打开“功能开关”选中“广播取消”不选“WPS使能”，则开启了无线网并隐藏了WiFi名字。ssid1=CMCC-iheD&wifipwd=GVuhSxC2
 破解移动宽带光猫 GS3101 超级管理员密码：brew install telnet  ->  telnet 192.168.1.1  ->  账号密码 admin s2@We3%Dc#  ->  输入cat /tmp/ctromfile.cfg | grep 'Admin'  ->  打开 http://192.168.1.1/cgi-bin/getGateWay.cgi 输入超级账密 CMCCAdmin  CMCCAdminSz8Zv6*q (参考 https://www.cnblogs.com/scoluo/p/13945175.html ) 最终发现 usb 口仍然不能当U盘使用。
@@ -7271,7 +6576,54 @@ tplink-WR720N(迷你型无线路由器) 默认管理IP: 192.168.1.253 子网掩�
 2012 小路由器
 
 
-## 代理 clash
+## vscode chrome
+
+- 按`cmd shift p` 输入 code zoom reload(未知错误) diplay(修改语言) 等命令。
+- 在查找(替换)框里按 ctrl + enter 支持多行，或者 复制多行文本 粘贴。
+- 查找中文，启用正则表达式 搜索 [\u4e00-\u9fa5]+
+
+https://github.com/jianbingfang/vscode-dup-checker
+
+[tab group 建议](https://github.com/microsoft/vscode/issues/100335#issuecomment-964358943)
+扩展 [推荐](https://github.com/viatsko/awesome-vscode):
+- plantuml(设置指定server) / Auto Hide / Live Preview / Markdown All in One / markdown-pdf / marp / GitLens(simple logs) / pangu / Hungry Delete / Template String Converter
+- Code Runner / Terminal Keeper / Commands(usernamehw) / Todo Tree / Excalidraw / npm-dependency-links / Bookmarks / Diff Folders / Editor Group Minimizer Plus / favorites
+端口 [转发](https://code.visualstudio.com/docs/editor/port-forwarding) 实现 [内网穿透](https://51.ruyo.net/18562.html)，目前已被 [国内禁用](https://github.com/microsoft/vscode-remote-release/issues/9438)
+
+```json
+// 快捷键
+[
+  { "key": "cmd+d", "command": "editor.action.copyLinesDownAction" },
+  { "key": "alt+`", "command": "terminal.open" }
+]
+// markdown-pdf 扩展
+{
+  "markdown-pdf.displayHeaderFooter": false,
+  "markdown-pdf.margin.top": "0.01cm", // bottom
+  "markdown-pdf.margin.left": "0.5cm", // right
+}
+// xxProj/.vscode/settings.json
+{
+  "editor.tabSize": 2,
+  "prettier.singleQuote": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "search.exclude": {
+    "**/dist": true,
+  }
+}
+```
+tasks `xxProj/.vscode/tasks.json`
+代码片段 `xxProj/.vscode/my.code-snippets`、
+
+
+--- chrome extensions
+
+ChatGPT 历史会话搜索 chrome 插件: 1Proompt / ChatGPT Conversation History Search / Superpower ChatGPT / Echoes / Searchable ChatGPT / GPT Search
+
+Tab Position Options / 一键切换(Jomic) 搜索拐杖 下一页(空格键自动翻到下一页) ModHeader XSwitch Tamper Tampermonkey / Disable Content-Security-Policy / Talend API Tester / Web Developer / Neat URL / Copy Tab Info / Open Multiple URLs / 沙拉查词 / User JavaScript and CSS / Wayback Machine / Memex / 一叶 / grammarly.com / gitpod npmhub / screenity / Language Reactor / Side Browser / Sidebar Tab / Porter Plug / Video Speed Controller
+
+
+## clash 代理
 > 2015 ~ 2024
 
 测试 终端代理 是否成功: `curl -v x.com`
@@ -7690,33 +7042,9 @@ Charles
    - （点击配置框的问号、发现是使用的 Perl-style regular expressions）
 
 
+## Automate
 
-
-## [hammerspoon](https://www.hammerspoon.org/)
-> 2024
-
-打开/新建 ~/.hammerspoon/init.lua 文件
-
-对某个 chrome窗口 置顶，
-按下快捷键 Cmd + Alt + Ctrl + T 即可置顶目标窗口。
-
-```lua
-hs.hotkey.bind({"cmd", "alt", "ctrl"}, "T", function()
-    local chrome = hs.application.find("Google Chrome")
-    if chrome then
-        local windows = chrome:allWindows()
-        for _, win in ipairs(windows) do
-            if win:title() == "MyPage" then
-                win:setTopmost(true) -- 设置置顶
-                win:focus() -- 将窗口置于前台
-            end
-        end
-    end
-end)
-```
-
-
-## AppleScript
+------ AppleScript
 > 2024
 
 - 可以在任意 可执行文件 顶部标记 `#!/usr/bin/osascript` 或者 存储为 .scpt 后缀、不需要顶部 shebang 。
@@ -7812,7 +7140,7 @@ EOD
 
 
 
-## Android automate
+------ Android
 > 2023 2024
 
 https://llamalab.com/automate/
@@ -7835,7 +7163,7 @@ Content view 组件的 Content MIME type: `video/mp4` 等类型。
 - 复制日期时间: 设置变量 dt "{Now;dateFormat;yyyy-MM-dd_HH-mm}" 设置 clipboard 为 dt。
 
 
------- 通过分享使用 百度/Google 搜索:
+--- 通过分享使用 百度/Google 搜索:
 
 情况分析：
 - 从普通软件分享的文字是 `你好` 这样的纯文本。
@@ -7851,7 +7179,7 @@ Content view 组件的 Content MIME type: `video/mp4` 等类型。
 3. 最终打开的链接: `"https://www.google.com/search?q=" ++ txt` 和 `"https://www.baidu.com/s?wd=" ++ txt`
 
 
------- 处理 onedriver 里 txt 文件:
+--- 处理 onedriver 里 txt 文件:
 
 使用 Dialog choice 组件，在 Choices 输入框输入
 ```json
@@ -7866,7 +7194,7 @@ Content view 组件的 Content MIME type: `video/mp4` 等类型。
 
 
 
-## iOS Scriptable
+------ iOS Scriptable
 > 2022 ~ 2023
 
 [mac scriptable](https://scriptable.app/mac-beta/)
@@ -8142,392 +7470,402 @@ if (quote.length > 80) {
 
 
 
+## .
+
+> antd-mobile 旧 demo 备份
+> - antd_custom_ui move from https://github.com/warmhug/__/tree/master/_react/antd_custom_ui to > https://github.com/ant-design/antd-mobile-samples/tree/master/web-custom-ui
+> - antd-mobile + TypeScript move from https://github.com/warmhug/__/tree/master/_react/antd-ts > to https://github.com/ant-design/antd-mobile-samples/tree/master/web-typescript
+> - antd-mobile demo move to https://github.com/ant-design/antd-mobile-samples/tree/master/web-webpack
+
+
+## 图片/cdn/命名
+
+- [dummyimage](https://dummyimage.com/750x300/eee/f0f)
+- [颜色选择](https://htmlcolorcodes.com/zh/)
+- [flickr](https://flickr.com)
+
+文字图
+
+- [asciiart](https://asciiart.website) [figlet](http://www.figlet.org/examples.html) [text-to-ascii-art](https://www.asciiart.eu/text-to-ascii-art)
+[生成logo](https://www.logo.surf/)
+
+
+------ cdn
+
+https://gw.alipayobjects.com/zos/rmsportal/gIYqpRZVWejUBzkRRZMl.png
+https://img.alicdn.com/bao/uploaded/i1/32785103/TB2UQQOsFXXXXaDXXXXXXXXXXXX_!!32785103.jpg_300x300q90.jpg
+https://gw.alipayobjects.com/zos/rmsportal/PnjNniBkexOKzoehotzl.jpg@100h.src
+https://gw.alipayobjects.com/zos/rmsportal/RxMbdtGwmMUIVsXRiLyJ.jpg
+
+[国内有哪些靠谱的 Javascript 库 CDN可用](https://www.zhihu.com/question/20227463)
+https://unpkg.com  https://cdnjs.com  https://jshub.com  https://cdnjs.cloudflare.com  https://www.bootcdn.cn  https://www.staticfile.org  https://upcdn.b0.upaiyun.com
+https://cdn.bytedance.com  https://www.webcache.cn
+http://cdn.staticfile.org/angular.js/1.2.16/angular.js
+http://cdn.bootcss.com/placeholder.js/3.1.0/placeholder.js
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js
+https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css
+http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js
+https://code.jquery.com/ui/1.13.0/jquery-ui.js
+jQuery v1.12.4 https://gw.alipayobjects.com/os/rmsportal/YbGjMuYEbXdIGJRsqOSA.js
+https://a.alipayobjects.com/jquery/jquery/1.11.1/jquery-debug.js
+https://gw.alipayobjects.com/os/lib/jquery/3.6.0/dist/jquery.min.js
+qrcode.js https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js
+less.js https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js
+bootstrap.css v3.3.7 https://gw.alipayobjects.com/os/rmsportal/SaEqgaEyUazqSndgTxGj.css
+bootstrap.js v3.3.7 https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js
+
+
+------ 命名
+
+Helpers - 帮助函数或模块，用于简化代码。
+Assistants - 辅助类，帮助主程序执行操作。
+Components - 组件类，用于构建更大的系统。
+Modules - 模块类，包含一组相关的功能。
+Libraries - 库，提供预定义的功能集合。
+Frameworks - 框架，提供应用程序的基本结构。
+Addons - 插件或附加组件，扩展主程序的功能。
+Plugins - 插件，用于扩展软件的功能。
+Scripts - 脚本，一系列自动化命令或程序。
+Snippets - 代码片段，用于快速插入常用代码。
+aids / facilities / Misc / Vendor / shared / base / core
+
+data-commons / data-utils / http-utils / json-helper
+
+lib - Library（库）：通常包含一系列可重用的代码模块或函数集合。
+helper - Helper（助手）：这类文件或模块提供一些辅助性的功能函数。
+common - Common（公共）：存放项目中多个部分都会用到的通用函数或组件。
+aux 或 auxiliary - 辅助，与helper类似，指辅助性代码模块。
+funcs / functions - 函数集：用来存储独立、非特定业务逻辑的函数。
+services - 服务层：在某些架构中，这一层封装了应用程序的核心业务逻辑和数据处理操作。
+consts / constants - 常量：存放程序中不会改变的值。
+models - 模型：在MVC（Model-View-Controller）架构或其他框架中，模型通常代表数据结构及相关的业务逻辑。
+middlewares - 中间件：在像Express.js这样的Node.js框架中，中间件是指处理HTTP请求的函数序列。
+io - Input/Output（输入/输出）：与数据读取、写入等I/O操作相关的模块。
+config - 配置：存放应用程序配置信息的模块或文件夹。
+logger / logging - 日志记录：用于处理日志生成和管理的模块。
+cache - 缓存：提供缓存功能，如数据缓存、HTTP请求缓存等的模块。
+validators / validation - 校验器/验证：包含数据校验逻辑的模块。
+exceptions - 异常处理：用来定义和处理自定义异常的模块。
+tasks / jobs - 任务/作业：用于定时任务或其他异步工作流程的模块。
+enums - 枚举：存储枚举类型的模块。
+templates / views - 模板/视图：在Web开发中，存放HTML模板或其他类型视图文件的目录。
+extensions / ext - 扩展方法：扩展已有对象或类型的额外功能函数。
+primitives - 基础工具：包含一些基础且常用的处理数据、字符串等的基础方法。
+tools - 工具集：各种杂项但实用的功能函数合集。
+commons - 公共组件/方法：项目中多个部分都会用到的通用逻辑和功能。
+utilities（完整形式）- 同样指代工具函数，与utils含义一致。
+support - 支持模块：为其它主要模块提供支持性功能的代码块。
+services_utils - 服务层工具：在服务层内部使用的通用功能模块。
+core_utils - 核心工具：专用于项目核心模块的一组工具方法。
+legacy
+
+
+
+## PRD/系分 模板
+> 2019-11
+
+PRD有三种状态：Draft、 Review、Ready,  其中起草人为产品或研发团队，相关人 review 通过。
+
+修订记录/更新日志
+修改日期	修改版本	修改内容	备注
+
+前后端测试负责人、工作量评估。
 
+一、需求背景
+1.1 需求来源
+1.2 需求描述
+概念对齐/名词定义/关键术语
+目标对齐
+竞品调研/同类产品调研
+使用场景/主要用户/试点用户
 
+二、需求目标
+产品定位
+产品目标
+产品能力
+业务问题(业务需求)现存问题
+功能一览表格
+业务流程
 
+三、结构/流程图
+3.1 功能结构图
+3.2 需求流程图
+业务流程 -> 任务流程 -> 页面流程
+3.3 交互设计图
 
+四、需求范围
+模块 功能 优先级
 
+五、功能性需求
+详细需求
+详细方案
 
+六、非功能性需求
+上线/灰度/回滚方案、兼容性、AB实验、高可用、性能、监控、权限、运维 等。
 
+七、附录
+数据分析报告、用户调研报告
 
 
 
+------ 系分
 
-#
-# archive
+系分(系统设计+业务分析)的本质其实就是将技术推演的过程前置，所带来的好处就是：问题可以在第一时间发现，第一时间解决，从而最大化的降低了需求变更、方案变更 所带来的沉没成本。
 
+--- 修订历史
+| 版本号 | 作者 | 内容提要 | 发布日期 |
+|  ----  | ----  | ---- | ---- |
+| V1.0 | XX | 初稿 | 2020-10-24 |
 
-## FE 整理
+--- 需求背景
+xxxx
 
-Vue.js 作者宣布成立 VoidZero https://mp.weixin.qq.com/s/xT7SRffAcUqLFf7Ou4I5Og
+--- 需求目标
+xxxx
 
-2024-05 阿侎 命令模式undo/redo https://zhuanlan.zhihu.com/p/698816530
+--- 相关资源
+- prd(@xx): XXX  交互稿(@xx): XXX  视觉稿(@xx): XXX
+- 后端系分: XXX、API 列表
 
-2023年前端技术盘点与2024年技术展望 https://mp.weixin.qq.com/s/LiygBJqMN8U_vSpAjxMibQ
+--- 功能分析
+> 1.模块交互截图 2.展示要素分析 3.时序图（包含系统交互、用户行为交互）
 
------- <= 2022
+模块A
+xxxx
+模块B
+xxxx
 
-gmtc https://gmtc.infoq.cn/2022/beijing/schedule
-重庆前端交流会 https://zhuanlan.zhihu.com/p/581717444
+特殊模块分析(可选)
+1.特殊功能描述
+2.实现思路流程图？依赖的框架、类库？
+3.性能表现，是否需要降级？降级的维度：钱包版本、系统版本、小程序版本?
+4.兼容性，稳定性方案
 
-[前端领域的 “干净架构”](https://zhuanlan.zhihu.com/p/458410158)
-[徐飞 业务中的前端组件化体系](https://zhuanlan.zhihu.com/p/383129585)
+--- 监控设计
+核心业务数据监控。异常监控告警。
 
+--- 灰度方案
+服务端、客户端、配置项灰度方案。
 
-### 基础组件库 调研 2024 11-27 ~ 12-02
+--- 应急方案
+写操作熔断方案、核心模块熔断、应急提示（小黄条）
 
-https://github.com/mui/base-ui/discussions/157
+--- 埋点方案
+1.页面访问埋点 2.链路行动点曝光+点击 3.特殊业务埋点
 
-谷歌设计系统 Material Design 改版成 Material You 后，变化有多大？ - 邹咿ZoeYZ的文章 - 知乎
-https://zhuanlan.zhihu.com/p/450105902
-Material Design 3
-中文版 https://www.yuque.com/advancedux/xr6e1n
-https://m3.material.io/
-https://github.com/material-components/material-web
-谷歌 Material Design 的文本框为什么没人用？ - 邹咿ZoeYZ的文章 - 知乎
-https://zhuanlan.zhihu.com/p/436327750
-畅谈React material-ui的样式方案 - FreewheelLee的文章 - 知乎
-https://zhuanlan.zhihu.com/p/261695780
-你们真的觉得 Material Design 好看和好用吗？ - jannchie见齐的回答 - 知乎
-https://www.zhihu.com/question/49180577/answer/1868829834
+--- 技术沉淀
+1.沉淀一个组件？ 2.沉淀一个模板？ 3.沉淀一套解决方案？
 
-antd vs mui https://www.zhihu.com/question/496182225/answer/2942982608
+--- 项目管理
 
-https://www.reddit.com/r/reactjs/comments/tjka8o/chakra_ui_vs_mantine/
+工作量评估
 
-https://magicui.design/blog/mantine-vs-chakra
+| 功能点 | 工作量 | 需求优先级 | 责任人 |
+|  ----  | ----  | ---- | ---- |
+| 模块A | X天 | P0 | 小马 |
+| 模块B | X天 | P0 | 小马 |
+| 模块C | X天 | P1 | 小马 |
 
-variant https://github.com/ant-design/ant-design/discussions/49700
+项目风险点
 
-tailwindcss版本的antd https://github.com/ant-design/ant-design/discussions/51817
+项目详细计划表
 
-antd inspired by Tailwind CSS https://github.com/ant-design/ant-design/issues/24033
+发布checkList
 
-React社区对于UI库的选择呈现出逐年变化的态势。从几年前的Material UI，到Semantic UI/Ant Design，再到Chakra UI和Mantine UI，最终在去年，焦点集中在了shadcn/UI上。尽管这些选择都基于设计和可用性的考量，但shadcn/UI却展现出了独特之处。
-shadcn/UI 成为了一个广受欢迎的UI库，它创新性地将Tailwind作为核心组件（与CSS变量并驾齐驱）进行主题定制，以达成高度自定义的设计目标。与常规的安装方式不同，shadcn/UI不是作为Node包来安装，而是直接复制粘贴到项目中，使开发者能够自由调整组件以满足独特需求。
-CSS-in-JS解决方案（如Styled Components和Emotion）这些方案依赖于客户端/浏览器执行JavaScript来生成CSS，增加了性能负担。相比之下，新兴的CSS-in-JS解决方案（如StyleX）通过编译为实用优先的CSS，有效解决了这一问题。目前，无头UI库（如Radix与shadcn/UI）和实用优先的CSS（如Tailwind）已经崭露头角，而未来还可能涌现出更多如vanilla-extract、PandaCSS、CVA等替代品.
-https://www.51cto.com/article/781853.html
 
-实例对比 https://codeparrot.ai/blogs/material-ui-vs-shadcn
-https://go.lightnode.com/zh/tech/shadcn-ui
 
-将组件代码直接添加到项目中能够实现较高的自主控制程度。我们可以根据需要添加所需的样式和交互功能。对于某些情况来说，这样做确实可以提高效率，并降低代码的耦合度。举个例子，之前我使用过一个组件库，想要监听某个组件内的滚动，但是该组件并没有提供相应的方法，因此需要修改代码变得非常麻烦。这可能也是shadcn/ui组件库受到大量关注的原因之一，它具备这种灵活性。
-shadcn/ui https://juejin.cn/post/7320525947249803283
+## plantuml
+> 2022
 
-通过"复制粘贴"到你的项目中。这种设计方式颠覆了传统组件库的设计理念，但它的好处是更容易控制代码，决定组件的构建和样式。最大的灵活性和控制力. 考虑面向未来和先进性，如果项目注重快速定制化和紧跟现代 CSS 框架发展趋势，Shadcn/ui 是不错的选择.
+```plantuml
+@startuml
+:sss;
+split
+   :A;
+   kill
+split again
+   :B;
+   detach
+split again
+   :C;
+   kill
+end split
+@enduml
+```
 
-Calendar 组件选用 React DayPicker；Chart 组件选用 Recharts；
-Table 组件选用 @tanstack/react-table；Form 组件选用 react-hook-form 和 zod。
-密码输入组件选用了 input-otp；提示组件选用了 Sonner；抽屉组件选用了 Vaul。
-可能作者从一开始就没有考虑为纯粹的组件使用者们提供服务，而是为组件开发者提供了维护的便利。因此，如果我们站在组件使用者的角度来看，确实容易得出和自己不适配的结论。
-https://wxad.design/abc/shadcn
 
-[Best 19 React UI Component Libraries of 2024](https://prismic.io/blog/react-component-libraries)
+```plantuml
+@startuml
+title 无分支条件
 
-[2023 流行 UI 库](https://www.builder.io/blog/25-plus-ui-component-libraries)
+[*] --> active
+active -right-> inactive : disable
+inactive -left-> active  : enable
+inactive --> closed  : close
+active --> closed  : close
+closed --> [*]
+@enduml
+```
 
-[全新的 React 组件设计理念 Headless UI](https://mp.weixin.qq.com/s/1SlLWmZmQch0W3WSqlc4GA)
 
+```plantuml
+@startuml
 
-### 测试 2024-02-16
+left to right direction
+'top to bottom direction
 
-自动化测试 https://github.com/puppeteer/puppeteer / https://www.selenium.dev/
-https://livebook.manning.com/book/unit-testing/chapter-1/
-我们为什么需要单元测试？ https://mp.weixin.qq.com/s/F60MjrCnNsFmZV9jT75AVg
+rectangle Arrows
+rectangle C
+rectangle D
+rectangle E
 
-TDD(Test-Driven Development)很强大，但不一定适用所有的团队，推广难度很大，学习曲线很高。
-TDD事实上由两个方面组成：测试先行，以及演进式设计；测试先行是非常重要的工程实践，做不到TDD，可以做到测试先行。在Kent Beck的经典名著《解析极限编程》中，提到：尽早测试，经常测试，自动测试！测试先行的本质能力要求是接口的设计能力——能否清晰的定义出设计单元的边界。
-什么是有效的单元测试？一味追求代码覆盖率，往往写出无效的单元测试。一个测试应当只检查一件事。避免条件逻辑。不要写永不失败的测试。避免冗余测试。避免Mock不确定的依赖：时间、随机数、并发性、基础设施、现存数据、持久化、网络等等。
-可测试的代码和设计：使用new要当心；避免构造函数中包含逻辑；避免复杂的私有方法；组合优于继承；可测试的代码是否违背了SOLID中的开闭原则？可测试的代码就是解耦了的代码；可测试的代码帮助我们实现更好的抽象。
-在实现测试金字塔时，你也应该牢记这两条基本法则：
-1. 如果一个更高层级的测试发现了一个错误，并且底层测试全都通过了，那么你应该写一个低层级测试去覆盖这个错误；
-2. 竭尽所能把测试往金字塔下层赶；
-任何测试，如果它的运行速度不快，结果不稳定，或者要用到被测试单元的一个或多个真实依赖，就是集成测试。 集成测试不够稳定，运行时间长等问题，如果不做隔离，日常开发浪费时间和精力维护，最后导致开发人员不再信任测试。
-把单元测试当成是“一等公民”，在Code Review的过程中，互相学习、分享最佳实践，消除无效的单元测试。
-愿意主动增加单元测试来保护自己的代码，那么单元测试这件事就算比较成功了。
-关于单元测试这件事，我觉得最重要永远是写单元测试的人，优秀的团队文化非常重要，没有什么能够真正衡量单元测试做的好坏，有的只是程序员的职业操守。
-<如何写出有效的单元测试> https://mp.weixin.qq.com/s/U6z-sjb29luOI3E6pE9kMw
-
-TDD 更适合配合单元测试，更适合通用组件/工具函数和纯函数库，比如 lodash、aHooks、ant-design等。
-BDD(Behavior-Driven Development) BDD思想就是写单元测试就像写产品需求，而不关心内部逻辑，每一个用例阅读起来就像一篇文档。更适合配合集成测试，测试关键业务流程代码。
-- 因为以功能性的集成测试为主，因此不是那么关注每个函数功能，测试覆盖率比较低
-- 难保证代码质量，没有 TDD 那么严格的保证代码质量，极端边界条件难覆盖
-<内网>
-
-测试金字塔的历史可以追溯到2009年。随着技术的快速发展，人们在应对不同的开发需求时，也可能需要不同的测试模型。由Kent C. Dodds提出的测试奖杯(https://twitter.com/kentcdodds/status/960723172591992832)就是一种针对前端开发所构建的测试模型。与金字塔相比，单元测试处于次要地位，而且可以被ESLint和JSHInt等静态测试工具所取代。它们通过扫描代码，便可发现诸如：使用了不安全的语句、或未遵守变量命名规则等潜在问题。
-https://www.testingjavascript.com/
-<测试金字塔模型全解析> https://www.easemob.com/news/8530  英文 https://dzone.com/articles/the-testing-pyramid-how-to-structure-your-test-sui
-
-覆盖率是金字塔的核心，底层是最宽的，象征着UT覆盖率应该是最高的，越往上越低，这一点大家都能达成共识。但是有一点需要注意的是，每网上一层应该是对下面一层覆盖率的一个补充。简单说集成测试应该聚焦于UT不好覆盖的场景或者UT采用mock方式测试的场景，而顶层的UI自动化应该聚焦于整个流程的集成测试，覆盖集成测试和UT难以覆盖到的场景。
-<测试金字塔是什么> https://juejin.cn/post/7216626919772225573
-
-唯一可以真正验证应用程序可行性的测试，只有E2E测试。因为它需要用线上真实的数据进行测试，所以它不仅涉及到前端，还涉及到后端。除了E2E外的测试方式都是通过Mock数据来实现。
-你的应用程序在与最终用户（浏览器）相同的环境中做测试，这意味着更高的置信度。即使你只编写一个 UI 测试，它给你带来的置信度也比一百个单元测试更多。
-你日常工作中接触的大多数项目都是小到中等规模的，它们最适合进行 UI 测试。UI 测试是一个通用术语，我们必须将其分为端到端测试和 UI 集成测试。
-<刚开始接触前端测试？那就从金字塔顶端开始吧！> https://www.infoq.cn/article/ei01kymcs0v2fo1r4srg
-
-E2E 把整个系统当作一个黑盒，测试人员模拟真实用户在浏览器中操作 UI，测试在真实浏览器环境运行测试。
-E2E 测试一般是由 QA 测试工程师来做。稍小的项目可能根据测试用例（excel）操作一遍就完了，稍大一点的会写一些自动化测试的代码。
-前端可能会为核心的、主要的或稳定的业务流程写 E2E，不过占据的测试比例要小很多，主要目的是：便于给 PM（产品经理） 展示业务流程，便于修改 Bug 之后的回归测试。
-
-完成E2E测试的最佳时间是开发过程接近尾声时。 这是因为客户使用的大部分功能都在软件中，这意味着端到端测试涵盖了用户将体验到的程序的所有必要方面。
-单元测试检查一段代码的具体单元，如单个函数和程序中两个不同函数之间的孤立连接。单元测试可以更快，但其缺点是不能完全模拟用户体验。
-较大的组织往往有单独的测试和开发团队，保持这两个机构相互独立，以便不对E2E测试的结果引入任何偏见。
-在可能的情况下，让没有开发过特定功能的人去测试它。 这在可能的情况下消除了固有的偏见，并使端到端的测试尽可能地准确。
-规模较小的独立开发者，如首次开发应用的开发者或预算限制较多的开发者自己完成E2E测试。
-在可能的情况下，多人完成测试并重复测试是最理想的，因为它提供了额外的确定性，无论是自动还是人工结果。
-端到端测试的调试过程更加复杂，因为自动测试返回的 “失败 “信息不太可能是问题的具体原因。开发人员需要进一步调查以解决问题，特别是在没有整合具体错误信息的情况下。
-响应速度 一些E2E测试的重点是确保系统快速返回有效的结果。
-UAT测试是用户验收测试的意思，是一种测试形式，不是由开发团队的人完成，而是由目标受众的成员完成。
-端到端测试仅仅是对软件的分析，以及它如何有效地工作，系统测试还包括对它所运行的硬件和一些固件的评估，如操作系统，它与之互动。
-通过人工端到端测试过程的主要好处之一是你自己看到所有的潜在问题，注意到计算机可能看不到的软件缺陷。然而，与实现测试过程自动化相比，这个过程可能相对缓慢。
-较小的项目可以由一个团队手动进行彻底的测试，梳理代码中的任何错误，并立即将其记下。相反，较大的项目根本无法手动测试，需要大量的软件测试自动化。
-<端到端测试 – 深入了解E2E测试类型、流程、方法、工具等> https://www.zaptest.com/end-to-end-testing-deep-dive-into-e2e-test-types-process-approaches-tools-more
-https://www.zaptest.com/zh-hans/%E7%AB%AF%E5%88%B0%E7%AB%AF%E6%B5%8B%E8%AF%95-%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3e2e%E6%B5%8B%E8%AF%95%E7%B1%BB%E5%9E%8B%E3%80%81%E6%B5%81%E7%A8%8B%E3%80%81%E6%96%B9%E6%B3%95%E3%80%81%E5%B7%A5
-
-质量不等于测试。质量不是被测试出来的。虽然质量不是被测出来的，但同样有证据可以表明，未经测试也不可能开发出有质量的软件。
-把开发过程和测试融合在一起----开发和测试必须同时开展。写一段代码就立刻测试这段代码，完成更多的代码就做更多的测试。
-最适合做测试的角色是开发人员而不是测试人员，质量更像是一种预防行为而不是检测行为。在google, 测试的目标是判断这种预防行为是否正常工作。质量是开发过程中的问题，而不是测试问题。
-测试工程师会转型为测试设计。少量的测试设计师快速地规划出测试范围、风险热图和应用程序的漫游路线。测试工程师会转变成像安全工程师这样的专家型角色，或者编程测试活动的管理者，而那些具体的测试活动则由其他人来完成。
-<Google软件测试之道>
-
-质量保障的追求不是发现所有的bug、解决所有的风险，而是确保即使触发了bug也不会带来恶劣的影响，在此基础上力求去发现尽可能多的bug  -> bug 触发概率降到尽可能低 -> 触发bug后带来的损失降到尽可能小。
-<测试八年｜对业务测试人员的一些思考> https://mp.weixin.qq.com/s/LQqYwrL2EDJBg5S00E3vaA
-
-研究了代码质量后，开发速度提高了 2 倍，bug 减少了 15 倍
-https://mp.weixin.qq.com/s/2FXkUE2OttMHUSwbf3JDgw
-
-
-
-### APM 2022
-
-Typical SLOs: Slow queries.  High/low CPU utilization.  Disk usage, IOPS.  API response time.  Errors, faults, and retries.   These are internal-facing signals.
-SLI、SLO和SLA，一文彻底搞懂 https://blog.csdn.net/lquarius/article/details/120244396
-SLI设计思考 https://bytedance.feishu.cn/wiki/wikcnZ32QDudTo9Lg7gpbItyIpg
-
-智能功能：智能报警、相似 issues 检测/推荐、波动归因、尖刺过滤。
-智能报警：当“js错误数”在“过去5分钟”超过“上下界”2次 触发报警，采用敏感度“宽松”策略、忽略尖刺或数据跌0的脏数据。
-
-clickhouse 堆积、导致指标跌0。https://clickhouse.com/
-物化视图是查询结果集的一份持久化存储，所以它与普通视图完全不同，而非常趋近于表。“查询结果集”的范围很宽泛，可以是基础表中部分数据的一份简单拷贝，也可以是多表join之后产生的结果或其子集，或者原始数据的聚合指标等等。所以，物化视图不会随着基础表的变化而变化，所以它也称为快照（snapshot）。如果要更新数据的话，需要用户手动进行，如周期性执行SQL，或利用触发器等机制。
-物化视图不够智能，ClickHouse Projection 可以看作是一种更加智能的物化视图。
-
-Slardar平台数据堆积问题：
-越来越多的数据上报也给slardar带来了沉重的负担，堆积问题愈发严重。
-而数据堆积也对于报警的准确性、数据准确性都带来了极大的危害，目前已经发生了多次由于数据堆积导致用户接收到大量无效告警和无法正常排查业务问题等案例。
-目前slardar的app上报数据大致可以分为四类，sesion数据、crash数据、exception数据和打点数据。数据写入没有划分权重，分级不明确，如打点数据，由于事件数据、自定义打点数据上报量突增或者依赖的存储如redis故障等原因，导致所有数据都产生堆积。业务方常常不感知到自己上报量已经过大。堆积问题的排查较为困难，无法快速排查问题。
-
-categories_keys属于datahouse里拿的，只有clickhouse里拿的才能过滤。
-
-Hive 离线数据、表申请。
-hive是小时级别数据，所以想确认一下是不是有open api能够实时查询。
-Hive 白屏在哪个表  哪个字段来判断？
-数据堆积问题？ DataHouse / ClickHouse 滞后或丢数据。
-数据验证平台有数据，看板无数据。
-
-
-* 功能全面：包含 前端、客户端、后端监控、数据库、云监控 等。
-* 都有 dashboard、指标查询、三方库集成、拨测 等通用功能。
-* Events 的含义 几乎都一样。 Alerts 告警 做法比较类似。
-2022-08 Datadog Newrelic Sentry 共同特点
-
-如何选择 APM 工具 [https://www.infoq.cn/article/rRRJcT6zeECqrQd97196](https://www.infoq.cn/article/rRRJcT6zeECqrQd97196)
-2022-07
-
-例如: 北京今天35度，南京今天30度。我们可以理解为北京，南京是城市维度(可枚举)，而度数为指标(不可枚举)。
-统计 75 分位数据：从好到坏的第75%分位。
-pct95 https://www.zhihu.com/question/20575291
-Pct 90 等含义 https://cloud.tencent.com/developer/article/1891918
-基础知识：图表类型、数据分析初步、数据/指标不准确、不同版本平台pv差别大、
-2022-07
-
-
-
-### 竞品调研 issue管理 2022-10~07
-
-国内有类似Pagerduty的通告服务吗？ https://www.zhihu.com/question/32084832
-视频演示 https://www.pagerduty.com/weekly-demo/
-事件 https://support.pagerduty.com/docs/incidents
-事件和报警 https://support.pagerduty.com/docs/alerts
-AIOps 事件归类处理 https://www.pagerduty.com/platform/aiops/event-intelligence/ 、 https://support.pagerduty.com/docs/event-intelligence
-2022-10 PagerDuty
-
-AIOps https://www.youtube.com/watch?v=UYNygjTY4xw
-AIOps 是什么 https://www.bigpanda.io/blog/what-are-aiops-platforms/
-Incidents 详情 https://docs.bigpanda.io/docs/the-incidents-tab
-术语警报 https://docs.bigpanda.io/docs/glossary-alert
-事件管理控制台 https://www.bigpanda.io/our-product/incident-360-console/
-根因分析 https://www.bigpanda.io/our-product/root-cause-analysis/
-事件聚合方法 https://www.bigpanda.io/our-product/open-box-machine-learning/
-在高度复杂和动态的 IT 环境中，这意味着清理、准备和丰富具有丰富操作和拓扑上下文的警报数据有效负载。如果没有这种丰富性，AIOps 驱动的工具在消除 IT 噪音、发现问题的根本原因以及自动执行手动事件管理任务方面的能力将受到限制。 In highly complex and dynamic IT environments, this means cleansing, preparing... https://www.bigpanda.io/our-product/event-enrichment-engine/
-BigPanda 的 Root Cause Changes 从所有主要变更管理、CI/CD、编排和变更审计工具中提取数据，利用 Open Box Machine Learning 的强大功能将这些变更与它们导致的事件实时关联起来，从而使团队能够快速解决事件和/或回滚更改。Ingesting data from all major change management, CI/CD...  https://www.bigpanda.io/our-product/root-cause-changes/
-由于一次中断通常会跨十几个或更多工具触发数十个甚至数百个警报，因此您的 IT 运营团队可以专注于对一个事件进行故障排除，而不是将时间浪费在 60 个看似不同但相关的事件上。 DevOps 团队采用 CI/CD 实践并不断发布新功能。由于发布速度对于 DevOps 团队来说至关重要，因此他们每周评估数千次更改的风险是不切实际的。这使得 IT Ops 团队争先恐后地弄清楚发生中断时发生了什么变化。 https://www.bigpanda.io/solutions/devops-and-sre/
-超过 80% 的 IT 事件是由具有意外后果的更改引起的。 https://www.bigpanda.io/solutions/application-modernization/
-一位 BigPanda 的客户曾经说过，“如果我们的公司着火了，我们知道 BigPanda 会和我们一起拿着消防水带。”  If our company were on fire, we know BigPanda would be there holding the firehose with us.” https://www.bigpanda.io/services/
-2022-10 Bigpanda
-
-什么是事件管理 https://www.datadoghq.com/blog/incident-response-with-datadog/、 https://www.datadoghq.com/knowledge-center/incident-management/
-Monitor as a service https://mp.ofweek.com/cloud/a656714325227
-含义：APM是服务端、RUM 是前端和客户端
-apm 模块的 trace 概念和 sentry 的类似 https://docs.datadoghq.com/tracing/glossary/
-Slardar 数据探索 参考 https://docs.datadoghq.com/real_user_monitoring/browser/data_collected/
-Datadog 能成为最大的云监控厂商吗 https://zhuanlan.zhihu.com/p/360756250
-报警 Status & History 实时 显示当前是否在报警。 报警能力强：能给 events https://app.datadoghq.com/event/explorer 和 rum新错误 https://docs.datadoghq.com/real_user_monitoring/error_tracking/explorer/ (最底部) 设置报警。
-2022-08~09 Datadog
-
-New Relic 整体介绍: https://www.zhihu.com/question/27069676/answer/2491052603 、https://segmentfault.com/a/1190000014353747
-New Relic 可观测平台调研 https://zhuanlan.zhihu.com/p/516337057
-可观测性成熟度 https://docs.newrelic.com/docs/new-relic-solutions/observability-maturity/introduction/
-报警策略和工作流 https://docs.newrelic.com/docs/new-relic-solutions/get-started/implementation-guide-alerting-proactive-solutions/
-2022-08~09 New Relic
-
-Traces, Transactions, and Spans https://docs.sentry.io/product/sentry-basics/tracing/distributed-tracing/
-
-- issues & events：在相同地方产生的异常会被归纳为一个「Issue」，每次在这个地方产生的异常叫做「Event」。
-- event：直译是”事件”, 是可操作数据的基本单位. 每一次日志输出就产生一个event. event并不一定就是错误, 如果日志记录级别设置很低, 那么后台会产生很多的event, 所以正确的设置日志级别很重要。
-- alerts digest & limit：默认 Sentry 的 alerts 会发送邮件。当一个 issue 产生或者一组 issue 产生时，项目相关的成员都会收到邮件。但是并不是每次 issue 有更新就会产生 alert 。考虑到用户也不希望被一箩筐的报警邮件给轰炸，因为过多相当于没有， Sentry 除了对重复的报警进行抑制，还会追加一段时间内更新 issue 的摘要（digest）到下一个报警，这样，用户邮件上接收到的信息会充分压缩，不用苦恼于过多的邮件。
-- 更多亮点：敏感信息过滤，release版本跟踪，关键字查找，受影响用户统计，权限管理等。
-- 不是日志的替代品 Sentry 的目的是为了让我们专注于系统与程序的异常信息，目的是提高排查问题的效率，日志事件的量到达一个限制时甚至丢弃一些内容。官方也提倡正确设置 Sentry 接收的日志 level 的同时，用户也能继续旧的日志备份。
-- 不是排查错误的万能工具 Sentry 是带有一定策略的问题分析工具，以样本的形式展示部分原始日志的信息。信息不全面的同时，使用过程中也可能出现 Sentry 聚合所带来的负面影响，特别是日志记录质量不够的情况下。 不是传统监控的替代品。
-
-APM系统主要注重应用层的行为分析，收集的更多是运营方向的数据。而Sentry所做的是收集应用底层代码的崩溃信息，便于排查代码异常。
-后端和脚本用Python内置的日志模块记录程序中间状态，同时也将两者的输出重定向到指定文件, 以获取未捕获的异常信息。无法第一时间感知错误：脚本日志的拉取不是实时的，web端用户的反馈也往往存在滞后。错误信息的获取相对低效：用户反馈和邮件告警包含的错误信息非常有限，最终都不得不在大量的日志中上下翻看关联的信息。可能还需要在测试环境下给代码埋点多获取一些中间变量数据，给定位问题带来很多麻烦。
-2022-07-19
-
-
-### 2020
-
-如何画好一张架构图？ https://www.atatech.org/articles/173778
-流程图  https://baike.baidu.com/item/%E6%B5%81%E7%A8%8B%E5%9B%BE
-八种常见的业务设计和架构模型 https://www.sohu.com/a/384776040_246648
-B端产品设计3大流程图 http://www.woshipm.com/pd/3873765.html
-海兔设计系统 DSM https://yuque.antfin-inc.com/afx-es/data-ai/weekly-2020-05-16
-https://online.visual-paradigm.com/diagrams/templates/brainstorming/
-软件设计/业务设计/流程图/架构图/UX设计/BPMN/脑图
-
-
-### web api 2016
-
-rest
-- [介绍-入门](http://www.cnblogs.com/artech/p/restful-web-api-02.html)
-- [RESTful API 设计指南](http://www.ruanyifeng.com/blog/2014/05/restful_api.html)
-- [理解本真的REST架构风格](http://www.infoq.com/cn/articles/understanding-restful-style)、[如何设计好的RESTful API？](http://www.infoq.com/cn/articles/how-to-design-a-good-restful-api)
-- [hateoas](http://timelessrepo.com/haters-gonna-hateoas)
-- [RESTful API的十个最佳实践](http://www.cnblogs.com/xiaoyaojian/p/4612503.html)
-- [最佳实践](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
-- [Google/Facebook/GitHub等设计对比](http://blog.octo.com/en/design-a-rest-api/)
-- [jsonapi](http://jsonapi.org/format/) - [jsonapi中文](http://jsonapi.org.cn/format/)
-
-[来自于PayPal的RESTful API标准](https://segmentfault.com/a/1190000005924733) /
-[Microsoft/api-guidelines](https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md)
-
-[What does “state transfer” in Representational State Transfer (REST) refer to?](https://stackoverflow.com/questions/4603653/what-does-state-transfer-in-representational-state-transfer-rest-refer-to)
+Arrows --> C
+Arrows --> D
+Arrows --[hidden]> E
 
-通过 url 来设计系统的结构。根据 REST，每个 url 都代表一个 resource，而整个系统就是由这些 resource 组成的。因此，如果 url 是设计良好的，那么系统的结构就也应该是设计良好的。REST 允许我们通过 url 设计系统，就像 Test Driven Development 允许我们使用 testcase 设计 class 接口一样。使用 REST 的关键是如何抽象资源，抽象得越精确，对 REST 的应用就越好。
+@enduml
+```
 
-- 使用名词而不是动词，使用名词的复数形式。（一些非CRUD操作如login/logout，可以用动词，方便理解）
-- Get方法和查询参数不应该改变资源状态。GET PUT和DELETE方法是幂等方法。
-- 假如资源连接到其它资源，则使用子资源形式`GET /cars/711/drivers/4`，但cars和drivers可以是并列的资源。
-- 有一种url形式，它对应到程序中的继承关系：`/products/books`，也可以`/books`单独作为顶层接口。
-- 为集合提供过滤、排序、字段选择以及分页
-  - 过滤：为所有字段或者查询语句提供独立的查询参数：`GET /cars?color=red Returns a list of red cars`
-  - 排序：允许跨越多字段的正序或者倒序排列：`GET /cars?sort=-manufactorer,+model`
-  - 字段选择：一些情况下，我们只需要在列表中查询几个有标识意义的字段，我们不需要从服务端把所有字段的值都请求出来，所以需要支持API选择查询字段的能力，这也可以提到网络传输性能和速度：`GET /cars?fields=manufacturer,model,id,color`
-  - 使用offset和limit来获取固定数量的资源结果，当其中一个参数没有出现时，应该提供各自的默认值，比如默认取第一页，或者默认取20条数据：`GET /cars?offset=10&limit=5 取第三页的5条数据`
-  - 使用自定义的头X-Total-Count发回给调用段实际的资源数量。
-- 使用HTTP状态码处理错误
-  - 200 – OK – 一切正常
-  - 201 – OK – 新资源已经被创建
-  - 204 – OK – 资源删除成功
-  - 304 – 没有变化，客户端可以使用缓存数据
-  - 400 – Bad Request – 调用不合法，确切的错误应该在error payload中描述，例如：“JSON 不合法 ”
-  - 401 – 未认证，调用需要用户通过认证
-  - 403 – 不允许的，服务端正常解析和请求，但是调用被回绝或者不被允许
-  - 404 – 未找到，指定的资源不存在
-  - 422 – 不可指定的请求体 – 只有服务器不能处理实体时使用，比如图像不能被格式化，或者重要字段丢失。
-  - 500 – Internal Server Error – 标准服务端错误，API开发人员应该尽量避开这种错误
 
-- 无状态通信（Stateless）：通信的会话状态（Session State）应该全部由客户端负责维护。应该注意区别应用的状态和连接协议的状态。HTTP连接是无状态的（也就是不记录每个连接的信息），而REST传输会包含应用的所有状态信息。通讯本身的无状态性可以让不同的服务器的处理一系列请求中的不同请求，提高服务器的扩展性。
-- 充分利用好HTTP缓存是RESTful API可伸缩性的根本。HTTP协议是一个分层的架构，从两端的user agent到origin server之间，可以插入很多中间组件。而在整个HTTP通信链条的很多位置，都可以设置缓存。HTTP协议内建有很好的缓存机制，可以分成过期模型和验证模型两套缓存机制。
+```plantuml
+@startuml
+left to right direction
+'top to bottom direction
+
+rectangle Arrows
+note top : aaa\nbbb
+rectangle A
+rectangle B
+rectangle C
+rectangle D
+rectangle E
+
+Arrows --> A
+A --> B
+A --> C
+Arrows -u-> D
+Arrows -u-> E
+Arrows -u-> F
+
+@enduml
+```
+
+
+```plantuml
+@startuml
+left to right direction
+
+rectangle ima as "Issues Management" #lightgreen
+rectangle qac as "Quick Access"
+rectangle jse as "JS Overview \n [[https://baidu.com JS Error List]]"
+rectangle req as "Request Overview \n [[https://baidu.com Error Request List]]"
+rectangle res as "Resource Overview \n [[https://baidu.com Error Resource List]]"
+rectangle per as "Performance Overview \n [[https://baidu.com Worst Performing Pages]]"
 
-根据[richardson模型](http://martinfowler.com/articles/richardsonMaturityModel.html), REST架构的成熟度有3个等级:
+qac --> ima : direct link to
+jse --> ima : manage issues
+req --> ima : manage issues
+res --> ima : manage issues
+per --> ima : manage issues
 
-- Level 0 POX (这个就不算REST了)
-- Level 1 Resources:  解决了Level 0 接口的问题, 使得各种资源有了自己相应的URI,虽然仍然是POX的交互方式, 但是每一个接口都更加紧凑和内聚, 相应的容易维护起来.
-- Level 2 Http verbs:  这一级别使用http verbs来对各种资源进行crud操作, 使得应用程序的接口更加的统一, 语义更加明确.
-- Level 3 Hypermedia Controls:
-  - RESTful的架构本意是"在符合架构原理的前提下，理解和评估以网络为基础的应用软件的架构设计，得到一个功能强、性能好、适宜通信的架构。" 这个世界上规模最大的, 耦合度最低, 最稳定的, 性能最好的分布式网络应用是什么? 就是WEB本身. 规模,稳定,性能都不用说了. 为什么说耦合度低呢? 想一想每个人上网的经历, 你几乎不需要任何培训就可以上一个新的网络购物平台挑选商品,用信用卡付款,邮寄到自己家里.把网站的程序想像成一个状态机, 用户在一系列状态转换中完成自己的目标. 这中间的每一步, 应用程序都告诉你当前的状态和可能的下一步操作, 最终引导用户从挑选商品,挑选更多商品,到支付页面,到输入信用卡信息,最终完成付费,到达状态机的终点.这种 service discoverablility 和 self-documenting 就是 level 3 想解决的问题 在这里面, 告诉用户当前状态以及各种下一步操作的东西, 比如链接, 按钮等等, 就是Hypermedia Controls. Hypermedia Controls 就是这个状态机的引擎. Level 3 的REST架构就是希望能够统一这一类的 Hypermedia Controls, 赋予他们标准的, 高度可扩展的标准语义及表现形式, 使得甚至无人工干预的机器与机器间的通用交互协议边的可能. 比如你可以告诉一个通用的购物客户端, "给我买个最便宜的xbox", 客户端自动连上google进行搜索, 自动在前10个购物网站进行搜索, 进行价格排序, 然后自动挑选最便宜的网站, 进行一系列操作最终完成用信用卡付费, 填写个人收件地址然后邮寄. 这些都依赖于Hypermedia Controls带来的这种 service discoverablility 和 self-documenting。
+@enduml
+```
 
-资源、子资源、相关资源，都能通过「links」关联，达到从一个资源找到相关资源(links列出URL)，或者直接 embedded 相关资源。
 
-业务实例
+```plantuml
+@startuml
 
-> 其他：[github](http://api.github.com/)、[instagram](https://instagram.com/developer/)、
-[白宫API规范](https://github.com/WhiteHouse/api-standards)
-> [React.js and Spring Data REST: Part 1 - Basic Features](https://spring.io/blog/2015/09/01/react-js-and-spring-data-rest-part-1-basic-features)、[React.js and Spring Data REST: Part 2 - Hypermedia](http://spring.io/blog/2015/09/15/react-js-and-spring-data-rest-part-2-hypermedia)，包含_links、_embedded、Paging、Sorting 很完善的rest库。
+!$rfcs = "进入 apm_web_rfcs 空间"
+!$coll = "收集需求"
+!$new  = "新建需求\n添加基本描述"
+!$rc   = "选择 slardar/apmplus 空间，同步创建新需求 或关联已有需求"
+!$entr = "进入 slardar/apmplus 空间"
+!$main = '在 slardar/apmplus 空间做需求管理 \n 会 <u>自动同步</u> 部分状态变更 到 rfcs 空间的相应需求'
+!$fm   = "在 slardar/apmplus 空间完成 线上验收"
+!$fr   = "rfcs 空间相应需求 手动再确认"
+!$stop = "终止"
 
-具体到业务中的表现就是“embedded resources”，代码中的实现方式是在一些标记@RestResource注解的bean中(model)的一些属性上加入@Relation注解(自定义的注解)，并设置相应的loader用来加载相关资源，然后写具体的loader来实现功能。
+rectangle $coll #A9DCDF
+rectangle frr as "$fr" #lightgreen
+rectangle $stop #ddd
 
-目前只在业务中的一部分实现了这个功能，前端能通过拼接参数获得关联资源(也能exclude掉不需要的数据字段)，实例如`http://xx?e=xx&_xfields=title&_embedded=category,category.types,type,rank,status`，通过改变`_xfields / _embedded`会得到不同结果，其实这样已经带来了不少便利。当然如果像github-API一样把关联资源子资源等的link-uri的给出，那么也就产生了在线API文档，少了些找文档的问题。
+:Actor: -u-> $coll : bp/oncall
+$coll -r-> ($new) : $rfcs
+($new) -r-> ($rc) : 转为正式需求
+($new) -d-> ($stop) : 伪需求
+($rc) -d-> ($main) : $entr
+($main) -d-> frr : $fm
 
-如果不用这样的@Relation注解实现、Java怎么处理这个问题呢？一般是要设置不少`多余的`model，如父子资源各有一个model，当需要一起用的时候，又要设置新的合并起来的model。或者会形成很多map数据结构的层层嵌套，导致代码耦合难以阅读。
+@enduml
+```
 
-- [Apollo Data Stack](http://docs.apollostack.com/)
-- [How to build a GraphQL server](https://medium.com/apollo-stack/tutorial-building-a-graphql-server-cddaa023c035#.gdvn0fb8v)
-- [Swagger 及 API 管理](https://www.linkedin.com/pulse/swagger-%E5%8F%8A-api-%E7%AE%A1%E7%90%86%E7%AE%80%E4%BB%8B-minglei-tu)
 
+```plantuml
+' a 不能变成 :a:
+a -> b
+if "a" then
+  -->[true] "Some Action"
+else
+  ->[false] "Something else"
+endif
+```
 
-[Falcor](http://netflix.github.io/falcor/)
 
-不同于传统REST API，它只提供唯一的一个端点。有了它，开发者不再需要向不同的服务器端点请求不同的数据，而是向同一个端点请求不同的模型数据。服务器端可以识别请求参数，并由Falcor Router调用恰当的router函数。也就是说，Falcor提供了一个更加直观的API，就是开发者的数据模型。这可以确保服务器永远不会返回不必要的模型数据，节省了带宽。Falcor客户端还可以使用缓存数据为连续的请求提供服务，减少服务器响应时间。
+```plantuml
+'甘特图
 
-- [Demand driven architecture（CQRS/Falcor）](http://www.javacodegeeks.com/2015/10/transcending-rest-and-rpc.html)
-- rpc优却点：低延迟，数据量小；不可缓存(手动管理)，紧耦合
-- rest优却点：可缓存，松耦合；高延迟，数据量大
-- 两者结合:
-  - one model everywhere
-  - The data is the API
-- You can convert any JSON object into a JSON Graph in two steps:
-  - Move all objects to a unique location within the JSON object
-  - Replace all other occurrences of the object with a Reference to that object’s unique location
+@startgantt
+/'
+单行注释、放在 单引号之间，多行注释前后加斜杠
+[正式上线] lasts 1 day and starts at 2020/03/20
+'/
+'skinparam classFontSize 10'
 
-- 他希望编写优雅、易读的代码。在用户界面上查找和修改数据要直观，最好是开发者只需要考虑自己的数据模型，而不用关心可用的API端点。
-- 他希望可以消除由传统REST API所导致的不必要的请求和响应开销。
-- 他还希望用一种更好的方法取代难以维护和改进的传统REST API。
+scale 2
+project starts the 2019/12/16
+saturday are closed
+sunday are closed
+2020/01/01 is closed
+2020/01/22 to 2020/02/02 is closed
+2019/12/16 to 2019/12/30 are named [十二月]
+2020/01/01 to 2020/01/31 are named [一月]
+'2020/02/01 to 2020/02/30 are named [二月]'
 
+-- 开发阶段（灰色背景是节假日、不计入总时间） --
+[环境准备] as [hj] lasts 2 days and is colored in Lavender/LightBlue
+then [首页 3d] lasts 3 days
+[流程管理 4d] as [lc] lasts 4 days
+[hj] -> [lc]
 
-[GraphQL](https://github.com/facebook/graphql)
+[<size:13><b>交付中心 <color:red>11d] as [jf] lasts 11 days
+[jf] starts at [lc]'s end and is colored in Yellow/Green
+[列表 3d] lasts 3 days and starts at [jf]'s start
+[大图 3d] lasts 3 days and starts at [jf]'s start
+[明细 3d] lasts 3 days and starts at [jf]'s start
+[大图 3d] lasts 3 days and starts at [jf]'s start
+[任务 3d] lasts 3 days and starts at [jf]'s start
+[权限 5d] as [qx] lasts 5 days and starts at [jf]'s end
 
-GraphQL is Facebook's [graph API](https://developers.facebook.com/docs/graph-api)
-（[How to get lots of data from the Facebook Graph API with just one request - Optimizing request queries to the Facebook Graph API](https://www.sammyk.me/optimizing-request-queries-to-the-facebook-graph-api)）。
-[基于 GraphQL 的产品](https://www.reindex.io/)。
+-- 测试阶段 --
+[集成测试 5d] as [jc] lasts 5 days and is colored in Fuchsia/FireBrick
+[qx] -> [jc]
 
-- [GraphQL - The Good and the Bad](https://scotch.io/tutorials/graphql-the-good-and-the-bad)
-- [GraphQL is the King. Long Live the King!](https://medium.com/@scbarrus/graphql-is-the-king-long-live-the-king-r-i-p-rest-cf04ce38f6c#.avmpteg2j)
-- [Introducing Relay and GraphQL译](http://segmentfault.com/a/1190000002570887)
-- [文档](http://graphql.org/docs/getting-started/) / [graphql-js](https://github.com/graphql/graphql-js)
-- [From REST to GraphQL](https://blog.jacobwgillespie.com/from-rest-to-graphql-b4e95e94c26b#.e3re515s5)
-- [From REST to GraphQL-](https://news.ycombinator.com/item?id=10365555)
+@endgantt
+```
 
-GraphQL is essentially the one [API Gateway](http://microservices.io/patterns/apigateway.html) to rule them all. And then you add Relay on top of it to build up the exact query you want.
 
-- GraphQL Returns Only the Data You Request. 请求什么返回什么
-- GraphQL Returns Data in the Same Shape You Requested It. 返回的数据结构和请求结构一致
-- GraphQL Sends a Single Request to the API and Returns a Single Response. 把同时发出的多个请求合并为一个，返回一个请求结果集合，并自动拆分到不同的组件里
 
 
 
 
+# .
+# BE / other
 
 
 
+## 网络
 
-
-## -
-## BE 整理
-
-
-### 网络 2019
+------ 2019
 
 - 从输入URL到页面加载完成 http://fex.baidu.com/blog/2014/05/what-happen/
 - HTTP 协议，http2.0，http 301 / 302 / 304 的区别。
@@ -8543,7 +7881,7 @@ GraphQL is essentially the one [API Gateway](http://microservices.io/patterns/ap
 - 可以用 `nslookup`、`dig www.taobao.com` 等命令，跟踪解析过程
 
 
-#### HTTP
+------ HTTP
 
 发起一个 HTTP 请求的过程就是建立一个 socket 通信的过程。
 HTTP 协议是基于请求 / 响应模式的，因此只要服务端给了响应，本次 HTTP 连接就结束了。
@@ -8584,7 +7922,8 @@ HTTP 协议本身是一种面向资源的应用层协议，但对 HTTP 协议的
 IP地址和端口号组成了所谓的Socket，Socket是网络上运行的程序之间双向通信链路的终结点，是TCP和UDP的基础。
 半关闭提供了这样一种能力：套接字连接的一端可以终止其输出，同时仍旧可以接收来自另一端的数据。该协议只适用于一站式（one-shot）的服务，如http服务。
 
-#### Session与Cookie
+
+------ Session与Cookie
 
 Session 默认有效期是关闭浏览器，为什么session会消失，主要原因是浏览器端cookie内保存的 sessionID 失效了，因为session是基于cookie的，所以关闭浏览器会失效。浏览器关闭，session是不会马上消失的。如何延长session声明周期，解决方案：延长cookie 和 session 的生存时间
 
@@ -8601,7 +7940,10 @@ Cookie可以让服务端程序跟踪每个客户端的访问，但是每次客�
 跨域名共享Cookie问题，Cookie是有域名限制的，一个域名下的Cookie不能被另一个域名访问。所以，如果在一个域名下已经登陆成功，如何访问到另外一个域名的应用且保证登陆状态仍然有效呢？
 
 
-### 安全 2018 - 2017
+## 安全
+
+
+------ 2018 - 2017
 
 [a 标签中 target="_blank" 的安全漏洞](https://www.tutorialdocs.com/article/html-opener-blank.html) 详细地解释了该漏洞的攻击方法和原理。并在文末给出了防范该漏洞的解决办法：给 a 标签增加 rel="noopener noreferrer nofollow"。
 
@@ -8640,7 +7982,10 @@ IFAA 生物认证 https://tech.antfin.com/products/IFAA
 
 
 
-### Arch 架构/云 2020
+## 架构/云
+> Architecture / cloud
+
+------ 2020
 
 系统初期既不能过度设计，又不能没有设计。
 系统设计 https://github.com/donnemartin/system-design-primer
@@ -8675,7 +8020,7 @@ soa 是 Service-Oriented Architecture 的首字母简称，面向服务架构。
 通常来说，RESTful 服务最适合于为某个数据模型提供 CRUD 操作，而微服务架构中的服务往往能够被轻易地分解为这些 CRUD 类型的服务，因此它与 RESTful 就能够很好地结合在一起。而对于其他类型的服务来说，类 RESTful 风格的服务通常也是一种良好的选择，这种类 RESTful 的风格也会使用 HTTP 作为传输协议，但服务本身并不一定要 100% 地符合 RESTful 的原则。
 
 
-### DDD 与 事件风暴 2019
+------ 2019 DDD 与 事件风暴
 
 《识别领域事件》https://insights.thoughtworks.cn/recognize-domain-event
 对问题域有深刻见解的主题专家称为领域专家，在大多数组织中没有这个角色，当DDD建模需要领域专家支持时，组织往往找业务部门的业务人员，BA，产品经理或在这个领域有多年开发经验的DEV来充当。
@@ -8699,7 +8044,9 @@ DDD 是静态结构分析，主要以产出类图为主、顺序图或状态图�
 领域事件的重要特征是能够引起反应，不是所有事件都值得我们关注或记录，最引人注目的是那些引起反应的事件。由此，领域事件将事件与事件反应或者称事件响应联系起来了，这种方式符合我们前面讨论的发布者-订阅者(pub-sub)模型，所以，事件风暴不只是找出孤立的一个事件，而是要找出“事件/响应”这样的组合，唯有如此，我们才能拼凑出一个事件发生的序列因果集合，从而完整地表达业务流程。
 
 
-### 基础 2016
+## 基础
+
+------ 2016
 
 [正向代理与反向代理有什么区别](http://mp.weixin.qq.com/s/ikrI3rmSYs83wdSWqq2QIg)
 
@@ -8738,8 +8085,7 @@ CDN 工作机制：CDN = 镜像（Mirror）+ 缓存（Cache）+ 整体负载均�
 
 
 
-
-### Java 2015-2016
+------ Java 2015-2016
 
 《java并发编程实战源码》
 《Effective Java Examples》
@@ -8979,7 +8325,7 @@ Map的底层结构是：数组 + 链表
 
 
 
-### cpp 2017
+cpp 2017
 
 - 指针和引用的区别
   - 引用总是指向某个对象，定义引用时必须初始化(之后不可改变)；引用只是一个“别名”，给引用赋值修改的是引用所关联对象的值
@@ -9051,7 +8397,7 @@ STL 是泛型编程思想的产物。 STL 是最新的 C++ 标准函数库中的
 
 
 
-### DB 2016
+## DB 2016
 
 时间序列数据的数据库选型思考 https://j-coder.com/2021/11/12/%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%95%B0%E6%8D%AE%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E9%80%89%E5%9E%8B%E6%80%9D%E8%80%83/
 ClickHouse vs Elasticsearch谁更胜一筹 https://www.zhihu.com/question/472389514
@@ -9171,387 +8517,12 @@ SQL允许通过查询来定义“虚关系”，它在概念上包含查询的�
 
 
 
-## 工具
 
 
-> antd-mobile 旧 demo 备份
-> - antd_custom_ui move from https://github.com/warmhug/__/tree/master/_react/antd_custom_ui to > https://github.com/ant-design/antd-mobile-samples/tree/master/web-custom-ui
-> - antd-mobile + TypeScript move from https://github.com/warmhug/__/tree/master/_react/antd-ts > to https://github.com/ant-design/antd-mobile-samples/tree/master/web-typescript
-> - antd-mobile demo move to https://github.com/ant-design/antd-mobile-samples/tree/master/web-webpack
 
 
-### 图片生成 / cdn
 
-图片生成
-https://gw.alipayobjects.com/zos/rmsportal/gIYqpRZVWejUBzkRRZMl.png
-https://img.alicdn.com/bao/uploaded/i1/32785103/TB2UQQOsFXXXXaDXXXXXXXXXXXX_!!32785103.jpg_300x300q90.jpg
-https://gw.alipayobjects.com/zos/rmsportal/PnjNniBkexOKzoehotzl.jpg@100h.src
-
-[国内有哪些靠谱的 Javascript 库 CDN可用](https://www.zhihu.com/question/20227463)
-https://unpkg.com  https://cdnjs.com  https://jshub.com  https://cdnjs.cloudflare.com  https://www.bootcdn.cn  https://www.staticfile.org  https://upcdn.b0.upaiyun.com
-https://cdn.bytedance.com  https://www.webcache.cn
-http://cdn.staticfile.org/angular.js/1.2.16/angular.js
-http://cdn.bootcss.com/placeholder.js/3.1.0/placeholder.js
-https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js
-https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css
-http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js
-https://code.jquery.com/ui/1.13.0/jquery-ui.js
-jQuery v1.12.4 https://gw.alipayobjects.com/os/rmsportal/YbGjMuYEbXdIGJRsqOSA.js
-https://a.alipayobjects.com/jquery/jquery/1.11.1/jquery-debug.js
-https://gw.alipayobjects.com/os/lib/jquery/3.6.0/dist/jquery.min.js
-qrcode.js https://gw.alipayobjects.com/os/rmsportal/lRHmUpUMSTHDNMnENjeD.js
-less.js https://gw.alipayobjects.com/os/rmsportal/OKOpSSqWebCoOQQXdLVG.js
-bootstrap.css v3.3.7 https://gw.alipayobjects.com/os/rmsportal/SaEqgaEyUazqSndgTxGj.css
-bootstrap.js v3.3.7 https://gw.alipayobjects.com/os/rmsportal/MoeUXzBfoEONHwCbBvXl.js
-
-
-### 命名
-
-Helpers - 帮助函数或模块，用于简化代码。
-Assistants - 辅助类，帮助主程序执行操作。
-Components - 组件类，用于构建更大的系统。
-Modules - 模块类，包含一组相关的功能。
-Libraries - 库，提供预定义的功能集合。
-Frameworks - 框架，提供应用程序的基本结构。
-Addons - 插件或附加组件，扩展主程序的功能。
-Plugins - 插件，用于扩展软件的功能。
-Scripts - 脚本，一系列自动化命令或程序。
-Snippets - 代码片段，用于快速插入常用代码。
-aids / facilities / Misc / Vendor / shared / base / core
-
-data-commons / data-utils / http-utils / json-helper
-
-lib - Library（库）：通常包含一系列可重用的代码模块或函数集合。
-helper - Helper（助手）：这类文件或模块提供一些辅助性的功能函数。
-common - Common（公共）：存放项目中多个部分都会用到的通用函数或组件。
-aux 或 auxiliary - 辅助，与helper类似，指辅助性代码模块。
-funcs / functions - 函数集：用来存储独立、非特定业务逻辑的函数。
-services - 服务层：在某些架构中，这一层封装了应用程序的核心业务逻辑和数据处理操作。
-consts / constants - 常量：存放程序中不会改变的值。
-models - 模型：在MVC（Model-View-Controller）架构或其他框架中，模型通常代表数据结构及相关的业务逻辑。
-middlewares - 中间件：在像Express.js这样的Node.js框架中，中间件是指处理HTTP请求的函数序列。
-io - Input/Output（输入/输出）：与数据读取、写入等I/O操作相关的模块。
-config - 配置：存放应用程序配置信息的模块或文件夹。
-logger / logging - 日志记录：用于处理日志生成和管理的模块。
-cache - 缓存：提供缓存功能，如数据缓存、HTTP请求缓存等的模块。
-validators / validation - 校验器/验证：包含数据校验逻辑的模块。
-exceptions - 异常处理：用来定义和处理自定义异常的模块。
-tasks / jobs - 任务/作业：用于定时任务或其他异步工作流程的模块。
-enums - 枚举：存储枚举类型的模块。
-templates / views - 模板/视图：在Web开发中，存放HTML模板或其他类型视图文件的目录。
-extensions / ext - 扩展方法：扩展已有对象或类型的额外功能函数。
-primitives - 基础工具：包含一些基础且常用的处理数据、字符串等的基础方法。
-tools - 工具集：各种杂项但实用的功能函数合集。
-commons - 公共组件/方法：项目中多个部分都会用到的通用逻辑和功能。
-utilities（完整形式）- 同样指代工具函数，与utils含义一致。
-support - 支持模块：为其它主要模块提供支持性功能的代码块。
-services_utils - 服务层工具：在服务层内部使用的通用功能模块。
-core_utils - 核心工具：专用于项目核心模块的一组工具方法。
-
-
-
-### PRD 模板 2019-11
-
-PRD有三种状态：Draft、 Review、Ready,  其中起草人为产品或研发团队，相关人 review 通过。
-
-修订记录/更新日志
-修改日期	修改版本	修改内容	备注
-
-前后端测试负责人、工作量评估。
-
-一、需求背景
-1.1 需求来源
-1.2 需求描述
-概念对齐/名词定义/关键术语
-目标对齐
-竞品调研/同类产品调研
-使用场景/主要用户/试点用户
-
-二、需求目标
-产品定位
-产品目标
-产品能力
-业务问题(业务需求)现存问题
-功能一览表格
-业务流程
-
-三、结构/流程图
-3.1 功能结构图
-3.2 需求流程图
-业务流程 -> 任务流程 -> 页面流程
-3.3 交互设计图
-
-四、需求范围
-模块 功能 优先级
-
-五、功能性需求
-详细需求
-详细方案
-
-六、非功能性需求
-上线/灰度/回滚方案、兼容性、AB实验、高可用、性能、监控、权限、运维 等。
-
-七、附录
-数据分析报告、用户调研报告
-
-
-
-
-
-### 系分 模板 2019-11
-
-系分(系统设计+业务分析)的本质其实就是将技术推演的过程前置，所带来的好处就是：问题可以在第一时间发现，第一时间解决，从而最大化的降低了需求变更、方案变更 所带来的沉没成本。
-
-#### 修订历史
-| 版本号 | 作者 | 内容提要 | 发布日期 |
-|  ----  | ----  | ---- | ---- |
-| V1.0 | XX | 初稿 | 2020-10-24 |
-
-#### 需求背景
-xxxx
-#### 需求目标
-xxxx
-#### 相关资源
-- prd(@xx): XXX  交互稿(@xx): XXX  视觉稿(@xx): XXX
-- 后端系分: XXX、API 列表
-
-#### 功能分析
-> 1.模块交互截图 2.展示要素分析 3.时序图（包含系统交互、用户行为交互）
-
-模块A
-xxxx
-模块B
-xxxx
-
-特殊模块分析(可选)
-1.特殊功能描述
-2.实现思路流程图？依赖的框架、类库？
-3.性能表现，是否需要降级？降级的维度：钱包版本、系统版本、小程序版本?
-4.兼容性，稳定性方案
-
-#### 监控设计
-核心业务数据监控。异常监控告警。
-
-#### 灰度方案
-服务端、客户端、配置项灰度方案。
-
-#### 应急方案
-写操作熔断方案、核心模块熔断、应急提示（小黄条）
-
-#### 埋点方案
-1.页面访问埋点 2.链路行动点曝光+点击 3.特殊业务埋点
-
-#### 技术沉淀
-1.沉淀一个组件？ 2.沉淀一个模板？ 3.沉淀一套解决方案？
-
-#### 项目管理
-
-工作量评估
-
-| 功能点 | 工作量 | 需求优先级 | 责任人 |
-|  ----  | ----  | ---- | ---- |
-| 模块A | X天 | P0 | 小马 |
-| 模块B | X天 | P0 | 小马 |
-| 模块C | X天 | P1 | 小马 |
-
-项目风险点
-
-项目详细计划表
-
-发布checkList
-
-
-
-### plantuml
-> 2022
-
-```plantuml
-@startuml
-:sss;
-split
-   :A;
-   kill
-split again
-   :B;
-   detach
-split again
-   :C;
-   kill
-end split
-@enduml
-```
-
-
-```plantuml
-@startuml
-title 无分支条件
-
-[*] --> active
-active -right-> inactive : disable
-inactive -left-> active  : enable
-inactive --> closed  : close
-active --> closed  : close
-closed --> [*]
-@enduml
-```
-
-
-```plantuml
-@startuml
-
-left to right direction
-'top to bottom direction
-
-rectangle Arrows
-rectangle C
-rectangle D
-rectangle E
-
-Arrows --> C
-Arrows --> D
-Arrows --[hidden]> E
-
-@enduml
-```
-
-
-```plantuml
-@startuml
-left to right direction
-'top to bottom direction
-
-rectangle Arrows
-note top : aaa\nbbb
-rectangle A
-rectangle B
-rectangle C
-rectangle D
-rectangle E
-
-Arrows --> A
-A --> B
-A --> C
-Arrows -u-> D
-Arrows -u-> E
-Arrows -u-> F
-
-@enduml
-```
-
-
-```plantuml
-@startuml
-left to right direction
-
-rectangle ima as "Issues Management" #lightgreen
-rectangle qac as "Quick Access"
-rectangle jse as "JS Overview \n [[https://baidu.com JS Error List]]"
-rectangle req as "Request Overview \n [[https://baidu.com Error Request List]]"
-rectangle res as "Resource Overview \n [[https://baidu.com Error Resource List]]"
-rectangle per as "Performance Overview \n [[https://baidu.com Worst Performing Pages]]"
-
-qac --> ima : direct link to
-jse --> ima : manage issues
-req --> ima : manage issues
-res --> ima : manage issues
-per --> ima : manage issues
-
-@enduml
-```
-
-
-```plantuml
-@startuml
-
-!$rfcs = "进入 apm_web_rfcs 空间"
-!$coll = "收集需求"
-!$new  = "新建需求\n添加基本描述"
-!$rc   = "选择 slardar/apmplus 空间，同步创建新需求 或关联已有需求"
-!$entr = "进入 slardar/apmplus 空间"
-!$main = '在 slardar/apmplus 空间做需求管理 \n 会 <u>自动同步</u> 部分状态变更 到 rfcs 空间的相应需求'
-!$fm   = "在 slardar/apmplus 空间完成 线上验收"
-!$fr   = "rfcs 空间相应需求 手动再确认"
-!$stop = "终止"
-
-rectangle $coll #A9DCDF
-rectangle frr as "$fr" #lightgreen
-rectangle $stop #ddd
-
-:Actor: -u-> $coll : bp/oncall
-$coll -r-> ($new) : $rfcs
-($new) -r-> ($rc) : 转为正式需求
-($new) -d-> ($stop) : 伪需求
-($rc) -d-> ($main) : $entr
-($main) -d-> frr : $fm
-
-@enduml
-```
-
-
-```plantuml
-' a 不能变成 :a:
-a -> b
-if "a" then
-  -->[true] "Some Action"
-else
-  ->[false] "Something else"
-endif
-```
-
-
-```plantuml
-'甘特图
-
-@startgantt
-/'
-单行注释、放在 单引号之间，多行注释前后加斜杠
-[正式上线] lasts 1 day and starts at 2020/03/20
-'/
-'skinparam classFontSize 10'
-
-scale 2
-project starts the 2019/12/16
-saturday are closed
-sunday are closed
-2020/01/01 is closed
-2020/01/22 to 2020/02/02 is closed
-2019/12/16 to 2019/12/30 are named [十二月]
-2020/01/01 to 2020/01/31 are named [一月]
-'2020/02/01 to 2020/02/30 are named [二月]'
-
--- 开发阶段（灰色背景是节假日、不计入总时间） --
-[环境准备] as [hj] lasts 2 days and is colored in Lavender/LightBlue
-then [首页 3d] lasts 3 days
-[流程管理 4d] as [lc] lasts 4 days
-[hj] -> [lc]
-
-[<size:13><b>交付中心 <color:red>11d] as [jf] lasts 11 days
-[jf] starts at [lc]'s end and is colored in Yellow/Green
-[列表 3d] lasts 3 days and starts at [jf]'s start
-[大图 3d] lasts 3 days and starts at [jf]'s start
-[明细 3d] lasts 3 days and starts at [jf]'s start
-[大图 3d] lasts 3 days and starts at [jf]'s start
-[任务 3d] lasts 3 days and starts at [jf]'s start
-[权限 5d] as [qx] lasts 5 days and starts at [jf]'s end
-
--- 测试阶段 --
-[集成测试 5d] as [jc] lasts 5 days and is colored in Fuchsia/FireBrick
-[qx] -> [jc]
-
-@endgantt
-```
-
-
-
-
-
-
-
-
-
-
-## -
-## 产品 运营 市场
+# 产品 运营 市场
 
 - 抖音KOL https://kolranking.com/
 - 阿拉丁指数-小程序指数平台 http://m.aldzs.com/?s=ct#/
@@ -9588,6 +8559,16 @@ then [首页 3d] lasts 3 days
 - 品牌溢价。amazon的品牌溢价能力强。品质商品是趋势。
 
 
+国内用户强调功能，美国用户强调用户体验；国内用户喜欢贴身服务，随叫随到，美国用户喜欢自己捣鼓，手册要求极高。这些差异在过去几年的实践中，非常的明显。借用我们美国同事的原话：“美国用户都是被宠坏了的富孩子，咱们国内还在给个糖吃就很开心，哪里管包装好不好看”。
+我们遇到过非常多的需要对接数据源、SaaS 服务的需求，实践中一个非常大的区别是，美国的大部分软件都有 API/SDK，甚至很多现在都有非常好用的 webhook，非常便于和各种其他系统互相整合。
+2024-05-19
+
+49%的受访者表示如果缺少有价值的客户反馈，他们就不知道如何优先考虑新功能和产品。换句话说，产品经理不确定他们是否在做正确的事情。
+7大产品优先级管理模型：价值与复杂性象限， Kano 模型， 加权评分优先级， RICE 框架， ICE 评分模型， MoSCoW 方法， 机会评分。
+德尔菲法：本质上是一种反馈匿名函询法。其大致流程是：在对所要预测的问题征得专家的意见之后，进行整理、归纳、统计，再匿名反馈给各专家，再次征求意见，再集中，再反馈，直至得到一致的意见。
+2023-08 项目管理模型 https://www.zhihu.com/question/304673495
+
+
 产品经理是一门经验科学。产品经理需要综合运用逻辑学、心理学、经济学、管理学等多门学科的知识，也因此产品经理的工作不应该只是写需求画原型，而是应该像医生一样，识别问题所在并开出处方，这个处方可能是一个产品，也可能是一些运营手段。
 需求分析能力，用户调研、竞品分析、产品设计、项目管理、数据分析等产品技能。产品经理要解决的是“Why”和“What”，“How”则由工程师解决。
 白天忙沟通，晚上忙写需求。
@@ -9607,11 +8588,32 @@ then [首页 3d] lasts 3 days
 有人曾问张小龙先生，为何不在微信开机画面放一个广告，每天数亿人会看到，轻松就可以赚到不错的收入。小龙用了一个比喻来回答：因为用户每天打开微信的次数和时间都很多，微信就相当于用户的一位很亲密的朋友，你会希望亲密朋友的脸上有一张广告，看完后才能和他对话吗？这个比喻很形象，也是一种很朴素但很高效的取舍方法。
 2019-11《用户为本，就是把用户当朋友》https://mp.weixin.qq.com/s/zjRW_B83ec_0F-q9jJWq0w
 
+2019-09 杭州云栖大会 https://yunqi.youku.com/2019/hangzhou/review
+2019云栖大会-程序员吐槽大会 https://www.bilibili.com/video/av69171100
+<全球生态峰会> <智能数据中台专场> <5G边缘计算专场> <阿里云大学专场> <全面上云企业敏捷创新之道>
+<新零售行业峰会> <新零售生态峰会> <蚂蚁区块链生态峰会> <SaaS加速器专场>(宜搭/RPA等介绍)
+<企业协作与研发效能专场>(teambition/云效/小米OKR) <创新创业专场> <技术服务专场>(本部门)
+技术拓展业务边界。 现在不缺产品，而是缺服务。 推荐的个性化：不管 70 后 80 后、以前是一群一群的，现在 00 后是一个一个的。
+90 后 p9 李响。 交付一个实体东西时、也附带一个数字孪生体，比如仿真、变压器仿真。 只用手机，不用带各种卡的 愿景 已经实现了。
+改革开放以来有7次改变阶层的机会，如果你抓住三次，那就成国民级的励志故事了。 绝不是互相抄袭，而是大家看到了共同的未来。
+我们有任何的抱怨，是因为我们对它有更好的期待。 不是云效有多好，而是整个数字化转型势头很猛烈，感到非常幸运。
+甲方视角、总集视角、ISV 视角。 提升职业化水平，传统行业比我们职业化水平高、不要小瞧。 结硬寨，打呆账。 体系化的安排，碎片化的学习，也需要连续的学习。
+站在未来看今天，而不是站在今天看未来。 除了一线城市和省会城市外，我们都认识是下沉城市。 在学校可以不学习知识，但一定要多思考。
+2019-11 杭州云栖大会
+
 跨境电商的过程远比一般贸易复杂，需要与品牌方、渠道方、政府机构、消费者等多方面沟通。但对于货源的把控更为重要。非标品在中国市场有着极长的长尾，甚至有些货品一个月只销售了一单。这对于平台中介型的电商影响不大，但对于采购自营下的平台则会占用大量的资金和库存。事实上，即使大规模出货的爆款商品也可能会成为负担。刘一曼对这件事记忆犹新。她曾告诉媒体，刚上手做跨境电商直营的第一年，阿里巴巴交了很多学费。其团队曾在日本谈下一笔很大的无硅油洗发水订单，但这款网红产品很快就不再流行，而团队花了两年时间才清完库存。
 2019-09-06 <阿里收购网易考拉>
 
 产品经理：热爱生活，思考问题的本职是什么，数据驱动、逻辑性突出。
 2019-09
+
+做产品的人一定要清楚，使用产品的人是用户，为产品付费的人是客户。ToB 和 ToC 最大的区别是用户和客户是分离的。
+产品灵魂是什么？自己有基础，未来能越做越好，并且是符合痛点的，最 XXX 的产品，这个 XXX 就是产品灵魂，抓住这个灵魂才能做最牛逼的产品。
+无法量化产品灵魂：如果你在行业里做产品，所有竞争对手的产品都是不可量化的，那么恭喜你，你在蓝海里。只要你可量化，可对比，那么你就可以把他们全部秒杀了。因此，核心产品灵魂必须要可度量。
+做 ToB 的产品经理特别辛苦，五马分尸模型，需要同时满足用户需求、客户需求、企业需求、销售线需求、研发线需求。平衡的艺术主要有几点：
+1、只关心核心客户的需求，尤其是审批前路径上关键决策人的需求；2、用户需求不重要，除非客户关心这个用户需求；3、不管自来客需求；4、产品要有差异化、可量化和核心竞争力；5、让销售卖出去的成本最低，让销售最快拿到提成；6、销售出去产品，需要给予研发人员激励。
+https://www.infoq.cn/article/KY2wijmVaOC5TquOH-f8
+2019-08 《技术人 ToB 成功的样子千篇一律，失败的样子却各有不同》
 
 如果一个产品人不能把你的想法这件事情的东西说明白，就是能力很差，不存在表达能力很差的产品经理。有人说张小龙的表达能力就不好，那是你们没见过他讲产品逻辑和思考的时候表达能力有多好。（“不善”演讲不代表表达能力不好，要的是把自己的思考清晰表达出来的能力，而非煽动能力）。
 2019-08 《有赞产品设计原则》 https://mp.weixin.qq.com/s/-kLQPDU-9337mN1ebjuYqA
@@ -9842,123 +8844,11 @@ N:N到N:1:N网络重构，1就是平台效应，即所谓的交易场。如果�
 - 欢迎页，讲故事，表达情感，有灵魂
 2016
 
-
-
-
-## 摘记
-
-使用了，感觉要吐了，封装度太低了，和老板上午提需求，下午就要的精神背道而驰，完全不符合。
-基于tailwind的UI库都这样，啥事件都没封装，效率不高，除了UI灵活一些.
-2024-11 shadcn/ui https://juejin.cn/post/7320525947249803283
-
-求稳、求创新和求效率不可兼得。做过工程的都知道这三个是不可能三角。
-2024-11
-
-国内用户强调功能，美国用户强调用户体验；国内用户喜欢贴身服务，随叫随到，美国用户喜欢自己捣鼓，手册要求极高。这些差异在过去几年的实践中，非常的明显。借用我们美国同事的原话：“美国用户都是被宠坏了的富孩子，咱们国内还在给个糖吃就很开心，哪里管包装好不好看”。
-我们遇到过非常多的需要对接数据源、SaaS 服务的需求，实践中一个非常大的区别是，美国的大部分软件都有 API/SDK，甚至很多现在都有非常好用的 webhook，非常便于和各种其他系统互相整合。
-2024-05-19
-
-定性来看，大家都认可Code Review（后文简称CR）能显著改善代码质量，但国内量化的研究结果比较少，以下引用业界比较知名的几个定量研究结果：
-Capers Jones分析了超过12,000个软件开发项目，其中使用正式代码审查的项目，潜在缺陷发现率约在60-65%之间；大部分的测试，潜在缺陷发现率仅在30%左右。
-Steve McConnel在《Code Complete》中提到：仅仅依靠软件测试效能有限–单测平均缺陷发现率只有25%，功能测试35%，集成测试45%，相反，设计和代码审查可以达到55%到60%。
-SmartBear研究了一个历时3月，包括10名开发人员完成的10,000行代码的工程，通过引入CR在接下来的6个月中可以节省近6成的bug修复成本。
-Google认为CR参与塑造了公司的工程师文化，CR也与笔者所在部门一贯倡导的「极致透明」的文化相契合，资深同学的CR，对团队内新人的快速成长也很有帮助。
-CR面临哪些挑战？挑战1：CR的代码改动范围过大，挑战2：CR对评审者全局知识要求很高，挑战3：CR价值最大化需要团队具备卓越工程基因。
-CR有没有最佳实践？CR并非包治百病的银弹，它也有它的能力边界。把设计方案交给设计评审，把业务逻辑验证交给单测；把编码规范交给静态代码扫描（Static Code Analysis），剩下部分再由Peer Review做最后一道把关。CR引发的技术传承、技术交流以及由此形成的追求卓越的团队文化，才是它的最大价值。
-程序员的好奇心和匠心才是提升代码质量的根本，目前笔者所在部门已经在晋升考核中增加了CR环节，烂代码会被一票否决，这就需要日常工作中不断追求技术卓越，在平时多下功夫。
-基本的编码规范完全可以借助代码自动化扫描识别，而这个占比也是比较高，可以有效降低CR成本。
-不要指望个别优秀的同学带动团队的整体水平提升。代码质量需要Team Leader高频参与CR，技术文化的形成需要主管以身作则。
-2023-10 三觉 卓越工程之如何做好Code Review https://mp.weixin.qq.com/s/RC67KVROMOQKKIhFtGb4Vw
-
-49%的受访者表示如果缺少有价值的客户反馈，他们就不知道如何优先考虑新功能和产品。换句话说，产品经理不确定他们是否在做正确的事情。
-7大产品优先级管理模型：价值与复杂性象限， Kano 模型， 加权评分优先级， RICE 框架， ICE 评分模型， MoSCoW 方法， 机会评分。
-德尔菲法：本质上是一种反馈匿名函询法。其大致流程是：在对所要预测的问题征得专家的意见之后，进行整理、归纳、统计，再匿名反馈给各专家，再次征求意见，再集中，再反馈，直至得到一致的意见。
-2023-08 项目管理模型 https://www.zhihu.com/question/304673495
-
-初级工程师关心编写软件。他们重视代码质量，采用最佳实践，投入大量时间学习新技术，最终目标是创建优雅、高性能、可维护的软件。
-高级工程师关心构建系统。对他们来说，创建软件只是一个步骤。他们首先质疑是否需要构建软件，询问它会解决什么问题，以及为什么解决这些问题很重要，然后询问谁将使用该软件和使用规模，并且考虑软件将在哪里运行以及如何监控，还决定如何衡量软件是否真正解决了它应该解决的问题。
-一个团队，不需要人人都去关系系统架构，但需要人人都去注重代码质量。
-2023
-
-技术架构就是个伪需求。现在架构那么多，99%都是直接用就行，除非要技术公关否则的话，都到不了架构层面。而且我一直认为主要是业务抽象的好，技术才能体现价值，现在业务没抽象好的情况下，你谈架构就是缘木求鱼。
-2b建议搞项目部 拿项目奖金/提成来降本增效（项目预算定下来，用的越少奖励越多）
-2c建议敏捷小组，把运营KPI跟技术绑定。 2B --> IPD , 2C --> scrum
-2023
-
-2021-12《CEM如何助力企业流量新增长？》https://mp.weixin.qq.com/s/aNT3V-zPTbVWHh4s-njyRg 安道全
-
-老K是技术出身，技术人都比较本分，从来不去想天上掉馅饼的事情，还是看看地上有没有钱捡比较靠谱
-时间告诉我们，装B的年龄已经过了，到了该搞钱的时候了。
-有人说“钱不是万能的”，听君一席话，就知道他没怎么读书。我才没那么贪心呢，我只想要钱而已，就没指望它万能。
-许多老板天真的以为，有了低代码就能干掉程序员。让业务人员基于低代码进行开发？不要再侮辱软件工程这门神圣的学科了，好歹也是要系统学习4年，才拿到毕业证的好吗？虽然我牛逼一点，我读了5年。
-用低代码替换所有系统？不是说你不动脑，动脑的前提是你首先得有个脑。记住，软件解决方案从来没有“银弹”。
-用excel管理公司，妥妥的。俗话说：excel用得好，公司上市早。
-如果你还需要大量自定义开发组件，那你为什么不直接Coding？你是想证明低代码有多么不成熟？还是想证明自己Coding有多么牛？
-对一家公司来讲，发展业务才是核心的，公司间的竞争远远还没到比拼业务系统的阶段。业务系统对于一家公司来说，没那么重要，也没那么不重要。每个阶段有每个阶段的系统建设目标，把握节奏、踩准点，才是最关键的。
-2021-06-09 《如何用低代码搞垮一家企业？》
-
-中台与平台的区别是什么？
-平台模式下，业务的差异逻辑由平台的人开发；中台模式下，业务的差异逻辑由业务方来开发和维护，中台做通用逻辑的沉淀以及为业务预留扩展的能力。平台提供的是完整的能力，中台提供的更多的是能力的使用方式和结构化展示，由业务来定制。
-中台模式，相当于把业务差异逻辑这部分的工作量，从平台开发转移到了业务开发。理想情况下可以减少平台侧的工作量，让平台可以并行承接更多的业务。
-<中台，我信了你的邪> https://36kr.com/p/5286443
-建设完成汽车零售行业业务中台解决方案之后，未来系统集成工作只需要与业务中台对接，不需要与上层应用对接，减少了系统集成的复杂度。
-2020-01~02
-
-《从持续的需求交付到价值交付》
-2019-11 https://www.atatech.org/articles/156234
-数据中台机会对创业公司意味着什么？
-2019-10-30 https://36kr.com/p/5260774
-
-2019-09 杭州云栖大会 https://yunqi.youku.com/2019/hangzhou/review
-2019云栖大会-程序员吐槽大会 https://www.bilibili.com/video/av69171100
-<全球生态峰会> <智能数据中台专场> <5G边缘计算专场> <阿里云大学专场> <全面上云企业敏捷创新之道>
-<新零售行业峰会> <新零售生态峰会> <蚂蚁区块链生态峰会> <SaaS加速器专场>(宜搭/RPA等介绍)
-<企业协作与研发效能专场>(teambition/云效/小米OKR) <创新创业专场> <技术服务专场>(本部门)
-技术拓展业务边界。 现在不缺产品，而是缺服务。 推荐的个性化：不管 70 后 80 后、以前是一群一群的，现在 00 后是一个一个的。
-90 后 p9 李响。 交付一个实体东西时、也附带一个数字孪生体，比如仿真、变压器仿真。 只用手机，不用带各种卡的 愿景 已经实现了。
-改革开放以来有7次改变阶层的机会，如果你抓住三次，那就成国民级的励志故事了。 绝不是互相抄袭，而是大家看到了共同的未来。
-我们有任何的抱怨，是因为我们对它有更好的期待。 不是云效有多好，而是整个数字化转型势头很猛烈，感到非常幸运。
-甲方视角、总集视角、ISV 视角。 提升职业化水平，传统行业比我们职业化水平高、不要小瞧。 结硬寨，打呆账。 体系化的安排，碎片化的学习，也需要连续的学习。
-站在未来看今天，而不是站在今天看未来。 除了一线城市和省会城市外，我们都认识是下沉城市。 在学校可以不学习知识，但一定要多思考。
-2019-11 杭州云栖大会
-
-做产品的人一定要清楚，使用产品的人是用户，为产品付费的人是客户。ToB 和 ToC 最大的区别是用户和客户是分离的。
-产品灵魂是什么？自己有基础，未来能越做越好，并且是符合痛点的，最 XXX 的产品，这个 XXX 就是产品灵魂，抓住这个灵魂才能做最牛逼的产品。
-无法量化产品灵魂：如果你在行业里做产品，所有竞争对手的产品都是不可量化的，那么恭喜你，你在蓝海里。只要你可量化，可对比，那么你就可以把他们全部秒杀了。因此，核心产品灵魂必须要可度量。
-做 ToB 的产品经理特别辛苦，五马分尸模型，需要同时满足用户需求、客户需求、企业需求、销售线需求、研发线需求。平衡的艺术主要有几点：
-1、只关心核心客户的需求，尤其是审批前路径上关键决策人的需求；2、用户需求不重要，除非客户关心这个用户需求；3、不管自来客需求；4、产品要有差异化、可量化和核心竞争力；5、让销售卖出去的成本最低，让销售最快拿到提成；6、销售出去产品，需要给予研发人员激励。
-https://www.infoq.cn/article/KY2wijmVaOC5TquOH-f8
-2019-08 《技术人 ToB 成功的样子千篇一律，失败的样子却各有不同》
-
-《低代码开发会是未来吗？》https://mp.weixin.qq.com/s/M0vrPskxg0SZeQ6cmso7Qw
-2019-12-03 @玉伯
-
-很多人（曾经包括我自己在内）在技术选型方面喜欢追求一种“宏大叙事感”：如果技术不够复杂，不够新，开发周期不够长，动员团队不够多，怎么在公司内彰显我的影响力？我们之所以敢这么放肆是因为环境鼓励我们这么做，每个团队都在这么做。我们一直在被暗示，项目的风险和可维护性不重要，反正三年之后我也不一定在这个公司，三年之后我可能成了管理人员，三年之后接手维护系统的人不是我。无论如何三年之后项目一定会推倒重来。我们的简历上总是强调我们做过多少系统，而不是把它们做的多好。
-从职业素养的要求上说作为开发人员我们应该关心风险和可维护性。
-2019-09-16 《微前端说明书》https://zhuanlan.zhihu.com/p/82051427
-
-全栈工程师这个概念，其实是小公司（或者是大公司的小部门）为了节省人力成本，想让程序员干杂活，却又不好意思直说，因此所编造出来得美丽的谎言，可笑可悲的是，一些不知全栈真正含义的程序员，还以自己是全栈为荣，觉得自己跟上了潮流，真的是被人卖了还在帮人数钱。
-笔者在这里可以很负责的说，初入职场的头几年，一定是以提高深度为主才是正道，像全栈工程师这种潮流，就如同最近一些采用非常规手段出名的网红一般，注定只是昙花一现，只有一技傍身，才是长久之计。
-2018-11
-
-中国SaaS市场的潜力来自于IT发展与经济增长不匹配。与全球平均相比，我国IT支出占GDP比重较低，2016、2017两年全部IT支出仅占GDP的2.8%左右，而全球的数据则约为4.58%。此外，中国企业软件支出增速为GDP增速的1.4倍左右，明显小于世界平均水平的2.5倍。
-目前港股市场上的云计算企业有腾讯、金山软件、中软国际、金蝶国际和中国有赞，但在SaaS层面上，金蝶和有赞是主要的玩家。
-有赞作为一个商家服务公司，经常被误认为是微商，但其实有赞提供的是典型的针对B端客户的 SaaS 服务。目前，有赞在微信生态内可以提供包括商城系统、交易、支付、会员、营销等工具在内的完整开店系统，不论是自媒体、线下商户还是电商品牌，只要缴纳4800、9800元不等的年费，便可在不具备后台技术团队的情况下开设一个微信网店。
-该公司创始人白鸦曾说，“SaaS一般是先熬五年做产品，第八年、第九年开始赚钱，第十年开始真正盈利”。目前，有赞已在第五年就把以前亏的钱赚回来，第六年就开始持续盈利了。
-2018-11
-
-AI / 算法：
-知识半衰期。没有天花板的工作。 算法牛逼了就能进化到科学家，别的牛逼了只能是工程师。 世界上有两种程序员，一种是懂算法的，一种是不懂的。
-如果是一个已经踏入职场多年的人每天写的是增删改查，更注重业务，有学算法这个精力，多研究研究业务，多思考思考技术与业务结合这种问题，可能比你学习算法收效更高。
-对于算法要按需学习的论调，仅适合于毕业多年，已经进入职场的同学，如果你是一个在校生，那么对于算法这个东西，就只有一个字——学！往死里学！
-学从难处学，用从易处用。学习算法有什么用？面试时有用 - 诗人做学问，功夫在诗外。程序员做学问，功夫在算法。程序员只研究C/C++语句和函数，相当于诗人只研究诗的格式和文字。诗人写诗要有好的意境，程序员写程序要有好的算法。
-软件开发行业也有鄙视链存在。做底层的人付出的时间比你多。Java更容易入门，C入门更难，做算法入门更难，所以造成了Java程序员更多的假象。做“底层”的人可以骄傲，但他们只是创造了这个世界，而你，可以让世界更精彩。搞底层不牛逼，搞系统才牛逼。搞算法不牛逼，搞数学才牛逼。
-我不爱做智力题，我还算个程序员吗？https://zef.me/i-hate-puzzles-am-i-still-a-programmer-590607b53777
-都是混口饭吃而已，不高大上，靠按键盘养家糊口而已，放低心态先吧。厉不厉害并不取决于学习哪个方向，而在于在自己学习的方向上走了多远。大部分Java程序员廉价，是因为知其然，不知其所然。
-语言只是个工具？这完全是骗人的，一门语言决定着你解决问题的思考方式，如果说编程是种建模，那么大部分学Java的人建模建的出奇一致，没有丝毫的创造性，但不影响解决最后问题。
-trick不重要？你看看 “国际C语言混乱代码大赛”，就会被他们的创造力所惊呆，软件工程提倡写代码要易读易懂，这无可后非，但一些人受此约束多了，会失去原本对语言的天马行空的想像力。
-盖一栋房子，砖块要自己造？那沙子要不要自己挖？盖房子：C程序员  造砖 造窗户 造玻璃 造水泥 造钢筋 然后盖房子，java程序员 买砖 买窗户 买玻璃 买水泥 买钢筋 然后盖房子。
-有时间多想想问题，琢磨数学，别问这种其实你知道答案只是不去做的问题。如果每个人都纠结这个问题，那这个世界上估计只有数学家了。不是学java弱，是只会调用API的程序员。
-如果按照无限鄙视的链，是不是集成电路的设计工程师最牛？ 都是吊丝工作，有什么牛逼的，顶多是装逼，连逼格都谈不上。
-都说搞投资的才厉害，代码写的再好，也是给人家打工的，所以你还要不要继续写代码？去读个商学院不好么。那搞政治的不是更厉害，赚的钱再多，不也是要给国家交税的，所以你不如去当个国家主席？在什么位置干什么事，哪来那么多鄙视链。
-2017
+产品的招聘门槛很高，一般来说应该说高于工程师。所以他们很多人真的很优秀，在能力上深得工程师的认可和尊重。很多工程师和”产品”的关系不好，其实是因人而异的，产品的能力/历史的成绩能够证明他的想法的合理性，工程师接受的程度能够高很多。
+产品的压力比较大。他们主要的工作就是: “做梦”。说得好听点就是讲愿景，画大饼。但是他需要两头忽悠，既让工程师相信这个产品的重要性和影响力，也要说服老板继续投入资源。
+产品对技术的理解力。写点简单的统计脚本，小工具很多人不在话下，不懂也愿意去学。基本的技术概念清楚，不会完全的”缺乏常识，没有逻辑还不讲道理”。
+我并不是想为“产品”开脱，随着”人人都是产品经理”热销再加上很多公司”响应国家提高就业率的号召”基本阿猫阿狗摇身一变，都成了产品经理，据说有的公司产品经理和程序的比例能够直逼1:1。
+突破”技术思维”。技术人的定位更多应该是工程师，而不是程序员，更不能只是PHP程序员。前者的定位是”解决问题”, 除了解决代码的问题，当然也要解决产品本身的问题，领导预期的问题。。。永远不能只做一个不需要思考的，”产品决策”到代码的翻译器。
+留住好产品，别招”传声筒”。
+https://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=401460975&idx=1&sn=8e39520929d2b06c20739d54baf7c2f3
+2016 工程师文化的思考
