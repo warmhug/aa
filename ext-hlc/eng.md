@@ -4,11 +4,6 @@
 - [english news inlevels](https://englishnewsinlevels.com/)
 - [en998](https://www.en998.com/sentence/) [earthworm](https://earthworm.cuixueshe.com/)
 
-markdown 表情 :+1: :smile: :smiley: :laughing:
-- [emojispark](https://emojispark.com/)
-- [emoji8](https://emoji8.com/zh-hans/)
-- [emoji-cheat-sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
-
 再见：sa you na la  是吗：soga    什么：nani   awesome 牛逼
 
 

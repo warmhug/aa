@@ -21,7 +21,7 @@ permalink: /
 [奇绩创坛](https://www.miracleplus.com)  [壹心理](https://www.xinli001.com)
 
 > [codesandbox](https://codesandbox.io/s/zpjo211yp) [codepen](https://codepen.io)  GitHub登录
-> [GitHub](https://github.com/warmhug/aa)
+> [测网速](https://fast.com)  https://archive.org/web
 
 [JavaScript risingstars](https://risingstars.js.org)
 [stateofjs](https://stateofjs.com/)、[stateofcss](https://stateofcss.com/)
@@ -45,12 +45,13 @@ https://coolshell.cn
 
 ## AI 场景
 
+https://lmarena.ai/  https://openlm.ai/chatbot-arena/
+https://huggingface.co/
 https://app.slack.com/client/T053EMGBEEN/C05BVLPE885?geocode=zh-cn
-外国学校 https://lmarena.ai/
 https://openrouter.ai/rankings
-https://poe.com/
 2025-01 大模型竞技场
 
+https://poe.com/
 https://github.com/luban-agi/Awesome-AIGC-Tutorials
 https://columns.ai/chatgpt
 
@@ -124,6 +125,39 @@ JS 实现神经网络、[天猫精灵](https://open.bot.tmall.com/)、机器人�
 
 
 ## AI 使用
+
+--- 2025-02
+
+npm 的 dependencies 写了 latest, 是怎么解析版本的?
+如果 最新发布的版本 是个 alpha 但不是 latest 标签, 会对它做解析吗?
+这个最新的 alpha 版本的依赖有缺失, npm install 包的 latest 版本时, 实际不应安装这个 alpha 版本, 但 先对这个 alpha 版本 报错 No matching version found, 导致 安装失败. 是为什么?
+2025-02-13 https://chatgpt.com/share/67ad9bcd-913c-8008-aa33-1edb177b7203
+
+npm yarn 和 pnpm 的 lock 文件内容结构详细解释?
+现在使用 pnpm 工具, 有两个环境, 比如 A 环境 registry 是 https://ra.com 生成了 lock 文件. 但 B 环境 registry 是 https://rb.com , 希望复用 A 环境生成的 lock 文件, 怎么做到? pnpm-lock.yaml 文件里的 tarball 地址, 怎么能不区分 ra rb 的域名?
+在 monorepo 项目, 怎么用 npm shrinkwrap 收集到所有子项目依赖, 并给 pnpm 使用?
+需要在 monorepo 里存在 同名包的 不同版本, 怎么实现?
+lerna 和 pnpm 支持 通过 project.json 能让存在 同名包的 不同版本, 使用 npm 能做到吗?
+
+最近 deepseek 火热, 新闻不断, 用什么成语或习语形容 比较有趣?
+- 万众瞩目 人气爆棚 一鸣惊人 如日中天 家喻户晓 后来居上 异军突起
+- 技惊四座 炙手可热 风头正劲 抢尽风头 风头无两 声名鹊起 崭露头角
+- 独领风骚 独占鳌头 势如破竹 满城风雨 名声大噪 平地一声雷
+
+deepseek 比 Gemini 豆包和kimi 优秀吗? 哪个技术实力最强? 哪个最有长期潜力和优势?
+
+- DeepSeek、Gemini、豆包和 Kimi 各有千秋，没有绝对的优劣之分。选择哪个模型取决于你的具体需求和偏好。
+  如果你注重技术创新和垂直领域优势，DeepSeek 或许更适合你。
+  如果你需要强大的多模态能力和完善的生态系统，Gemini 或许是更好的选择。
+  如果你更看重本土化服务和社交属性，豆包可能更符合你的需求。
+  如果你喜欢创新功能和个性化服务，Kimi 或许能给你带来惊喜。
+
+- DeepSeek 在技术研发方面投入巨大，尤其在强化学习和模型训练效率方面有独到之处。其 DeepSeek-R1 模型在海外 AI 圈引起轰动，获得大量“自来水”，甚至有博主将其誉为“开源 AGI 和文明的未来”。DeepSeek 还开源了一系列模型，并披露了所有训练秘密，这在业内是比较罕见的。
+  DeepSeek： 凭借其在技术创新和成本控制方面的优势，以及开源策略，DeepSeek在技术社区中获得了良好声誉。其低成本高性能的模型有助于广泛应用，具有较大的长期潜力。
+  如果你关注 多模态能力 和 国际化技术实力，Gemini 是目前最强的选择。
+  如果你更看重 长上下文理解、高效推理 和 开源生态，DeepSeek 是最具潜力的模型。
+  如果你主要关注 中文场景，豆包是最优选择。
+  如果你需要处理 超长文本任务，Kimi 是一个不错的选择。
 
 --- 2025-01
 
@@ -4147,6 +4181,7 @@ Statements 与 Lines 的区别：一行可能有多个语句
 
 ------ 生成 搭建
 
+[去哪儿网前端代码自动生成技术实践](https://mp.weixin.qq.com/s/Jhs2dAvFHbaaP1OKjB0c6w)
 https://docmost.com/
 
 [阿里低代码引擎LowCodeEngine正式开源](https://mp.weixin.qq.com/s/rQ-X9OBFRvhI16KrWwIT6w)
@@ -4543,6 +4578,8 @@ https://tldraw.dev/
 
 ### monorepo
 
+> npm v7(2020-10发布) 支持 Workspaces
+
 优势
 - 快速解决公共问题: 构建工具问题, 合规治理问题, 统一发布, 统一多环境同步.
 - 共享: 代码直接调用/复制粘贴/AI自动生成(饼), 踩坑经验共享, 一次性项目配置 不需要脚手架.
@@ -4558,6 +4595,11 @@ https://tldraw.dev/
 - 代码泄露问题: 不管什么形式 都不能彻底解决 故意的泄露问题 (防君子不防小人).
 - 已有项目迁移问题: npm包几乎无额外工作量, 项目node版本区别 能兼容 但建议改造.
 
+------
+
+[Turborepo](https://github.com/vercel/turborepo) (类似nx) 解决了 Monorepo 的问题。我们的远程缓存存储您所有任务的结果，这意味着您的 CI 永远不需要做同样的工作两次。 任务调度可能是困难的，想象 yarn build 需要运行前 yarn test ，在所有的工作空间。Turborepo 可以调度您的任务，以最大的速度，在所有可用的核心。
+
+在 2022/05 的时候 Next.js 在这个 [PR#37259](https://github.com/vercel/next.js/pull/37259) 从yarn 转移到了pnpm，原因是使用pnpm 帮助他们降低了下载套件的大小，而且找到了一些幽灵依赖，并在 CI 上安装套件的速度从 4 分钟降低到了 2 分钟。
 
 monorepo 大版本同步开发，bugfix/feature 代码复用、git checkout cherry-pick 、git 冲突。
 
@@ -4686,13 +4728,12 @@ misc
   - https://github.com/react-component / 字节 arco-design semi-design
   - https://procomponents.ant.design/
 
+[antd tree-shaking](https://github.com/ant-design/ant-design/issues/23988)
 
 
 
 ## FE 整理 suffer
 
-
-[antd tree-shaking](https://github.com/ant-design/ant-design/issues/23988)
 
 ### pro-components 2024-07~10
 
@@ -4732,28 +4773,65 @@ misc
 - 右上角新建按钮、只能建项目 不能建任务直接，希望能基于 已有的项目、直接能 新建任务。
 
 
------- monorepo
-
-monorepo 忽略 samples 子目录设置:
-
-- 在根目录的 pnpm-workspace.yaml 或 package.json 的 workspaces 里排除掉 samples 子目录.
-- 在 samples 目录有 package.json 和 .npmrc 文件时, `npm config ls` 表现正确, 可选在 samples 目录下 增加 pnpm-workspace.yaml 文件.
-- 在 samples 子目录的 .npmrc 里 设置 `recursive-install=false` 避免 `pnpm i` 时候被根目录的 workspace 干扰.
-
-```sh
-"workspaces": [
-  "packages/*",
-  "pkgs-*/*",
-  "!samples/**",
-],
-```
-
-
 ------ lerna
 
 [lerna commands](https://lerna.js.org/docs/api-reference/commands)
 [lerna实践](https://warmhug.github.io/2024/08/06/lerna-usage.html)
 lerna version 命令除了能 自动升级版本号，还能 自动生成 changelog 文档，自动给 gitlab 打 tag。
+使用 lerna version 前必读 https://docs.npmjs.com/cli/v10/commands/npm-version
+
+```sh
+# --loglevel silly --yes --no-commit-hooks
+# --include-merged-tags --no-push --no-git-tag-version
+lerna ls --graph # 等效 pnpm ls -r --json
+lerna ls --long # 等效 pnpm ls -r --depth -1 --json 换成 npm 不行
+lerna diff
+lerna changed
+lerna changed --include-merged-tags
+lerna changed --include-merged-tags --loglevel debug
+lerna version patch --exact
+lerna version patch --exact --message '🎨 chore(release): Publish' --conventional-commits
+lerna version prerelease --preid beta
+lerna publish prerelease --preid rc --dist-tag rc
+lerna publish from-git --preid rc --dist-tag rc
+lerna publish from-package
+
+lerna ls --since="master" --loglevel=verbose
+lerna ls --include-merged-tags
+lerna ls --since --include-merged-tags
+lerna exec --since --include-merged-tags -- ls -la
+lerna exec --include-merged-tags --concurrency 1 -- "pwd && ls -la"
+lerna exec --scope @ant-design/pro-form -- pnpm version 0.1.5-alpha.0 --no-git-tag-version
+```
+
+总结
+
+- lerna 根据什么检测变更
+  - 命令 lerna changed --include-merged-tags 背后做了什么事, 对应的 git 命令是什么?
+  - 如果你的项目使用了规范化的提交信息（例如，使用 commitizen 和 cz-lerna-changelog），Lerna 可以更准确地检测变更，因为它会根据提交信息中的标签来识别影响的包。
+  - `lerna ls --since master` [since文档](https://lerna.js.org/docs/api-reference/commands#--since-ref) changed 不支持 since 参数
+  - 如果 lerna publish 失败，使用 lerna publish from-git 重新发布，不用改版本号。
+  - [lerna 发包原理浅析](https://zhuanlan.zhihu.com/p/392438222) lerna changed 判断如果没有 tag，则认为全部的包都需要发布。
+- lerna 子包之间互相依赖
+  - 配置文件 lerna.json 的 `"version": "independent"` 模式，不强制同步所有子包的版本:比如 A子包依赖B子包 B没有更新 A有更新，A子包的 package.json 不会修改 它依赖的B子包的版本号。
+  - 利用了 pnpm 的 `--link-workspace-packages=true` 设置，比如 A子包依赖B子包 B子包本地版本号为1.1.1(npm上不存在此版本号) 如果A子包dep里的B子包版本号也写死为1.1.1，则B子包如果有变更、使用 `lerna changed` 就会显示 B A 子包都会有变化，默认都会升级版本号。
+  - 在 lerna publish / version / changed 设置 `--include-merged-tags` 会检测 master 外的其他分支发布的 release tags。公司通常为 feature / test / pre-release / release 研发模式、在分支上发布很常见，建议加上。
+  - 在 lerna publish / version / changed 设置 `--scope` 不起作用 https://github.com/lerna/lerna/issues/1556
+  - 构建时需包含依赖 `lerna run build --include-dependencies --concurrency 4` (最大并发数为4) 要使用 concurrency 不要使用 parallel 参数 会忽略 dependencies 之间的构建先后顺序 导致构建出错。
+  - 子包怎么更新自身依赖 https://github.com/lerna/lerna/issues/2142
+- lerna 仅支持 git annotated tags:
+  - [tag问题](https://juejin.cn/post/7114538970339344420)
+  - 如果 lerna publish 打 tag 的 commit 被 squash，但 tag 仍然存在，会导致 lerna changed 检测错误。 pro-components commit/f3900b2e89dda3186223fbd09330d8306dd46576
+  - https://lerna.js.org/docs/troubleshooting#publish-command
+  - https://github.com/lerna/lerna/issues/1357#issuecomment-438162152
+  - 如果是 annotated 使用 git show tag_name 会看到包含 tagger 标记
+  - 或者使用 git tag -v tag_name 不出现 error: cannot verify a non-tag object
+- lerna version 不支持 dry-run、lerna lite 支持 https://github.com/lerna/lerna/issues/51#issuecomment-2293358836
+- lerna ERR! EUNCOMMIT Working tree has uncommitted changes
+  - 如果是 M pnpm-lock.yaml 则确保开发阶段使用的 pnpm 版本一致
+  - 如果是其他文件，使用 from-git 或 git commit https://github.com/lerna/lerna/issues/1591
+- lerna 项目存在 相同的 pkgName 不同的大版本 1x 2x 3x 怎么管理
+  - 加入 project.json 文件, 内容为 { "name": "pkgName@1.x" } 或 { "name": "pkgName@2.x" }
 
 更新 “有变更的包” 自身版本号 & 依赖的其他子包的版本号，修改 package.json 文件
 
@@ -4797,34 +4875,6 @@ await exec('node',[
   { shell: false },
 );
 ```
-
-总结
-
-- lerna 子包之间互相依赖
-  - 配置文件 lerna.json 的 `"version": "independent"` 模式，不强制同步所有子包的版本:比如 A子包依赖B子包 B没有更新 A有更新，A子包的 package.json 不会修改 它依赖的B子包的版本号。
-  - 利用了 pnpm 的 `--link-workspace-packages=true` 设置，比如 A子包依赖B子包 B子包本地版本号为1.1.1(npm上不存在此版本号) 如果A子包dep里的B子包版本号也写死为1.1.1，则B子包如果有变更、使用 `lerna changed` 就会显示 B A 子包都会有变化，默认都会升级版本号。
-  - 在 lerna publish / version / changed 设置 `--include-merged-tags` 会检测 master 外的其他分支发布的 release tags。公司通常为 feature / test / pre-release / release 研发模式、在分支上发布很常见，建议加上。
-  - 在 lerna publish / version / changed 设置 `--scope` 不起作用 https://github.com/lerna/lerna/issues/1556
-  - 构建时需包含依赖 `lerna run build --include-dependencies --concurrency 4` (最大并发数为4) 要使用 concurrency 不要使用 parallel 参数 会忽略 dependencies 之间的构建先后顺序 导致构建出错。
-  - 子包怎么更新自身依赖 https://github.com/lerna/lerna/issues/2142
-- lerna 根据什么检测变更
-  - 如果你的项目使用了规范化的提交信息（例如，使用 commitizen 和 cz-lerna-changelog），Lerna 可以更准确地检测变更，因为它会根据提交信息中的标签来识别影响的包。
-  - `lerna ls --since master` [since文档](https://lerna.js.org/docs/api-reference/commands#--since-ref) changed 不支持 since 参数
-  - 如果 lerna publish 失败，使用 lerna publish from-git 重新发布，不用改版本号。
-  - [lerna 发包原理浅析](https://zhuanlan.zhihu.com/p/392438222) lerna changed 判断如果没有 tag，则认为全部的包都需要发布。
-- lerna 仅支持 git annotated tags:
-  - [tag问题](https://juejin.cn/post/7114538970339344420)
-  - 如果 lerna publish 打 tag 的 commit 被 squash，但 tag 仍然存在，会导致 lerna changed 检测错误。 pro-components commit/f3900b2e89dda3186223fbd09330d8306dd46576
-  - https://lerna.js.org/docs/troubleshooting#publish-command
-  - https://github.com/lerna/lerna/issues/1357#issuecomment-438162152
-  - 如果是 annotated 使用 git show tag_name 会看到包含 tagger 标记
-  - 或者使用 git tag -v tag_name 不出现 error: cannot verify a non-tag object
-- lerna version 不支持 dry-run、lerna lite 支持 https://github.com/lerna/lerna/issues/51#issuecomment-2293358836
-- lerna ERR! EUNCOMMIT Working tree has uncommitted changes
-  - 如果是 M pnpm-lock.yaml 则确保开发阶段使用的 pnpm 版本一致
-  - 如果是其他文件，使用 from-git 或 git commit https://github.com/lerna/lerna/issues/1591
-- lerna 项目存在 相同的 pkgName 不同的大版本 1x 2x 3x 怎么管理
-  - 加入 project.json 文件, 内容为 { "name": "pkgName@1.x" } 或 { "name": "pkgName@2.x" }
 
 
 ------ 版本问题
@@ -6158,38 +6208,28 @@ https://apps.apple.com  https://music.apple.com
 https://www.npmjs.com/package/npm-check
 https://www.npmjs.com/package/depcheck
 
+https://pnpm.io/npmrc Settings (.npmrc)
+
+```sh
+verify-deps-before-run=install
+resolution-mode=time-based
+```
+
 ```sh
 # [npm源](http://registry.npmjs.org/esbuild/0.21.4)
 # [腾讯源](https://mirrors.cloud.tencent.com/npm/esbuild/0.21.4)
+
 # https://docs.npmjs.com/cli/v10/commands/npm  (version publish query)
 # https://pnpm.io/cli/add  (workspaces patch )
 # pnpm v7 文档 https://github.com/pnpm/pnpm.io/blob/v7/docs/workspaces.md
 
-# --loglevel silly --yes --no-commit-hooks
-# --include-merged-tags --no-push --no-git-tag-version
-npx lerna diff
-npx lerna changed
-npx lerna changed --include-merged-tags
-npx lerna version patch --exact
-npx lerna version patch --exact --message '🎨 chore(release): Publish' --conventional-commits
-npx lerna version prerelease --preid beta
-npx lerna publish prerelease --preid rc --dist-tag rc
-npx lerna publish from-git --preid rc --dist-tag rc
-npx lerna publish from-package
-
-npx lerna ls --since="master" --loglevel=verbose
-npx lerna ls --include-merged-tags
-npx lerna ls --since --include-merged-tags
-npx lerna exec --since --include-merged-tags -- ls -la
-npx lerna exec --include-merged-tags --concurrency 1 -- "pwd && ls -la"
-npx lerna exec --scope @ant-design/pro-form -- pnpm version 0.1.5-alpha.0 --no-git-tag-version
-
+# 别名安装
+npm install axios4@npm:axios@1.4.0 axios5@npm:axios@1.5.0
 npm install --verbose > install.log
 pnpm install --loglevel debug | tee install.log
 npx pnpm install
 npx npm install
 
-# 使用 lerna version 前必读 https://docs.npmjs.com/cli/v10/commands/npm-version
 # 根目录是 monorepo 在根目录运行
 npm version 0.1.5 --workspaces --no-git-tag-version --allow-same-version=true
 npm version patch --workspace=packages/button --workspace=packages/card --no-git-tag-version --allow-same-version=true -f
@@ -6217,11 +6257,8 @@ pnpm up -r "@ant-design/pro-*@beta"  # 升级到 beta rc
 pnpm Patching dependencies
 
 pnpm install --ignore-engines --ignore-platform
-pnpm view @huajs/lerna-demo1 --json --registry https://registry.npmjs.org
+pnpm view @huajs/demo --json --registry https://registry.npmjs.org
 pnpm dist-tag add @huajs/demo latest --registry=https://registry.npmjs.org
-
-pnpm ls -r --json # 等效 npx lerna ls --graph
-pnpm ls -r --depth -1 --json  # 等效 npx lerna ls --long 换成 npm 不行
 
 npm ls node-sass  # 换 pnpm 不行
 npm ls --all --json --loglevel silent
@@ -6277,6 +6314,8 @@ git clean -fdxn
 git --work-tree=/tmp/other checkout other_branch -- .
 
 git remote [-v add | set-url] origin git@xxx.git
+git ls-remote --heads origin
+
 git config -l  # --list
 git pull --rebase
 git fetch   # 获取当前 origin远程仓库 的所有分支 分支 信息
@@ -6352,10 +6391,16 @@ git tag v1.0 commit_id  # 给当前分支 某个 commit_id 打 tag
 # 打 annotated tags
 git tag -v @ant-design/pro-xx@0.1.9-beta.0
 git tag -a 0.0.1 -m 'Release version 0.0.1'
+git tag -a @afe/bundler@3.6.3 e1636a23 -m '@afe/bundler@3.6.3' -f
 git push [origin] --tags    # 推送所有标签到服务器
 git push origin --delete tag_name
 # tag 只附在一个 commit 上、如果这个 commit 被 squash，但 tag 仍然存在。
 # https://stackoverflow.com/questions/54281360/what-happens-to-tags-of-squashed-commits
+
+git tag --contains HEAD
+git show-ref --tags
+git describe --tags
+git describe --always --long --dirty --first-parent
 
 # pre-merge-commit.sample
 . git-sh-setup
@@ -6379,128 +6424,57 @@ test -x "$GIT_DIR/hooks/pre-commit" &&
 ```
 
 
-## macOS 设置
+## 软件
+
+手机/Windows
+
+- 小米桌面 https://hyperos.mi.com/continuity/abilities/ab0016
+- Android软件: MX播放器(VLC不能播放加密文件)  微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker(收费), easytouch, anywhere。
+- Android 反编译 apk 工具：apktool / dex2jar / jd-gui / http://www.javadecompilers.com
+- iOS 快捷指令
+  - 同步: Apple ID -> iCloud -> 使用iCloud的APP -> 显示全部 找到 快捷指令 勾选同步。
+  - 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
+- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
+- 支持 Mac + Win 读写的U盘格式: exFAT FAT32 NTFS(软件 ntfstool / ParagonNTFS )
+
+macOS 设置
 
 - 点击和手势: 触控板。1 勾选 “轻点来点按” 2 启用词典：查询与数据检测器 - 选择三指轻点 3 更多手势 - 应用Expose。
 - 三指拖移窗口: 辅助功能 -> 鼠标与触控板 -> 触控板选项 -> 启用拖移 -> 三指拖移。
 - 触发角: 调度中心 -> 触发角 (左上角:启动台, 左下角:显示器睡眠, 右上角:调度中心, 右下角:桌面)。
-- 快捷键: 键盘 -> 快捷键 -> 输入法 选择 `cmd+空格`，在 “服务” 里勾选或不选。另可修改 App 的快捷键。
-- dock: 程序坞 -> 不勾选 “在程序坞中显示最近使用的应用程序”(最后一项) 显示隐藏 `cmd+alt+d`。
+- 键盘 -> 键盘快捷键:
+  - 输入法(input source) 选择 `cmd + 空格`，在 “服务” 里勾选或不选。
+  - 打开文件夹下的 terminal: 选择 服务(Services), 展开 "文件和文件夹", 勾选 "新建位于文件夹位置的终端窗口", 选择一个文件夹 "右键" 即可看到.
+  - [添加快捷键](https://superuser.com/a/1260437)
+- launchpad 里的图标 不能一次性拖动 多个 进行移动. (macOS 15.3)
+- dock: 程序坞 -> 不勾选 “在程序坞中显示最近使用的应用程序”(最后一项) 显示隐藏 `cmd + alt + d`。
 - 通知: 通知中心 -> 勾选 “当显示器进入睡眠状态时/当屏幕锁定时”
-- 系统顶部菜单栏: 按住 `Command` 再拖动图标，改变右边图标顺序。
 - 文本替换: 键盘 -> 文本，「command + A」全选、拖拽到 Finder 会生成 “用户词典.plist” 的文件。
+- 系统顶部菜单栏: 按住 `Command` 再拖动图标，改变右边图标顺序。
 - Finder 设置
   - 列表视图 `cmd + 2` 展开所有子文件夹 `alt + 左边箭头`。
   - 按 `cmd + alt`，拖动 app 到工具栏。
-- m1 外接显示器分辨率低: 显示器 -> 按住 Option 键的同时点击“缩放”。
-- 快捷指令: iOS -> Apple ID -> iCloud -> 使用iCloud的APP -> 显示全部 找到 快捷指令 勾选同步。
 - QuickLook: 搜索下载 QLMarkdown / QLStephen / QuickLookJSON 并放到 `~/Library/QuickLook` 或 `/Library/QuickLook` 目录。如果不生效、`killall Finder` 重启 Finder。
-- [添加快捷键](https://superuser.com/a/1260437)
 - 查看ip地址: 设置 - wifi - 详细信息。
+- m1 外接显示器分辨率低: 显示器 -> 按住 Option 键的同时点击“缩放”。
 
-查看修改设置
+macOS 软件
 
-```sh
-ifconfig  # 查看本机内网IP
-curl ipinfo.io/json  # curl ifconfig.me  查看本机公网IP
-traceroute baidu.com  # 查看域名路由 或 `ping baidu.com`
-
-xcode-select --install  # 安装 git gcc
-pmset noidle # 阻止电脑睡眠 同时按住 shift、control、电源键，关闭显示器
-
-# defaults read 查看系统设置
-defaults write com.apple.screencapture type jpg
-defaults write com.apple.screencapture location ~/Downloads/
-defaults write com.apple.Music autoPlay -bool false
-
-sips -z height width [file]
-sips -Z 640 *.jpg  # 批量修改 宽或高 最大值 保持宽高比
-zip -e output.zip ~/xx.txt  # zip加解密
-
-sudo spctl --master-disable  # 允许安装”任何来源“的软件，解决 xx.app已损坏 问题
-ls /Volumes/Macintosh\ HD/Applications
-ls /System/Applications
-ls /Applications
-
-sudo mount -uw /  # 挂载系统分区为可写
-/sbin/mount -uw /
-mount | grep /  # 查看系统挂载状态
-
-
-csrutil status # 查看状态
-csrutil disable # 关闭 sip 关机、按住电源键(非m1按下`Cmd R`) 选择实用工具->终端
-# 内置应用文件(夹) 是 Read-only 删除/隐藏 应用图标 都不行
-sudo chflags hidden /System/Applications/Home.app
-sudo rm -rf /System/Applications/Chess.app
-sudo rm -rf /Applications/Mail.app
-# Videos.app  Tips.app  Stocks.app  Photo Booth.app  Image Capture.app
-
-# ls 命令默认只显示文件名
-ls /usr/bin  # 有 env
-ls /usr/local/bin  # 有 node npm npx
-ls -d $PWD/*
-ls -la
-ls -l "$z_log"  # 查看文件是否有 读写权限，如无 运行 chmod u+rw "$z_log"
-
-cat "$z_log"
-rm -rf xx # rm 删除不存在的文件或目录 加上 -f 不会报错
-mkdir -p ~/inner/aa && touch $_/file.txt  # 创建目录并能生成文件
-
-history 10 # 列出10条
-more filename # 一页一页的显示档案内容.
-head/tail -n 20 ~/.zsh_history  # 只看 头/尾 几行(默认10行)
-mv fname rename / cat -n fname
-say hello / ln -s source_file dist
-
-open -a Activity\ Monitor # 打开活动监视器 或者 "Activity Monitor"
-top # 或 top -o cpu 按 q 退出.  man top
-timeout 3600 some-command
-
-# 系统任务在 /etc/crontab 或 /etc/cron.d/ 目录，需要管理员权限
-# crontab 文件一般位于 /var/at/tabs/<username> 或 /var/cron/tabs/<username> 不建议直接改
-crontab -l  # 查看当前的 crontab 内容
-crontab -e  # 编辑 cron 配置 保存后 cron 会自动加载和应用
-sudo launchctl list | grep cron  # 检查 cron 服务是否正常运行
-# 如果未启动
-sudo launchctl load -w /System/Library/LaunchDaemons/com.vix.cron.plist
-```
-
-crontab -e 脚本内容示例
-
-```sh
-# 立即运行任务
-* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
-# 接下来的 1 分钟和 2 分钟执行
-* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
-*/2 * * * * zsh -ic 'scheduled_tasks clear_logs' >> ~/cron_test.log 2>&1
-# 50 11 * * * /bin/bash -c 'source ~/.zshrc; scheduled_tasks backup'
-# 每天上午 11:50 执行备份
-50 11 * * * zsh -ic 'scheduled_tasks backup' >> xxx/z_log 2>&1
-# 每隔三天上午 11:49 清空日志文件
-49 11 */3 * * zsh -ic 'scheduled_tasks clear_logs' >> xxx/z_log 2>&1
-```
-
-
-## 软件
-
-- AppCleaner / iZip Unarchiver / Paste(收费) Clipy Maccy CopyClip / iStat-Menus / hidden-bar Vanilla Dozer / Smoothscroll / ngrok inlets(GitHub) / webtorrent-desktop / https://snapdrop.net / https://archive.org/web / https://github.com/CrossPaste/crosspaste-desktop / [hammerspoon](https://www.hammerspoon.org/)
-
-- xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF(pdf编辑) / any-video-converter(在线 online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2 / NeatDownloadManager / extract-video-ppt
-- 下载器 https://github.com/imputnet/cobalt  https://www.fastdownload.io
+- AppCleaner / Unarchiver / Clipy / ngrok inlets(GitHub) / https://github.com/CrossPaste/crosspaste-desktop
+- xnip snipaste lightshot (snip) / licecap (kap gifify) / UPDF(pdf编辑) / any-video-converter(online-audio-converter.com) / XnConvert(图像处理) / Movist (IINA) / ExifRenamer(重命名图片) / ExifTool [exifr](https://mutiny.cz/exifr/) / HandBrake / MKVToolnix(mkv字幕抽取) / perian(QuickTime 插件) / aria2
+- 下载器 https://github.com/imputnet/cobalt  https://www.fastdownload.io webtorrent-desktop / NeatDownloadManager
 - 视频字幕类型有三种：内嵌字幕、外挂字幕、封装软字幕。可以视频转为音频、再提取字幕。
   - 字幕下载 https://subhd.tv  剪映 / 钉钉闪记 / B站必剪 / 迅捷文字转语音。
   - Subtitle Edit / Aegisub / Subtitle Workshop / HandBrake / FFmpeg
 - 大模型 openai/whisper 为视频生成字幕文件 https://github.com/buxuku/VideoSubtitleGenerator
 - 语音转文字 https://www.zaixianai.cn/voiceToText  https://github.com/openai/whisper
-- [测网速](https://fast.com)  https://archive.org
 - 欧路词典: 修改 ~/Library/Preferences/ com.eusoft.eudic.plist 修改 MAIN_TimesLeft：允许使用次数(任意改) 10000000 重启 （更新 [notion](https://www.notion.so/Eudic-Mac-0b5e993809794576868714f613f637ff)、百度网盘下载 再升级）
 
-手机/Windows
-- Android软件: MX播放器(VLC不能播放加密文件)  微动手势(允许后台弹出界面和显示悬浮窗), automate, quick cursor, kwgt, popup widget, macrodroid, tasker(收费), easytouch, anywhere。
-- Android 反编译 apk 工具：apktool / dex2jar / jd-gui / http://www.javadecompilers.com
-- iOS快捷指令 朗读的 声音大小和siri一样，不受设置里声音大小的控制，通过设置 Siri 的声音来控制。
-- 小米多看电纸书[一代](https://item.jd.com/100010633100.html)、安装app[方法](https://www.bilibili.com/video/av893445949/)
-- 支持 Mac + Win 读写的U盘格式: exFAT FAT32 NTFS(软件 ntfstool / ParagonNTFS )
+安装 git gcc `xcode-select --install`
+允许安装”任何来源“的软件，解决 xx.app已损坏 问题 `sudo spctl --master-disable`
+关闭 sip 关机、按住电源键(非m1按下`Cmd R`) 选择实用工具->终端 `csrutil disable` 查看状态 `csrutil status`
+批量修改 宽或高 最大值 保持宽高比 `sips -Z 2000 *.jpg` 或指定宽高 `sips -z height width [file]`
+
 
 文件传输
 https://github.com/WCY-dt/EasyTransfer
@@ -7044,6 +7018,8 @@ Charles
 
 ## Automate
 
+[hammerspoon](https://www.hammerspoon.org/)
+
 ------ AppleScript
 > 2024
 
@@ -7488,6 +7464,13 @@ if (quote.length > 80) {
 
 - [asciiart](https://asciiart.website) [figlet](http://www.figlet.org/examples.html) [text-to-ascii-art](https://www.asciiart.eu/text-to-ascii-art)
 [生成logo](https://www.logo.surf/)
+
+markdown 表情 :+1: :smile: :smiley: :laughing:
+- [emojispark](https://emojispark.com/)
+- [emoji8](https://emoji8.com/zh-hans/)
+- [emoji-cheat-sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet/)
+
+网页版微信 https://wx.qq.com/ 能收到的表情包拖到电脑桌面保存.
 
 
 ------ cdn

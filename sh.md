@@ -222,10 +222,11 @@ nohup bash -c 'your_command_here' > /dev/null 2>&1 &
 ```
 
 
-## ps / 文件 目录
+## ps / OS
+
+Process status
 
 ```sh
-# Process status
 ps -ax
 ps aux | grep xx.sh  # 列出正在运行的脚本进程
 ps aux | grep "xx" | grep -v grep  # 排除 grep 本身的进程
@@ -247,9 +248,8 @@ lsof "$z_log"
 # ttyd    1245  hua    1w   REG    1,6  16 65909077 /Users/hua/xx/z_log
 # ttyd    1245  hua    2w   REG    1,6  16 65909077 /Users/hua/xx/z_log
 
-lsof -i:8087   # 查找出占用了某个端口的程序和其对应的PID
-kill 3747(进程id)  # 杀掉后台进程
-kill -9 $(lsof -ti:3000,3001)  # 杀掉端口占用的进程
+lsof -i :8087   # 查找出占用了某个端口的程序和其对应的PID
+kill 3747  # 杀掉 进程id
 kill -9 *pid*  # 强制杀掉进程
 
 # 持续显示进程信息
@@ -258,9 +258,96 @@ while true; do
   ps aux | awk '{print $2, $3, $11}' | sort -k2 -nr | head -n 10
   sleep 2
 done
+
+# 验证
+sh -c 'while true; do (ls -la); echo "---- $(date +%H:%M:%S) ----"; sleep 1; done'
+sh -c 'while true; do (top -l 1 -stats pid,cpu,mem,command | grep -v " 0.0 " | head -n 20); sleep 1; done'
 ```
 
+OS
+
 ```sh
+top #  man top
+top -l 1 -o cpu | head -n 20
+top -l 1 -stats pid,cpu | head -n 20
+say hello
+open -a Activity\ Monitor # 打开活动监视器 或者 "Activity Monitor"
+
+# defaults read 查看系统设置
+defaults write com.apple.screencapture type jpg
+defaults write com.apple.screencapture location ~/Downloads/
+defaults write com.apple.Music autoPlay -bool false
+
+ifconfig  # 查看本机内网IP
+curl ipinfo.io/json  # curl ifconfig.me  查看本机公网IP
+traceroute baidu.com  # 查看域名路由 或 `ping baidu.com`
+
+sudo mount -uw /  # 挂载系统分区为可写
+/sbin/mount -uw /
+mount | grep /  # 查看系统挂载状态
+
+pmset noidle # 阻止电脑睡眠 同时按住 shift、control、电源键，关闭显示器
+
+timeout 3600 some-command
+zip -e output.zip ~/xx.txt  # zip加解密
+
+# 系统任务在 /etc/crontab 或 /etc/cron.d/ 目录，需要管理员权限
+# crontab 文件一般位于 /var/at/tabs/<username> 或 /var/cron/tabs/<username> 不建议直接改
+crontab -l  # 查看当前的 crontab 内容
+crontab -e  # 编辑 cron 配置 保存后 cron 会自动加载和应用
+sudo launchctl list | grep cron  # 检查 cron 服务是否正常运行
+# 如果未启动
+sudo launchctl load -w /System/Library/LaunchDaemons/com.vix.cron.plist
+```
+
+crontab -e 脚本内容示例
+
+```sh
+# 立即运行任务
+* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
+# 接下来的 1 分钟和 2 分钟执行
+* * * * * zsh -ic 'scheduled_tasks backup' >> ~/cron_test.log 2>&1
+*/2 * * * * zsh -ic 'scheduled_tasks clear_logs' >> ~/cron_test.log 2>&1
+# 50 11 * * * /bin/bash -c 'source ~/.zshrc; scheduled_tasks backup'
+# 每天上午 11:50 执行备份
+50 11 * * * zsh -ic 'scheduled_tasks backup' >> xxx/z_log 2>&1
+# 每隔三天上午 11:49 清空日志文件
+49 11 */3 * * zsh -ic 'scheduled_tasks clear_logs' >> xxx/z_log 2>&1
+```
+
+
+## 文件 目录
+
+```sh
+
+history 10 # 列出10条
+
+# ls 命令默认只显示文件名
+ls /usr/bin  # 有 env
+ls /usr/local/bin  # 有 node npm npx
+ls -d $PWD/*
+ls -la
+ls -l "$z_log"  # 查看文件是否有 读写权限，如无 运行 chmod u+rw "$z_log"
+
+ls /Volumes/Macintosh\ HD/Applications
+ls /System/Applications
+ls /Applications
+# 内置应用文件(夹) 是 Read-only 删除/隐藏 应用图标 都不行
+sudo chflags hidden /System/Applications/Home.app
+sudo rm -rf /System/Applications/Chess.app
+sudo rm -rf /Applications/Mail.app
+# Videos.app  Tips.app  Stocks.app  Photo Booth.app  Image Capture.app
+
+cat "$z_log"
+rm -rf xx # rm 删除不存在的文件或目录 加上 -f 不会报错
+mkdir -p ~/inner/aa && touch $_/file.txt  # 创建目录并能生成文件
+
+more filename # 一页一页的显示档案内容.
+head/tail -n 20 ~/.zsh_history  # 只看 头/尾 几行(默认10行)
+
+ln -s source_file dist
+mv fname rename / cat -n fname
+
 # 同步文件和目录
 # 报错 cp: --exclude=a.txt is not a directory
 cp -r test/* test1 --exclude=a --exclude='a.txt'
